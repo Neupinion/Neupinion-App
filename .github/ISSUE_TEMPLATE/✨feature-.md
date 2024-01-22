@@ -1,20 +1,16 @@
 ---
 name: "✨FEATURE "
 about: 작업할 내용을 입력해주세요
-title: ''
-labels: ''
-assignees: ''
+title: "[✨FEATURE ]"
+labels: "✨ Feature, \U0001F680 FrontEnd"
+assignees: dmstjdhdh, hayeounglee
 
 ---
 
-**Is your feature request related to a problem? Please describe.**
-A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
+## 구현해야하는 기능
 
-**Describe the solution you'd like**
-A clear and concise description of what you want to happen.
+## 작업 내용
 
-**Describe alternatives you've considered**
-A clear and concise description of any alternative solutions or features you've considered.
+## 참고사항
 
-**Additional context**
-Add any other context or screenshots about the feature request here.
+## 예상 작업 시간 및 마감일
