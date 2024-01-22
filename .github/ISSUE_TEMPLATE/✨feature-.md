@@ -1,6 +1,6 @@
 ---
-name: 'Feature '
-about: Suggest an idea for this project
+name: "✨FEATURE "
+about: 작업할 내용을 입력해주세요
 title: ''
 labels: ''
 assignees: ''
