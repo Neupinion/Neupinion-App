@@ -30,10 +30,12 @@ const OnboardingNavigator = () => {
     )
 }
 
-export const RootNavigator = () => {
+const RootNavigator = () => {
     return (
         <RootStack.Navigator>
             <RootStack.Screen name="Onboarding" component={OnboardingNavigator}/>
         </RootStack.Navigator>
     )
 }
+
+export default RootNavigator;
