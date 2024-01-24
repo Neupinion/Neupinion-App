@@ -1,8 +1,10 @@
 import React from 'react';
 import {StyleSheet, View, Text} from "react-native";
+import useAppNavigation from "../shared/utils/useAppNavigation";
 
 interface RegisterPageProps {}
 const RegisterPage:React.FC<RegisterPageProps> = () => {
+    const navigation = useAppNavigation();
     return (
         <View>
             <Text>RegisterPage</Text>

@@ -1,8 +1,10 @@
 import React from 'react';
 import {StyleSheet, View, Text} from "react-native";
+import useAppNavigation from "../shared/utils/useAppNavigation";
 
 interface MainPageProps {}
 const MainPage:React.FC<MainPageProps> = () => {
+    const navigation = useAppNavigation();
     return (
         <View>
             <Text>MainPage</Text>
