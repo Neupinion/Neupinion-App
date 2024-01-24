@@ -21,7 +21,11 @@ const OnboardingStack = createNativeStackNavigator<OnboardingStackParamList>();
 
 const OnboardingNavigator = () => {
     return (
-        <OnboardingStack.Navigator>
+        <OnboardingStack.Navigator
+            screenOptions={{
+                headerShown: false,
+            }}
+        >
             <OnboardingStack.Screen name="LoginPage" component={LoginPage}/>
             <OnboardingStack.Screen name="RegisterPage" component={RegisterPage}/>
             <OnboardingStack.Screen name="MainPage" component={MainPage}/>
@@ -32,7 +36,11 @@ const OnboardingNavigator = () => {
 
 const RootNavigator = () => {
     return (
-        <RootStack.Navigator>
+        <RootStack.Navigator
+            screenOptions={{
+                headerShown: false,
+            }}
+        >
             <RootStack.Screen name="Onboarding" component={OnboardingNavigator}/>
         </RootStack.Navigator>
     )
