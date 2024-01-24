@@ -1,6 +1,7 @@
 import React from 'react';
 import {StyleSheet, View, Text} from "react-native";
 import useAppNavigation from "../shared/utils/useAppNavigation";
+import NavigatorTest from "../mocks/test/NavigatorTest";
 
 interface RegisterPageProps {}
 const RegisterPage:React.FC<RegisterPageProps> = () => {
@@ -8,6 +9,7 @@ const RegisterPage:React.FC<RegisterPageProps> = () => {
     return (
         <View>
             <Text>RegisterPage</Text>
+            <NavigatorTest/>
         </View>
     );
 };

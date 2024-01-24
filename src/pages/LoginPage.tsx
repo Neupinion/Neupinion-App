@@ -1,6 +1,7 @@
 import React from 'react';
-import {StyleSheet, View, Text} from "react-native";
+import {StyleSheet, View, Text, TouchableOpacity} from "react-native";
 import useAppNavigation from "../shared/utils/useAppNavigation";
+import NavigatorTest from "../mocks/test/NavigatorTest";
 
 interface LoginPageProps {}
 const LoginPage:React.FC<LoginPageProps> = () => {
@@ -8,6 +9,7 @@ const LoginPage:React.FC<LoginPageProps> = () => {
     return (
         <View>
             <Text>LoginPage</Text>
+            <NavigatorTest/>
         </View>
     );
 };
