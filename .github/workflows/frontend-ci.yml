@@ -38,16 +38,6 @@ jobs:
         run: npm ci
         working-directory: ${{ env.working-directory }}
 
-      - name: Install EAS
-        if: always()
-        run: npm install -g eas-cli
-        working-directory: ${{ env.working-directory }}
-
-      - name: Login EAS
-        if: always()
-        run: npx eas login --username ${{ secrets.EXPO_USERNAME }} --password ${{ env.EXPO_PASSWORD }}
-        working-directory: ${{ env.working-directory }}
-
       - name: ESLint
         if: always()
         run: npm run lint
@@ -55,12 +45,7 @@ jobs:
 
       - name: Test
         if: always()
-        run: npm test
-        working-directory: ${{ env.working-directory }}
-
-      - name: Android build
-        if: always()
-        run: npx eas build -p android
+        run: npm run test
         working-directory: ${{ env.working-directory }}
 
       - name: Notify slack on CI fail
