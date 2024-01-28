@@ -54,5 +54,5 @@ module.exports = {
             'version':'detect',
         }
     },
-    'ignorePatterns': ['.eslintrc.js', 'babel.config.js'],
+    'ignorePatterns': ['.eslintrc.js', 'babel.config.js', '__tests__'],
 };
