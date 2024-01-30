@@ -48,6 +48,21 @@ jobs:
         run: npm run test
         working-directory: ${{ env.working-directory }}
 
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+          cache: npm
+      - name: Setup Expo and EAS
+        uses: expo/expo-github-action@v8
+        with:
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+      - name: Install dependencies
+        run: npm ci
+      - name: Build on EAS
+        run: eas build --platform all --non-interactive --no-wait
+
       - name: Notify slack on CI fail
         if: failure()
         uses: 8398a7/action-slack@v3
@@ -57,3 +72,4 @@ jobs:
           fields: repo, message, commit, author, action, eventName, ref, workflow, job, took
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+
