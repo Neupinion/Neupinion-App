@@ -48,20 +48,14 @@ jobs:
         run: npm run test
         working-directory: ${{ env.working-directory }}
 
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 18.x
-          cache: npm
       - name: Setup Expo and EAS
         uses: expo/expo-github-action@v8
         with:
           eas-version: latest
           token: ${{ secrets.EXPO_TOKEN }}
-      - name: Install dependencies
-        run: npm ci
+
       - name: Build on EAS
-        run: eas build --platform all --non-interactive --no-wait
+        run: eas build --platform android --non-interactive --no-wait
 
       - name: Notify slack on CI fail
         if: failure()
