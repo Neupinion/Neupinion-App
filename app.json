@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Neupinion",
-    "slug": "Neupinion",
+    "slug": "neupinion",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -15,16 +15,24 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.neupinion.neupinion"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.neupinion.neupinion"
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "da56e85c-6989-4662-880b-a34f24c3ad96"
+      }
+    },
+    "owner": "neupinion"
   }
 }

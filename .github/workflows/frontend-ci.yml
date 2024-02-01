@@ -45,13 +45,17 @@ jobs:
 
       - name: Test
         if: always()
-        run: npm test
+        run: npm run test
         working-directory: ${{ env.working-directory }}
 
-      - name: Build
-        if: always()
-        run: npm run build
-        working-directory: ${{ env.working-directory }}
+      - name: Setup Expo and EAS
+        uses: expo/expo-github-action@v8
+        with:
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+
+      - name: Build on EAS
+        run: eas build --platform android --non-interactive --no-wait
 
       - name: Notify slack on CI fail
         if: failure()
@@ -62,3 +66,4 @@ jobs:
           fields: repo, message, commit, author, action, eventName, ref, workflow, job, took
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+
