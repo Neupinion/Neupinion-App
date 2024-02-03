@@ -26,6 +26,7 @@ const FakeIssueSlider = ({ fakeNews }: FakeIssueProps) => {
         data={fakeNews}
         keyExtractor={(item) => item.id}
         snapToInterval={ITEM_SIZE}
+        horizontal={true}
         renderItem={({ item, index }) => (
           <FakeIssueItem item={item} index={index} scrollX={scrollX} />
         )}
@@ -41,8 +42,9 @@ const FakeIssueSlider = ({ fakeNews }: FakeIssueProps) => {
 const styles = StyleSheet.create({
   container: {
     width: Dimensions.get('window').width,
+    flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
   },
 });
 
