@@ -6,7 +6,7 @@ interface FakeIssueProps {
   children: ReactElement | ReactElement[];
 }
 
-const FakeIssue = ({children}: FakeIssueProps) => {
+const FakeIssueSlider = ({children}: FakeIssueProps) => {
   return (
     <View style={styles.container}>
 
@@ -22,4 +22,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default FakeIssue;
+export default FakeIssueSlider;
