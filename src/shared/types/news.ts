@@ -1,5 +1,5 @@
 export interface ReWriteNews {
-  id: number;
+  id: string;
   title: string;
   tags: string[];
   date: string;
