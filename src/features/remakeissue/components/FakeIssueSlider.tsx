@@ -11,6 +11,20 @@ const SPACER_ITEM_SIZE = (Dimensions.get('window').width - ITEM_SIZE) / 2;
 const FakeIssueSlider = ({ children }: FakeIssueProps) => {
   const scrollX = React.useRef(new Animated.Value(0)).current;
 
+  useEffect(() => {
+    const handleScroll = Animated.event([{ nativeEvent: { contentOffset: { x: scrollX } } }], {
+      useNativeDriver: true,
+    });
+
+    scrollX.addListener(({ value }) => {
+      const newIndex = Math.round(value / ITEM_SIZE);
+    });
+
+    return () => {
+      scrollX.removeAllListeners();
+    };
+  }, [scrollX]);
+
   return (
     <View style={styles.container}>
       <View>{children}</View>
