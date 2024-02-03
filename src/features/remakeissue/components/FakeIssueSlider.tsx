@@ -6,10 +6,6 @@ import FakeIssueItem from './FakeIssueItem';
 interface FakeIssueProps {
   fakeNews: ReWriteNews[] | null;
 }
-
-const ITEM_SIZE = Dimensions.get('window').width * 0.8;
-const SPACER_ITEM_SIZE = (Dimensions.get('window').width - ITEM_SIZE) / 2;
-
 const FakeIssueSlider = ({ fakeNews }: FakeIssueProps) => {
   const scrollX = React.useRef(new Animated.Value(0)).current;
 
@@ -29,8 +25,13 @@ const FakeIssueSlider = ({ fakeNews }: FakeIssueProps) => {
 
   return (
     <View style={styles.container}>
-      <View>{children}</View>
-      <Animated.FlatList data={fakeNews} renderItem={FakeIssueItem} />
+      <Animated.FlatList
+        showsHorizontalScrollIndicator={false}
+        data={fakeNews}
+        keyExtractor={(item) => item.id}
+        snapToInterval={ITEM_SIZE}
+        renderItem={FakeIssueItem}
+      />
     </View>
   );
 };
