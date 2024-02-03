@@ -1,15 +1,19 @@
-import React, { ReactElement } from 'react';
-import { Dimensions, StyleSheet, View } from 'react-native';
+import React, { ReactElement, useEffect } from 'react';
+import { Animated, Dimensions, StyleSheet, View } from 'react-native';
 
 interface FakeIssueProps {
   children: ReactElement | ReactElement[];
 }
 
+const ITEM_SIZE = Dimensions.get('window').width * 0.8;
+const SPACER_ITEM_SIZE = (Dimensions.get('window').width - ITEM_SIZE) / 2;
+
 const FakeIssueSlider = ({ children }: FakeIssueProps) => {
+  const scrollX = React.useRef(new Animated.Value(0)).current;
+
   return (
     <View style={styles.container}>
       <View>{children}</View>
-      <View>인디케이터</View>
     </View>
   );
 };
