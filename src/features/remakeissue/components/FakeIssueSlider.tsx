@@ -14,14 +14,6 @@ const FakeIssueSlider = ({ fakeNews }: FakeIssueProps) => {
   });
 
   useEffect(() => {
-    const handleScroll = Animated.event([{ nativeEvent: { contentOffset: { x: scrollX } } }], {
-      useNativeDriver: true,
-    });
-
-    scrollX.addListener(({ value }) => {
-      const newIndex = Math.round(value / ITEM_SIZE);
-    });
-
     return () => {
       scrollX.removeAllListeners();
     };
@@ -34,7 +26,9 @@ const FakeIssueSlider = ({ fakeNews }: FakeIssueProps) => {
         data={fakeNews}
         keyExtractor={(item) => item.id}
         snapToInterval={ITEM_SIZE}
-        renderItem={FakeIssueItem}
+        renderItem={({ item, index }) => (
+          <FakeIssueItem item={item} index={index} scrollX={scrollX} />
+        )}
         decelerationRate={0}
         bounces={false}
         scrollEventThrottle={16}
