@@ -1,7 +1,7 @@
 export interface ReWriteNews {
   id: number;
   title: string;
-  tags: string;
-  date: number;
+  tags: string[];
+  date: string;
   imageUrl: string;
 }
