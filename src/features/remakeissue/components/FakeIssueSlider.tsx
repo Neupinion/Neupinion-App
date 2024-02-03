@@ -1,14 +1,16 @@
 import React, { ReactElement, useEffect } from 'react';
 import { Animated, Dimensions, StyleSheet, View } from 'react-native';
+import { ReWriteNews } from '../../../shared/types/news';
+import FakeIssueItem from './FakeIssueItem';
 
 interface FakeIssueProps {
-  children: ReactElement | ReactElement[];
+  fakeNews: ReWriteNews[] | null;
 }
 
 const ITEM_SIZE = Dimensions.get('window').width * 0.8;
 const SPACER_ITEM_SIZE = (Dimensions.get('window').width - ITEM_SIZE) / 2;
 
-const FakeIssueSlider = ({ children }: FakeIssueProps) => {
+const FakeIssueSlider = ({ fakeNews }: FakeIssueProps) => {
   const scrollX = React.useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
@@ -28,6 +30,7 @@ const FakeIssueSlider = ({ children }: FakeIssueProps) => {
   return (
     <View style={styles.container}>
       <View>{children}</View>
+      <Animated.FlatList data={fakeNews} renderItem={FakeIssueItem} />
     </View>
   );
 };
