@@ -1,5 +1,5 @@
 import React from 'react';
-import { Animated, Image, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Animated, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { ReWriteNews } from '../../../shared/types/news';
 import theme from '../../../shared/styles/theme';
 import { ITEM_SIZE, SPACER_ITEM_SIZE } from '../constants/cardAniSize';

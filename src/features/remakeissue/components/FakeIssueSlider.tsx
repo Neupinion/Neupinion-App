@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { Animated, Dimensions, StyleSheet, View } from 'react-native';
 import { ReWriteNews } from '../../../shared/types/news';
 import FakeIssueItem from './FakeIssueItem';
@@ -13,17 +13,32 @@ const FakeIssueSlider = ({ fakeNews }: FakeIssueProps) => {
     useNativeDriver: true,
   });
 
+  const preparedFakeNews = useMemo(() => {
+    if (!fakeNews) return null;
+
+    const modifiedData = [
+      { id: 'left-spacer', title: '', tags: [''], date: '', imageUrl: '' },
+      ...fakeNews,
+      { id: 'right-spacer', title: '', tags: [''], date: '', imageUrl: '' },
+    ];
+    return modifiedData;
+  }, [fakeNews]);
+
   useEffect(() => {
     return () => {
       scrollX.removeAllListeners();
     };
   }, [scrollX]);
 
+  if (!preparedFakeNews) {
+    return null;
+  }
+
   return (
     <View style={styles.container}>
       <Animated.FlatList
         showsHorizontalScrollIndicator={false}
-        data={fakeNews}
+        data={preparedFakeNews}
         keyExtractor={(item) => item.id}
         snapToInterval={ITEM_SIZE}
         horizontal={true}
