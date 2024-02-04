@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Text, FlatList, } from "react-native";
+import { View, StyleSheet, Text, FlatList, ImageBackground } from "react-native";
 import Theme from "../../../shared/styles/theme";
 
 const CategoryCard = () => {
@@ -21,8 +21,11 @@ const CategoryCard = () => {
         contentContainerStyle={styles.flatListContainer}
         data={Items}
         renderItem={({item}) => (
+          <View style={styles.cardContainer}>
+
+          </View>
         )}
-          />
+      />
     </View>
   );
 };
@@ -43,6 +46,13 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
     //paddingHorizontal: 30,
     //backgroundColor: 'red',
+  },
+  cardContainer: {
+    width: 240,
+    height: 249,
+    backgroundColor: Theme.color.gray,
+    justifyContent: 'center',
+    borderRadius: 25,
   },
 });
 export default CategoryCard;
