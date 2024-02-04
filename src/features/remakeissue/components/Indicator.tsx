@@ -1,12 +1,31 @@
-import React, { ReactElement } from 'react';
+import React from 'react';
 import { StyleSheet, View } from 'react-native';
+import { ReWriteNews } from '../../../shared/types/news';
+import theme from '../../../shared/styles/theme';
 
 interface IndicatorProps {
-  children: ReactElement | ReactElement[];
+  data: ReWriteNews[] | null;
+  slideIndex: number;
 }
 
-const Indicator = ({ children }: IndicatorProps) => {
-  return <View style={styles.container}>{children}</View>;
+const Indicator = ({ data, slideIndex }: IndicatorProps) => {
+  if (!data) {
+    return <View style={styles.container}></View>;
+  }
+
+  return (
+    <View style={styles.container}>
+      {data.map((_, index) => (
+        <View
+          key={index}
+          style={[
+            styles.dotStyle,
+            index === slideIndex ? styles.activeDotStyle : styles.inactiveDotStyle,
+          ]}
+        />
+      ))}
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
@@ -15,6 +34,25 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-start',
+  },
+  dotStyle: {
+    marginLeft: 2,
+    marginRight: 2,
+    width: 10,
+    height: 10,
+    borderRadius: 5,
+    backgroundColor: theme.color.main,
+  },
+  activeDotStyle: {
+    width: 11,
+    height: 5,
+    backgroundColor: theme.color.main,
+  },
+  inactiveDotStyle: {
+    width: 5,
+    height: 5,
+    borderRadius: 5,
+    backgroundColor: theme.color.gray,
   },
 });
 
