@@ -19,12 +19,12 @@ const FakeIssueItem = ({ item, index, scrollX }: FakeIssueItemProps) => {
 
   const translateY = scrollX.interpolate({
     inputRange,
-    outputRange: [40, 0, 40],
+    outputRange: [20, 0, 20],
   });
 
   const rotate = scrollX.interpolate({
     inputRange,
-    outputRange: ['3deg', '0deg', '-3deg'],
+    outputRange: ['6deg', '0deg', '-6deg'],
   });
 
   return (
