@@ -1,31 +1,27 @@
 import React from 'react';
-import { Text, View, StyleSheet, ScrollView } from "react-native";
-
+import { Text, View, StyleSheet, FlatList, ImageBackground } from "react-native";
+import { useState } from 'react';
+import Theme from "../../../shared/styles/theme";
 const CategoryCard = () => {
-  return (
-    <View style={styles.container}>
-      <View>
-        <Text>카테고리</Text>
-      </View>
 
-      <ScrollView>
-        <View>
-          <Text>
-            "펜타곤 대형 폭발"...증시 출
-          </Text>
-        </View>
-      </ScrollView>
+  const [Items, setItems] = useState([
+    {name: '펜타곤 대형 폭발...미증시 출렁', img: 'https://reactnative.dev/img/tiny_logo.png' },
+    {name: '세계적인 기업이 환경 지속 가능성을 강조하는 새로운 이니셔티브 출범',},
+    {name: 'Item 3',},
+  ]);
+
+  return (
+    <View style={styles.categorycontainer}>
+
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: 'gray',
-  },
-  card: {
-    height: 240,
-    width: 249.
+  categorycontainer: {
+    //backgroundColor: 'tomato',
+    marginLeft: 25,
+    marginTop: 40,
   },
 });
 export default CategoryCard;
