@@ -4,6 +4,6 @@ export interface ReWriteNews {
   tags: string[];
   date: string;
   imageUrl: string;
-  views: number;
-  posts: number;
+  views: string;
+  posts: string;
 }
