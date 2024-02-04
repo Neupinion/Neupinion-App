@@ -1,5 +1,5 @@
 import React from 'react';
-import { Animated, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Animated, Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { ReWriteNews } from '../../../shared/types/news';
 import theme from '../../../shared/styles/theme';
 import { ITEM_SIZE, SPACER_ITEM_SIZE } from '../constants/cardAniSize';
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
   card: {
     width: 226,
     height: 189,
-    backgroundColor: theme.color.white,
+    backgroundColor: theme.color.gradient,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 10,
@@ -65,6 +65,9 @@ const styles = StyleSheet.create({
   animatedCard: {
     marginHorizontal: 50,
     alignItems: 'center',
+  },
+  cardImage: {
+    flex: 1,
   },
 });
 
