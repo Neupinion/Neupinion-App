@@ -7,8 +7,8 @@ const fakeNewsList: ReWriteNews[] = [
     tags: ['국제', '사회'],
     date: '2023.11.03',
     imageUrl: 'https://picsum.photos/266/107',
-    views: '1234',
-    posts: '1234',
+    views: '1,234',
+    posts: '1,234',
   },
   {
     id: '2',
@@ -16,8 +16,8 @@ const fakeNewsList: ReWriteNews[] = [
     tags: ['국제'],
     date: '2023.11.03',
     imageUrl: 'https://picsum.photos/266/107',
-    views: '1234',
-    posts: '1234',
+    views: '1,234',
+    posts: '1,234',
   },
   {
     id: '3',
@@ -25,8 +25,8 @@ const fakeNewsList: ReWriteNews[] = [
     tags: ['국제'],
     date: '2023.11.03',
     imageUrl: 'https://picsum.photos/266/107',
-    views: '1234',
-    posts: '1234',
+    views: '1,234',
+    posts: '1,234',
   },
   {
     id: '4',
@@ -34,8 +34,8 @@ const fakeNewsList: ReWriteNews[] = [
     tags: ['국제'],
     date: '2023.11.03',
     imageUrl: 'https://picsum.photos/266/107',
-    views: '1234',
-    posts: '1234',
+    views: '1,234',
+    posts: '1,234',
   },
   {
     id: '5',
@@ -43,8 +43,8 @@ const fakeNewsList: ReWriteNews[] = [
     tags: ['국제'],
     date: '2023.11.03',
     imageUrl: 'https://picsum.photos/266/107',
-    views: '1234',
-    posts: '1234',
+    views: '1,234',
+    posts: '1,234',
   },
 ];
 

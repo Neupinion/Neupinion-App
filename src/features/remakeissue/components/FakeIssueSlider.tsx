@@ -10,8 +10,8 @@ interface FakeIssueProps {
 }
 const FakeIssueSlider = ({ fakeNews }: FakeIssueProps) => {
   const [slideIndex, setSlideIndex] = useState(0);
-  const [views, setViews] = useState('1234');
-  const [posts, setPosts] = useState('1234');
+  const [views, setViews] = useState('1,234');
+  const [posts, setPosts] = useState('1,234');
 
   const scrollX = React.useRef(new Animated.Value(0)).current;
   const onScrollX = Animated.event([{ nativeEvent: { contentOffset: { x: scrollX } } }], {
@@ -33,8 +33,8 @@ const FakeIssueSlider = ({ fakeNews }: FakeIssueProps) => {
     scrollX.addListener(({ value }) => {
       const newIndex = Math.round(value / ITEM_SIZE);
       setSlideIndex(newIndex);
-      setViews('1234');
-      setPosts('1234');
+      setViews('1,234');
+      setPosts('1,234');
     });
 
     return () => {
