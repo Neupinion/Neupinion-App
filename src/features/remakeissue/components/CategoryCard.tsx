@@ -24,6 +24,13 @@ const CategoryCard = () => {
           <View style={styles.cardContainer}>
             <ImageBackground source={item.img || undefined} style={styles.CardImage} resizeMode="cover"/>
             <View style={styles.cardbottomContainer}>
+              <Text style={styles.firsttext} numberOfLines={1} ellipsizeMode="tail">{item.name}</Text>
+              <View style={{flexDirection:'row',marginTop:12,}}>
+                <View style={styles.secondtextbox}>
+                  <Text style={styles.secondtext}> 국제 </Text>
+                </View>
+                <Text style={styles.datetext}> 2023.11.03 </Text>
+              </View>
             </View>
           </View>
         )}
@@ -63,6 +70,19 @@ const styles = StyleSheet.create({
   },
   cardbottomContainer: {
     marginHorizontal: 22,
+  },
+  secondtext: {
+    fontSize: 12,
+    color: Theme.color.white,
+  },
+  secondtextbox: {
+    padding: 1,
+    backgroundColor: Theme.color.gray1,
+    borderRadius: 5,
+    marginRight: 5,
+  },
+  datetext:{
+    color: Theme.color.gray2,
   },
 });
 export default CategoryCard;
