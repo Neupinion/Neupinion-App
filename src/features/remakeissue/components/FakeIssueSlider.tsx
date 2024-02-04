@@ -4,7 +4,6 @@ import { ReWriteNews } from '../../../shared/types/news';
 import FakeIssueItem from './FakeIssueItem';
 import { ITEM_SIZE } from '../constants/cardAniSize';
 import Indicator from './Indicator';
-import theme from '../../../shared/styles/theme';
 
 interface FakeIssueProps {
   fakeNews: ReWriteNews[] | null;
@@ -67,6 +66,7 @@ const FakeIssueSlider = ({ fakeNews }: FakeIssueProps) => {
 const styles = StyleSheet.create({
   container: {
     width: Dimensions.get('window').width,
+    marginTop: 20,
     height: 280,
     flexDirection: 'column',
     alignItems: 'center',

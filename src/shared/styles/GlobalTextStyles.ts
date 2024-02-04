@@ -11,7 +11,7 @@ const GlobalTextStyles: GlobalTextStyles = {
     color: theme.color.white,
     fontStyle: 'normal',
     fontWeight: '700',
-    lineHeight: 150,
+    lineHeight: 25.5,
     letterSpacing: -0.51,
     marginLeft: 26,
   },
