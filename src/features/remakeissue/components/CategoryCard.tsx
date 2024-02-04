@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { View, StyleSheet, Text, FlatList, ImageBackground } from "react-native";
-import Theme from "../../../shared/styles/theme";
+import React, { useState } from 'react';
+import { View, StyleSheet, Text, FlatList, ImageBackground } from 'react-native';
+import Theme from '../../../shared/styles/theme';
 
 const CategoryCard = () => {
   const [Items, setItems] = useState([
@@ -22,10 +22,10 @@ const CategoryCard = () => {
         data={Items}
         renderItem={({item}) => (
           <View style={styles.cardContainer}>
-            <ImageBackground source={item.img || undefined} style={styles.CardImage} resizeMode="cover"/>
+            <ImageBackground source={{ uri: item.img }} style={styles.CardImage} resizeMode="cover"/>
             <View style={styles.cardbottomContainer}>
               <Text style={styles.firsttext} numberOfLines={1} ellipsizeMode="tail">{item.name}</Text>
-              <View style={{flexDirection:'row',marginTop:12,}}>
+              <View style={{ flexDirection: 'row', marginTop: 12}}>
                 <View style={styles.secondtextbox}>
                   <Text style={styles.secondtext}> 국제 </Text>
                 </View>
