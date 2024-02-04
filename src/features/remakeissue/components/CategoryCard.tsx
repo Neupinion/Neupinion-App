@@ -18,7 +18,7 @@ const CategoryCard = () => {
       <FlatList
         horizontal
         showsHorizontalScrollIndicator={false}
-        contentContainerStyle={styles.FlatListContainer}
+        contentContainerStyle={styles.flatListContainer}
         data={Items}
         renderItem={({item}) => (
         )}
@@ -37,6 +37,12 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '700',
     color: Theme.color.white,
+  },
+  flatListContainer: {
+    gap: 20,
+    paddingVertical: 20,
+    //paddingHorizontal: 30,
+    //backgroundColor: 'red',
   },
 });
 export default CategoryCard;
