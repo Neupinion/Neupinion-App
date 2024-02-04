@@ -5,7 +5,7 @@ import Theme from '../../../shared/styles/theme';
 const CategoryCard = () => {
   const [Items, setItems] = useState([
     {name: '펜타곤 대형 폭발...미증시 출렁', img: 'https://reactnative.dev/img/tiny_logo.png' },
-    {name: '세계적인 기업이 환경 지속 가능성을 강조하는 새로운 이니셔티브 출범',},
+    {name: '세계적인 기업이 환경 지속 가능성을 강조하는 새로운 이니셔티브 출범',img:'https://i.ytimg.com/vi/YLypVu78YTU/maxresdefault.jpg'},
     {name: 'Item 3',},
   ]);
 
@@ -41,7 +41,6 @@ const CategoryCard = () => {
 
 const styles = StyleSheet.create({
   categorycontainer: {
-    //backgroundColor: 'tomato',
     marginLeft: 25,
     marginTop: 40,
   },
@@ -53,23 +52,22 @@ const styles = StyleSheet.create({
   flatListContainer: {
     gap: 20,
     paddingVertical: 20,
-    //paddingHorizontal: 30,
-    //backgroundColor: 'red',
   },
   cardContainer: {
     width: 240,
     height: 249,
     backgroundColor: Theme.color.gray,
     justifyContent: 'center',
-    borderRadius: 25,
+    borderRadius: 15,
+    overflow: 'hidden',
   },
   CardImage: {
     width: 240,
     height: 160,
-    borderRadiusTop: 25,
   },
   cardbottomContainer: {
     marginHorizontal: 22,
+    marginVertical: 16,
   },
   secondtext: {
     fontSize: 12,
