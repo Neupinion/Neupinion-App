@@ -3,7 +3,7 @@ import { Animated, Image, StyleSheet, Text, TouchableOpacity, View } from 'react
 import { ReWriteNews } from '../../../shared/types/news';
 import theme from '../../../shared/styles/theme';
 import { ITEM_SIZE, SPACER_ITEM_SIZE } from '../constants/cardAniSize';
-import { LinearGradient } from "expo-linear-gradient";
+import { LinearGradient } from 'expo-linear-gradient';
 
 interface FakeIssueItemProps {
   item: ReWriteNews;
@@ -44,19 +44,31 @@ const FakeIssueItem = ({ item, index, scrollX }: FakeIssueItemProps) => {
         ]}
       >
         <TouchableOpacity onPress={() => {}}>
-          <LinearGradient colors={['#22222E', '#12121E']} style={styles.card}>
-            <Image source={{ uri: item.imageUrl }} style={styles.cardImage} />
-            <View style={styles.cardUnderContainer}>
-              <Text style={styles.titleText}>{item.title}</Text>
-              <View style={styles.titleUnderContainer}>
-                {item.tags.map((tag, index) => (
-                  <View key={index} style={styles.tagBox}>
-                    <Text style={styles.tagText}>{tag}</Text>
-                  </View>
-                ))}
-                <Text style={styles.dateText}>{item.date}</Text>
+          <LinearGradient
+            start={{ x: 1, y: 1 }}
+            end={{ x: 0, y: 0 }}
+            colors={theme.gradient.gradient1}
+            style={styles.cardLine}
+          >
+            <LinearGradient
+              start={{ x: 0, y: 1 }}
+              end={{ x: 1, y: 1 }}
+              colors={theme.gradient.gradient2}
+              style={styles.card}
+            >
+              <Image source={{ uri: item.imageUrl }} style={styles.cardImage} />
+              <View style={styles.cardUnderContainer}>
+                <Text style={styles.titleText}>{item.title}</Text>
+                <View style={styles.titleUnderContainer}>
+                  {item.tags.map((tag, index) => (
+                    <View key={index} style={styles.tagBox}>
+                      <Text style={styles.tagText}>{tag}</Text>
+                    </View>
+                  ))}
+                  <Text style={styles.dateText}>{item.date}</Text>
+                </View>
               </View>
-            </View>
+            </LinearGradient>
           </LinearGradient>
         </TouchableOpacity>
       </Animated.View>
@@ -67,6 +79,13 @@ const FakeIssueItem = ({ item, index, scrollX }: FakeIssueItemProps) => {
 const styles = StyleSheet.create({
   buttonStyle: {
     width: ITEM_SIZE,
+  },
+  cardLine: {
+    width: 268,
+    height: 276,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 10,
   },
   card: {
     width: 266,
