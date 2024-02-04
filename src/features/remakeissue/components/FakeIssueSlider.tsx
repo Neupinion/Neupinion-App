@@ -33,8 +33,8 @@ const FakeIssueSlider = ({ fakeNews }: FakeIssueProps) => {
     scrollX.addListener(({ value }) => {
       const newIndex = Math.round(value / ITEM_SIZE);
       setSlideIndex(newIndex);
-      setViews('1,234');
-      setPosts('1,234');
+      setViews('1,236');
+      setPosts('1,236');
     });
 
     return () => {

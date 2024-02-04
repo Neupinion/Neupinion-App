@@ -1,9 +1,9 @@
 import React from 'react';
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View } from 'react-native';
 import theme from '../shared/styles/theme';
 import FakeIssueSlider from '../features/remakeissue/components/FakeIssueSlider';
 import fakeNewsDummy from '../dummy/FakeNewsDummy';
-import GlobalTextStyles from "../shared/styles/GlobalTextStyles";
+import GlobalTextStyles from '../shared/styles/GlobalTextStyles';
 
 const TestPage = () => {
   const fakeNewsList = fakeNewsDummy;
