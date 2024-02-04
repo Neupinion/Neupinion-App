@@ -4,11 +4,15 @@ import { ReWriteNews } from '../../../shared/types/news';
 import FakeIssueItem from './FakeIssueItem';
 import { ITEM_SIZE } from '../constants/cardAniSize';
 import Indicator from './Indicator';
+import FakeIssueIcon from './FakeIssueIcon';
 interface FakeIssueProps {
   fakeNews: ReWriteNews[] | null;
 }
 const FakeIssueSlider = ({ fakeNews }: FakeIssueProps) => {
   const [slideIndex, setSlideIndex] = useState(0);
+  const [views, setViews] = useState('1234');
+  const [posts, setPosts] = useState('1234');
+
   const scrollX = React.useRef(new Animated.Value(0)).current;
   const onScrollX = Animated.event([{ nativeEvent: { contentOffset: { x: scrollX } } }], {
     useNativeDriver: true,
@@ -18,9 +22,9 @@ const FakeIssueSlider = ({ fakeNews }: FakeIssueProps) => {
     if (!fakeNews) return null;
 
     const modifiedData = [
-      { id: 'left-spacer', title: '', tags: [''], date: '', imageUrl: '', views: 0, posts: 0 },
+      { id: 'left-spacer', title: '', tags: [''], date: '', imageUrl: '', views: '', posts: '' },
       ...fakeNews,
-      { id: 'right-spacer', title: '', tags: [''], date: '', imageUrl: '', views: 0, posts: 0 },
+      { id: 'right-spacer', title: '', tags: [''], date: '', imageUrl: '', views: '', posts: '' },
     ];
     return modifiedData;
   }, [fakeNews]);
@@ -29,6 +33,8 @@ const FakeIssueSlider = ({ fakeNews }: FakeIssueProps) => {
     scrollX.addListener(({ value }) => {
       const newIndex = Math.round(value / ITEM_SIZE);
       setSlideIndex(newIndex);
+      setViews('1234');
+      setPosts('1234');
     });
 
     return () => {
@@ -57,6 +63,7 @@ const FakeIssueSlider = ({ fakeNews }: FakeIssueProps) => {
         scrollEventThrottle={16}
         onScroll={onScrollX}
       />
+      <FakeIssueIcon views={views} posts={posts} />
       <Indicator data={fakeNews} slideIndex={slideIndex} />
     </View>
   );
@@ -66,7 +73,7 @@ const styles = StyleSheet.create({
   container: {
     width: Dimensions.get('window').width,
     marginTop: 20,
-    height: 300,
+    height: 340,
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'flex-start',
