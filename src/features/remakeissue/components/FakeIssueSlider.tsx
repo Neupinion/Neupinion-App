@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Animated, Dimensions, StyleSheet, View } from 'react-native';
 import { ReWriteNews } from '../../../shared/types/news';
 import FakeIssueItem from './FakeIssueItem';
@@ -8,6 +8,7 @@ interface FakeIssueProps {
   fakeNews: ReWriteNews[] | null;
 }
 const FakeIssueSlider = ({ fakeNews }: FakeIssueProps) => {
+  const [slideIndex, setSlideIndex] = useState(0);
   const scrollX = React.useRef(new Animated.Value(0)).current;
   const onScrollX = Animated.event([{ nativeEvent: { contentOffset: { x: scrollX } } }], {
     useNativeDriver: true,
@@ -25,6 +26,11 @@ const FakeIssueSlider = ({ fakeNews }: FakeIssueProps) => {
   }, [fakeNews]);
 
   useEffect(() => {
+    scrollX.addListener(({ value }) => {
+      const newIndex = Math.round(value / ITEM_SIZE);
+      setSlideIndex(newIndex);
+    });
+
     return () => {
       scrollX.removeAllListeners();
     };
