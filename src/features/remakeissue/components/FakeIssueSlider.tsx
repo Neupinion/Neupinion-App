@@ -4,6 +4,7 @@ import { ReWriteNews } from '../../../shared/types/news';
 import FakeIssueItem from './FakeIssueItem';
 import { ITEM_SIZE } from '../constants/cardAniSize';
 import Indicator from './Indicator';
+import theme from '../../../shared/styles/theme';
 
 interface FakeIssueProps {
   fakeNews: ReWriteNews[] | null;
@@ -47,6 +48,7 @@ const FakeIssueSlider = ({ fakeNews }: FakeIssueProps) => {
         showsHorizontalScrollIndicator={false}
         data={preparedFakeNews}
         keyExtractor={(item) => item.id}
+        style={styles.flatListStyle}
         snapToInterval={ITEM_SIZE}
         horizontal={true}
         renderItem={({ item, index }) => (
@@ -65,9 +67,13 @@ const FakeIssueSlider = ({ fakeNews }: FakeIssueProps) => {
 const styles = StyleSheet.create({
   container: {
     width: Dimensions.get('window').width,
+    height: 280,
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'flex-start',
+  },
+  flatListStyle: {
+    height: 160,
   },
 });
 

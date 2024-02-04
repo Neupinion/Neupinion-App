@@ -30,7 +30,7 @@ const Indicator = ({ data, slideIndex }: IndicatorProps) => {
 
 const styles = StyleSheet.create({
   container: {
-    height: 20,
+    flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-start',

@@ -28,7 +28,7 @@ const FakeIssueItem = ({ item, index, scrollX }: FakeIssueItemProps) => {
   });
 
   return (
-    <TouchableOpacity style={{ width: ITEM_SIZE }}>
+    <TouchableOpacity style={styles.buttonStyle}>
       <Animated.View
         style={[
           styles.animatedCard,
@@ -46,6 +46,9 @@ const FakeIssueItem = ({ item, index, scrollX }: FakeIssueItemProps) => {
 };
 
 const styles = StyleSheet.create({
+  buttonStyle: {
+    width: ITEM_SIZE,
+  },
   card: {
     width: 226,
     height: 189,
