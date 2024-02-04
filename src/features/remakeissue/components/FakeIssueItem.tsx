@@ -3,6 +3,7 @@ import { Animated, Image, StyleSheet, Text, TouchableOpacity, View } from 'react
 import { ReWriteNews } from '../../../shared/types/news';
 import theme from '../../../shared/styles/theme';
 import { ITEM_SIZE, SPACER_ITEM_SIZE } from '../constants/cardAniSize';
+import { LinearGradient } from "expo-linear-gradient";
 
 interface FakeIssueItemProps {
   item: ReWriteNews;
@@ -43,7 +44,7 @@ const FakeIssueItem = ({ item, index, scrollX }: FakeIssueItemProps) => {
         ]}
       >
         <TouchableOpacity onPress={() => {}}>
-          <View style={styles.card}>
+          <LinearGradient colors={['#22222E', '#12121E']} style={styles.card}>
             <Image source={{ uri: item.imageUrl }} style={styles.cardImage} />
             <View style={styles.cardUnderContainer}>
               <Text style={styles.titleText}>{item.title}</Text>
@@ -56,7 +57,7 @@ const FakeIssueItem = ({ item, index, scrollX }: FakeIssueItemProps) => {
                 <Text style={styles.dateText}>{item.date}</Text>
               </View>
             </View>
-          </View>
+          </LinearGradient>
         </TouchableOpacity>
       </Animated.View>
     </TouchableOpacity>
@@ -70,7 +71,6 @@ const styles = StyleSheet.create({
   card: {
     width: 266,
     height: 275,
-    backgroundColor: theme.color.gradient,
     flexDirection: 'column',
     alignItems: 'flex-start',
     justifyContent: 'center',
