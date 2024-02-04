@@ -27,13 +27,18 @@ const FakeIssueItem = ({ item, index, scrollX }: FakeIssueItemProps) => {
     outputRange: ['6deg', '0deg', '-6deg'],
   });
 
+  const scale = scrollX.interpolate({
+    inputRange,
+    outputRange: [0.9, 1, 0.9],
+  });
+
   return (
     <TouchableOpacity style={styles.buttonStyle}>
       <Animated.View
         style={[
           styles.animatedCard,
           {
-            transform: [{ rotate }, { translateY }],
+            transform: [{ rotate }, { translateY }, { scale }],
           },
         ]}
       >
