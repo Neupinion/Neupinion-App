@@ -25,6 +25,7 @@
     "jest-expo": "~49.0.0",
     "react": "18.2.0",
     "react-native": "0.72.6",
+    "react-native-svg": "^14.1.0",
     "react-test-renderer": "^18.2.0"
   },
   "devDependencies": {
