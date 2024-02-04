@@ -34,7 +34,7 @@ const FakeIssueItem = ({ item, index, scrollX }: FakeIssueItemProps) => {
   });
 
   return (
-    <View style={{ width: ITEM_SIZE }}>
+    <View style={{ width: ITEM_SIZE, alignItems: 'center', justifyContent: 'center'}}>
       <Animated.View
         style={[
           styles.animatedCard,
