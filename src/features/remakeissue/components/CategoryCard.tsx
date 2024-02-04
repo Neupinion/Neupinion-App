@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Text, FlatList, ImageBackground, ImageBackground } from "react-native";
+import { View, StyleSheet, Text, FlatList, ImageBackground } from "react-native";
 import Theme from "../../../shared/styles/theme";
 
 const CategoryCard = () => {
@@ -23,6 +23,8 @@ const CategoryCard = () => {
         renderItem={({item}) => (
           <View style={styles.cardContainer}>
             <ImageBackground source={item.img || undefined} style={styles.CardImage} resizeMode="cover"/>
+            <View style={styles.cardbottomContainer}>
+            </View>
           </View>
         )}
       />
@@ -58,6 +60,9 @@ const styles = StyleSheet.create({
     width: 240,
     height: 160,
     borderRadiusTop: 25,
+  },
+  cardbottomContainer: {
+    marginHorizontal: 22,
   },
 });
 export default CategoryCard;
