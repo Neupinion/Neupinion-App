@@ -4,7 +4,6 @@ import { ReWriteNews } from '../../../shared/types/news';
 import FakeIssueItem from './FakeIssueItem';
 import { ITEM_SIZE } from '../constants/cardAniSize';
 import Indicator from './Indicator';
-
 interface FakeIssueProps {
   fakeNews: ReWriteNews[] | null;
 }
@@ -19,9 +18,9 @@ const FakeIssueSlider = ({ fakeNews }: FakeIssueProps) => {
     if (!fakeNews) return null;
 
     const modifiedData = [
-      { id: 'left-spacer', title: '', tags: [''], date: '', imageUrl: '' },
+      { id: 'left-spacer', title: '', tags: [''], date: '', imageUrl: '', views: 0, posts: 0 },
       ...fakeNews,
-      { id: 'right-spacer', title: '', tags: [''], date: '', imageUrl: '' },
+      { id: 'right-spacer', title: '', tags: [''], date: '', imageUrl: '', views: 0, posts: 0 },
     ];
     return modifiedData;
   }, [fakeNews]);

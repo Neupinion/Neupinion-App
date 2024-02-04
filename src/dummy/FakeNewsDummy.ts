@@ -7,6 +7,8 @@ const fakeNewsList: ReWriteNews[] = [
     tags: ['국제', '사회'],
     date: '2023.11.03',
     imageUrl: 'https://picsum.photos/266/107',
+    views: 1234,
+    posts: 1234,
   },
   {
     id: '2',
@@ -14,6 +16,8 @@ const fakeNewsList: ReWriteNews[] = [
     tags: ['국제'],
     date: '2023.11.03',
     imageUrl: 'https://picsum.photos/266/107',
+    views: 1234,
+    posts: 1234,
   },
   {
     id: '3',
@@ -21,6 +25,8 @@ const fakeNewsList: ReWriteNews[] = [
     tags: ['국제'],
     date: '2023.11.03',
     imageUrl: 'https://picsum.photos/266/107',
+    views: 1234,
+    posts: 1234,
   },
   {
     id: '4',
@@ -28,6 +34,17 @@ const fakeNewsList: ReWriteNews[] = [
     tags: ['국제'],
     date: '2023.11.03',
     imageUrl: 'https://picsum.photos/266/107',
+    views: 1234,
+    posts: 1234,
+  },
+  {
+    id: '5',
+    title: '“펜타곤 대형 폭발”…美증시 출렁"',
+    tags: ['국제'],
+    date: '2023.11.03',
+    imageUrl: 'https://picsum.photos/266/107',
+    views: 1234,
+    posts: 1234,
   },
 ];
 
