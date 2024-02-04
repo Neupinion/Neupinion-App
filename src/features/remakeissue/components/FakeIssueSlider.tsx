@@ -3,6 +3,7 @@ import { Animated, Dimensions, StyleSheet, View } from 'react-native';
 import { ReWriteNews } from '../../../shared/types/news';
 import FakeIssueItem from './FakeIssueItem';
 import { ITEM_SIZE } from '../constants/cardAniSize';
+import Indicator from './Indicator';
 
 interface FakeIssueProps {
   fakeNews: ReWriteNews[] | null;
@@ -56,6 +57,7 @@ const FakeIssueSlider = ({ fakeNews }: FakeIssueProps) => {
         scrollEventThrottle={16}
         onScroll={onScrollX}
       />
+      <Indicator data={fakeNews} slideIndex={slideIndex} />
     </View>
   );
 };
