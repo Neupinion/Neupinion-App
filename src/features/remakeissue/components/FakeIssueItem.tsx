@@ -19,17 +19,17 @@ const FakeIssueItem = ({ item, index, scrollX }: FakeIssueItemProps) => {
 
   const translateY = scrollX.interpolate({
     inputRange,
-    outputRange: [20, 0, 20],
+    outputRange: [10, 0, 10],
   });
 
   const rotate = scrollX.interpolate({
     inputRange,
-    outputRange: ['6deg', '0deg', '-6deg'],
+    outputRange: ['4deg', '0deg', '-4deg'],
   });
 
   const scale = scrollX.interpolate({
     inputRange,
-    outputRange: [0.9, 1, 0.9],
+    outputRange: [0.86, 1, 0.86],
   });
 
   return (
@@ -55,8 +55,8 @@ const styles = StyleSheet.create({
     width: ITEM_SIZE,
   },
   card: {
-    width: 226,
-    height: 189,
+    width: 266,
+    height: 275,
     backgroundColor: theme.color.gradient,
     alignItems: 'center',
     justifyContent: 'center',

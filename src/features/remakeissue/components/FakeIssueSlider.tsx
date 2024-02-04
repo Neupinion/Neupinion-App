@@ -67,13 +67,13 @@ const styles = StyleSheet.create({
   container: {
     width: Dimensions.get('window').width,
     marginTop: 20,
-    height: 280,
+    height: 300,
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'flex-start',
   },
   flatListStyle: {
-    height: 160,
+    height: 280,
   },
 });
 
