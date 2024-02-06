@@ -60,12 +60,10 @@ const FakeIssueItem = ({ item, index, scrollX }: FakeIssueItemProps) => {
               <View style={styles.cardUnderContainer}>
                 <Text style={styles.titleText}>{item.title}</Text>
                 <View style={styles.titleUnderContainer}>
-                  {item.tags.map((tag, index) => (
-                    <View key={index} style={styles.tagBox}>
-                      <Text style={styles.tagText}>{tag}</Text>
-                    </View>
-                  ))}
-                  <Text style={styles.dateText}>{item.date}</Text>
+                  <View key={index} style={styles.tagBox}>
+                    <Text style={styles.tagText}>{item.category}</Text>
+                  </View>
+                  <Text style={styles.dateText}>{item.createdAt}</Text>
                 </View>
               </View>
             </LinearGradient>

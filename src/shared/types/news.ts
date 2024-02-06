@@ -1,9 +1,10 @@
 export interface ReWriteNews {
-  id: string;
+  id: string | number;
   title: string;
-  tags: string[];
-  date: string;
   imageUrl: string;
-  views: string;
-  posts: string;
+  category: string;
+  views: number;
+  opinionCount: number;
+  issueId: number;
+  createdAt: string;
 }

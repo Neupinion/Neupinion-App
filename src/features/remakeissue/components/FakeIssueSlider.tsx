@@ -5,13 +5,15 @@ import FakeIssueItem from './FakeIssueItem';
 import { ITEM_SIZE } from '../constants/cardAniSize';
 import Indicator from './Indicator';
 import FakeIssueIcon from './FakeIssueIcon';
+import { invisibleLeftCardData, invisibleRightCardData } from '../constants/invisibleCardData';
+
 interface FakeIssueProps {
   fakeNews: ReWriteNews[] | null;
 }
 const FakeIssueSlider = ({ fakeNews }: FakeIssueProps) => {
   const [slideIndex, setSlideIndex] = useState(0);
-  const [views, setViews] = useState('1,234');
-  const [posts, setPosts] = useState('1,234');
+  const [views, setViews] = useState(1234);
+  const [posts, setPosts] = useState(1234);
 
   const scrollX = React.useRef(new Animated.Value(0)).current;
   const onScrollX = Animated.event([{ nativeEvent: { contentOffset: { x: scrollX } } }], {
@@ -21,20 +23,15 @@ const FakeIssueSlider = ({ fakeNews }: FakeIssueProps) => {
   const preparedFakeNews = useMemo(() => {
     if (!fakeNews) return null;
 
-    const modifiedData = [
-      { id: 'left-spacer', title: '', tags: [''], date: '', imageUrl: '', views: '', posts: '' },
-      ...fakeNews,
-      { id: 'right-spacer', title: '', tags: [''], date: '', imageUrl: '', views: '', posts: '' },
-    ];
-    return modifiedData;
+    return [invisibleLeftCardData, ...fakeNews, invisibleRightCardData];
   }, [fakeNews]);
 
   useEffect(() => {
     scrollX.addListener(({ value }) => {
       const newIndex = Math.round(value / ITEM_SIZE);
       setSlideIndex(newIndex);
-      setViews('1,236');
-      setPosts('1,236');
+      setViews(1234);
+      setPosts(1234);
     });
 
     return () => {
@@ -51,7 +48,7 @@ const FakeIssueSlider = ({ fakeNews }: FakeIssueProps) => {
       <Animated.FlatList
         showsHorizontalScrollIndicator={false}
         data={preparedFakeNews}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => String(item.id)}
         style={styles.flatListStyle}
         snapToInterval={ITEM_SIZE}
         horizontal={true}
