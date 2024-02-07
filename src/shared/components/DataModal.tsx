@@ -55,13 +55,15 @@ const styles = StyleSheet.create({
   container: {
     width: Dimensions.get('window').width,
     height: 520,
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
     backgroundColor: '#21202F',
     flexDirection: 'column',
   },
   overlay: {
     flex: 1,
     justifyContent: 'flex-end',
-    backgroundColor: 'rgba(0,0,0,0.5)',
+    backgroundColor: 'rgba(0,0,0,0.8)',
   },
 });
 
