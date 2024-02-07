@@ -6,6 +6,7 @@ import {
   Dimensions,
   View,
   TouchableWithoutFeedback,
+  Text,
 } from 'react-native';
 
 interface DateModalProps {
@@ -39,11 +40,14 @@ const DataModal: React.FC<DateModalProps> = ({ isOpen, onClose }) => {
             style={[
               styles.container,
               {
-                transform: [{ translateY: modalY }], // Y축으로 이동하는 애니메이션 적용
+                transform: [{ translateY: modalY }],
               },
             ]}
           >
-            {/* 모달 내용 */}
+            <View style={styles.titleContainer}>
+              <Text style={styles.titleText}>날짜 선택</Text>
+              <Text style={styles.subtitleText}>KST(GMT+9)기준</Text>
+            </View>
           </Animated.View>
         </View>
       </TouchableWithoutFeedback>
@@ -64,6 +68,31 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-end',
     backgroundColor: 'rgba(0,0,0,0.8)',
+  },
+  titleContainer: {
+    marginTop: 22,
+    height: 100,
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+  },
+  titleText: {
+    fontSize: 18,
+    color: '#ffffff',
+    fontStyle: 'normal',
+    fontWeight: '700',
+    lineHeight: 25.5,
+    letterSpacing: -0.51,
+    marginLeft: 22,
+  },
+  subtitleText: {
+    fontSize: 12,
+    color: 'rgba(255,255,255,0.7)',
+    fontStyle: 'normal',
+    fontWeight: '700',
+    lineHeight: 25.5,
+    letterSpacing: -0.51,
+    marginLeft: 22,
   },
 });
 
