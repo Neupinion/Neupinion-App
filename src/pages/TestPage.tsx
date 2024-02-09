@@ -7,7 +7,7 @@ import { ReWriteNews } from '../shared/types/news';
 import CategorySlider from '../features/remakeissue/components/CategorySlider';
 
 const TestPage = () => {
-  const fakeNewsList: ReWriteNews[] = fakeNewsDummy;
+  const fakeNewsList = fakeNewsDummy;
 
   return (
     <View style={styles.container}>
