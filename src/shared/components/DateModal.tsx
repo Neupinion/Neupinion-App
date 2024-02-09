@@ -13,7 +13,7 @@ interface DateModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
-const DataModal: React.FC<DateModalProps> = ({ isOpen, onClose }) => {
+const DateModal: React.FC<DateModalProps> = ({ isOpen, onClose }) => {
   const [modalY] = useState(new Animated.Value(Dimensions.get('window').height));
 
   useEffect(() => {
@@ -96,4 +96,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DataModal;
+export default DateModal;
