@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { View, StyleSheet, Text, FlatList, ImageBackground } from 'react-native';
 import Theme from '../../../shared/styles/theme';
 import { ReWriteNews } from '../../../shared/types/news';
