@@ -4,9 +4,10 @@ import theme from '../shared/styles/theme';
 import FakeIssueSlider from '../features/remakeissue/components/FakeIssueSlider';
 import fakeNewsDummy from '../dummy/FakeNewsDummy';
 import GlobalTextStyles from '../shared/styles/GlobalTextStyles';
+import { ReWriteNews } from '../shared/types/news';
 
 const TestPage = () => {
-  const fakeNewsList = fakeNewsDummy;
+  const fakeNewsList: ReWriteNews[] = fakeNewsDummy;
 
   return (
     <View style={styles.container}>
