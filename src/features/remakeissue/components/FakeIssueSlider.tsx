@@ -60,7 +60,7 @@ const FakeIssueSlider = ({ fakeNews }: FakeIssueProps) => {
         scrollEventThrottle={16}
         onScroll={onScrollX}
       />
-      <FakeIssueIcon views={views} posts={posts} />
+      <FakeIssueIcon data={fakeNews} slideIndex={slideIndex} />
       <Indicator data={fakeNews} slideIndex={slideIndex} />
     </View>
   );

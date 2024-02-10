@@ -1,18 +1,25 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import theme from '../../../shared/styles/theme';
+import { ReWriteNews } from '../../../shared/types/news';
 
 interface FakeIssueIconProps {
-  views: number;
-  posts: number;
+  data: ReWriteNews[] | null;
+  slideIndex: number;
 }
 
-const FakeIssueIcon = ({ views, posts }: FakeIssueIconProps) => {
+const FakeIssueIcon = ({ data, slideIndex }: FakeIssueIconProps) => {
+  if (!data || data.length <= slideIndex) {
+    return null;
+  }
+
+  const item = data[slideIndex];
+
   return (
     <View style={styles.container}>
-      <Text style={styles.iconText}>{views}</Text>
+      <Text style={styles.iconText}>{item.views.toLocaleString()}</Text>
       <View style={{ width: 10 }}></View>
-      <Text style={styles.iconText}>{posts}</Text>
+      <Text style={styles.iconText}>{item.opinionCount.toLocaleString()}</Text>
     </View>
   );
 };
