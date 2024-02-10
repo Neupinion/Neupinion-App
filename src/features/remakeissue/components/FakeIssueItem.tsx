@@ -4,6 +4,7 @@ import { ReWriteNews } from '../../../shared/types/news';
 import theme from '../../../shared/styles/theme';
 import { ITEM_SIZE, SPACER_ITEM_SIZE } from '../constants/cardAniSize';
 import { LinearGradient } from 'expo-linear-gradient';
+import { formatDate } from "../constants/formatDate";
 
 interface FakeIssueItemProps {
   item: ReWriteNews;
@@ -34,7 +35,7 @@ const FakeIssueItem = ({ item, index, scrollX }: FakeIssueItemProps) => {
   });
 
   return (
-    <View style={{ width: ITEM_SIZE, alignItems: 'center', justifyContent: 'center'}}>
+    <View style={{ width: ITEM_SIZE, alignItems: 'center', justifyContent: 'center' }}>
       <Animated.View
         style={[
           styles.animatedCard,
@@ -63,7 +64,7 @@ const FakeIssueItem = ({ item, index, scrollX }: FakeIssueItemProps) => {
                   <View style={styles.tagBox}>
                     <Text style={styles.tagText}>{item.category}</Text>
                   </View>
-                  <Text style={styles.dateText}>{item.createdAt}</Text>
+                  <Text style={styles.dateText}>{formatDate(item.createdAt)}</Text>
                 </View>
               </View>
             </LinearGradient>
@@ -126,11 +127,11 @@ const styles = StyleSheet.create({
   },
   tagBox: {
     display: 'flex',
-    height: 20,
-    paddingVertical: 10,
+    height: 22,
+    paddingVertical: 2,
     paddingHorizontal: 6,
     justifyContent: 'center',
-    gap: 10,
+    alignItems: 'center',
     borderRadius: 4,
     backgroundColor: theme.color.gray1,
     marginRight: 5,
@@ -151,6 +152,7 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     lineHeight: 18,
     letterSpacing: -0.5,
+    marginTop: 2,
   },
 });
 
