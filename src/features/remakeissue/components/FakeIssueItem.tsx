@@ -60,7 +60,7 @@ const FakeIssueItem = ({ item, index, scrollX }: FakeIssueItemProps) => {
               <View style={styles.cardUnderContainer}>
                 <Text style={styles.titleText}>{item.title}</Text>
                 <View style={styles.titleUnderContainer}>
-                  <View key={index} style={styles.tagBox}>
+                  <View style={styles.tagBox}>
                     <Text style={styles.tagText}>{item.category}</Text>
                   </View>
                   <Text style={styles.dateText}>{item.createdAt}</Text>
