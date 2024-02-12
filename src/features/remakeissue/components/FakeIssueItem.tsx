@@ -98,6 +98,7 @@ const styles = StyleSheet.create({
   cardImage: {
     width: 266,
     height: 189,
+    resizeMode: 'cover',
     backgroundColor: theme.color.white,
     borderTopRightRadius: 10,
     borderTopLeftRadius: 10,
