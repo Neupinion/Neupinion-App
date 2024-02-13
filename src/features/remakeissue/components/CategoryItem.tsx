@@ -2,6 +2,7 @@ import React from 'react';
 import { View, StyleSheet, Text, ImageBackground } from 'react-native';
 import { ReWriteNews } from '../../../shared/types/news';
 import Theme from '../../../shared/styles/theme';
+import { formatDate } from '../constants/formatDate';
 
 interface CategoryItemProps {
   item: ReWriteNews;
@@ -17,7 +18,7 @@ const CategoryItem = ({ item }: CategoryItemProps) => {
           <View style={styles.tagBox}>
             <Text style={styles.tagText}>{item.category}</Text>
           </View>
-          <Text style={styles.dateText}> {item.createdAt} </Text>
+          <Text style={styles.dateText}> {formatDate(item.createdAt)} </Text>
         </View>
       </View>
     </View>

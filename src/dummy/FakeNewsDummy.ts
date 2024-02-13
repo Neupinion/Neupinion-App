@@ -9,7 +9,7 @@ const fakeNewsList: ReWriteNews[] = [
     views: 20,
     opinionCount: 20,
     issueId: 1,
-    createdAt: '2024.01.08',
+    createdAt: '2024-01-08T11:44:30.327959',
   },
   {
     id: 2,
