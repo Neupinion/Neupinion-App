@@ -9,7 +9,6 @@ interface FakeIssueProps {
 }
 
 const CategorySlider = ({ fakeNews }: FakeIssueProps) => {
-
   const preparedFakeNews: ReWriteNews[][] | null = useMemo(() => {
     if (!fakeNews) return null;
 

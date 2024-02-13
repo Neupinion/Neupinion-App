@@ -3,12 +3,12 @@ import { View, StyleSheet, Text, ImageBackground } from 'react-native';
 import { ReWriteNews } from '../../../shared/types/news';
 import Theme from '../../../shared/styles/theme';
 
-interface FakeIssueItemProps {
+interface CategoryItemProps {
   item: ReWriteNews;
   index: number;
 }
 
-const CategoryItem = ({ item, index}: FakeIssueItemProps) => {
+const CategoryItem = ({ item, index}: CategoryItemProps) => {
   return (
     <View style={styles.cardContainer}>
       <ImageBackground source={{ uri: item.imageUrl}} style={styles.cardImage} />
