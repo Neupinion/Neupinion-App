@@ -8,25 +8,14 @@ import {
   TouchableWithoutFeedback,
   Text,
 } from 'react-native';
-import { Calendar, LocaleConfig } from 'react-native-calendars';
+import { Calendar, DateData, LocaleConfig } from 'react-native-calendars';
 import { koreaLocales } from '../constants/locales';
+import { cvtParamDate } from "../constants/cvtParamDate";
 
+// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
 LocaleConfig.locales['kr'] = koreaLocales;
+// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
 LocaleConfig.defaultLocale = 'kr';
-
-interface DateObject {
-  year: number;
-  month: number;
-}
-
-const renderCustomHeader = (date: DateObject) => {
-  const headerDate = `${date.year}년 ${LocaleConfig.locales['kr'].monthNames[date.month - 1]}`;
-  return (
-    <View>
-      <Text>{headerDate}</Text>
-    </View>
-  );
-};
 
 interface DateModalProps {
   isOpen: boolean;
@@ -70,19 +59,28 @@ const DateModal: React.FC<DateModalProps> = ({ isOpen, onClose }) => {
             <View style={styles.calendarContainer}>
               <Calendar
                 style={styles.calendar}
+                firstDay={1}
+                monthFormat={'yyyy년 MM월'}
+                onDayLongPress={(day) => {}}
+                onMonthChange={(month) => {}}
+                hideExtraDays={true}
+                disableMonthChange={true}
+                maxDate={cvtParamDate(new Date())}
                 theme={{
                   selectedDayBackgroundColor: '#7E58E9',
                   arrowColor: 'rgba(255, 255, 255, 0.8)',
                   todayTextColor: '#ffffff',
+                  dayTextColor: '#ffffff',
                   calendarBackground: 'rgba(0, 0, 0, 0)',
                   monthTextColor: '#ffffff',
-                  textDisabledColor: 'rgba(0, 0, 0, 0.3)',
+                  textMonthFontWeight: '500',
+                  textDayFontWeight: '500',
+                  textDisabledColor: 'rgba(255, 255, 255, 0.3)',
                   textInactiveColor: 'rgba(0, 0, 0, 0.3)',
                   textDayFontSize: 18,
                   textMonthFontSize: 18,
                   textDayHeaderFontSize: 12,
                 }}
-                renderHeader={renderCustomHeader({})}
               />
             </View>
           </Animated.View>
@@ -141,7 +139,7 @@ const styles = StyleSheet.create({
   },
   calendar: {
     flex: 1,
-    width: Dimensions.get('window').width - 72,
+    width: Dimensions.get('window').width - 32,
     backgroundColor: 'rgba(0, 0, 0, 0)',
   },
 });
