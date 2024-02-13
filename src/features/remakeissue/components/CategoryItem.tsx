@@ -9,12 +9,11 @@ interface FakeIssueItemProps {
 }
 
 const CategoryItem = ({ item, index}: FakeIssueItemProps) => {
-
   return (
     <View style={styles.cardContainer}>
-      <ImageBackground source={{ uri: item.imageUrl}} style={styles.cardImage} resizeMode="cover"/>
+      <ImageBackground source={{ uri: item.imageUrl}} style={styles.cardImage} />
       <View style={styles.cardUnderContainer}>
-        <Text style={styles.firstText} numberOfLines={1} ellipsizeMode="tail">{item.title}</Text>
+        <Text style={styles.firstText}>{item.title}</Text>
         <View style={{ flexDirection: 'row', marginTop: 12}}>
           <View key={index} style={styles.tagBox}>
             <Text style={styles.tagText}>{item.category}</Text>
@@ -30,10 +29,12 @@ const styles = StyleSheet.create({
   categoryContainer: {
     marginLeft: 25,
   },
-  firstText:{
+  firstText: {
     fontSize: 16,
     fontWeight: '700',
     color: Theme.color.white,
+    numberOfLines: 1,
+    ellipsizeMode: 'tail',
   },
   flatListContainer: {
     gap: 20,
@@ -50,6 +51,7 @@ const styles = StyleSheet.create({
   cardImage: {
     width: 240,
     height: 160,
+    resizeMode: 'cover',
   },
   cardUnderContainer: {
     marginHorizontal: 22,

@@ -28,11 +28,11 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "extra": {
-      "eas": {
-        "projectId": "da56e85c-6989-4662-880b-a34f24c3ad96"
-      }
-    },
+//    "extra": {
+//      "eas": {
+//        "projectId": "da56e85c-6989-4662-880b-a34f24c3ad96"
+//      }
+//    },
     "owner": "neupinion"
   }
 }
