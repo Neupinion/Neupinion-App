@@ -20,7 +20,7 @@ const CategorySlider = ({ fakeNews }: FakeIssueProps) => {
     return null;
   }
   return (
-    <View style={styles.categorycontainer}>
+    <View style={styles.categoryContainer}>
       <FlatList
         horizontal
         showsHorizontalScrollIndicator={false}
@@ -36,10 +36,10 @@ const CategorySlider = ({ fakeNews }: FakeIssueProps) => {
 };
 
 const styles = StyleSheet.create({
-  categorycontainer: {
+  categoryContainer: {
     marginLeft: 25,
   },
-  firsttext:{
+  firstText:{
     fontSize: 16,
     fontWeight: '700',
     color: Theme.color.white,
@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginRight: 5,
   },
-  datetext:{
+  dateText:{
     color: Theme.color.gray2,
   },
 });

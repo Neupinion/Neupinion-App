@@ -14,12 +14,12 @@ const CategoryItem = ({ item, index}: FakeIssueItemProps) => {
     <View style={styles.cardContainer}>
       <ImageBackground source={{ uri: item.imageUrl}} style={styles.cardImage} resizeMode="cover"/>
       <View style={styles.cardUnderContainer}>
-        <Text style={styles.firsttext} numberOfLines={1} ellipsizeMode="tail">{item.title}</Text>
+        <Text style={styles.firstText} numberOfLines={1} ellipsizeMode="tail">{item.title}</Text>
         <View style={{ flexDirection: 'row', marginTop: 12}}>
           <View key={index} style={styles.tagBox}>
             <Text style={styles.tagText}>{item.category}</Text>
           </View>
-          <Text style={styles.datetext}> {item.createdAt} </Text>
+          <Text style={styles.dateText}> {item.createdAt} </Text>
         </View>
       </View>
     </View>
@@ -27,10 +27,10 @@ const CategoryItem = ({ item, index}: FakeIssueItemProps) => {
 };
 
 const styles = StyleSheet.create({
-  categorycontainer: {
+  categoryContainer: {
     marginLeft: 25,
   },
-  firsttext:{
+  firstText:{
     fontSize: 16,
     fontWeight: '700',
     color: Theme.color.white,
@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginRight: 5,
   },
-  datetext:{
+  dateText:{
     color: Theme.color.gray2,
   },
 });
