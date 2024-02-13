@@ -5,13 +5,15 @@ import fakeNewsDummy from '../dummy/FakeNewsDummy';
 import GlobalTextStyles from '../shared/styles/GlobalTextStyles';
 import { ReWriteNews } from '../shared/types/news';
 import CategorySlider from '../features/remakeissue/components/CategorySlider';
+import CategoryTop from '../features/remakeissue/components/CategoryTop';
+import { Colors } from "react-native/Libraries/NewAppScreen";
 
 const TestPage = () => {
   const fakeNewsList = fakeNewsDummy;
 
   return (
     <View style={styles.container}>
-      <Text style={GlobalTextStyles.NormalText17}>카테고리</Text>
+      <CategoryTop />
       <CategorySlider fakeNews={fakeNewsList} />
     </View>
   );
@@ -20,7 +22,8 @@ const TestPage = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: theme.color.black,
+    backgroundColor: 'tomato',
+    // backgroundColor: theme.color.black,
     alignItems: 'flex-start',
     justifyContent: 'center',
   },

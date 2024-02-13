@@ -26,11 +26,6 @@ const CategoryItem = ({ item }: CategoryItemProps) => {
 };
 
 const styles = StyleSheet.create({
-  firstText: {
-    fontSize: 16,
-    fontWeight: '700',
-    color: Theme.color.white,
-  },
   cardContainer: {
     width: 240,
     height: 249,
@@ -38,6 +33,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 15,
     overflow: 'hidden',
+  },
+  firstText: {
+    fontSize: 16,
+    fontWeight: '700',
+    color: Theme.color.white,
   },
   cardImage: {
     width: 240,

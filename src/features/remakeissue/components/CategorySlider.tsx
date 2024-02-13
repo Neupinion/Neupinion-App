@@ -38,9 +38,6 @@ const styles = StyleSheet.create({
   categoryContainer: {
     marginLeft: 25,
     marginTop: 20,
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'flex-start',
   },
   flatListContainer: {
     gap: 20,
