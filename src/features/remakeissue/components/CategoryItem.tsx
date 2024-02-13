@@ -26,17 +26,10 @@ const CategoryItem = ({ item }: CategoryItemProps) => {
 };
 
 const styles = StyleSheet.create({
-  categoryContainer: {
-    marginLeft: 25,
-  },
   firstText: {
     fontSize: 16,
     fontWeight: '700',
     color: Theme.color.white,
-  },
-  flatListContainer: {
-    gap: 20,
-    paddingVertical: 20,
   },
   cardContainer: {
     width: 240,
