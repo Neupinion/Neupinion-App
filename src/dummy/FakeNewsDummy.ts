@@ -3,7 +3,7 @@ import { ReWriteNews } from '../shared/types/news';
 const fakeNewsList: ReWriteNews[] = [
   {
     id: 1,
-    title: '재가공 이슈 제목',
+    title: '재가공 이슈 제목 블라블라블라블라',
     imageUrl: 'https://i.ytimg.com/vi/YLypVu78YTU/maxresdefault.jpg',
     category: '국제',
     views: 20,

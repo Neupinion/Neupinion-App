@@ -5,17 +5,16 @@ import Theme from '../../../shared/styles/theme';
 
 interface CategoryItemProps {
   item: ReWriteNews;
-  index: number;
 }
 
-const CategoryItem = ({ item, index}: CategoryItemProps) => {
+const CategoryItem = ({ item }: CategoryItemProps) => {
   return (
     <View style={styles.cardContainer}>
       <ImageBackground source={{ uri: item.imageUrl}} style={styles.cardImage} />
       <View style={styles.cardUnderContainer}>
-        <Text style={styles.firstText}>{item.title}</Text>
+        <Text style={styles.firstText} numberOfLines={1} ellipsizeMode="tail">{item.title}</Text>
         <View style={{ flexDirection: 'row', marginTop: 12}}>
-          <View key={index} style={styles.tagBox}>
+          <View style={styles.tagBox}>
             <Text style={styles.tagText}>{item.category}</Text>
           </View>
           <Text style={styles.dateText}> {item.createdAt} </Text>
@@ -33,8 +32,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '700',
     color: Theme.color.white,
-    numberOfLines: 1,
-    ellipsizeMode: 'tail',
   },
   flatListContainer: {
     gap: 20,
@@ -67,7 +64,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginRight: 5,
   },
-  dateText:{
+  dateText: {
     color: Theme.color.gray2,
   },
 });

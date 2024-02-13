@@ -26,8 +26,8 @@ const CategorySlider = ({ fakeNews }: FakeIssueProps) => {
         contentContainerStyle={styles.flatListContainer}
         data={preparedFakeNews}
         keyExtractor={(item:ReWriteNews[][]) => String(item.id)}
-        renderItem={({item, index}) => (
-          <CategoryItem item={item} index={index} />
+        renderItem={({item}) => (
+          <CategoryItem item={item} />
         )}
       />
     </View>
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginRight: 5,
   },
-  dateText:{
+  dateText: {
     color: Theme.color.gray2,
   },
 });
