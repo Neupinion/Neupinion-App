@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import GlobalTextStyles from "../../../shared/styles/GlobalTextStyles";
 
-const CategoryTop: React.FC = () => {
+const CategoryTop = () => {
   return (
     <View style={styles.container}>
      <View style={{ flexDirection: 'row'}}>
