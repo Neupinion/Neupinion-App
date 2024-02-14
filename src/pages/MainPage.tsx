@@ -15,6 +15,8 @@ import ReProcessedIssueDummy from '../dummy/ReProcessedIssueDummy';
 import FollowUpIssueDummy from '../dummy/FollowUpIssueDummy';
 import { WithLocalSvg } from 'react-native-svg';
 import MainArrowSvg from '../assets/icon/mainarrow.svg';
+import MainUser from '../assets/icon/mainuser.svg';
+import MainSearch from '../assets/icon/mainsearch.svg';
 
 const MainPage = () => {
   const reprocessedIssue = ReProcessedIssueDummy;
@@ -26,7 +28,22 @@ const MainPage = () => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.headerContainer}></View>
+      <View style={styles.headerContainer}>
+        <View style={styles.headerLeftContainer}>
+          <Text style={styles.headerDateText}>11월 19일</Text>
+          <TouchableOpacity style={styles.headerArrow} onPress={pressArrow}>
+            <WithLocalSvg width={12} height={12} asset={MainArrowSvg as ImageSourcePropType} />
+          </TouchableOpacity>
+        </View>
+        <View style={styles.headerRightContainer}>
+          <TouchableOpacity style={styles.headerSvg} onPress={pressArrow}>
+            <WithLocalSvg width={20} height={20} asset={MainSearch as ImageSourcePropType} />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.headerSvg} onPress={pressArrow}>
+            <WithLocalSvg width={20} height={20} asset={MainUser as ImageSourcePropType} />
+          </TouchableOpacity>
+        </View>
+      </View>
       <View style={styles.headerUnderLine} />
       <ScrollView>
         <View style={styles.titleContainer}>
@@ -38,36 +55,21 @@ const MainPage = () => {
         <FakeIssueSlider fakeNews={reprocessedIssue} />
         <View style={styles.titleContainer}>
           <Text style={GlobalTextStyles.NormalText17}>카테고리1</Text>
-          <TouchableOpacity onPress={pressArrow}>
-            <WithLocalSvg
-              style={styles.svgStyle}
-              width={14}
-              height={14}
-              asset={MainArrowSvg as ImageSourcePropType}
-            />
+          <TouchableOpacity style={styles.svgStyle} onPress={pressArrow}>
+            <WithLocalSvg width={14} height={14} asset={MainArrowSvg as ImageSourcePropType} />
           </TouchableOpacity>
         </View>
         <View style={styles.titleContainer}>
           <Text style={GlobalTextStyles.NormalText17}>카테고리2</Text>
-          <TouchableOpacity onPress={pressArrow}>
-            <WithLocalSvg
-              style={styles.svgStyle}
-              width={14}
-              height={14}
-              asset={MainArrowSvg as ImageSourcePropType}
-            />
+          <TouchableOpacity style={styles.svgStyle} onPress={pressArrow}>
+            <WithLocalSvg width={14} height={14} asset={MainArrowSvg as ImageSourcePropType} />
           </TouchableOpacity>
         </View>
         <View style={styles.divideLine}></View>
         <View style={styles.titleContainer}>
           <Text style={GlobalTextStyles.NormalText17}>후속이슈</Text>
-          <TouchableOpacity onPress={pressArrow}>
-            <WithLocalSvg
-              style={styles.svgStyle}
-              width={14}
-              height={14}
-              asset={MainArrowSvg as ImageSourcePropType}
-            />
+          <TouchableOpacity style={styles.svgStyle} onPress={pressArrow}>
+            <WithLocalSvg width={14} height={14} asset={MainArrowSvg as ImageSourcePropType} />
           </TouchableOpacity>
         </View>
       </ScrollView>
@@ -83,7 +85,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   headerContainer: {
-    width: Dimensions.get('window').width,
+    width: Dimensions.get('window').width - 44,
     height: 30,
     marginTop: 26,
     marginBottom: 14,
@@ -92,10 +94,41 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  headerLeftContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+  },
+  headerRightContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+  },
   headerUnderLine: {
     width: Dimensions.get('window').width,
     height: 1,
     backgroundColor: 'rgba(226, 226, 226, 0.1)',
+  },
+  headerDateText: {
+    fontSize: 16,
+    fontStyle: 'normal',
+    fontWeight: '700',
+    lineHeight: 24,
+    letterSpacing: -0.48,
+    color: 'rgba(255,255,255,0.98)',
+  },
+  headerArrow: {
+    width: 24,
+    height: 24,
+    marginLeft: 2,
+    alignSelf: 'center',
+    justifyContent: 'center',
+  },
+  headerSvg: {
+    width: 19,
+    height: 19,
+    marginLeft: 14,
+    alignSelf: 'center',
   },
   titleContainer: {
     width: Dimensions.get('window').width,
