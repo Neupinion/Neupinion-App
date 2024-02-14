@@ -9,12 +9,10 @@ interface FakeIssueProps {
 }
 
 const CategorySlider = ({ fakeNews }: FakeIssueProps) => {
-  const preparedFakeNews: ReWriteNews[][] | null = useMemo(() => {
+  const preparedFakeNews = useMemo(() => {
     if (!fakeNews) return null;
-
     return [...fakeNews];
   }, [fakeNews]);
-
   if (!preparedFakeNews) {
     return null;
   }
@@ -25,7 +23,7 @@ const CategorySlider = ({ fakeNews }: FakeIssueProps) => {
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={styles.flatListContainer}
         data={preparedFakeNews}
-        keyExtractor={(item:ReWriteNews[][]) => String(item.id)}
+        keyExtractor={(item) => String(item.id)}
         renderItem={({item}) => (
           <CategoryItem item={item} />
         )}
