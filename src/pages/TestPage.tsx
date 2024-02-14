@@ -1,19 +1,13 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import theme from '../shared/styles/theme';
+import { StyleSheet, View } from 'react-native';
 import fakeNewsDummy from '../dummy/FakeNewsDummy';
-import GlobalTextStyles from '../shared/styles/GlobalTextStyles';
-import { ReWriteNews } from '../shared/types/news';
 import CategorySlider from '../features/remakeissue/components/CategorySlider';
-import CategoryTop from '../features/remakeissue/components/CategoryTop';
-import { Colors } from "react-native/Libraries/NewAppScreen";
 
 const TestPage = () => {
   const fakeNewsList = fakeNewsDummy;
 
   return (
     <View style={styles.container}>
-      <CategoryTop />
       <CategorySlider fakeNews={fakeNewsList} />
     </View>
   );
