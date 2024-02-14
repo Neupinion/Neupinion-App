@@ -1,14 +1,13 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import { View, StyleSheet, Text, FlatList, ImageBackground } from 'react-native';
-import Theme from '../../../shared/styles/theme';
+import React, { useMemo } from 'react';
+import { View, StyleSheet, FlatList } from 'react-native';
 import { ReWriteNews } from '../../../shared/types/news';
 import CategoryItem from './CategoryItem';
 
-interface FakeIssueProps {
+interface CategorySliderProps {
   fakeNews: ReWriteNews[] | null;
 }
 
-const CategorySlider = ({ fakeNews }: FakeIssueProps) => {
+const CategorySlider = ({ fakeNews }: CategorySliderProps) => {
   const preparedFakeNews = useMemo(() => {
     if (!fakeNews) return null;
     return [...fakeNews];
@@ -24,9 +23,7 @@ const CategorySlider = ({ fakeNews }: FakeIssueProps) => {
         contentContainerStyle={styles.flatListContainer}
         data={preparedFakeNews}
         keyExtractor={(item) => String(item.id)}
-        renderItem={({item}) => (
-          <CategoryItem item={item} />
-        )}
+        renderItem={({ item }) => <CategoryItem item={item} />}
       />
     </View>
   );

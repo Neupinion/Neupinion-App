@@ -11,10 +11,12 @@ interface CategoryItemProps {
 const CategoryItem = ({ item }: CategoryItemProps) => {
   return (
     <View style={styles.cardContainer}>
-      <ImageBackground source={{ uri: item.imageUrl}} style={styles.cardImage} />
+      <ImageBackground source={{ uri: item.imageUrl }} style={styles.cardImage} />
       <View style={styles.cardUnderContainer}>
-        <Text style={styles.firstText} numberOfLines={1} ellipsizeMode="tail">{item.title}</Text>
-        <View style={{ flexDirection: 'row', marginTop: 12}}>
+        <Text style={styles.firstText} numberOfLines={1} ellipsizeMode="tail">
+          {item.title}
+        </Text>
+        <View style={{ flexDirection: 'row', marginTop: 12 }}>
           <View style={styles.tagBox}>
             <Text style={styles.tagText}>{item.category}</Text>
           </View>
