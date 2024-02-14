@@ -2,6 +2,7 @@ import React from 'react';
 import {
   Dimensions,
   ImageSourcePropType,
+  ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -25,47 +26,51 @@ const MainPage = () => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.titleContainer}>
-        <Text style={GlobalTextStyles.NormalText17}>새로운 후속보도가 있어요!</Text>
-      </View>
-      <View style={styles.titleContainer}>
-        <Text style={GlobalTextStyles.NormalText17}>가짜뉴스 이슈(타이틀 변경 예정)</Text>
-      </View>
-      <FakeIssueSlider fakeNews={reprocessedIssue} />
-      <View style={styles.titleContainer}>
-        <Text style={GlobalTextStyles.NormalText17}>카테고리1</Text>
-        <TouchableOpacity onPress={pressArrow}>
-          <WithLocalSvg
-            style={styles.svgStyle}
-            width={14}
-            height={14}
-            asset={MainArrowSvg as ImageSourcePropType}
-          />
-        </TouchableOpacity>
-      </View>
-      <View style={styles.titleContainer}>
-        <Text style={GlobalTextStyles.NormalText17}>카테고리2</Text>
-        <TouchableOpacity onPress={pressArrow}>
-          <WithLocalSvg
-            style={styles.svgStyle}
-            width={14}
-            height={14}
-            asset={MainArrowSvg as ImageSourcePropType}
-          />
-        </TouchableOpacity>
-      </View>
-      <View style={styles.divideLine}></View>
-      <View style={styles.titleContainer}>
-        <Text style={GlobalTextStyles.NormalText17}>후속이슈</Text>
-        <TouchableOpacity onPress={pressArrow}>
-          <WithLocalSvg
-            style={styles.svgStyle}
-            width={14}
-            height={14}
-            asset={MainArrowSvg as ImageSourcePropType}
-          />
-        </TouchableOpacity>
-      </View>
+      <View style={styles.headerContainer}></View>
+      <View style={styles.headerUnderLine} />
+      <ScrollView>
+        <View style={styles.titleContainer}>
+          <Text style={GlobalTextStyles.NormalText17}>새로운 후속보도가 있어요!</Text>
+        </View>
+        <View style={styles.titleContainer}>
+          <Text style={GlobalTextStyles.NormalText17}>가짜뉴스 이슈(타이틀 변경 예정)</Text>
+        </View>
+        <FakeIssueSlider fakeNews={reprocessedIssue} />
+        <View style={styles.titleContainer}>
+          <Text style={GlobalTextStyles.NormalText17}>카테고리1</Text>
+          <TouchableOpacity onPress={pressArrow}>
+            <WithLocalSvg
+              style={styles.svgStyle}
+              width={14}
+              height={14}
+              asset={MainArrowSvg as ImageSourcePropType}
+            />
+          </TouchableOpacity>
+        </View>
+        <View style={styles.titleContainer}>
+          <Text style={GlobalTextStyles.NormalText17}>카테고리2</Text>
+          <TouchableOpacity onPress={pressArrow}>
+            <WithLocalSvg
+              style={styles.svgStyle}
+              width={14}
+              height={14}
+              asset={MainArrowSvg as ImageSourcePropType}
+            />
+          </TouchableOpacity>
+        </View>
+        <View style={styles.divideLine}></View>
+        <View style={styles.titleContainer}>
+          <Text style={GlobalTextStyles.NormalText17}>후속이슈</Text>
+          <TouchableOpacity onPress={pressArrow}>
+            <WithLocalSvg
+              style={styles.svgStyle}
+              width={14}
+              height={14}
+              asset={MainArrowSvg as ImageSourcePropType}
+            />
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
     </View>
   );
 };
@@ -77,8 +82,24 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     justifyContent: 'center',
   },
+  headerContainer: {
+    width: Dimensions.get('window').width,
+    height: 30,
+    marginTop: 26,
+    marginBottom: 14,
+    marginHorizontal: 22,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  headerUnderLine: {
+    width: Dimensions.get('window').width,
+    height: 1,
+    backgroundColor: 'rgba(226, 226, 226, 0.1)',
+  },
   titleContainer: {
     width: Dimensions.get('window').width,
+    marginTop: 20,
     flexDirection: 'row',
     alignItems: 'flex-start',
   },
