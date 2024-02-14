@@ -1,6 +1,6 @@
 import React from 'react';
-import TestPage from './src/pages/TestPage';
+import MainPage from './src/pages/MainPage';
 
 export default function App(): JSX.Element {
-  return <TestPage />;
+  return <MainPage />;
 }
