@@ -10,8 +10,14 @@ interface ColorPalette {
   white: string;
 }
 
+interface GradientPalette {
+  gradient1: string[];
+  gradient2: string[];
+}
+
 interface Theme {
   color: ColorPalette;
+  gradient: GradientPalette;
 }
 
 const theme: Theme = {
@@ -25,6 +31,10 @@ const theme: Theme = {
     gray3: '#D3D3D3',
     gray4: '#EFEFEF',
     white: '#FFFFFF',
+  },
+  gradient: {
+    gradient1: ['#1D1E27', '#7A7B86'],
+    gradient2: ['#22222E', '#12121E'],
   },
 };
 
