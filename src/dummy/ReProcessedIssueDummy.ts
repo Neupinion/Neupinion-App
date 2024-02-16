@@ -1,6 +1,6 @@
-import { ReWriteNews } from '../shared/types/news';
+import { ReProcessedIssue } from '../shared/types/news';
 
-const fakeNewsList: ReWriteNews[] = [
+const reprocessedIssue: ReProcessedIssue[] = [
   {
     id: 1,
     title: '재가공 이슈 제목',
@@ -53,4 +53,4 @@ const fakeNewsList: ReWriteNews[] = [
   },
 ];
 
-export default fakeNewsList;
+export default reprocessedIssue;
