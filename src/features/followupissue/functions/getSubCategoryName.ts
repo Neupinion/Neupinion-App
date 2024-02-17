@@ -28,3 +28,24 @@ export function getSubCategoryName(subCategoryId: SubCategory): string {
       return '알 수 없는 카테고리';
   }
 }
+
+export function getSubCategoryNameApi(subCategoryId: SubCategory): string {
+  switch (subCategoryId) {
+    case SubCategory.Entertainment:
+      return 'ENTERTAINMENTS';
+    case SubCategory.Politics:
+      return 'POLITICS';
+    case SubCategory.Economy:
+      return 'ECONOMY';
+    case SubCategory.Society:
+      return 'SOCIETY';
+    case SubCategory.World:
+      return 'WORLD';
+    case SubCategory.Sports:
+      return 'SPORTS';
+    case SubCategory.IT:
+      return 'IT';
+    default:
+      return '알 수 없는 카테고리';
+  }
+}

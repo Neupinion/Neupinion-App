@@ -33,7 +33,7 @@ const useFetch = <T>(fetcher: () => Promise<T>, defaultFetch: boolean = true) =>
         // 에러 처리 로직
         console.error('데이터 가져오기 실패:', error);
       });
-  }, [defaultFetch, fetchData]);
+  }, [defaultFetch]);
 
   return { data, isLoading, error, fetchData };
 };
