@@ -1,21 +1,24 @@
-import { useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { getMainCategoryName, MainCategory } from '../functions/getMainCategoryName';
-import { getSubCategoryName, SubCategory } from '../functions/getSubCategoryName';
 import {
-  Dimensions,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-  Text,
-  Animated,
-  ScrollView,
-} from 'react-native';
+  getSubCategoryName,
+  getSubCategoryNameApi,
+  SubCategory,
+} from '../functions/getSubCategoryName';
+import { Dimensions, StyleSheet, TouchableOpacity, View, Text, ScrollView } from 'react-native';
 import React from 'react';
 import theme from '../../../shared/styles/theme';
+import useFetch from '../../../shared/hooks/useFetch';
+import { getFollowUpIssues } from '../remotes/followupissue';
 
 const FollowUpIssueContainer = () => {
   const [topTab, setTopTab] = useState<MainCategory>(MainCategory.All);
   const [subTab, setSubTab] = useState<SubCategory>(SubCategory.Entertainment);
+  const [date, setDate] = useState('20240212');
+  const [viewMode, setViewMode] = useState('All');
+
+  const { data } = useFetch(() => getFollowUpIssues(getSubCategoryNameApi(subTab), date, viewMode));
+
   const changeTopTab = (newTab: MainCategory) => {
     console.log('메인 카테고리 변경:', MainCategory[newTab]);
     setTopTab(newTab);
@@ -31,11 +34,17 @@ const FollowUpIssueContainer = () => {
       .filter((key) => !isNaN(Number(key)))
       .map((key) => {
         const category = MainCategory[key as keyof typeof MainCategory];
+        const isSelected = category === topTab;
         return (
-          <TouchableOpacity key={category} onPress={() => changeTopTab(category)}>
+          <TouchableOpacity
+            key={category}
+            onPress={() => changeTopTab(category)}
+            style={styles.buttonWrapper}
+          >
             <View style={styles.mainCategoryButton}>
               <Text style={styles.mainCategoryText}>{getMainCategoryName(Number(key))}</Text>
             </View>
+            {isSelected && <View style={styles.selectedUnderline}></View>}
           </TouchableOpacity>
         );
       });
@@ -144,6 +153,17 @@ const styles = StyleSheet.create({
     fontStyle: 'normal',
     fontWeight: '500',
     color: 'rgba(189, 189, 189, 0.5)',
+  },
+  selectedUnderline: {
+    position: 'absolute',
+    bottom: -19,
+    left: 18,
+    right: 0,
+    height: 4,
+    backgroundColor: 'white',
+  },
+  buttonWrapper: {
+    position: 'relative',
   },
 });
 
