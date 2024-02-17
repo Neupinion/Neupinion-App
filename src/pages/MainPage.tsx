@@ -17,6 +17,7 @@ import { WithLocalSvg } from 'react-native-svg';
 import MainArrowSvg from '../assets/icon/mainarrow.svg';
 import MainUser from '../assets/icon/mainuser.svg';
 import MainSearch from '../assets/icon/mainsearch.svg';
+import AfterIssueSlider from '../features/remakeissue/components/AfterIssueSlider';
 
 const MainPage = () => {
   const reprocessedIssue = ReProcessedIssueDummy;
@@ -49,6 +50,7 @@ const MainPage = () => {
         <View style={styles.titleContainer}>
           <Text style={GlobalTextStyles.NormalText17}>새로운 후속보도가 있어요!</Text>
         </View>
+        <AfterIssueSlider afterNews={followUpIssue} />
         <View style={styles.titleContainer}>
           <Text style={GlobalTextStyles.NormalText17}>가짜뉴스 이슈(타이틀 변경 예정)</Text>
         </View>
