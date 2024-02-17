@@ -8,3 +8,11 @@ export interface ReWriteNews {
   issueId: number;
   createdAt: string;
 }
+
+export interface FollowUpIssue {
+  id: string | number;
+  title: string;
+  voted: boolean;
+  reprocessedIssueTitle: string;
+  createdAt: string;
+}
