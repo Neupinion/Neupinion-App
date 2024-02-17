@@ -5,11 +5,22 @@ import {
   getSubCategoryNameApi,
   SubCategory,
 } from '../functions/getSubCategoryName';
-import { Dimensions, StyleSheet, TouchableOpacity, View, Text, ScrollView } from 'react-native';
+import {
+  Dimensions,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+  Text,
+  ScrollView,
+  Animated,
+} from 'react-native';
 import React from 'react';
 import theme from '../../../shared/styles/theme';
 import useFetch from '../../../shared/hooks/useFetch';
 import { getFollowUpIssues } from '../remotes/followupissue';
+import { ITEM_SIZE } from '../../remakeissue/constants/cardAniSize';
+import FakeIssueItem from '../../remakeissue/components/FakeIssueItem';
+import FollowUpIssueSlider from './FollowUpIssueSlider';
 
 const FollowUpIssueContainer = () => {
   const [topTab, setTopTab] = useState<MainCategory>(MainCategory.All);
@@ -75,6 +86,7 @@ const FollowUpIssueContainer = () => {
       <ScrollView horizontal={true}>
         <View style={styles.subCategoryContainer}>{renderSubCategoryButtons()}</View>
       </ScrollView>
+      <FollowUpIssueSlider followUpIssue={data} />
     </View>
   );
 };
