@@ -1,6 +1,6 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { FollowUpIssue, ReProcessedIssue } from "../../../shared/types/news";
+import { View, StyleSheet, FlatList } from "react-native";
+import { FollowUpIssue } from "../../../shared/types/news";
 import AfterIssueItem from "./AfterIssueItem";
 
 interface AfterIssueProps{
@@ -9,7 +9,14 @@ interface AfterIssueProps{
 const AfterIssueSlider = ({afterNews}: AfterIssueProps) => {
   return (
     <View style={styles.container}>
-      <AfterIssueItem/>
+      <FlatList
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={styles.flatListContainer}
+        data={afterNews}
+        keyExtractor={(item) => String(item.id)}
+        renderItem={({ item }) => <AfterIssueItem item={item}/>}
+      />
     </View>
   );
 };
@@ -21,6 +28,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 20,
     marginLeft: 26,
+  },
+  flatListContainer: {
+    gap: 20,
+    paddingVertical: 20,
   },
 });
 
