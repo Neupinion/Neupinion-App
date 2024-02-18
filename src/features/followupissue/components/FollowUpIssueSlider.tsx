@@ -1,7 +1,11 @@
 import { FollowUpIssue } from '../../../shared/types/news';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Animated, Dimensions, View, StyleSheet } from 'react-native';
 import FollowUpIssueItem from './FollowUpIssueItem';
+import {
+  invisibleFollowUpLeftCardData,
+  invisibleFollowUpRightCardData,
+} from '../constants/invisibleFollowUpData';
 
 const CARD_ITEM_SIZE = Dimensions.get('window').width * 0.9;
 
@@ -16,6 +20,12 @@ const FollowUpIssueSlider = ({ followUpIssue }: FollowUpIssueSliderProps) => {
     useNativeDriver: true,
   });
 
+  const preparedFollowUpIssue = useMemo(() => {
+    if (!followUpIssue) return null;
+
+    return [invisibleFollowUpLeftCardData, ...followUpIssue, invisibleFollowUpRightCardData];
+  }, [followUpIssue]);
+
   useEffect(() => {
     scrollX.addListener(({ value }) => {
       const newIndex = Math.round(value / CARD_ITEM_SIZE);
@@ -27,15 +37,11 @@ const FollowUpIssueSlider = ({ followUpIssue }: FollowUpIssueSliderProps) => {
     };
   }, [scrollX]);
 
-  if (!followUpIssue) {
-    return null; // 없는 UI 처리
-  }
-
   return (
     <View style={styles.container}>
       <Animated.FlatList
         showsHorizontalScrollIndicator={false}
-        data={followUpIssue}
+        data={preparedFollowUpIssue}
         keyExtractor={(item) => String(item.id)}
         style={styles.flatListStyle}
         snapToInterval={CARD_ITEM_SIZE}

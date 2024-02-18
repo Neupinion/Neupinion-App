@@ -28,7 +28,9 @@ const FollowUpIssueContainer = () => {
   const [date, setDate] = useState('20240212');
   const [viewMode, setViewMode] = useState('All');
 
-  const { data } = useFetch(() => getFollowUpIssues(getSubCategoryNameApi(subTab), date, viewMode));
+  const { data } = useFetch(() =>
+    getFollowUpIssues(getSubCategoryNameApi(SubCategory.Society), date, viewMode),
+  );
 
   const changeTopTab = (newTab: MainCategory) => {
     console.log('메인 카테고리 변경:', MainCategory[newTab]);
