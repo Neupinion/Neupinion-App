@@ -1,4 +1,4 @@
-import axios, { CreateAxiosDefaults } from "axios";
+import axios, { CreateAxiosDefaults } from 'axios';
 import { API_URL } from '@env';
 
 const defaultConfig: CreateAxiosDefaults = {

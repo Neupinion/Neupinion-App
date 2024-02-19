@@ -27,6 +27,7 @@
     "react": "18.2.0",
     "react-native": "0.72.6",
     "react-native-dotenv": "^3.4.10",
+    "react-native-svg": "^14.1.0",
     "react-test-renderer": "^18.2.0"
   },
   "devDependencies": {
