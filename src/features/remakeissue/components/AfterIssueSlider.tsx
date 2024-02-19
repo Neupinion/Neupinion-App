@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, FlatList } from 'react-native';
+import { View, StyleSheet, FlatList, Dimensions } from 'react-native';
 import { FollowUpIssue } from '../../../shared/types/news';
 import AfterIssueItem from './AfterIssueItem';
 import Indicator from './Indicator';
-import { ITEM_SIZE } from '../constants/cardAniSize';
 
 interface AfterIssueProps {
   afterNews: FollowUpIssue[] | null;
@@ -14,17 +13,18 @@ const AfterIssueSlider = ({ afterNews }: AfterIssueProps) => {
   return (
     <View style={styles.container}>
       <FlatList
-        horizontal
+        horizontal={true}
         showsHorizontalScrollIndicator={false}
-        contentContainerStyle={styles.flatListContainer}
+        snapToInterval={Dimensions.get('window').width}
         data={afterNews}
         keyExtractor={(item) => String(item.id)}
         renderItem={({ item }) => <AfterIssueItem item={item} />}
         onScroll={(event) => {
-          const newIndex = Math.round(event.nativeEvent.contentOffset.x / ITEM_SIZE);
+          const newIndex = Math.round(
+            event.nativeEvent.contentOffset.x / Dimensions.get('window').width,
+          );
           setSlideIndex(newIndex);
         }}
-        snapToInterval={ITEM_SIZE}
         decelerationRate="fast"
         bounces={false}
       />
@@ -38,11 +38,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    marginLeft: 26,
-  },
-  flatListContainer: {
-    gap: 20,
-    paddingVertical: 20,
+    //marginLeft: 26,
   },
 });
 
