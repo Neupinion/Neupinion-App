@@ -12,11 +12,24 @@ import { getFollowUpIssues } from '../remotes/followupissue';
 import FollowUpIssueSlider from './FollowUpIssueSlider';
 
 const FollowUpIssueContainer = () => {
-  const firstMainCategory: MainCategory = MainCategory.All;
-  const firstSubCategory: SubCategory = SubCategory.Entertainment;
+  // 첫 번째 MainCategory 값을 찾아서 초기 상태로 설정
+  const firstMainCategory: string | MainCategory =
+    Object.keys(MainCategory).find(
+      (key) => !isNaN(Number(MainCategory[key as keyof typeof MainCategory])),
+    ) || MainCategory.All;
 
-  const [selectedMainCategory, setSelectedMainCategory] = useState<MainCategory>(firstMainCategory);
-  const [selectedSubCategory, setSelectedSubCategory] = useState<SubCategory>(firstSubCategory);
+  // 첫 번째 SubCategory 값을 찾아서 초기 상태로 설정
+  const firstSubCategory: string | SubCategory =
+    Object.keys(SubCategory).find(
+      (key) => !isNaN(Number(SubCategory[key as keyof typeof SubCategory])),
+    ) || SubCategory.Entertainment;
+
+  const [selectedMainCategory, setSelectedMainCategory] = useState<MainCategory | string>(
+    firstMainCategory,
+  );
+  const [selectedSubCategory, setSelectedSubCategory] = useState<SubCategory | string>(
+    firstSubCategory,
+  );
 
   const [date, setDate] = useState('20240212');
   const [viewMode, setViewMode] = useState('All');
@@ -52,7 +65,7 @@ const FollowUpIssueContainer = () => {
     setSelectedSubCategory(newSubTab);
   };
 
-  const renderMainCategoryButtons = (mainCategory: MainCategory) => {
+  const renderMainCategoryButtons = (mainCategory: MainCategory | string) => {
     return Object.keys(MainCategory)
       .filter((key) => !isNaN(Number(key)))
       .map((key) => {
@@ -73,7 +86,7 @@ const FollowUpIssueContainer = () => {
       });
   };
 
-  const renderSubCategoryButtons = (subCategory: SubCategory) => {
+  const renderSubCategoryButtons = (subCategory: SubCategory | string) => {
     return Object.keys(SubCategory)
       .filter((key) => !isNaN(Number(key)))
       .map((key) => {
