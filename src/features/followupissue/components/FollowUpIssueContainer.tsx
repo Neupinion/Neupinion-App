@@ -12,21 +12,8 @@ import { getFollowUpIssues } from '../remotes/followupissue';
 import FollowUpIssueSlider from './FollowUpIssueSlider';
 
 const FollowUpIssueContainer = () => {
-  const firstMainCategoryKey = Object.keys(MainCategory).find(
-    (key): key is keyof typeof MainCategory =>
-      !isNaN(Number(MainCategory[key as keyof typeof MainCategory])),
-  );
-  const firstMainCategory: MainCategory =
-    firstMainCategoryKey !== undefined ? MainCategory[firstMainCategoryKey] : MainCategory.All;
-
-  const firstSubCategoryKey = Object.keys(SubCategory).find(
-    (key): key is keyof typeof SubCategory =>
-      !isNaN(Number(SubCategory[key as keyof typeof SubCategory])),
-  );
-  const firstSubCategory: SubCategory =
-    firstSubCategoryKey !== undefined
-      ? SubCategory[firstSubCategoryKey]
-      : SubCategory.Entertainment;
+  const firstMainCategory: MainCategory = MainCategory.All;
+  const firstSubCategory: SubCategory = SubCategory.Entertainment;
 
   const [selectedMainCategory, setSelectedMainCategory] = useState<MainCategory>(firstMainCategory);
   const [selectedSubCategory, setSelectedSubCategory] = useState<SubCategory>(firstSubCategory);
@@ -65,12 +52,12 @@ const FollowUpIssueContainer = () => {
     setSelectedSubCategory(newSubTab);
   };
 
-  const renderMainCategoryButtons = () => {
+  const renderMainCategoryButtons = (mainCategory: MainCategory) => {
     return Object.keys(MainCategory)
       .filter((key) => !isNaN(Number(key)))
       .map((key) => {
         const category = MainCategory[key as keyof typeof MainCategory];
-        const isSelected = category === selectedMainCategory;
+        const isSelected = category === mainCategory;
         return (
           <TouchableOpacity
             key={category}
@@ -86,12 +73,12 @@ const FollowUpIssueContainer = () => {
       });
   };
 
-  const renderSubCategoryButtons = () => {
+  const renderSubCategoryButtons = (subCategory: SubCategory) => {
     return Object.keys(SubCategory)
       .filter((key) => !isNaN(Number(key)))
       .map((key) => {
         const category = SubCategory[key as keyof typeof SubCategory];
-        const isSelected = category === selectedSubCategory;
+        const isSelected = category === subCategory;
         const buttonStyle = isSelected ? styles.subCategoryButtonOn : styles.subCategoryButtonOff;
         const textStyle = isSelected ? styles.subCategoryTextOn : styles.subCategoryTextOff;
         return (
@@ -106,12 +93,20 @@ const FollowUpIssueContainer = () => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.mainCategoryContainer}>{renderMainCategoryButtons()}</View>
+      <View style={styles.mainCategoryContainer}>
+        {renderMainCategoryButtons(selectedMainCategory)}
+      </View>
       <View style={styles.mainUnderLine} />
-      <ScrollView horizontal={true}>
-        <View style={styles.subCategoryContainer}>{renderSubCategoryButtons()}</View>
+      <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+        <View style={styles.subCategoryContainer}>
+          {renderSubCategoryButtons(selectedSubCategory)}
+        </View>
       </ScrollView>
       <View style={styles.sliderContainer}>
+        {isLoading && <Text style={styles.loadingText}>Loading...</Text>}
+        {error && <Text style={styles.loadingText}>오류</Text>}
+        {!followUpIssues ||
+          (followUpIssues.length === 0 && <Text style={styles.loadingText}>데이터가 없음</Text>)}
         {!isLoading && !error && <FollowUpIssueSlider followUpIssue={followUpIssues} />}
       </View>
     </View>
@@ -207,6 +202,13 @@ const styles = StyleSheet.create({
   },
   buttonWrapper: {
     position: 'relative',
+  },
+  loadingText: {
+    color: 'white',
+    alignSelf: 'center',
+    margin: 12,
+    fontSize: 18,
+    fontWeight: '600',
   },
 });
 
