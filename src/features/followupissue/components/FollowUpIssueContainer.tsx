@@ -12,8 +12,25 @@ import { getFollowUpIssues } from '../remotes/followupissue';
 import FollowUpIssueSlider from './FollowUpIssueSlider';
 
 const FollowUpIssueContainer = () => {
-  const [topTab, setTopTab] = useState<MainCategory>(MainCategory.All);
-  const [subTab, setSubTab] = useState<SubCategory>(SubCategory.Entertainment);
+  const firstMainCategoryKey = Object.keys(MainCategory).find(
+    (key): key is keyof typeof MainCategory =>
+      !isNaN(Number(MainCategory[key as keyof typeof MainCategory])),
+  );
+  const firstMainCategory: MainCategory =
+    firstMainCategoryKey !== undefined ? MainCategory[firstMainCategoryKey] : MainCategory.All;
+
+  const firstSubCategoryKey = Object.keys(SubCategory).find(
+    (key): key is keyof typeof SubCategory =>
+      !isNaN(Number(SubCategory[key as keyof typeof SubCategory])),
+  );
+  const firstSubCategory: SubCategory =
+    firstSubCategoryKey !== undefined
+      ? SubCategory[firstSubCategoryKey]
+      : SubCategory.Entertainment;
+
+  const [selectedMainCategory, setSelectedMainCategory] = useState<MainCategory>(firstMainCategory);
+  const [selectedSubCategory, setSelectedSubCategory] = useState<SubCategory>(firstSubCategory);
+
   const [date, setDate] = useState('20240212');
   const [viewMode, setViewMode] = useState('All');
 
@@ -35,17 +52,17 @@ const FollowUpIssueContainer = () => {
       .catch((error) => {
         console.error('데이터 가져오기 실패:', error);
       });
-  }, [topTab, subTab, date, viewMode]);
+  }, [selectedMainCategory, selectedSubCategory, date, viewMode]);
 
-  const changeTopTab = (newTab: MainCategory) => {
+  const changeMainCategory = (newTab: MainCategory) => {
     console.log('메인 카테고리 변경:', MainCategory[newTab]);
-    setTopTab(newTab);
+    setSelectedMainCategory(newTab);
     setViewMode(MainCategory[newTab] ? 'VOTED' : 'ALL');
   };
 
-  const changeSubTab = (newSubTab: SubCategory) => {
+  const changeSubCategory = (newSubTab: SubCategory) => {
     console.log('부 카테고리 변경:', SubCategory[newSubTab]);
-    setSubTab(newSubTab);
+    setSelectedSubCategory(newSubTab);
   };
 
   const renderMainCategoryButtons = () => {
@@ -53,11 +70,11 @@ const FollowUpIssueContainer = () => {
       .filter((key) => !isNaN(Number(key)))
       .map((key) => {
         const category = MainCategory[key as keyof typeof MainCategory];
-        const isSelected = category === topTab;
+        const isSelected = category === selectedMainCategory;
         return (
           <TouchableOpacity
             key={category}
-            onPress={() => changeTopTab(category)}
+            onPress={() => changeMainCategory(category)}
             style={styles.buttonWrapper}
           >
             <View style={styles.mainCategoryButton}>
@@ -74,11 +91,11 @@ const FollowUpIssueContainer = () => {
       .filter((key) => !isNaN(Number(key)))
       .map((key) => {
         const category = SubCategory[key as keyof typeof SubCategory];
-        const isSelected = category === subTab;
+        const isSelected = category === selectedSubCategory;
         const buttonStyle = isSelected ? styles.subCategoryButtonOn : styles.subCategoryButtonOff;
         const textStyle = isSelected ? styles.subCategoryTextOn : styles.subCategoryTextOff;
         return (
-          <TouchableOpacity key={category} onPress={() => changeSubTab(category)}>
+          <TouchableOpacity key={category} onPress={() => changeSubCategory(category)}>
             <View style={buttonStyle}>
               <Text style={textStyle}>{getSubCategoryName(Number(key))}</Text>
             </View>
