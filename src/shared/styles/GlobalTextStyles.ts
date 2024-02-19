@@ -7,6 +7,7 @@ interface GlobalTextStyles {
 
 const GlobalTextStyles: GlobalTextStyles = {
   NormalText17: {
+    flex: 1,
     fontSize: 17,
     color: theme.color.white,
     fontStyle: 'normal',
@@ -16,5 +17,6 @@ const GlobalTextStyles: GlobalTextStyles = {
     marginLeft: 26,
   },
 };
+
 
 export default GlobalTextStyles;

@@ -1,10 +1,10 @@
 import React from 'react';
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import theme from '../../../shared/styles/theme';
-import { ReWriteNews } from '../../../shared/types/news';
+import { ReProcessedIssue } from '../../../shared/types/news';
 
 interface FakeIssueIconProps {
-  data: ReWriteNews[] | null;
+  data: ReProcessedIssue[] | null;
   slideIndex: number;
 }
 

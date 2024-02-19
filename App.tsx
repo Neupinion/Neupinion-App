@@ -1,11 +1,6 @@
 import React from 'react';
-import TestPage from './src/pages/TestPage';
-import { DateProvider } from './src/features/date/DateProvider';
+import MainPage from './src/pages/MainPage';
 
 export default function App(): JSX.Element {
-  return (
-    <DateProvider>
-      <TestPage />
-    </DateProvider>
-  );
+  return <MainPage />;
 }

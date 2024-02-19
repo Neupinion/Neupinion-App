@@ -1,13 +1,13 @@
 import React from 'react';
 import { Animated, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { ReWriteNews } from '../../../shared/types/news';
+import { ReProcessedIssue } from '../../../shared/types/news';
 import theme from '../../../shared/styles/theme';
 import { ITEM_SIZE, SPACER_ITEM_SIZE } from '../constants/cardAniSize';
 import { LinearGradient } from 'expo-linear-gradient';
 import { formatDate } from '../constants/formatDate';
 
 interface FakeIssueItemProps {
-  item: ReWriteNews;
+  item: ReProcessedIssue;
   index: number;
   scrollX: Animated.Value;
 }

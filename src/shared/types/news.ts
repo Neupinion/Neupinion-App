@@ -1,4 +1,4 @@
-export interface ReWriteNews {
+export interface ReProcessedIssue {
   id: string | number;
   title: string;
   imageUrl: string;
