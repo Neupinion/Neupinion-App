@@ -110,7 +110,7 @@ const FollowUpIssueContainer = () => {
         {renderMainCategoryButtons(selectedMainCategory)}
       </View>
       <View style={styles.mainUnderLine} />
-      <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+      <ScrollView horizontal={true} showsHorizontalScrollIndicaㅏtor={false}>
         <View style={styles.subCategoryContainer}>
           {renderSubCategoryButtons(selectedSubCategory)}
         </View>
@@ -119,7 +119,9 @@ const FollowUpIssueContainer = () => {
         {isLoading && <Text style={styles.loadingText}>Loading...</Text>}
         {error && <Text style={styles.loadingText}>오류</Text>}
         {!followUpIssues ||
-          (followUpIssues.length === 0 && <Text style={styles.loadingText}>데이터가 없음</Text>)}
+          (followUpIssues.length === 0 && !isLoading && (
+            <Text style={styles.loadingText}>데이터가 없음</Text>
+          ))}
         {!isLoading && !error && <FollowUpIssueSlider followUpIssue={followUpIssues} />}
       </View>
     </View>
