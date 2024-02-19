@@ -1,7 +1,7 @@
 import { client } from '../../../shared/remotes/axios';
 import { FollowUpIssue } from '../../../shared/types/news';
 
-export const getFollowUpIssues = async (category: string, date: string, viewMode = 'ALL') => {
+export const getFollowUpIssues = async (category: string, date: string, viewMode: string) => {
   const { data } = await client.get<FollowUpIssue[]>('/follow-up-issue', {
     params: { category: category, date: date, viewMode: viewMode },
   });
@@ -17,7 +17,7 @@ export const getFollowUpIssuesId = async (id: number, memberId: number) => {
   return data;
 };
 
-export const getFollowUpIssuesUnviewd = async (memberId: number) => {
+export const getFollowUpIssuesUnViewed = async (memberId: number) => {
   const { data } = await client.get<FollowUpIssue[]>('/follow-up-issue/unviewed', {
     params: { memberId: memberId },
   });

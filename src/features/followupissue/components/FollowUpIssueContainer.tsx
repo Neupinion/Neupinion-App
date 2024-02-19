@@ -1,25 +1,14 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { getMainCategoryName, MainCategory } from '../functions/getMainCategoryName';
 import {
   getSubCategoryName,
   getSubCategoryNameApi,
   SubCategory,
 } from '../functions/getSubCategoryName';
-import {
-  Dimensions,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-  Text,
-  ScrollView,
-  Animated,
-} from 'react-native';
-import React from 'react';
+import { Dimensions, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import theme from '../../../shared/styles/theme';
 import useFetch from '../../../shared/hooks/useFetch';
 import { getFollowUpIssues } from '../remotes/followupissue';
-import { ITEM_SIZE } from '../../remakeissue/constants/cardAniSize';
-import FakeIssueItem from '../../remakeissue/components/FakeIssueItem';
 import FollowUpIssueSlider from './FollowUpIssueSlider';
 
 const FollowUpIssueContainer = () => {
@@ -28,13 +17,30 @@ const FollowUpIssueContainer = () => {
   const [date, setDate] = useState('20240212');
   const [viewMode, setViewMode] = useState('All');
 
-  const { data } = useFetch(() =>
-    getFollowUpIssues(getSubCategoryNameApi(SubCategory.Society), date, viewMode),
-  );
+  const fetchFollowUpIssues = () =>
+    getFollowUpIssues(getSubCategoryNameApi(SubCategory.Society), date, viewMode);
+
+  const {
+    data: followUpIssues,
+    isLoading,
+    error,
+    fetchData,
+  } = useFetch(fetchFollowUpIssues, false);
+
+  useEffect(() => {
+    fetchData()
+      .then(() => {
+        console.log('데이터를 성공적으로 가져왔습니다.');
+      })
+      .catch((error) => {
+        console.error('데이터 가져오기 실패:', error);
+      });
+  }, [topTab, subTab, date, viewMode]);
 
   const changeTopTab = (newTab: MainCategory) => {
     console.log('메인 카테고리 변경:', MainCategory[newTab]);
     setTopTab(newTab);
+    setViewMode(MainCategory[newTab] ? 'VOTED' : 'ALL');
   };
 
   const changeSubTab = (newSubTab: SubCategory) => {
@@ -88,7 +94,9 @@ const FollowUpIssueContainer = () => {
       <ScrollView horizontal={true}>
         <View style={styles.subCategoryContainer}>{renderSubCategoryButtons()}</View>
       </ScrollView>
-      <FollowUpIssueSlider followUpIssue={data} />
+      <View style={styles.sliderContainer}>
+        {!isLoading && !error && <FollowUpIssueSlider followUpIssue={followUpIssues} />}
+      </View>
     </View>
   );
 };
@@ -98,6 +106,10 @@ const styles = StyleSheet.create({
     width: Dimensions.get('window').width,
     marginHorizontal: 10,
     marginTop: 16,
+  },
+  sliderContainer: {
+    width: Dimensions.get('window').width,
+    height: 340,
   },
   mainCategoryContainer: {
     flexDirection: 'row',

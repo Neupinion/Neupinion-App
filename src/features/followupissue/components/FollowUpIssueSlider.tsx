@@ -1,5 +1,5 @@
 import { FollowUpIssue } from '../../../shared/types/news';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import { Animated, Dimensions, View, StyleSheet } from 'react-native';
 import FollowUpIssueItem from './FollowUpIssueItem';
 import {
@@ -13,8 +13,6 @@ interface FollowUpIssueSliderProps {
   followUpIssue: FollowUpIssue[] | null;
 }
 const FollowUpIssueSlider = ({ followUpIssue }: FollowUpIssueSliderProps) => {
-  const [slideIndex, setSlideIndex] = useState(0);
-
   const scrollX = React.useRef(new Animated.Value(0)).current;
   const onScrollX = Animated.event([{ nativeEvent: { contentOffset: { x: scrollX } } }], {
     useNativeDriver: true,
@@ -26,17 +24,6 @@ const FollowUpIssueSlider = ({ followUpIssue }: FollowUpIssueSliderProps) => {
     return [invisibleFollowUpLeftCardData, ...followUpIssue, invisibleFollowUpRightCardData];
   }, [followUpIssue]);
 
-  useEffect(() => {
-    scrollX.addListener(({ value }) => {
-      const newIndex = Math.round(value / CARD_ITEM_SIZE);
-      setSlideIndex(newIndex);
-    });
-
-    return () => {
-      scrollX.removeAllListeners();
-    };
-  }, [scrollX]);
-
   return (
     <View style={styles.container}>
       <Animated.FlatList
@@ -46,9 +33,7 @@ const FollowUpIssueSlider = ({ followUpIssue }: FollowUpIssueSliderProps) => {
         style={styles.flatListStyle}
         snapToInterval={CARD_ITEM_SIZE}
         horizontal={true}
-        renderItem={({ item, index }) => (
-          <FollowUpIssueItem item={item} index={index} scrollX={scrollX} />
-        )}
+        renderItem={({ item }) => <FollowUpIssueItem item={item} />}
         decelerationRate={0}
         bounces={false}
         scrollEventThrottle={16}
@@ -60,9 +45,7 @@ const FollowUpIssueSlider = ({ followUpIssue }: FollowUpIssueSliderProps) => {
 
 const styles = StyleSheet.create({
   container: {
-    width: Dimensions.get('window').width,
     marginTop: 20,
-    height: 340,
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'flex-start',
