@@ -110,7 +110,7 @@ const FollowUpIssueContainer = () => {
         {renderMainCategoryButtons(selectedMainCategory)}
       </View>
       <View style={styles.mainUnderLine} />
-      <ScrollView horizontal={true} showsHorizontalScrollIndicaㅏtor={false}>
+      <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
         <View style={styles.subCategoryContainer}>
           {renderSubCategoryButtons(selectedSubCategory)}
         </View>
