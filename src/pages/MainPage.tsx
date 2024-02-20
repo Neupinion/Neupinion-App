@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from "react";
 import {
   Dimensions,
   ImageSourcePropType,
@@ -31,7 +31,7 @@ const MainPage = () => {
   const onCloseModal = (newDate: string) => {
     setDate(newDate);
   };
-  const fetchReprocessedIssue = () => getReprocessedIssues('20240209');
+  const fetchReprocessedIssue = () => getReprocessedIssues('20240212');
 
   const {
     data: reprocessedIssue,
@@ -39,6 +39,16 @@ const MainPage = () => {
     error,
     fetchData,
   } = useFetch(fetchReprocessedIssue, false);
+
+  useEffect(() => {
+    fetchData()
+      .then(() => {
+        console.log('데이터를 성공적으로 가져왔습니다.');
+      })
+      .catch((error) => {
+        console.error('데이터 가져오기 실패:', error);
+      });
+  }, [date]);
 
   const pressArrow = () => {
     setIsDateModalOpen(!isDateModalOpen);
@@ -48,7 +58,7 @@ const MainPage = () => {
     <View style={styles.container}>
       <View style={styles.headerContainer}>
         <View style={styles.headerLeftContainer}>
-          <Text style={styles.headerDateText}>11월 19일</Text>
+          <Text style={styles.headerDateText}>{date}</Text>
           <TouchableOpacity style={styles.headerArrow} onPress={pressArrow}>
             <WithLocalSvg width={12} height={12} asset={MainArrowSvg as ImageSourcePropType} />
           </TouchableOpacity>
@@ -109,7 +119,7 @@ const styles = StyleSheet.create({
   headerContainer: {
     width: Dimensions.get('window').width - 44,
     height: 30,
-    marginTop: 26,
+    marginTop: 46,
     marginBottom: 14,
     marginHorizontal: 22,
     flexDirection: 'row',
