@@ -26,6 +26,7 @@
     "jest-expo": "~49.0.0",
     "react": "18.2.0",
     "react-native": "0.72.6",
+    "react-native-calendars": "^1.1303.0",
     "react-native-dotenv": "^3.4.10",
     "react-test-renderer": "^18.2.0",
     "expo-linear-gradient": "~12.3.0",
