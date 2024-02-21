@@ -154,7 +154,6 @@ const FollowUpIssueContainer = () => {
 const styles = StyleSheet.create({
   container: {
     width: Dimensions.get('window').width,
-    marginHorizontal: 10,
     marginTop: 16,
   },
   sliderContainer: {
@@ -165,6 +164,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-start',
     marginBottom: 16,
+    marginHorizontal: 8,
   },
   mainCategoryButton: {
     display: 'flex',
@@ -189,7 +189,7 @@ const styles = StyleSheet.create({
   subCategoryContainer: {
     display: 'flex',
     marginTop: 21,
-    marginLeft: 10,
+    marginLeft: 18,
     flexDirection: 'row',
     justifyContent: 'space-around',
     flexWrap: 'wrap',

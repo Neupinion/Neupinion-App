@@ -7,7 +7,7 @@ import {
   invisibleFollowUpRightCardData,
 } from '../constants/invisibleFollowUpData';
 
-const CARD_ITEM_SIZE = Dimensions.get('window').width * 0.9;
+const CARD_ITEM_SIZE = Dimensions.get('window').width * 0.915;
 
 interface FollowUpIssueSliderProps {
   followUpIssue: FollowUpIssue[] | null;
@@ -45,12 +45,14 @@ const FollowUpIssueSlider = ({ followUpIssue }: FollowUpIssueSliderProps) => {
 
 const styles = StyleSheet.create({
   container: {
+    width: Dimensions.get('window').width,
     marginTop: 20,
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'flex-start',
   },
   flatListStyle: {
+    width: Dimensions.get('window').width,
     height: 280,
   },
 });
