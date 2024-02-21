@@ -29,7 +29,8 @@
     "react-native-calendars": "^1.1303.0",
     "react-native-dotenv": "^3.4.10",
     "react-native-svg": "13.9.0",
-    "react-test-renderer": "^18.2.0"
+    "react-test-renderer": "^18.2.0",
+    "expo-updates": "~0.18.19"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
