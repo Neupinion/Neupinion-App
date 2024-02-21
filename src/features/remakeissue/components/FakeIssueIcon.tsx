@@ -20,10 +20,10 @@ const FakeIssueIcon = ({ data, slideIndex }: FakeIssueIconProps) => {
   return (
     <View style={styles.container}>
       <WithLocalSvg width={17} height={17} asset={UserIcon as ImageSourcePropType} />
-      <Text style={styles.iconText}>{item.views.toLocaleString()}</Text>
+      <Text style={styles.iconText}>{item.views.toLocaleString()}명</Text>
       <View style={{ width: 10 }}></View>
       <WithLocalSvg width={17} height={17} asset={MessageIcon as ImageSourcePropType} />
-      <Text style={styles.iconText}>{item.opinionCount.toLocaleString()}</Text>
+      <Text style={styles.iconText}>{item.opinionCount.toLocaleString()}개</Text>
     </View>
   );
 };
