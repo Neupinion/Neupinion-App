@@ -18,6 +18,7 @@ import theme from '../../../shared/styles/theme';
 import useFetch from '../../../shared/hooks/useFetch';
 import { getFollowUpIssues } from '../remotes/followupissue';
 import FollowUpIssueSlider from './FollowUpIssueSlider';
+import { useDate } from "../../date/DateProvider";
 
 const FollowUpIssueContainer = () => {
   // 첫 번째 MainCategory 값을 찾아서 초기 상태로 설정
@@ -39,11 +40,15 @@ const FollowUpIssueContainer = () => {
     firstSubCategory,
   );
 
-  const [date, setDate] = useState('20240212');
+  const { date, setDate } = useDate();
   const [viewMode, setViewMode] = useState('All');
 
   const fetchFollowUpIssues = () =>
-    getFollowUpIssues(getSubCategoryNameApi(SubCategory.Society), date, viewMode);
+    getFollowUpIssues(
+      getSubCategoryNameApi(typeof selectedSubCategory === 'string' ? selectedSubCategory : ''),
+      date,
+      viewMode,
+    );
 
   const {
     data: followUpIssues,
