@@ -91,14 +91,14 @@ const MainPage = () => {
                 <WithLocalSvg width={14} height={14} asset={MainArrowSvg as ImageSourcePropType} />
               </TouchableOpacity>
             </View>
-            <CategorySlider fakeNews={reprocessedIssue} />
+            <CategorySlider categoryIssues={reprocessedIssue} />
             <View style={styles.titleContainer}>
               <Text style={GlobalTextStyles.NormalText17}>카테고리2</Text>
               <TouchableOpacity style={styles.svgStyle} onPress={pressArrow}>
                 <WithLocalSvg width={14} height={14} asset={MainArrowSvg as ImageSourcePropType} />
               </TouchableOpacity>
             </View>
-            <CategorySlider fakeNews={reprocessedIssue} />
+            <CategorySlider categoryIssues={reprocessedIssue} />
             <View style={styles.divideLine}></View>
             <View style={styles.titleContainer}>
               <Text style={GlobalTextStyles.NormalText17}>후속이슈</Text>
