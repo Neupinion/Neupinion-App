@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Dimensions } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
 import theme from '../../../shared/styles/theme';
 import { FollowUpIssue } from '../../../shared/types/news';
 
@@ -16,7 +16,7 @@ const AfterIssueItem = ({ item }: AfterIssueItemProps) => {
         </Text>
         <View style={{ marginBottom: 7 }} />
         <Text style={styles.titleUnderText}>
-          "{item.reprocessedIssueTitle}"에 대한 정정보도가 나왔어요"
+          &quot;{item.reprocessedIssueTitle}&quot;에 대한 정정보도가 나왔어요
         </Text>
       </TouchableOpacity>
     </View>
@@ -25,7 +25,7 @@ const AfterIssueItem = ({ item }: AfterIssueItemProps) => {
 
 const styles = StyleSheet.create({
   container: {
-    width: Dimensions.get("window").width,
+    width: Dimensions.get('window').width,
     height: 80,
     justifyContent: 'center',
     alignItems: 'center',
