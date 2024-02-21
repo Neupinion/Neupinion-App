@@ -40,11 +40,11 @@ const styles = StyleSheet.create({
   categoryContainer: {
     width: Dimensions.get('window').width,
     height: 270,
-    paddingRight: 20,
     marginBottom: 20,
   },
   flatListContainer: {
     paddingVertical: 20,
+    paddingRight: 20,
   },
   emptyContainer: {
     width: Dimensions.get('window').width,
