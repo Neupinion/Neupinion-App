@@ -32,10 +32,14 @@ const DateModal: React.FC<DateModalProps> = ({ isOpen, onClose }) => {
   const [selectedDate, setSelectedDate] = useState(cvtParamDate(new Date()));
   const { date, setDate } = useDate();
 
+  const onCloseModal = () => {
+    setDate(selectedDate.replace(/-/g, ''));
+    onClose();
+  };
+
   const onDaySelect = (day: DateData) => {
     const newDate = day.dateString;
     setSelectedDate(newDate);
-    setDate(newDate.replace(/-/g, ''));
   };
 
   const markedDates = {
@@ -101,7 +105,7 @@ const DateModal: React.FC<DateModalProps> = ({ isOpen, onClose }) => {
               }}
             />
           </View>
-          <TouchableOpacity onPress={onClose} style={styles.closeButton}>
+          <TouchableOpacity onPress={onCloseModal} style={styles.closeButton}>
             <WithLocalSvg width={14} height={14} asset={DateModalClose as ImageSourcePropType} />
           </TouchableOpacity>
         </Animated.View>
