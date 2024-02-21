@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
+  ActivityIndicator,
   Dimensions,
   ImageSourcePropType,
   ScrollView,
@@ -72,37 +73,44 @@ const MainPage = () => {
         </View>
       </View>
       <View style={styles.headerUnderLine} />
-      <ScrollView style={{ width: Dimensions.get('window').width }}>
-        <View style={styles.titleContainer}>
-          <Text style={GlobalTextStyles.NormalText17}>새로운 후속보도가 있어요!</Text>
-        </View>
-        <View style={styles.titleContainer}>
-          <Text style={GlobalTextStyles.NormalText17}>가짜뉴스 이슈(타이틀 변경 예정)</Text>
-        </View>
-        <FakeIssueSlider fakeNews={reprocessedIssue} />
-        <View style={styles.titleContainer}>
-          <Text style={GlobalTextStyles.NormalText17}>카테고리1</Text>
-          <TouchableOpacity style={styles.svgStyle} onPress={pressArrow}>
-            <WithLocalSvg width={14} height={14} asset={MainArrowSvg as ImageSourcePropType} />
-          </TouchableOpacity>
-        </View>
-        <CategorySlider fakeNews={reprocessedIssue} />
-        <View style={styles.titleContainer}>
-          <Text style={GlobalTextStyles.NormalText17}>카테고리2</Text>
-          <TouchableOpacity style={styles.svgStyle} onPress={pressArrow}>
-            <WithLocalSvg width={14} height={14} asset={MainArrowSvg as ImageSourcePropType} />
-          </TouchableOpacity>
-        </View>
-        <CategorySlider fakeNews={reprocessedIssue} />
-        <View style={styles.divideLine}></View>
-        <View style={styles.titleContainer}>
-          <Text style={GlobalTextStyles.NormalText17}>후속이슈</Text>
-          <TouchableOpacity style={styles.svgStyle} onPress={pressArrow}>
-            <WithLocalSvg width={14} height={14} asset={MainArrowSvg as ImageSourcePropType} />
-          </TouchableOpacity>
-        </View>
-        <FollowUpIssueContainer />
-      </ScrollView>
+      {isLoading && <ActivityIndicator size="large" style={styles.activityIndicator} />}
+      {error && <Text style={GlobalTextStyles.NormalText17}>ERROR</Text>}
+      {!isLoading && !error && (
+        <>
+          <ScrollView style={{ width: Dimensions.get('window').width, flex: 1 }}>
+            <View style={styles.titleContainer}>
+              <Text style={GlobalTextStyles.NormalText17}>새로운 후속보도가 있어요!</Text>
+            </View>
+            <View style={styles.titleContainer}>
+              <Text style={GlobalTextStyles.NormalText17}>가짜뉴스 이슈(타이틀 변경 예정)</Text>
+            </View>
+            <FakeIssueSlider fakeNews={reprocessedIssue} />
+            <View style={styles.titleContainer}>
+              <Text style={GlobalTextStyles.NormalText17}>카테고리1</Text>
+              <TouchableOpacity style={styles.svgStyle} onPress={pressArrow}>
+                <WithLocalSvg width={14} height={14} asset={MainArrowSvg as ImageSourcePropType} />
+              </TouchableOpacity>
+            </View>
+            <CategorySlider fakeNews={reprocessedIssue} />
+            <View style={styles.titleContainer}>
+              <Text style={GlobalTextStyles.NormalText17}>카테고리2</Text>
+              <TouchableOpacity style={styles.svgStyle} onPress={pressArrow}>
+                <WithLocalSvg width={14} height={14} asset={MainArrowSvg as ImageSourcePropType} />
+              </TouchableOpacity>
+            </View>
+            <CategorySlider fakeNews={reprocessedIssue} />
+            <View style={styles.divideLine}></View>
+            <View style={styles.titleContainer}>
+              <Text style={GlobalTextStyles.NormalText17}>후속이슈</Text>
+              <TouchableOpacity style={styles.svgStyle} onPress={pressArrow}>
+                <WithLocalSvg width={14} height={14} asset={MainArrowSvg as ImageSourcePropType} />
+              </TouchableOpacity>
+            </View>
+            <FollowUpIssueContainer />
+          </ScrollView>
+        </>
+      )}
+
       <DateModal isOpen={isDateModalOpen} onClose={onCloseModal} />
     </View>
   );
@@ -118,7 +126,7 @@ const styles = StyleSheet.create({
   headerContainer: {
     width: Dimensions.get('window').width - 44,
     height: 30,
-    marginTop: 46,
+    marginTop: 66,
     marginBottom: 14,
     marginHorizontal: 22,
     flexDirection: 'row',
@@ -180,6 +188,10 @@ const styles = StyleSheet.create({
     marginVertical: 12,
     flexShrink: 0,
     backgroundColor: '#21202F',
+  },
+  activityIndicator: {
+    flex: 1,
+    alignSelf: 'center',
   },
 });
 
