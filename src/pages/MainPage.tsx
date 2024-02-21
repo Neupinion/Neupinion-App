@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 import {
   Dimensions,
   ImageSourcePropType,
@@ -11,8 +11,6 @@ import {
 import theme from '../shared/styles/theme';
 import FakeIssueSlider from '../features/remakeissue/components/FakeIssueSlider';
 import GlobalTextStyles from '../shared/styles/GlobalTextStyles';
-import ReProcessedIssueDummy from '../dummy/ReProcessedIssueDummy';
-import FollowUpIssueDummy from '../dummy/FollowUpIssueDummy';
 import { WithLocalSvg } from 'react-native-svg';
 import MainArrowSvg from '../assets/icon/mainarrow.svg';
 import MainUser from '../assets/icon/mainuser.svg';
@@ -22,16 +20,17 @@ import { getReprocessedIssues } from '../features/remakeissue/remotes/reprocesse
 import { useDate } from '../features/date/DateProvider';
 import DateModal from '../dateSelect/components/DateModal';
 import FollowUpIssueContainer from '../features/followupissue/components/FollowUpIssueContainer';
-import CategorySlider from "../features/remakeissue/components/CategorySlider";
+import CategorySlider from '../features/remakeissue/components/CategorySlider';
+import { getFormatDate } from '../features/date/functions/formatDate';
 
 const MainPage = () => {
   const { date, setDate } = useDate();
   const [isDateModalOpen, setIsDateModalOpen] = useState(false);
 
-  const onCloseModal = (newDate: string) => {
-    setDate(newDate);
+  const onCloseModal = () => {
+    setIsDateModalOpen(!isDateModalOpen);
   };
-  const fetchReprocessedIssue = () => getReprocessedIssues('20240212');
+  const fetchReprocessedIssue = () => getReprocessedIssues(date);
 
   const {
     data: reprocessedIssue,
@@ -58,7 +57,7 @@ const MainPage = () => {
     <View style={styles.container}>
       <View style={styles.headerContainer}>
         <View style={styles.headerLeftContainer}>
-          <Text style={styles.headerDateText}>{date}</Text>
+          <Text style={styles.headerDateText}>{getFormatDate(date)}</Text>
           <TouchableOpacity style={styles.headerArrow} onPress={pressArrow}>
             <WithLocalSvg width={12} height={12} asset={MainArrowSvg as ImageSourcePropType} />
           </TouchableOpacity>
