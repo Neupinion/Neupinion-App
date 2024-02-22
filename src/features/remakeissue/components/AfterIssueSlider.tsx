@@ -15,6 +15,10 @@ const AfterIssueSlider = ({ afterNews }: AfterIssueProps) => {
     if (!afterNews) return;
     const newItem = {
       id: 'right-space',
+      title: '',
+      voted: false,
+      reprocessedIssueTitle: '',
+      createdAt: '',
     };
 
     return [...afterNews, newItem];

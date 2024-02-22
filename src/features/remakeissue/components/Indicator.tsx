@@ -1,10 +1,10 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { ReProcessedIssue } from '../../../shared/types/news';
+import { FollowUpIssue, ReProcessedIssue } from "../../../shared/types/news";
 import theme from '../../../shared/styles/theme';
 
 interface IndicatorProps {
-  data: ReProcessedIssue[] | null;
+  data: ReProcessedIssue[] | FollowUpIssue[] | null;
   slideIndex: number;
 }
 
