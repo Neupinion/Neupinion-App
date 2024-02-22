@@ -23,6 +23,7 @@ import DateModal from '../dateSelect/components/DateModal';
 import FollowUpIssueContainer from '../features/followupissue/components/FollowUpIssueContainer';
 import CategorySlider from '../features/remakeissue/components/CategorySlider';
 import { getFormatDate } from '../features/date/functions/formatDate';
+import AfterIssueSlider from '../features/remakeissue/components/AfterIssueSlider';
 
 const MainPage = () => {
   const { date, setDate } = useDate();
@@ -85,6 +86,7 @@ const MainPage = () => {
             <View style={styles.titleContainer}>
               <Text style={GlobalTextStyles.NormalText17}>새로운 후속보도가 있어요!</Text>
             </View>
+            <AfterIssueSlider afterNews={followUpIssue} />
             <View style={styles.titleContainer}>
               <Text style={GlobalTextStyles.NormalText17}>가짜뉴스 이슈(타이틀 변경 예정)</Text>
             </View>
