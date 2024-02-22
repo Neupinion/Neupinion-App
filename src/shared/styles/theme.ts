@@ -29,7 +29,7 @@ const theme: Theme = {
     gray1: '#4A4A5A',
     gray2: '#7E7D7A',
     gray3: '#D3D3D3',
-    gray4: '#EFEFEF',
+    gray4: '#4E5867',
     white: '#FFFFFF',
   },
   gradient: {

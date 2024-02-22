@@ -1,11 +1,11 @@
 import React from 'react';
 import { View, StyleSheet, Text, ImageBackground } from 'react-native';
-import { ReWriteNews } from '../../../shared/types/news';
+import { ReProcessedIssue } from '../../../shared/types/news';
 import Theme from '../../../shared/styles/theme';
 import { formatDate } from '../constants/formatDate';
 
 interface CategoryItemProps {
-  item: ReWriteNews;
+  item: ReProcessedIssue;
 }
 
 const CategoryItem = ({ item }: CategoryItemProps) => {
@@ -32,6 +32,7 @@ const styles = StyleSheet.create({
     width: 240,
     height: 249,
     backgroundColor: Theme.color.gray,
+    marginLeft: 20,
     justifyContent: 'center',
     borderRadius: 15,
     overflow: 'hidden',
