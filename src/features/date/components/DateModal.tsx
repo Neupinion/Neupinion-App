@@ -12,9 +12,9 @@ import {
 import { Calendar, DateData, LocaleConfig } from 'react-native-calendars';
 import { koreaLocales } from '../constants/locales';
 import { cvtParamDate } from '../constants/cvtParamDate';
-import { useDate } from '../../features/date/DateProvider';
+import { useDate } from '../provider/DateProvider';
 import { WithLocalSvg } from 'react-native-svg';
-import DateModalClose from '../../assets/icon/datemodalclose.svg';
+import DateModalClose from '../../../assets/icon/datemodalclose.svg';
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
 LocaleConfig.locales['kr'] = koreaLocales;

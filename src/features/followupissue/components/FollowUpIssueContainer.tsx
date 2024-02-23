@@ -18,7 +18,7 @@ import theme from '../../../shared/styles/theme';
 import useFetch from '../../../shared/hooks/useFetch';
 import { getFollowUpIssues } from '../remotes/followupissue';
 import FollowUpIssueSlider from './FollowUpIssueSlider';
-import { useDate } from '../../date/DateProvider';
+import { useDate } from '../../date/provider/DateProvider';
 
 const FollowUpIssueContainer = () => {
   // 첫 번째 MainCategory 값을 찾아서 초기 상태로 설정
