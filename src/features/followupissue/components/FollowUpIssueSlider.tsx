@@ -1,11 +1,12 @@
 import { FollowUpIssue } from '../../../shared/types/news';
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Animated, Dimensions, View, StyleSheet } from 'react-native';
 import FollowUpIssueItem from './FollowUpIssueItem';
 import {
   invisibleFollowUpLeftCardData,
   invisibleFollowUpRightCardData,
 } from '../constants/invisibleFollowUpData';
+import Indicator from '../../remakeissue/components/Indicator';
 
 const CARD_ITEM_SIZE = Dimensions.get('window').width * 0.915;
 
@@ -13,10 +14,22 @@ interface FollowUpIssueSliderProps {
   followUpIssue: FollowUpIssue[] | null;
 }
 const FollowUpIssueSlider = ({ followUpIssue }: FollowUpIssueSliderProps) => {
+  const [slideIndex, setSlideIndex] = useState(0);
   const scrollX = React.useRef(new Animated.Value(0)).current;
   const onScrollX = Animated.event([{ nativeEvent: { contentOffset: { x: scrollX } } }], {
     useNativeDriver: true,
   });
+
+  useEffect(() => {
+    scrollX.addListener(({ value }) => {
+      const newIndex = Math.round(value / CARD_ITEM_SIZE);
+      setSlideIndex(newIndex);
+    });
+
+    return () => {
+      scrollX.removeAllListeners();
+    };
+  }, [scrollX]);
 
   const preparedFollowUpIssue = useMemo(() => {
     if (!followUpIssue) return null;
@@ -39,6 +52,7 @@ const FollowUpIssueSlider = ({ followUpIssue }: FollowUpIssueSliderProps) => {
         scrollEventThrottle={16}
         onScroll={onScrollX}
       />
+      <Indicator data={followUpIssue} slideIndex={slideIndex} />
     </View>
   );
 };
