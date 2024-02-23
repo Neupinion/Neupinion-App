@@ -158,7 +158,7 @@ const styles = StyleSheet.create({
   },
   sliderContainer: {
     width: Dimensions.get('window').width,
-    height: 340,
+    height: 350,
   },
   mainCategoryContainer: {
     flexDirection: 'row',
