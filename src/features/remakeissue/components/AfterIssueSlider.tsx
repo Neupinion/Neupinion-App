@@ -11,8 +11,8 @@ interface AfterIssueProps {
 const AfterIssueSlider = ({ afterNews }: AfterIssueProps) => {
   const [slideIndex, setSlideIndex] = useState(0);
 
-  const preparedafterNews = useMemo(() => {
-    if (!afterNews) return;
+  const preparedAfterNews = useMemo(() => {
+    if (!afterNews) return null;
     const newItem = {
       id: 'right-space',
       title: '',
@@ -36,7 +36,7 @@ const AfterIssueSlider = ({ afterNews }: AfterIssueProps) => {
           horizontal={true}
           showsHorizontalScrollIndicator={false}
           snapToInterval={Dimensions.get('window').width}
-          data={preparedafterNews}
+          data={preparedAfterNews}
           keyExtractor={(item) => String(item.id)}
           renderItem={({ item }) => <AfterIssueItem item={item} />}
           onScroll={(event) => {
@@ -49,7 +49,7 @@ const AfterIssueSlider = ({ afterNews }: AfterIssueProps) => {
           bounces={false}
         />
       )}
-      <Indicator data={afterNews} slideIndex={slideIndex} />
+      <Indicator data={preparedAfterNews} slideIndex={slideIndex} />
     </View>
   );
 };
@@ -59,6 +59,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    marginTop: 20,
   },
   card: {
     width: 338,

@@ -5,7 +5,6 @@ import {
   StyleSheet,
   Dimensions,
   View,
-  TouchableWithoutFeedback,
   Text,
   ImageSourcePropType,
   TouchableOpacity,
@@ -30,7 +29,7 @@ interface DateModalProps {
 const DateModal: React.FC<DateModalProps> = ({ isOpen, onClose }) => {
   const [modalY] = useState(new Animated.Value(Dimensions.get('window').height));
   const [selectedDate, setSelectedDate] = useState(cvtParamDate(new Date()));
-  const { date, setDate } = useDate();
+  const { setDate } = useDate();
 
   const onCloseModal = () => {
     setDate(selectedDate.replace(/-/g, ''));

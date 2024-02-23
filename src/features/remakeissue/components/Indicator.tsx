@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { FollowUpIssue, ReProcessedIssue } from "../../../shared/types/news";
+import { FollowUpIssue, ReProcessedIssue } from '../../../shared/types/news';
 import theme from '../../../shared/styles/theme';
 
 interface IndicatorProps {
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
     width: 5,
     height: 5,
     borderRadius: 5,
-    backgroundColor: theme.color.gray,
+    backgroundColor: theme.color.white,
   },
 });
 
