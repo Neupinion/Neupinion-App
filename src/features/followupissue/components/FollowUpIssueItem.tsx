@@ -3,12 +3,13 @@ import { Dimensions, StyleSheet, Text, TouchableOpacity, View } from 'react-nati
 import React from 'react';
 import theme from '../../../shared/styles/theme';
 import { formatDate } from '../../remakeissue/constants/formatDate';
+import { LinearGradient } from 'expo-linear-gradient';
 
 interface FollowUpIssueItemProps {
   item: FollowUpIssue;
 }
 
-const CARD_ITEM_SIZE = Dimensions.get('window').width * 0.9;
+const CARD_ITEM_SIZE = Dimensions.get('window').width * 0.915;
 const CARD_SPACER_ITEM_SIZE = (Dimensions.get('window').width - CARD_ITEM_SIZE) / 2;
 const FollowUpIssueItem = ({ item }: FollowUpIssueItemProps) => {
   if (!item.title) {
@@ -16,9 +17,14 @@ const FollowUpIssueItem = ({ item }: FollowUpIssueItemProps) => {
   }
 
   return (
-    <View style={{ width: CARD_ITEM_SIZE, alignItems: 'flex-start', justifyContent: 'flex-start' }}>
+    <View style={{ width: CARD_ITEM_SIZE, alignItems: 'center', justifyContent: 'center' }}>
       <TouchableOpacity onPress={() => {}}>
-        <View style={styles.card}>
+        <LinearGradient
+          start={{ x: 0, y: 1 }}
+          end={{ x: 1, y: 1 }}
+          colors={theme.gradient.gradient2}
+          style={styles.card}
+        >
           <View style={styles.tagContainer}>
             <View style={styles.tagOne}>
               <Text style={styles.tagText}>재편 결과</Text>
@@ -43,7 +49,7 @@ const FollowUpIssueItem = ({ item }: FollowUpIssueItemProps) => {
               최초 재가공 이슈 제목 한 줄 요약
             </Text>
           </View>
-        </View>
+        </LinearGradient>
       </TouchableOpacity>
     </View>
   );
@@ -102,7 +108,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     gap: 7,
     borderRadius: 10,
-    backgroundColor: '#373B57',
+    backgroundColor: '#212A3C',
   },
   firstTitle: {
     color: theme.color.white,

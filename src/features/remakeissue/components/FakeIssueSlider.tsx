@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { Animated, Dimensions, StyleSheet, View } from 'react-native';
+import { Animated, Dimensions, StyleSheet, Text, View } from 'react-native';
 import { ReProcessedIssue } from '../../../shared/types/news';
 import FakeIssueItem from './FakeIssueItem';
 import { ITEM_SIZE } from '../constants/cardAniSize';
@@ -41,23 +41,33 @@ const FakeIssueSlider = ({ fakeNews }: FakeIssueProps) => {
 
   return (
     <View style={styles.container}>
-      <Animated.FlatList
-        showsHorizontalScrollIndicator={false}
-        data={preparedFakeNews}
-        keyExtractor={(item) => String(item.id)}
-        style={styles.flatListStyle}
-        snapToInterval={ITEM_SIZE}
-        horizontal={true}
-        renderItem={({ item, index }) => (
-          <FakeIssueItem item={item} index={index} scrollX={scrollX} />
-        )}
-        decelerationRate={0}
-        bounces={false}
-        scrollEventThrottle={16}
-        onScroll={onScrollX}
-      />
-      <FakeIssueIcon data={fakeNews} slideIndex={slideIndex} />
-      <Indicator data={fakeNews} slideIndex={slideIndex} />
+      {!fakeNews ||
+        (fakeNews.length === 0 && (
+          <View style={styles.emptyContainer}>
+            <Text style={styles.emptyText}>No Data</Text>
+          </View>
+        ))}
+      {fakeNews && (
+        <>
+          <Animated.FlatList
+            showsHorizontalScrollIndicator={false}
+            data={preparedFakeNews}
+            keyExtractor={(item) => String(item.id)}
+            style={styles.flatListStyle}
+            snapToInterval={ITEM_SIZE}
+            horizontal={true}
+            renderItem={({ item, index }) => (
+              <FakeIssueItem item={item} index={index} scrollX={scrollX} />
+            )}
+            decelerationRate={0}
+            bounces={false}
+            scrollEventThrottle={16}
+            onScroll={onScrollX}
+          />
+          <FakeIssueIcon data={fakeNews} slideIndex={slideIndex} />
+          <Indicator data={fakeNews} slideIndex={slideIndex} />
+        </>
+      )}
     </View>
   );
 };
@@ -73,6 +83,18 @@ const styles = StyleSheet.create({
   },
   flatListStyle: {
     height: 280,
+  },
+  emptyContainer: {
+    width: Dimensions.get('window').width,
+    height: 340,
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  emptyText: {
+    color: 'white',
+    fontSize: 18,
+    fontWeight: '600',
   },
 });
 

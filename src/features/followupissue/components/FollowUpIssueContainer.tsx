@@ -5,11 +5,20 @@ import {
   getSubCategoryNameApi,
   SubCategory,
 } from '../functions/getSubCategoryName';
-import { Dimensions, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import {
+  ActivityIndicator,
+  Dimensions,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import theme from '../../../shared/styles/theme';
 import useFetch from '../../../shared/hooks/useFetch';
 import { getFollowUpIssues } from '../remotes/followupissue';
 import FollowUpIssueSlider from './FollowUpIssueSlider';
+import { useDate } from '../../date/provider/DateProvider';
 
 const FollowUpIssueContainer = () => {
   // 첫 번째 MainCategory 값을 찾아서 초기 상태로 설정
@@ -31,11 +40,15 @@ const FollowUpIssueContainer = () => {
     firstSubCategory,
   );
 
-  const [date, setDate] = useState('20240212');
+  const { date } = useDate();
   const [viewMode, setViewMode] = useState('All');
 
   const fetchFollowUpIssues = () =>
-    getFollowUpIssues(getSubCategoryNameApi(SubCategory.Society), date, viewMode);
+    getFollowUpIssues(
+      getSubCategoryNameApi(typeof selectedSubCategory === 'string' ? selectedSubCategory : ''),
+      date,
+      viewMode,
+    );
 
   const {
     data: followUpIssues,
@@ -116,11 +129,21 @@ const FollowUpIssueContainer = () => {
         </View>
       </ScrollView>
       <View style={styles.sliderContainer}>
-        {isLoading && <Text style={styles.loadingText}>Loading...</Text>}
-        {error && <Text style={styles.loadingText}>오류</Text>}
+        {isLoading && (
+          <View style={styles.emptyContainer}>
+            <ActivityIndicator size="large" style={styles.activityIndicator} />
+          </View>
+        )}
+        {error && (
+          <View style={styles.activityIndicator}>
+            <Text style={styles.loadingText}>오류</Text>
+          </View>
+        )}
         {!followUpIssues ||
-          (followUpIssues.length === 0 && !isLoading && (
-            <Text style={styles.loadingText}>데이터가 없음</Text>
+          (followUpIssues.length === 0 && (
+            <View style={styles.emptyContainer}>
+              <Text style={styles.emptyText}>No Data</Text>
+            </View>
           ))}
         {!isLoading && !error && <FollowUpIssueSlider followUpIssue={followUpIssues} />}
       </View>
@@ -131,17 +154,17 @@ const FollowUpIssueContainer = () => {
 const styles = StyleSheet.create({
   container: {
     width: Dimensions.get('window').width,
-    marginHorizontal: 10,
     marginTop: 16,
   },
   sliderContainer: {
     width: Dimensions.get('window').width,
-    height: 340,
+    height: 350,
   },
   mainCategoryContainer: {
     flexDirection: 'row',
     justifyContent: 'flex-start',
     marginBottom: 16,
+    marginHorizontal: 8,
   },
   mainCategoryButton: {
     display: 'flex',
@@ -166,7 +189,7 @@ const styles = StyleSheet.create({
   subCategoryContainer: {
     display: 'flex',
     marginTop: 21,
-    marginLeft: 10,
+    marginLeft: 18,
     flexDirection: 'row',
     justifyContent: 'space-around',
     flexWrap: 'wrap',
@@ -220,8 +243,25 @@ const styles = StyleSheet.create({
   },
   loadingText: {
     color: 'white',
+    fontSize: 18,
+    fontWeight: '600',
+  },
+  activityIndicator: {
+    flex: 1,
     alignSelf: 'center',
-    margin: 12,
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column',
+  },
+  emptyContainer: {
+    width: Dimensions.get('window').width,
+    height: 340,
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  emptyText: {
+    color: 'white',
     fontSize: 18,
     fontWeight: '600',
   },

@@ -18,5 +18,4 @@ const GlobalTextStyles: GlobalTextStyles = {
   },
 };
 
-
 export default GlobalTextStyles;

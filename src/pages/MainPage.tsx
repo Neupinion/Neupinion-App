@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
+  ActivityIndicator,
   Dimensions,
   ImageSourcePropType,
   ScrollView,
@@ -11,68 +12,111 @@ import {
 import theme from '../shared/styles/theme';
 import FakeIssueSlider from '../features/remakeissue/components/FakeIssueSlider';
 import GlobalTextStyles from '../shared/styles/GlobalTextStyles';
-import ReProcessedIssueDummy from '../dummy/ReProcessedIssueDummy';
-import FollowUpIssueDummy from '../dummy/FollowUpIssueDummy';
 import { WithLocalSvg } from 'react-native-svg';
 import MainArrowSvg from '../assets/icon/mainarrow.svg';
 import MainUser from '../assets/icon/mainuser.svg';
 import MainSearch from '../assets/icon/mainsearch.svg';
+import useFetch from '../shared/hooks/useFetch';
+import { getReprocessedIssues } from '../features/remakeissue/remotes/reprocessedissue';
+import { useDate } from '../features/date/provider/DateProvider';
+import DateModal from '../features/date/components/DateModal';
+import FollowUpIssueContainer from '../features/followupissue/components/FollowUpIssueContainer';
+import CategorySlider from '../features/remakeissue/components/CategorySlider';
+import { getFormatDate } from '../features/date/functions/formatDate';
+import AfterIssueSlider from '../features/remakeissue/components/AfterIssueSlider';
 
 const MainPage = () => {
-  const reprocessedIssue = ReProcessedIssueDummy;
-  const followUpIssue = FollowUpIssueDummy;
+  const { date } = useDate();
+  const [isDateModalOpen, setIsDateModalOpen] = useState(false);
+  const onCloseModal = () => {
+    setIsDateModalOpen(!isDateModalOpen);
+  };
 
-  const pressArrow = () => {
-    console.log('화살표 누름');
+  const onClickButton = () => {
+    console.log('해당 버튼은, 페이지 이동이나 ui의 임시 이벤트를 다룹니다.');
+  };
+  const fetchReprocessedIssue = () => getReprocessedIssues(date);
+
+  const {
+    data: reprocessedIssue,
+    isLoading,
+    error,
+    fetchData,
+  } = useFetch(fetchReprocessedIssue, false);
+
+  useEffect(() => {
+    fetchData()
+      .then(() => {
+        console.log('데이터를 성공적으로 가져왔습니다.');
+      })
+      .catch((error) => {
+        console.error('데이터 가져오기 실패:', error);
+      });
+  }, [date]);
+
+  const pressDateArrow = () => {
+    setIsDateModalOpen(!isDateModalOpen);
   };
 
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
         <View style={styles.headerLeftContainer}>
-          <Text style={styles.headerDateText}>11월 19일</Text>
-          <TouchableOpacity style={styles.headerArrow} onPress={pressArrow}>
+          <Text style={styles.headerDateText}>{getFormatDate(date)}</Text>
+          <TouchableOpacity style={styles.headerArrow} onPress={pressDateArrow}>
             <WithLocalSvg width={12} height={12} asset={MainArrowSvg as ImageSourcePropType} />
           </TouchableOpacity>
         </View>
         <View style={styles.headerRightContainer}>
-          <TouchableOpacity style={styles.headerSvg} onPress={pressArrow}>
+          <TouchableOpacity style={styles.headerSvg} onPress={onClickButton}>
             <WithLocalSvg width={20} height={20} asset={MainSearch as ImageSourcePropType} />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.headerSvg} onPress={pressArrow}>
+          <TouchableOpacity style={styles.headerSvg} onPress={onClickButton}>
             <WithLocalSvg width={20} height={20} asset={MainUser as ImageSourcePropType} />
           </TouchableOpacity>
         </View>
       </View>
       <View style={styles.headerUnderLine} />
-      <ScrollView>
-        <View style={styles.titleContainer}>
-          <Text style={GlobalTextStyles.NormalText17}>새로운 후속보도가 있어요!</Text>
-        </View>
-        <View style={styles.titleContainer}>
-          <Text style={GlobalTextStyles.NormalText17}>가짜뉴스 이슈(타이틀 변경 예정)</Text>
-        </View>
-        <FakeIssueSlider fakeNews={reprocessedIssue} />
-        <View style={styles.titleContainer}>
-          <Text style={GlobalTextStyles.NormalText17}>카테고리1</Text>
-          <TouchableOpacity style={styles.svgStyle} onPress={pressArrow}>
-            <WithLocalSvg width={14} height={14} asset={MainArrowSvg as ImageSourcePropType} />
-          </TouchableOpacity>
-        </View>
-        <View style={styles.titleContainer}>
-          <Text style={GlobalTextStyles.NormalText17}>카테고리2</Text>
-          <TouchableOpacity style={styles.svgStyle} onPress={pressArrow}>
-            <WithLocalSvg width={14} height={14} asset={MainArrowSvg as ImageSourcePropType} />
-          </TouchableOpacity>
-        </View>
-        <View style={styles.divideLine}></View>
-        <View style={styles.titleContainer}>
-          <Text style={GlobalTextStyles.NormalText17}>후속이슈</Text>
-          <TouchableOpacity style={styles.svgStyle} onPress={pressArrow}>
-            <WithLocalSvg width={14} height={14} asset={MainArrowSvg as ImageSourcePropType} />
-          </TouchableOpacity>
-        </View>
-      </ScrollView>
+      {isLoading && <ActivityIndicator size="large" style={styles.activityIndicator} />}
+      {error && <Text style={GlobalTextStyles.NormalText17}>ERROR</Text>}
+      {!isLoading && !error && (
+        <>
+          <ScrollView style={{ width: Dimensions.get('window').width, flex: 1 }}>
+            <View style={styles.titleContainer}>
+              <Text style={GlobalTextStyles.NormalText17}>새로운 후속보도가 있어요!</Text>
+            </View>
+            <AfterIssueSlider afterNews={null} />
+            <View style={styles.titleContainer}>
+              <Text style={GlobalTextStyles.NormalText17}>가짜뉴스 이슈(타이틀 변경 예정)</Text>
+            </View>
+            <FakeIssueSlider fakeNews={reprocessedIssue} />
+            <View style={styles.titleContainer}>
+              <Text style={GlobalTextStyles.NormalText17}>카테고리1</Text>
+              <TouchableOpacity style={styles.svgStyle} onPress={onClickButton}>
+                <WithLocalSvg width={14} height={14} asset={MainArrowSvg as ImageSourcePropType} />
+              </TouchableOpacity>
+            </View>
+            <CategorySlider categoryIssues={reprocessedIssue} />
+            <View style={styles.titleContainer}>
+              <Text style={GlobalTextStyles.NormalText17}>카테고리2</Text>
+              <TouchableOpacity style={styles.svgStyle} onPress={onClickButton}>
+                <WithLocalSvg width={14} height={14} asset={MainArrowSvg as ImageSourcePropType} />
+              </TouchableOpacity>
+            </View>
+            <CategorySlider categoryIssues={reprocessedIssue} />
+            <View style={styles.divideLine}></View>
+            <View style={styles.titleContainer}>
+              <Text style={GlobalTextStyles.NormalText17}>후속이슈</Text>
+              <TouchableOpacity style={styles.svgStyle} onPress={onClickButton}>
+                <WithLocalSvg width={14} height={14} asset={MainArrowSvg as ImageSourcePropType} />
+              </TouchableOpacity>
+            </View>
+            <FollowUpIssueContainer />
+          </ScrollView>
+        </>
+      )}
+
+      <DateModal isOpen={isDateModalOpen} onClose={onCloseModal} />
     </View>
   );
 };
@@ -87,7 +131,7 @@ const styles = StyleSheet.create({
   headerContainer: {
     width: Dimensions.get('window').width - 44,
     height: 30,
-    marginTop: 26,
+    marginTop: 66,
     marginBottom: 14,
     marginHorizontal: 22,
     flexDirection: 'row',
@@ -149,6 +193,10 @@ const styles = StyleSheet.create({
     marginVertical: 12,
     flexShrink: 0,
     backgroundColor: '#21202F',
+  },
+  activityIndicator: {
+    flex: 1,
+    alignSelf: 'center',
   },
 });
 

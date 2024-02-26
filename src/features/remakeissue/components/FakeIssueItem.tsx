@@ -59,7 +59,9 @@ const FakeIssueItem = ({ item, index, scrollX }: FakeIssueItemProps) => {
             >
               <Image source={{ uri: item.imageUrl }} style={styles.cardImage} />
               <View style={styles.cardUnderContainer}>
-                <Text style={styles.titleText} numberOfLines={1} ellipsizeMode="tail">{item.title}</Text>
+                <Text style={styles.titleText} numberOfLines={1} ellipsizeMode="tail">
+                  {item.title}
+                </Text>
                 <View style={styles.titleUnderContainer}>
                   <View style={styles.tagBox}>
                     <Text style={styles.tagText}>{item.category}</Text>

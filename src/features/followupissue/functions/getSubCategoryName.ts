@@ -29,21 +29,21 @@ export function getSubCategoryName(subCategoryId: SubCategory): string {
   }
 }
 
-export function getSubCategoryNameApi(subCategoryId: SubCategory): string {
-  switch (subCategoryId) {
-    case SubCategory.Entertainment:
+export function getSubCategoryNameApi(subCategory: string): string {
+  switch (subCategory) {
+    case 'Entertainment':
       return 'ENTERTAINMENTS';
-    case SubCategory.Politics:
+    case 'Politics':
       return 'POLITICS';
-    case SubCategory.Economy:
+    case 'Economy':
       return 'ECONOMY';
-    case SubCategory.Society:
+    case 'Society':
       return 'SOCIETY';
-    case SubCategory.World:
+    case 'World':
       return 'WORLD';
-    case SubCategory.Sports:
+    case 'Sports':
       return 'SPORTS';
-    case SubCategory.IT:
+    case 'IT':
       return 'IT';
     default:
       return '알 수 없는 카테고리';
