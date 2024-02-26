@@ -78,8 +78,9 @@ const MainPage = () => {
       </View>
       <View style={styles.headerUnderLine} />
       {isLoading && <ActivityIndicator size="large" style={styles.activityIndicator} />}
-      {error && <Text style={GlobalTextStyles.NormalText17}>ERROR</Text>}
-      {!isLoading && !error && (
+      {/*{error && <Text style={GlobalTextStyles.NormalText17}>ERROR</Text>}*/}
+      {/*{!isLoading && !error && (*/}
+      {(
         <>
           <ScrollView style={{ width: Dimensions.get('window').width, flex: 1 }}>
             <View style={styles.titleContainer}>
