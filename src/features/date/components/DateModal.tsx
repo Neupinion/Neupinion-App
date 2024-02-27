@@ -103,7 +103,11 @@ const DateModal: React.FC<DateModalProps> = ({ isOpen, onClose }) => {
           },
         ]}
       >
-        <TouchableOpacity onPress={onCloseModal} style={styles.dimButton}></TouchableOpacity>
+        <TouchableOpacity
+          testID={'dim-button'}
+          onPress={onCloseModal}
+          style={styles.dimButton}
+        ></TouchableOpacity>
         <Animated.View
           style={[
             styles.container,
