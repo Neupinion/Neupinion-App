@@ -17,6 +17,7 @@ const Indicator = ({ data, slideIndex }: IndicatorProps) => {
     <View style={styles.container}>
       {data.map((_, index) => (
         <View
+          testID={'indicator_dot_' + index.toString()}
           key={index}
           style={[
             styles.dotStyle,

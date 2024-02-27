@@ -5,7 +5,7 @@ import DateModal from './DateModal';
 import { cvtParamDate } from '../constants/cvtParamDate';
 
 describe('DateModal', () => {
-  it('open과 close되는 과정이 알맞게 이루어쟈아한다.', async () => {
+  it('open과 close되는 과정이 알맞게 이루어져야한다.', async () => {
     const handleClose = jest.fn();
 
     render(
