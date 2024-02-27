@@ -26,8 +26,14 @@ interface DateModalProps {
   onClose: () => void;
 }
 
+const animationDuration: number = 250;
+
 const DateModal: React.FC<DateModalProps> = ({ isOpen, onClose }) => {
-  const [modalY] = useState(new Animated.Value(Dimensions.get('window').height));
+  const windowHeight = Dimensions.get('window').height;
+  const [modalY] = useState(new Animated.Value(windowHeight));
+  const [modalOpacity] = useState(new Animated.Value(0));
+  const [modalScale] = useState(new Animated.Value(0.9));
+
   const [selectedDate, setSelectedDate] = useState(cvtParamDate(new Date()));
   const { setDate } = useDate();
 
@@ -38,7 +44,9 @@ const DateModal: React.FC<DateModalProps> = ({ isOpen, onClose }) => {
 
   const onDaySelect = (day: DateData) => {
     const newDate = day.dateString;
+    setDate(newDate.replace(/-/g, ''));
     setSelectedDate(newDate);
+    onClose();
   };
 
   const markedDates = {
@@ -47,28 +55,60 @@ const DateModal: React.FC<DateModalProps> = ({ isOpen, onClose }) => {
 
   useEffect(() => {
     if (isOpen) {
-      Animated.timing(modalY, {
-        toValue: 0,
-        duration: 500,
-        useNativeDriver: true,
-      }).start();
+      Animated.parallel([
+        Animated.timing(modalY, {
+          toValue: 0,
+          duration: animationDuration,
+          useNativeDriver: true,
+        }),
+        Animated.timing(modalOpacity, {
+          toValue: 1,
+          duration: animationDuration,
+          useNativeDriver: true,
+        }),
+        Animated.timing(modalScale, {
+          toValue: 1,
+          duration: animationDuration,
+          useNativeDriver: true,
+        }),
+      ]).start();
     } else {
-      Animated.timing(modalY, {
-        toValue: Dimensions.get('window').height,
-        duration: 500,
-        useNativeDriver: true,
-      }).start();
+      Animated.parallel([
+        Animated.timing(modalY, {
+          toValue: 40,
+          duration: animationDuration,
+          useNativeDriver: true,
+        }),
+        Animated.timing(modalOpacity, {
+          toValue: 0,
+          duration: animationDuration,
+          useNativeDriver: true,
+        }),
+        Animated.timing(modalScale, {
+          toValue: 0.95,
+          duration: animationDuration,
+          useNativeDriver: true,
+        }),
+      ]).start();
     }
-  }, [isOpen, modalY]);
+  }, [isOpen, modalY, modalOpacity, modalScale]);
 
   return (
-    <Modal visible={isOpen} transparent animationType="none">
-      <View style={styles.overlay}>
+    <Modal transparent animationType="none">
+      <Animated.View
+        style={[
+          styles.overlay,
+          {
+            opacity: modalOpacity,
+          },
+        ]}
+      >
+        <TouchableOpacity onPress={onCloseModal} style={styles.dimButton}></TouchableOpacity>
         <Animated.View
           style={[
             styles.container,
             {
-              transform: [{ translateY: modalY }],
+              transform: [{ translateY: modalY }, { scale: modalScale }],
             },
           ]}
         >
@@ -108,7 +148,7 @@ const DateModal: React.FC<DateModalProps> = ({ isOpen, onClose }) => {
             <WithLocalSvg width={14} height={14} asset={DateModalClose as ImageSourcePropType} />
           </TouchableOpacity>
         </Animated.View>
-      </View>
+      </Animated.View>
     </Modal>
   );
 };
@@ -116,7 +156,7 @@ const DateModal: React.FC<DateModalProps> = ({ isOpen, onClose }) => {
 const styles = StyleSheet.create({
   container: {
     width: Dimensions.get('window').width,
-    height: 480,
+    height: 450,
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
     backgroundColor: '#21202F',
@@ -125,8 +165,14 @@ const styles = StyleSheet.create({
   },
   overlay: {
     flex: 1,
+    flexDirection: 'column',
+    alignItems: 'flex-start',
     justifyContent: 'flex-end',
     backgroundColor: 'rgba(0,0,0,0.8)',
+  },
+  dimButton: {
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height - 450,
   },
   titleContainer: {
     marginTop: 22,
