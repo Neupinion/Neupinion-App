@@ -24,6 +24,7 @@ import FollowUpIssueContainer from '../features/followupissue/components/FollowU
 import CategorySlider from '../features/remakeissue/components/CategorySlider';
 import { getFormatDate } from '../features/date/functions/formatDate';
 import AfterIssueSlider from '../features/remakeissue/components/AfterIssueSlider';
+import FollowUpIssueDummy from '../dummy/FollowUpIssueDummy';
 
 const MainPage = () => {
   const { date } = useDate();
@@ -78,15 +79,14 @@ const MainPage = () => {
       </View>
       <View style={styles.headerUnderLine} />
       {isLoading && <ActivityIndicator size="large" style={styles.activityIndicator} />}
-      {/*{error && <Text style={GlobalTextStyles.NormalText17}>ERROR</Text>}*/}
-      {/*{!isLoading && !error && (*/}
-      {(
+      {error && <Text style={GlobalTextStyles.NormalText17}>ERROR</Text>}
+      {!isLoading && !error && (
         <>
           <ScrollView style={{ width: Dimensions.get('window').width, flex: 1 }}>
             <View style={styles.titleContainer}>
               <Text style={GlobalTextStyles.NormalText17}>새로운 후속보도가 있어요!</Text>
             </View>
-            <AfterIssueSlider afterNews={null} />
+            <AfterIssueSlider afterNews={FollowUpIssueDummy} />
             <View style={styles.titleContainer}>
               <Text style={GlobalTextStyles.NormalText17}>가짜뉴스 이슈(타이틀 변경 예정)</Text>
             </View>
