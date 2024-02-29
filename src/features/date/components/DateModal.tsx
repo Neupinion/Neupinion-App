@@ -139,7 +139,9 @@ const DateModal: React.FC<DateModalProps> = ({ closeModal }) => {
               markedDates={markedDates}
               hideExtraDays={true}
               disableMonthChange={true}
+              minDate={'2024-01-01'}
               maxDate={cvtParamDate(new Date())}
+              current={toDashDate(date)}
               disableAllTouchEventsForDisabledDays={true}
               theme={{
                 selectedDayBackgroundColor: '#7E58E9',
