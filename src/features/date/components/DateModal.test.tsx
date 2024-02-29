@@ -10,7 +10,7 @@ describe('DateModal', () => {
 
     render(
       <DateProvider>
-        <DateModal isOpen={true} onClose={handleClose} />
+        <DateModal closeModal={handleClose} />
       </DateProvider>,
     );
 

@@ -117,8 +117,7 @@ const MainPage = () => {
           </ScrollView>
         </>
       )}
-
-      <DateModal isOpen={isDateModalOpen} onClose={onCloseModal} />
+      {isDateModalOpen && <DateModal closeModal={onCloseModal} />}
     </View>
   );
 };

@@ -15,6 +15,16 @@ import { cvtParamDate } from '../constants/cvtParamDate';
 import { useDate } from '../provider/DateProvider';
 import { WithLocalSvg } from 'react-native-svg';
 import DateModalClose from '../../../assets/icon/datemodalclose.svg';
+import {
+  dateModalAfterOpacity,
+  dateModalAfterScale,
+  dateModalAfterY,
+  dateModalAnimationDuration,
+  dateModalInitialOpacity,
+  dateModalInitialScale,
+  dateModalInitialY,
+} from '../constants/modalAnimationNumber';
+import { toDashDate } from '../constants/toDashDate';
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
 LocaleConfig.locales['kr'] = koreaLocales;
@@ -22,76 +32,76 @@ LocaleConfig.locales['kr'] = koreaLocales;
 LocaleConfig.defaultLocale = 'kr';
 
 interface DateModalProps {
-  isOpen: boolean;
-  onClose: () => void;
+  closeModal: () => void;
 }
 
-const animationDuration: number = 250;
+const DateModal: React.FC<DateModalProps> = ({ closeModal }) => {
+  const [modalY] = useState(new Animated.Value(dateModalInitialY));
+  const [modalOpacity] = useState(new Animated.Value(dateModalInitialOpacity));
+  const [modalScale] = useState(new Animated.Value(dateModalInitialScale));
 
-const DateModal: React.FC<DateModalProps> = ({ isOpen, onClose }) => {
-  const windowHeight = Dimensions.get('window').height;
-  const [modalY] = useState(new Animated.Value(windowHeight));
-  const [modalOpacity] = useState(new Animated.Value(0));
-  const [modalScale] = useState(new Animated.Value(0.9));
-
-  const [selectedDate, setSelectedDate] = useState(cvtParamDate(new Date()));
-  const { setDate } = useDate();
+  const { date, setDate } = useDate();
+  const [selectedDate, setSelectedDate] = useState(toDashDate(date));
 
   const onCloseModal = () => {
     setDate(selectedDate.replace(/-/g, ''));
-    onClose();
+    animationClose();
   };
 
   const onDaySelect = (day: DateData) => {
     const newDate = day.dateString;
     setDate(newDate.replace(/-/g, ''));
     setSelectedDate(newDate);
-    onClose();
+    animationClose();
   };
 
   const markedDates = {
     [selectedDate]: { selected: true, selectedColor: '#7E58E9' },
   };
 
+  const animationOpen = () => {
+    Animated.parallel([
+      Animated.timing(modalY, {
+        toValue: dateModalAfterY,
+        duration: dateModalAnimationDuration,
+        useNativeDriver: true,
+      }),
+      Animated.timing(modalOpacity, {
+        toValue: dateModalAfterOpacity,
+        duration: dateModalAnimationDuration,
+        useNativeDriver: true,
+      }),
+      Animated.timing(modalScale, {
+        toValue: dateModalAfterScale,
+        duration: dateModalAnimationDuration,
+        useNativeDriver: true,
+      }),
+    ]).start();
+  };
+
+  const animationClose = () => {
+    Animated.parallel([
+      Animated.timing(modalY, {
+        toValue: dateModalInitialY,
+        duration: dateModalAnimationDuration,
+        useNativeDriver: true,
+      }),
+      Animated.timing(modalOpacity, {
+        toValue: dateModalInitialOpacity,
+        duration: dateModalAnimationDuration,
+        useNativeDriver: true,
+      }),
+      Animated.timing(modalScale, {
+        toValue: dateModalInitialScale,
+        duration: dateModalAnimationDuration,
+        useNativeDriver: true,
+      }),
+    ]).start(closeModal);
+  };
+
   useEffect(() => {
-    if (isOpen) {
-      Animated.parallel([
-        Animated.timing(modalY, {
-          toValue: 0,
-          duration: animationDuration,
-          useNativeDriver: true,
-        }),
-        Animated.timing(modalOpacity, {
-          toValue: 1,
-          duration: animationDuration,
-          useNativeDriver: true,
-        }),
-        Animated.timing(modalScale, {
-          toValue: 1,
-          duration: animationDuration,
-          useNativeDriver: true,
-        }),
-      ]).start();
-    } else {
-      Animated.parallel([
-        Animated.timing(modalY, {
-          toValue: 40,
-          duration: animationDuration,
-          useNativeDriver: true,
-        }),
-        Animated.timing(modalOpacity, {
-          toValue: 0,
-          duration: animationDuration,
-          useNativeDriver: true,
-        }),
-        Animated.timing(modalScale, {
-          toValue: 0.95,
-          duration: animationDuration,
-          useNativeDriver: true,
-        }),
-      ]).start();
-    }
-  }, [isOpen, modalY, modalOpacity, modalScale]);
+    animationOpen();
+  }, []);
 
   return (
     <Modal transparent animationType="none">
