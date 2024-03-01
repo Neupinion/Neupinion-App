@@ -7,16 +7,13 @@ import {
   TouchableOpacity,
   Image,
   Dimensions,
-  FlatList,
   ScrollView,
 } from 'react-native';
 import theme from '../../../shared/styles/theme';
-import { formatDate } from '../constants/formatDate';
 import { WithLocalSvg } from 'react-native-svg';
 import SeeOriginalSvg from '../../../assets/icon/seeOriginal.svg';
-import AfterIssueItem from './AfterIssueItem';
 
-const RemakeIssueContents = () => {
+const RemakeIssueContentsSlider = () => {
   const onClickButton = () => {
     console.log('해당 버튼은, 이전 페이지로 이동합니다.');
   };
@@ -71,9 +68,10 @@ const styles = StyleSheet.create({
     lineHeight: 30,
     letterSpacing: -0.6,
     marginLeft: 26,
+    marginTop:8,
   },
   titleUnderContainer: {
-    width: 222,
+    width: Dimensions.get('window').width,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -88,7 +86,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 5,
-    backgroundColor: theme.color.gray2,
+    backgroundColor: 'rgba(126, 88, 233, 0.20)',
     marginRight: 8,
   },
   tagText: {
@@ -122,6 +120,7 @@ const styles = StyleSheet.create({
     marginTop: 32,
   },
   contentsBodyText: {
+    textAlign: 'justify',
     color: theme.color.white,
     fontStyle: 'normal',
     fontSize: 14,
@@ -163,4 +162,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default RemakeIssueContents;
+export default RemakeIssueContentsSlider;

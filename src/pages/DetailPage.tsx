@@ -13,7 +13,9 @@ import { WithLocalSvg } from 'react-native-svg';
 import MainArrowLeftSvg from '../assets/icon/mainarrowLeft.svg';
 import BookMarkSvg from '../assets/icon/bookmark.svg';
 import ShareSvg from '../assets/icon/share.svg';
-import RemakeIssueContents from '../features/remakeissue/components/RemakeIssueContents';
+import RemakeIssueContentsSlider from '../features/remakeissue/components/RemakeIssueContentsSlider';
+import OpinionWriteSlider from '../features/remakeissue/components/OpinionWriteSlider';
+import ReliabilitySLider from '../features/remakeissue/components/ReliabilitySlider';
 
 const TestPage = () => {
   const onClickButton = () => {
@@ -39,7 +41,12 @@ const TestPage = () => {
       </View>
       <View style={styles.headerUnderLine} />
       <ScrollView style={{ width: Dimensions.get('window').width, flex: 1 }}>
-        <RemakeIssueContents />
+        <RemakeIssueContentsSlider />
+        <View style={styles.divideLine}></View>
+        <OpinionWriteSlider />
+        <View style={styles.divideLine}></View>
+        <ReliabilitySLider />
+        <View style={styles.divideLine}></View>
       </ScrollView>
     </View>
   );
@@ -92,13 +99,20 @@ const styles = StyleSheet.create({
     padding: 5,
     justifyContent: 'center',
     alignItems: 'center',
-    gap: 10,
     flexShrink: 0,
   },
   headerUnderLine: {
     width: Dimensions.get('window').width,
     height: 1,
     backgroundColor: 'rgba(226, 226, 226, 0.1)',
+  },
+  divideLine: {
+    width: Dimensions.get('window').width,
+    height: 10,
+    marginVertical: 12,
+    marginTop: 40,
+    flexShrink: 0,
+    backgroundColor: '#21202F',
   },
 });
 
