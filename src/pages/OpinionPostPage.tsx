@@ -25,6 +25,21 @@ const OpinionPostPage = () => {
           <WithLocalSvg width={17} height={12} asset={OpinionCheckButton as ImageSourcePropType} />
         </TouchableOpacity>
       </View>
+      <View style={styles.choosePinContainer}>
+        <View style={styles.choosePinTextContainer}>
+          <View style={styles.circle}>
+            <Text style={styles.circleText}>1</Text>
+          </View>
+          <Text style={styles.choosePinText}>
+            의견을 남길 부분을 선택해주세요
+          </Text>
+        </View>
+        <TouchableOpacity style={styles.pinButton}>
+          <Text style={styles.pinButtonText}>
+            핑찍기
+          </Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -34,7 +49,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: theme.color.black,
     flexDirection: 'column',
-    alignItems: 'flex-start',
+    alignItems: 'center',
   },
   topContainer: {
     width: Dimensions.get('window').width,
@@ -61,6 +76,67 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     lineHeight: 24,
     letterSpacing: -0.48,
+  },
+  choosePinContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    marginTop: 20,
+    gap: 16,
+    width: 338,
+    height: 92,
+  },
+  choosePinTextContainer: {
+    height: 26,
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+  },
+  choosePinText: {
+    marginLeft: 10,
+    color: theme.color.white,
+    fontSize: 17,
+    fontStyle: 'normal',
+    fontWeight: '700',
+    lineHeight: 25.5,
+    letterSpacing: -0.51,
+  },
+  circle: {
+    display: 'flex',
+    width: 20,
+    height: 20,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 300,
+    backgroundColor: theme.color.main,
+    marginVertical: 3,
+  },
+  circleText: {
+    textAlign: 'center',
+    fontSize: 15,
+    fontStyle: 'normal',
+    fontWeight: '600',
+    lineHeight: 21,
+    letterSpacing: -0.45,
+    color: theme.color.white,
+  },
+  pinButton: {
+    display: 'flex',
+    width: 338,
+    height: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: 10,
+    borderRadius: 10,
+    backgroundColor: '#394358',
+  },
+  pinButtonText: {
+    color: theme.color.white,
+    fontSize: 17,
+    fontStyle: 'normal',
+    fontWeight: '700',
+    lineHeight: 25.5,
+    letterSpacing: -0.51,
   },
 });
 
