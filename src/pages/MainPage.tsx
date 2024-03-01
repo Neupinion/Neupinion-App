@@ -24,6 +24,7 @@ import FollowUpIssueContainer from '../features/followupissue/components/FollowU
 import CategorySlider from '../features/remakeissue/components/CategorySlider';
 import { getFormatDate } from '../features/date/functions/formatDate';
 import AfterIssueSlider from '../features/remakeissue/components/AfterIssueSlider';
+import fontFamily from "../shared/styles/fontFamily";
 
 const MainPage = () => {
   const { date } = useDate();
@@ -157,6 +158,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontStyle: 'normal',
     fontWeight: '700',
+    fontFamily: fontFamily.pretendard.bold,
     lineHeight: 24,
     letterSpacing: -0.48,
     color: 'rgba(255,255,255,0.98)',
