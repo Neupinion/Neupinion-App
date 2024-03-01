@@ -9,13 +9,11 @@ import {
   View,
 } from 'react-native';
 import theme from '../shared/styles/theme';
-import GlobalTextStyles from '../shared/styles/GlobalTextStyles';
 import { WithLocalSvg } from 'react-native-svg';
-import MainArrowLeftSVg from '../assets/icon/mainarrowLeft.svg';
+import MainArrowLeftSvg from '../assets/icon/mainarrowLeft.svg';
 import BookMarkSvg from '../assets/icon/bookmark.svg';
 import ShareSvg from '../assets/icon/share.svg';
-import MainSearch from '../assets/icon/mainsearch.svg';
-import MainUser from '../assets/icon/mainuser.svg';
+import RemakeIssueContents from '../features/remakeissue/components/RemakeIssueContents';
 
 const TestPage = () => {
   const onClickButton = () => {
@@ -26,9 +24,9 @@ const TestPage = () => {
       <View style={styles.headerContainer}>
         <View style={styles.headerLeftContainer}>
           <TouchableOpacity style={styles.svgStyle} onPress={onClickButton}>
-            <WithLocalSvg height={30} asset={MainArrowLeftSVg as ImageSourcePropType} />
+            <WithLocalSvg height={30} asset={MainArrowLeftSvg as ImageSourcePropType} />
           </TouchableOpacity>
-          <Text style={styles.headerText}>진짜일까, 가짜일까</Text>
+          <Text style={styles.headerText}>진짜일까, 가짜일까?</Text>
         </View>
         <View style={styles.headerRightContainer}>
           <TouchableOpacity style={styles.headerSvg} onPress={onClickButton}>
@@ -40,7 +38,9 @@ const TestPage = () => {
         </View>
       </View>
       <View style={styles.headerUnderLine} />
-      <ScrollView style={{ width: Dimensions.get('window').width, flex: 1 }}></ScrollView>
+      <ScrollView style={{ width: Dimensions.get('window').width, flex: 1 }}>
+        <RemakeIssueContents />
+      </ScrollView>
     </View>
   );
 };
@@ -79,9 +79,6 @@ const styles = StyleSheet.create({
     marginLeft: 70,
   },
   headerSvg: {
-    width: 19,
-    height: 19,
-    marginLeft: 14,
     alignSelf: 'center',
   },
   titleContainer: {
