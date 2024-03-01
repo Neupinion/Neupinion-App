@@ -1,9 +1,18 @@
 import React from 'react';
-import { Dimensions, ImageSourcePropType, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import {
+  Dimensions,
+  ImageSourcePropType,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import theme from '../shared/styles/theme';
 import { WithLocalSvg } from 'react-native-svg';
 import OpinionBackButton from '../assets/icon/opinionbackbutton.svg';
 import OpinionCheckButton from '../assets/icon/opinionpurplecheck.svg';
+import PinButton from '../features/opinionpost/components/PinButton';
+import PinTextNumberContainer from '../features/opinionpost/components/PinTextNumberContainer';
 
 const OpinionPostPage = () => {
   const onClickBackButton = () => {
@@ -11,7 +20,7 @@ const OpinionPostPage = () => {
   };
 
   const onClickCheckButton = () => {
-    console.log('완료');
+    console.log('내용이 없다면 알럿을...');
   };
 
   return (
@@ -26,19 +35,20 @@ const OpinionPostPage = () => {
         </TouchableOpacity>
       </View>
       <View style={styles.choosePinContainer}>
-        <View style={styles.choosePinTextContainer}>
-          <View style={styles.circle}>
-            <Text style={styles.circleText}>1</Text>
-          </View>
-          <Text style={styles.choosePinText}>
-            의견을 남길 부분을 선택해주세요
-          </Text>
-        </View>
-        <TouchableOpacity style={styles.pinButton}>
-          <Text style={styles.pinButtonText}>
-            핑찍기
-          </Text>
-        </TouchableOpacity>
+        <PinTextNumberContainer
+          circleNumber={1}
+          circleText={'의견을 남길 부분을 선택해주세요'}
+          isActivate={true}
+        />
+        <PinButton />
+      </View>
+      <View style={styles.choosePinContainer}>
+        <PinTextNumberContainer
+          circleNumber={2}
+          circleText={'생각 쓰기'}
+          isActivate={false}
+        />
+        <PinButton />
       </View>
     </View>
   );
@@ -84,7 +94,6 @@ const styles = StyleSheet.create({
     marginTop: 20,
     gap: 16,
     width: 338,
-    height: 92,
   },
   choosePinTextContainer: {
     height: 26,
