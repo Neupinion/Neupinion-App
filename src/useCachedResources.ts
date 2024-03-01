@@ -8,11 +8,16 @@ export function useCachedResources() {
     async function loadResourcesAndDataAsync() {
       try {
         await Font.loadAsync({
-          "pretendard-bold": require('./assets/fonts/Pretendard-Bold.ttf'),
-          "pretendard-extrabold": require('./assets/fonts/Pretendard-ExtraBold.ttf'),
-          "pretendard-extralight": require('./assets/fonts/Pretendard-ExtraLight.ttf'),
-          "pretendard-light": require('./assets/fonts/Pretendard-Light.ttf'),
-          "pretendard-medium": require('./assets/fonts/Pretendard-Medium.ttf'),
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+          'pretendard-bold': require('./assets/fonts/Pretendard-Bold.ttf'),
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+          'pretendard-extrabold': require('./assets/fonts/Pretendard-ExtraBold.ttf'),
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+          'pretendard-extralight': require('./assets/fonts/Pretendard-ExtraLight.ttf'),
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+          'pretendard-light': require('./assets/fonts/Pretendard-Light.ttf'),
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+          'pretendard-medium': require('./assets/fonts/Pretendard-Medium.ttf'),
         });
       } catch (e) {
         console.warn(e);
@@ -20,7 +25,7 @@ export function useCachedResources() {
         setIsLoadingComplete(true);
       }
     }
-    loadResourcesAndDataAsync();
+    void loadResourcesAndDataAsync();
   }, [isLoadingComplete]);
 
   return isLoadingComplete;
