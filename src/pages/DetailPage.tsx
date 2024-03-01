@@ -16,11 +16,15 @@ import ShareSvg from '../assets/icon/share.svg';
 import RemakeIssueContentsSlider from '../features/remakeissue/components/RemakeIssueContentsSlider';
 import OpinionWriteSlider from '../features/remakeissue/components/OpinionWriteSlider';
 import ReliabilitySLider from '../features/remakeissue/components/ReliabilitySlider';
+import CategoryLatestNewsSlider from '../features/remakeissue/components/CategoryLatestNewsSlider';
+import reprocessedIssue from "../dummy/ReProcessedIssueDummy";
+import ReProcessedIssueDummy from "../dummy/ReProcessedIssueDummy";
 
 const TestPage = () => {
   const onClickButton = () => {
     console.log('해당 버튼은, 이전 페이지로 이동합니다.');
   };
+  const reprocessedIssue = ReProcessedIssueDummy;
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
@@ -47,6 +51,7 @@ const TestPage = () => {
         <View style={styles.divideLine}></View>
         <ReliabilitySLider />
         <View style={styles.divideLine}></View>
+        <CategoryLatestNewsSlider fakeNews={reprocessedIssue} />
       </ScrollView>
     </View>
   );

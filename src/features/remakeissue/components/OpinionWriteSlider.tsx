@@ -1,10 +1,10 @@
 import React from 'react';
-import { View, Text, StyleSheet, Dimensions, ImageSourcePropType } from "react-native";
+import { View, Text, StyleSheet, Dimensions, ImageSourcePropType } from 'react-native';
 import GlobalTextStyles from '../../../shared/styles/GlobalTextStyles';
 import theme from '../../../shared/styles/theme';
-import PaperSvg from "../../../assets/icon/paper.svg";
-import PencilSvg from "../../../assets/icon/pencil.svg";
-import { WithLocalSvg } from "react-native-svg";
+import PaperSvg from '../../../assets/icon/paper.svg';
+import PencilSvg from '../../../assets/icon/pencil.svg';
+import { WithLocalSvg } from 'react-native-svg';
 
 const OpinionWriteSlider = () => {
   return (
@@ -13,7 +13,12 @@ const OpinionWriteSlider = () => {
         <Text style={GlobalTextStyles.NormalText17}>의견 쓰기</Text>
       </View>
       <WithLocalSvg width={88.242} height={91} asset={PaperSvg as ImageSourcePropType} />
-      <WithLocalSvg width={79} height={30} asset={PencilSvg as ImageSourcePropType} style={[styles.pencil]}/>
+      <WithLocalSvg
+        width={79}
+        height={30}
+        asset={PencilSvg as ImageSourcePropType}
+        style={[styles.pencil]}
+      />
       <Text style={styles.textStyle}>아직 의견이 없어요!</Text>
       <View style={styles.opinionButton}>
         <Text style={styles.buttonText}>의견 남기기</Text>
