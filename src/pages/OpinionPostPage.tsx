@@ -13,7 +13,7 @@ import OpinionBackButton from '../assets/icon/opinionbackbutton.svg';
 import OpinionCheckButton from '../assets/icon/opinionpurplecheck.svg';
 import PinButton from '../features/opinionpost/components/PinButton';
 import PinTextNumberContainer from '../features/opinionpost/components/PinTextNumberContainer';
-import OpinionWriteContainer from "../features/opinionpost/components/OpinionWriteContainer";
+import OpinionWriteContainer from '../features/opinionpost/components/OpinionWriteContainer';
 
 const OpinionPostPage = () => {
   const onClickBackButton = () => {
@@ -45,7 +45,7 @@ const OpinionPostPage = () => {
       </View>
       <View style={styles.choosePinContainer}>
         <PinTextNumberContainer circleNumber={2} circleText={'생각 쓰기'} isActivate={false} />
-        <OpinionWriteContainer />
+        <OpinionWriteContainer isActivate={false} />
       </View>
     </View>
   );

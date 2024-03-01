@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
+import theme from '../../../shared/styles/theme';
 
-const OpinionWriteContainer = () => {
+interface OpinionWriteContainerProps {
+  isActivate: boolean;
+}
+const OpinionWriteContainer = ({ isActivate }: OpinionWriteContainerProps) => {
   const [text, setText] = useState('');
 
   const handleTextChange = (inputText: string) => {
@@ -20,6 +24,7 @@ const OpinionWriteContainer = () => {
         numberOfLines={4}
         onChangeText={handleTextChange}
         value={text}
+        editable={isActivate}
       />
       <View style={styles.textNumberContainer}>
         <Text style={styles.textNumberText}>{`${text.length}자/300자`}</Text>
@@ -49,7 +54,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     lineHeight: 22.5,
     letterSpacing: -0.45,
-    color: '#425867',
+    color: theme.color.white,
   },
   textNumberContainer: {
     width: 298,
