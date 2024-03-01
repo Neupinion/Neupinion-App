@@ -17,8 +17,7 @@ import RemakeIssueContentsSlider from '../features/remakeissue/components/Remake
 import OpinionWriteSlider from '../features/remakeissue/components/OpinionWriteSlider';
 import ReliabilitySLider from '../features/remakeissue/components/ReliabilitySlider';
 import CategoryLatestNewsSlider from '../features/remakeissue/components/CategoryLatestNewsSlider';
-import reprocessedIssue from "../dummy/ReProcessedIssueDummy";
-import ReProcessedIssueDummy from "../dummy/ReProcessedIssueDummy";
+import ReProcessedIssueDummy from '../dummy/ReProcessedIssueDummy';
 
 const TestPage = () => {
   const onClickButton = () => {

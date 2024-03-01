@@ -1,5 +1,12 @@
 import React from 'react';
-import { View, Text, StyleSheet, Dimensions, ImageSourcePropType } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Dimensions,
+  ImageSourcePropType,
+  TouchableOpacity,
+} from 'react-native';
 import GlobalTextStyles from '../../../shared/styles/GlobalTextStyles';
 import theme from '../../../shared/styles/theme';
 import PaperSvg from '../../../assets/icon/paper.svg';
@@ -20,9 +27,11 @@ const OpinionWriteSlider = () => {
         style={[styles.pencil]}
       />
       <Text style={styles.textStyle}>아직 의견이 없어요!</Text>
-      <View style={styles.opinionButton}>
-        <Text style={styles.buttonText}>의견 남기기</Text>
-      </View>
+      <TouchableOpacity style={styles.opinionButton} onPress={() => {}}>
+        <View>
+          <Text style={styles.buttonText}>의견 남기기</Text>
+        </View>
+      </TouchableOpacity>
     </View>
   );
 };

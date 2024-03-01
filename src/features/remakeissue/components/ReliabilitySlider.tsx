@@ -1,6 +1,6 @@
 import React from 'react';
-import { View, Text, StyleSheet, Dimensions, TouchableOpacity, ImageSourcePropType } from "react-native";
-import GlobalTextStyles from "../../../shared/styles/GlobalTextStyles";
+import { View, Text, StyleSheet, Dimensions } from 'react-native';
+import GlobalTextStyles from '../../../shared/styles/GlobalTextStyles';
 
 const ReliabilitySLider = () => {
   return (
