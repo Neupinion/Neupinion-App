@@ -13,6 +13,7 @@ import OpinionBackButton from '../assets/icon/opinionbackbutton.svg';
 import OpinionCheckButton from '../assets/icon/opinionpurplecheck.svg';
 import PinButton from '../features/opinionpost/components/PinButton';
 import PinTextNumberContainer from '../features/opinionpost/components/PinTextNumberContainer';
+import OpinionWriteContainer from "../features/opinionpost/components/OpinionWriteContainer";
 
 const OpinionPostPage = () => {
   const onClickBackButton = () => {
@@ -43,12 +44,8 @@ const OpinionPostPage = () => {
         <PinButton />
       </View>
       <View style={styles.choosePinContainer}>
-        <PinTextNumberContainer
-          circleNumber={2}
-          circleText={'생각 쓰기'}
-          isActivate={false}
-        />
-        <PinButton />
+        <PinTextNumberContainer circleNumber={2} circleText={'생각 쓰기'} isActivate={false} />
+        <OpinionWriteContainer />
       </View>
     </View>
   );
@@ -94,58 +91,6 @@ const styles = StyleSheet.create({
     marginTop: 20,
     gap: 16,
     width: 338,
-  },
-  choosePinTextContainer: {
-    height: 26,
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-  },
-  choosePinText: {
-    marginLeft: 10,
-    color: theme.color.white,
-    fontSize: 17,
-    fontStyle: 'normal',
-    fontWeight: '700',
-    lineHeight: 25.5,
-    letterSpacing: -0.51,
-  },
-  circle: {
-    display: 'flex',
-    width: 20,
-    height: 20,
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 300,
-    backgroundColor: theme.color.main,
-    marginVertical: 3,
-  },
-  circleText: {
-    textAlign: 'center',
-    fontSize: 15,
-    fontStyle: 'normal',
-    fontWeight: '600',
-    lineHeight: 21,
-    letterSpacing: -0.45,
-    color: theme.color.white,
-  },
-  pinButton: {
-    display: 'flex',
-    width: 338,
-    height: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
-    gap: 10,
-    borderRadius: 10,
-    backgroundColor: '#394358',
-  },
-  pinButtonText: {
-    color: theme.color.white,
-    fontSize: 17,
-    fontStyle: 'normal',
-    fontWeight: '700',
-    lineHeight: 25.5,
-    letterSpacing: -0.51,
   },
 });
 
