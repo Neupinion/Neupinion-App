@@ -43,13 +43,14 @@ const FakeIssueSlider = ({ fakeNews }: FakeIssueProps) => {
     <View style={styles.container}>
       {!fakeNews ||
         (fakeNews.length === 0 && (
-          <View style={styles.emptyContainer}>
+          <View testID={'EmptyData'} style={styles.emptyContainer}>
             <Text style={styles.emptyText}>No Data</Text>
           </View>
         ))}
       {fakeNews && (
         <>
           <Animated.FlatList
+            testID={'FlatList'}
             showsHorizontalScrollIndicator={false}
             data={preparedFakeNews}
             keyExtractor={(item) => String(item.id)}

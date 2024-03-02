@@ -62,7 +62,9 @@ const MainPage = () => {
     <View style={styles.container}>
       <View style={styles.headerContainer}>
         <View style={styles.headerLeftContainer}>
-          <Text style={styles.headerDateText}>{getFormatDate(date)}</Text>
+          <TouchableOpacity onPress={pressDateArrow}>
+            <Text style={styles.headerDateText}>{getFormatDate(date)}</Text>
+          </TouchableOpacity>
           <TouchableOpacity style={styles.headerArrow} onPress={pressDateArrow}>
             <WithLocalSvg width={12} height={12} asset={MainArrowSvg as ImageSourcePropType} />
           </TouchableOpacity>
@@ -115,8 +117,7 @@ const MainPage = () => {
           </ScrollView>
         </>
       )}
-
-      <DateModal isOpen={isDateModalOpen} onClose={onCloseModal} />
+      {isDateModalOpen && <DateModal closeModal={onCloseModal} />}
     </View>
   );
 };
