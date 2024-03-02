@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Dimensions,
   ImageSourcePropType,
+  ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -11,15 +12,22 @@ import theme from '../shared/styles/theme';
 import { WithLocalSvg } from 'react-native-svg';
 import OpinionBackButton from '../assets/icon/opinionbackbutton.svg';
 import OpinionCheckButton from '../assets/icon/opinionpurplecheck.svg';
-import OpinionPinIssue from "../features/opinionpost/components/OpinionPinIssue";
+import OpinionPinIssue from '../features/opinionpost/components/OpinionPinIssue';
+import opinionPinSentenceDummy from '../dummy/OpinionPinSentenceDummy';
+import OpinionPin from '../assets/icon/opinionpin.svg';
 
 const OpinionPinPage = () => {
+  const [selectedPinIndex, setSelectedPinIndex] = useState(0);
   const onClickBackButton = () => {
     console.log('뒤로가기');
   };
 
   const onClickCheckButton = () => {
     console.log('내용이 없다면 알럿을...');
+  };
+
+  const onSelectPin = (index) => {
+    setSelectedPinIndex(index);
   };
 
   return (
@@ -33,11 +41,30 @@ const OpinionPinPage = () => {
           <WithLocalSvg width={17} height={12} asset={OpinionCheckButton as ImageSourcePropType} />
         </TouchableOpacity>
       </View>
-      <View style={styles.pinTextContainer}>
-        <Text style={styles.pinTextTitle}>의견을 남길 부분을 선택해주세요.</Text>
-      </View>
-      <OpinionPinIssue />
-      <View style={styles.pinSentenceContainer}></View>
+      <ScrollView style={styles.scrollViewStyle}>
+        <View style={styles.pinTextContainer}>
+          <Text style={styles.pinTextTitle}>의견을 남길 부분을 선택해주세요.</Text>
+        </View>
+        <OpinionPinIssue />
+        <View style={styles.pinSentenceContainer}>
+          {opinionPinSentenceDummy.map((item: string, index: number) => (
+            <TouchableOpacity
+              key={index}
+              style={[styles.pinSentence, { opacity: selectedPinIndex === index ? 1 : 0.3 }]}
+              onPress={() => onSelectPin(index)}
+            >
+              <View style={styles.pinContainer}>
+                <TouchableOpacity style={styles.pin} onPress={onClickCheckButton}>
+                  <WithLocalSvg width={20} height={20} asset={OpinionPin as ImageSourcePropType} />
+                </TouchableOpacity>
+              </View>
+              <View style={styles.sentenceContainer}>
+                <Text style={styles.sentenceText}>{item}</Text>
+              </View>
+            </TouchableOpacity>
+          ))}
+        </View>
+      </ScrollView>
     </View>
   );
 };
@@ -56,6 +83,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  scrollViewStyle: {
+    width: Dimensions.get('window').width,
   },
   topSvgStyle: {
     width: 30,
@@ -92,8 +122,41 @@ const styles = StyleSheet.create({
     letterSpacing: -0.6,
   },
   pinSentenceContainer: {
-    width: Dimensions.get('window').width,
+    marginTop: 20,
+    marginBottom: 40,
     display: 'flex',
+    paddingHorizontal: 26,
+    flexDirection: 'column',
+    alignItems: 'center',
+    gap: 21,
+  },
+  pinSentence: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    gap: 8,
+  },
+  pinContainer: {
+    display: 'flex',
+    width: 20,
+    flexDirection: 'column',
+  },
+  sentenceContainer: {
+    display: 'flex',
+    width: 314,
+  },
+  sentenceText: {
+    color: theme.color.white,
+    textAlign: 'justify',
+    fontSize: 14,
+    fontStyle: 'normal',
+    fontWeight: '700',
+    lineHeight: 21,
+    letterSpacing: -0.42,
+  },
+  pin: {
+    width: 20,
+    height: 20,
   },
 });
 
