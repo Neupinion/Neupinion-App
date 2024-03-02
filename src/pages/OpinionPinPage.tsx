@@ -11,6 +11,7 @@ import theme from '../shared/styles/theme';
 import { WithLocalSvg } from 'react-native-svg';
 import OpinionBackButton from '../assets/icon/opinionbackbutton.svg';
 import OpinionCheckButton from '../assets/icon/opinionpurplecheck.svg';
+import OpinionPinIssue from "../features/opinionpost/components/OpinionPinIssue";
 
 const OpinionPinPage = () => {
   const onClickBackButton = () => {
@@ -32,6 +33,11 @@ const OpinionPinPage = () => {
           <WithLocalSvg width={17} height={12} asset={OpinionCheckButton as ImageSourcePropType} />
         </TouchableOpacity>
       </View>
+      <View style={styles.pinTextContainer}>
+        <Text style={styles.pinTextTitle}>의견을 남길 부분을 선택해주세요.</Text>
+      </View>
+      <OpinionPinIssue />
+      <View style={styles.pinSentenceContainer}></View>
     </View>
   );
 };
@@ -68,6 +74,26 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     lineHeight: 24,
     letterSpacing: -0.48,
+  },
+  pinTextContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: Dimensions.get('window').width,
+  },
+  pinTextTitle: {
+    marginTop: 20,
+    color: theme.color.white,
+    width: 338,
+    fontSize: 20,
+    fontStyle: 'normal',
+    fontWeight: '700',
+    lineHeight: 30,
+    letterSpacing: -0.6,
+  },
+  pinSentenceContainer: {
+    width: Dimensions.get('window').width,
+    display: 'flex',
   },
 });
 
