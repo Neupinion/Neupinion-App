@@ -15,18 +15,21 @@ import OpinionCheckButton from '../assets/icon/opinionpurplecheck.svg';
 import OpinionPinIssue from '../features/opinionpost/components/OpinionPinIssue';
 import opinionPinSentenceDummy from '../dummy/OpinionPinSentenceDummy';
 import OpinionPin from '../assets/icon/opinionpin.svg';
+import { useNavigation } from '@react-navigation/native';
 
 const OpinionPinPage = () => {
+  const navigation = useNavigation();
   const [selectedPinIndex, setSelectedPinIndex] = useState(0);
   const onClickBackButton = () => {
     console.log('뒤로가기');
+    navigation.goBack();
   };
 
   const onClickCheckButton = () => {
     console.log('내용이 없다면 알럿을...');
   };
 
-  const onSelectPin = (index) => {
+  const onSelectPin = (index: number) => {
     setSelectedPinIndex(index);
   };
 

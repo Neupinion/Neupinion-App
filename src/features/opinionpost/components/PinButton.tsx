@@ -1,10 +1,17 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import theme from '../../../shared/styles/theme';
+import { useNavigation } from '@react-navigation/native';
 
 const PinButton = () => {
+  const navigation = useNavigation();
+
+  const onClickButton = () => {
+    navigation.navigate('OpinionPin');
+  };
+
   return (
-    <TouchableOpacity style={styles.pinButton}>
+    <TouchableOpacity onPress={onClickButton} style={styles.pinButton}>
       <Text style={styles.pinButtonText}>핑찍기</Text>
     </TouchableOpacity>
   );
