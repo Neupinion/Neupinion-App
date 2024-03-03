@@ -58,7 +58,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'flex-start',
   },
   contentsTitle: {
     fontSize: 20,
@@ -68,7 +67,7 @@ const styles = StyleSheet.create({
     lineHeight: 30,
     letterSpacing: -0.6,
     marginLeft: 26,
-    marginTop:8,
+    marginTop: 8,
   },
   titleUnderContainer: {
     width: Dimensions.get('window').width,
