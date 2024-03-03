@@ -18,19 +18,13 @@ const OpinionWriteSlider = () => {
       <View style={styles.titleContainer}>
         <Text style={GlobalTextStyles.NormalText17}>의견 쓰기</Text>
       </View>
-      {/*<View style={styles.opinionWriterContainer}>*/}
-      {/*  <WithLocalSvg*/}
-      {/*    width={125.5}*/}
-      {/*    height={99.08478}*/}
-      {/*    asset={OpinioinWriterSvg as ImageSourcePropType}*/}
-      {/*    style={styles.opinionWriterSvg}*/}
-      {/*  />*/}
-      {/*</View>*/}
-      <WithLocalSvg
-        width={125.5}
-        height={99.08478}
-        asset={OpinioinWriterSvg as ImageSourcePropType}
-      />
+      <View style={{ justifyContent: 'flex-start', marginLeft: -30 }}>
+        <WithLocalSvg
+          width={125.5}
+          height={99.08478}
+          asset={OpinioinWriterSvg as ImageSourcePropType}
+        />
+      </View>
       <Text style={styles.textStyle}>아직 의견이 없어요!</Text>
       <TouchableOpacity style={styles.opinionButton} onPress={() => {}}>
         <View>
