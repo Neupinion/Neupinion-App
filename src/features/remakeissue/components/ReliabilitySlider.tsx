@@ -16,9 +16,9 @@ import Moon2Svg from '../../../assets/icon/moon2.svg';
 import Moon3Svg from '../../../assets/icon/moon3.svg';
 import Moon4Svg from '../../../assets/icon/moon4.svg';
 const ReliabilitySLider = () => {
-  const [selectedButton, setSelectedButton] = useState(null);
+  const [selectedButton, setSelectedButton] = useState(1);
 
-  const handleButtonPress = (buttonNumber) => {
+  const handleButtonPress = (buttonNumber: number) => {
     setSelectedButton(buttonNumber);
   };
   return (
@@ -54,6 +54,20 @@ const ReliabilitySLider = () => {
         >
           <WithLocalSvg height={66.94156} asset={Moon4Svg as ImageSourcePropType} />
         </TouchableOpacity>
+      </View>
+      <View style={styles.reliabiltContainer}>
+        <Text style={[styles.reliabiltyTextBase, selectedButton === 1 && styles.reliabiltyText]}>
+          완전 신뢰
+        </Text>
+        <Text style={[styles.reliabiltyTextBase, selectedButton === 2 && styles.reliabiltyText]}>
+          조금 신뢰
+        </Text>
+        <Text style={[styles.reliabiltyTextBase, selectedButton === 3 && styles.reliabiltyText]}>
+          조금 의심
+        </Text>
+        <Text style={[styles.reliabiltyTextBase, selectedButton === 4 && styles.reliabiltyText]}>
+          완전 의심
+        </Text>
       </View>
       <TouchableOpacity style={styles.submitButton} onPress={() => {}}>
         <Text style={styles.buttonText}>투표하고 결과보기</Text>
@@ -105,9 +119,32 @@ const styles = StyleSheet.create({
   },
   moonContainer: {
     flexDirection: 'row',
-    gap: 16.06,
+    gap: 15.06,
     position: 'absolute',
-    height: 58.8,
+    height: 95.8,
+  },
+  reliabiltyText: {
+    fontSize: 14,
+    color: theme.color.white,
+    fontStyle: 'normal',
+    fontWeight: '700',
+    lineHeight: 21,
+    letterSpacing: -0.42,
+  },
+  reliabiltyTextBase: {
+    fontSize: 14,
+    color: theme.color.gray6,
+    fontStyle: 'normal',
+    fontWeight: '700',
+    lineHeight: 21,
+    letterSpacing: -0.42,
+  },
+  reliabiltContainer: {
+    flexDirection: 'row',
+    marginHorizontal: 47,
+    marginTop: 19.99,
+    // backgroundColor: 'tomato',
+    gap: 32,
   },
 });
 
