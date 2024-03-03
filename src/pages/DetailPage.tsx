@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Dimensions,
   ImageSourcePropType,
@@ -12,6 +12,7 @@ import theme from '../shared/styles/theme';
 import { WithLocalSvg } from 'react-native-svg';
 import MainArrowLeftSvg from '../assets/icon/mainarrowLeft.svg';
 import BookMarkSvg from '../assets/icon/bookmark.svg';
+import AnotherBookMarkSvg from '../assets/icon/anotherbookmark.svg';
 import ShareSvg from '../assets/icon/share.svg';
 import RemakeIssueContentsSlider from '../features/remakeissue/components/RemakeIssueContentsSlider';
 import OpinionWriteSlider from '../features/remakeissue/components/OpinionWriteSlider';
@@ -20,8 +21,12 @@ import CategoryLatestNewsSlider from '../features/remakeissue/components/Categor
 import ReProcessedIssueDummy from '../dummy/ReProcessedIssueDummy';
 
 const TestPage = () => {
+  const [bookMarkClicked, setBookMarkClicked] = useState(false);
   const onClickButton = () => {
     console.log('해당 버튼은, 이전 페이지로 이동합니다.');
+  };
+  const toggleBookMark = () => {
+    setBookMarkClicked(!bookMarkClicked);
   };
   const reprocessedIssue = ReProcessedIssueDummy;
   return (
@@ -34,8 +39,16 @@ const TestPage = () => {
           <Text style={styles.headerText}>진짜일까, 가짜일까?</Text>
         </View>
         <View style={styles.headerRightContainer}>
-          <TouchableOpacity style={styles.headerSvg} onPress={onClickButton}>
-            <WithLocalSvg width={23} height={23} asset={BookMarkSvg as ImageSourcePropType} />
+          <TouchableOpacity style={styles.headerSvg} onPress={toggleBookMark}>
+            {bookMarkClicked ? (
+              <WithLocalSvg
+                width={23}
+                height={23}
+                asset={AnotherBookMarkSvg as ImageSourcePropType}
+              />
+            ) : (
+              <WithLocalSvg width={23} height={23} asset={BookMarkSvg as ImageSourcePropType} />
+            )}
           </TouchableOpacity>
           <TouchableOpacity style={styles.headerSvg} onPress={onClickButton}>
             <WithLocalSvg width={24} height={23} asset={ShareSvg as ImageSourcePropType} />
