@@ -9,8 +9,7 @@ import {
 } from 'react-native';
 import GlobalTextStyles from '../../../shared/styles/GlobalTextStyles';
 import theme from '../../../shared/styles/theme';
-import PaperSvg from '../../../assets/icon/paper.svg';
-import PencilSvg from '../../../assets/icon/pencil.svg';
+import OpinioinWriterSvg from '../../../assets/icon/opinionwrite.svg';
 import { WithLocalSvg } from 'react-native-svg';
 
 const OpinionWriteSlider = () => {
@@ -19,12 +18,18 @@ const OpinionWriteSlider = () => {
       <View style={styles.titleContainer}>
         <Text style={GlobalTextStyles.NormalText17}>의견 쓰기</Text>
       </View>
-      <WithLocalSvg width={88.242} height={91} asset={PaperSvg as ImageSourcePropType} />
+      {/*<View style={styles.opinionWriterContainer}>*/}
+      {/*  <WithLocalSvg*/}
+      {/*    width={125.5}*/}
+      {/*    height={99.08478}*/}
+      {/*    asset={OpinioinWriterSvg as ImageSourcePropType}*/}
+      {/*    style={styles.opinionWriterSvg}*/}
+      {/*  />*/}
+      {/*</View>*/}
       <WithLocalSvg
-        width={79}
-        height={30}
-        asset={PencilSvg as ImageSourcePropType}
-        style={[styles.pencil]}
+        width={125.5}
+        height={99.08478}
+        asset={OpinioinWriterSvg as ImageSourcePropType}
       />
       <Text style={styles.textStyle}>아직 의견이 없어요!</Text>
       <TouchableOpacity style={styles.opinionButton} onPress={() => {}}>
@@ -46,6 +51,15 @@ const styles = StyleSheet.create({
     width: Dimensions.get('window').width,
     marginTop: 30,
   },
+  opinionWriterContainer: {
+    position: 'relative',
+    backgroundColor: 'tomato',
+  },
+  opinionWriterSvg: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+  },
   textStyle: {
     fontSize: 16,
     color: theme.color.white,
@@ -53,6 +67,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     lineHeight: 24,
     letterSpacing: -0.48,
+    marginTop: 19.92,
   },
   opinionButton: {
     width: 131,
@@ -70,10 +85,6 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     lineHeight: 25.5,
     letterSpacing: -0.51,
-  },
-  pencil: {
-    top: -40,
-    left: -50,
   },
 });
 
