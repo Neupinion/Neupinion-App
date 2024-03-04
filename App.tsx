@@ -15,11 +15,8 @@ export default function App(): JSX.Element {
           headerShown: false,
         }}
       >
-        <DateProvider>
-          <Stack.Screen name="OpinionPost" component={OpinionPostPage} />
-          <Stack.Screen name="OpinionPin" component={OpinionPinPage} />
-          <Stack.Screen name="Main" component={MainPage} />
-        </DateProvider>
+        <Stack.Screen name="OpinionPost" component={OpinionPostPage} />
+        <Stack.Screen name="OpinionPin" component={OpinionPinPage} />
       </Stack.Navigator>
     </NavigationContainer>
   );
