@@ -9,8 +9,8 @@ import OpinionPinPage from './src/pages/OpinionPinPage';
 const Stack = createStackNavigator();
 export default function App(): JSX.Element {
   return (
-    <DateProvider>
-      <NavigationContainer>
+    <NavigationContainer>
+      <DateProvider>
         <Stack.Navigator
           screenOptions={{
             headerShown: false,
@@ -20,7 +20,7 @@ export default function App(): JSX.Element {
           <Stack.Screen name="OpinionPin" component={OpinionPinPage} />
           <Stack.Screen name="Main" component={MainPage} />
         </Stack.Navigator>
-      </NavigationContainer>
-    </DateProvider>
+      </DateProvider>
+    </NavigationContainer>
   );
 }
