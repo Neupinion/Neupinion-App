@@ -3,7 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import OpinionPostPage from './pages/OpinionPostPage';
 import OpinionPinPage from './pages/OpinionPinPage';
-import MainPage from "./pages/MainPage";
+import MainPage from './pages/MainPage';
 
 const Stack = createNativeStackNavigator();
 

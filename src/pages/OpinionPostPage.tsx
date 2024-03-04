@@ -2,9 +2,11 @@ import React from 'react';
 import {
   Dimensions,
   ImageSourcePropType,
+  Keyboard,
   StyleSheet,
   Text,
   TouchableOpacity,
+  TouchableWithoutFeedback,
   View,
 } from 'react-native';
 import theme from '../shared/styles/theme';
@@ -38,7 +40,7 @@ const OpinionPostPage = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss} style={styles.container}>
       <View style={styles.topContainer}>
         <TouchableOpacity style={styles.topSvgStyle} onPress={onClickBackButton}>
           <WithLocalSvg width={10} height={20} asset={OpinionBackButton as ImageSourcePropType} />
@@ -72,7 +74,7 @@ const OpinionPostPage = () => {
         />
         <OpinionWriteContainer isActivate={sentenceIndex !== undefined} />
       </View>
-    </View>
+    </TouchableWithoutFeedback>
   );
 };
 
@@ -126,7 +128,8 @@ const styles = StyleSheet.create({
     paddingVertical: 2,
     paddingHorizontal: 8,
     justifyContent: 'center',
-    alignItems: 10,
+    alignItems: 'center',
+    gap: 10,
     borderRadius: 5,
     backgroundColor: 'rgba(126, 88, 233, 0.2)',
   },
