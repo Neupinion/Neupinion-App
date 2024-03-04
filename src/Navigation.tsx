@@ -19,6 +19,9 @@ const Navigation = () => {
           <Stack.Screen name="OpinionPost" component={OpinionPostPage}></Stack.Screen>
           <Stack.Screen name="OpinionPin" component={OpinionPinPage}></Stack.Screen>
         </Stack.Group>
+        <Stack.Group>
+          <Stack.Screen name="MainPage" component={MainPage}></Stack.Screen>
+        </Stack.Group>
       </Stack.Navigator>
     </NavigationContainer>
   );
