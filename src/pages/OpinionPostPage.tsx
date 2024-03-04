@@ -14,8 +14,16 @@ import OpinionCheckButton from '../assets/icon/opinionpurplecheck.svg';
 import PinButton from '../features/opinionpost/components/PinButton';
 import PinTextNumberContainer from '../features/opinionpost/components/PinTextNumberContainer';
 import OpinionWriteContainer from '../features/opinionpost/components/OpinionWriteContainer';
+import SentenceBox from '../features/opinionpost/components/SentenceBox';
+import { RouteProp, useRoute } from '@react-navigation/native';
+import { RootStackParamList } from '../rootStackParamList';
+
 
 const OpinionPostPage = () => {
+  type ScreenRouteProp = RouteProp<RootStackParamList, 'OpinionPost'>;
+  const route = useRoute<ScreenRouteProp>();
+
+  const sentenceIndex = route.params?.sentenceNumber;
   const onClickBackButton = () => {
     console.log('뒤로가기');
   };
@@ -41,7 +49,8 @@ const OpinionPostPage = () => {
           circleText={'의견을 남길 부분을 선택해주세요'}
           isActivate={true}
         />
-        <PinButton />
+        {sentenceIndex === undefined && <PinButton />}
+        {sentenceIndex !== undefined && <SentenceBox sentenceNumber={sentenceIndex} />}
       </View>
       <View style={styles.choosePinContainer}>
         <PinTextNumberContainer circleNumber={2} circleText={'생각 쓰기'} isActivate={false} />

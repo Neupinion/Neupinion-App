@@ -2,9 +2,11 @@ import React from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import theme from '../../../shared/styles/theme';
 import { useNavigation } from '@react-navigation/native';
+import { RootStackParamList } from '../../../rootStackParamList';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 const PinButton = () => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
 
   const onClickButton = () => {
     navigation.navigate('OpinionPin');

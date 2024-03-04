@@ -16,9 +16,11 @@ import OpinionPinIssue from '../features/opinionpost/components/OpinionPinIssue'
 import opinionPinSentenceDummy from '../dummy/OpinionPinSentenceDummy';
 import OpinionPin from '../assets/icon/opinionpin.svg';
 import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from '../rootStackParamList';
 
 const OpinionPinPage = () => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   const [selectedPinIndex, setSelectedPinIndex] = useState(0);
   const onClickBackButton = () => {
     console.log('뒤로가기');
@@ -27,6 +29,7 @@ const OpinionPinPage = () => {
 
   const onClickCheckButton = () => {
     console.log('내용이 없다면 알럿을...');
+    navigation.navigate('OpinionPost', { sentenceNumber: selectedPinIndex });
   };
 
   const onSelectPin = (index: number) => {
