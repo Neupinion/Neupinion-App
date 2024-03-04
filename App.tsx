@@ -10,17 +10,17 @@ const Stack = createStackNavigator();
 export default function App(): JSX.Element {
   return (
     <NavigationContainer>
-      <DateProvider>
-        <Stack.Navigator
-          screenOptions={{
-            headerShown: false,
-          }}
-        >
+      <Stack.Navigator
+        screenOptions={{
+          headerShown: false,
+        }}
+      >
+        <DateProvider>
           <Stack.Screen name="OpinionPost" component={OpinionPostPage} />
           <Stack.Screen name="OpinionPin" component={OpinionPinPage} />
           <Stack.Screen name="Main" component={MainPage} />
-        </Stack.Navigator>
-      </DateProvider>
+        </DateProvider>
+      </Stack.Navigator>
     </NavigationContainer>
   );
 }
