@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import MainPage from './src/pages/MainPage';
 import { DateProvider } from './src/features/date/provider/DateProvider';
 import { useCachedResources } from './src/useCachedResources';
+import TestPage from "./src/pages/TestPage";
 
 export default function App(): JSX.Element | null {
   const isLoaded = useCachedResources();
@@ -9,7 +10,7 @@ export default function App(): JSX.Element | null {
   if (isLoaded) {
     return (
       <DateProvider>
-        <MainPage />
+        <TestPage />
       </DateProvider>
     );
   } else {
