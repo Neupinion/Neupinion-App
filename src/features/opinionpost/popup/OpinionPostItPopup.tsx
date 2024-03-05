@@ -17,8 +17,12 @@ const OpinionPostItPopup: React.FC<OpinionPostItPopupProps> = ({ closeModal, tit
   };
 
   const onClickDelete = () => {
-    
-  }
+    console.log('포스트잇 삭제 api를 연동해야합니다.');
+  };
+
+  const onClickEdit = () => {
+    console.log('의견 수정 페이지로 이동하여 수정합니다.');
+  };
 
   return (
     <Modal transparent animationType="fade">
@@ -35,6 +39,14 @@ const OpinionPostItPopup: React.FC<OpinionPostItPopupProps> = ({ closeModal, tit
           <Text style={styles.titleText}>{title}</Text>
           <View style={styles.dotLine} />
           <Text style={styles.opinionText}>{opinion}</Text>
+          <View style={styles.buttonContainer}>
+            <TouchableOpacity onPress={onClickDelete} style={styles.deleteButton}>
+              <Text style={styles.buttonText}>삭제</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={onClickEdit} style={styles.editButton}>
+              <Text style={styles.buttonText}>수정하기</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     </Modal>
@@ -112,6 +124,42 @@ const styles = StyleSheet.create({
     position: 'absolute',
     left: 14,
     top: 26,
+  },
+  buttonContainer: {
+    marginTop: 28,
+    width: 280,
+    height: 50,
+    flexShrink: 0,
+    gap: 16,
+    flexDirection: 'row',
+  },
+  deleteButton: {
+    width: 96,
+    height: 50,
+    flexShrink: 0,
+    borderRadius: 10,
+    backgroundColor: '#394358',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  editButton: {
+    width: 168,
+    height: 50,
+    flexShrink: 0,
+    borderRadius: 10,
+    backgroundColor: theme.color.main,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  buttonText: {
+    textAlign: 'center',
+    fontFamily: fontFamily.pretendard.bold,
+    fontSize: 17,
+    fontStyle: 'normal',
+    fontWeight: '700',
+    lineHeight: 25.5,
+    letterSpacing: -0.51,
+    color: theme.color.white,
   },
 });
 
