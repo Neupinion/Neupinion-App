@@ -16,6 +16,19 @@ import Moon2Svg from '../../../assets/icon/moon2.svg';
 import Moon3Svg from '../../../assets/icon/moon3.svg';
 import Moon4Svg from '../../../assets/icon/moon4.svg';
 const ReliabilitySLider = () => {
+  const moons = [
+    { id: 1, SvgComponent: Moon1Svg },
+    { id: 2, SvgComponent: Moon2Svg },
+    { id: 3, SvgComponent: Moon3Svg },
+    { id: 4, SvgComponent: Moon4Svg },
+  ];
+  const reliabilityTexts = [
+    { id: 1, text: '완전 신뢰' },
+    { id: 2, text: '조금 신뢰' },
+    { id: 3, text: '조금 의심' },
+    { id: 4, text: '완전 의심' },
+  ];
+
   const [selectedButton, setSelectedButton] = useState(1);
 
   const handleButtonPress = (buttonNumber: number) => {
@@ -30,44 +43,28 @@ const ReliabilitySLider = () => {
         <WithLocalSvg asset={ReliabiltyBackGroundSvg as ImageSourcePropType} />
       </View>
       <View style={styles.moonContainer}>
-        <TouchableOpacity
-          style={[styles.svgBaseStyle, selectedButton === 1 && styles.svgSelectedStyle]}
-          onPress={() => handleButtonPress(1)}
-        >
-          <WithLocalSvg height={66.94156} asset={Moon1Svg as ImageSourcePropType} />
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[styles.svgBaseStyle, selectedButton === 2 && styles.svgSelectedStyle]}
-          onPress={() => handleButtonPress(2)}
-        >
-          <WithLocalSvg height={66.94156} asset={Moon2Svg as ImageSourcePropType} />
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[styles.svgBaseStyle, selectedButton === 3 && styles.svgSelectedStyle]}
-          onPress={() => handleButtonPress(3)}
-        >
-          <WithLocalSvg height={66.94156} asset={Moon3Svg as ImageSourcePropType} />
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[styles.svgBaseStyle, selectedButton === 4 && styles.svgSelectedStyle]}
-          onPress={() => handleButtonPress(4)}
-        >
-          <WithLocalSvg height={66.94156} asset={Moon4Svg as ImageSourcePropType} />
-        </TouchableOpacity>
+        {moons.map((moon) => (
+          <TouchableOpacity
+            key={moon.id}
+            style={[styles.svgBaseStyle, selectedButton === moon.id && styles.svgSelectedStyle]}
+            onPress={() => handleButtonPress(moon.id)}
+          >
+            <WithLocalSvg height={66.94156} asset={moon.SvgComponent as ImageSourcePropType} />
+          </TouchableOpacity>
+        ))}
       </View>
       <View style={styles.reliabiltContainer}>
-        <Text style={[styles.reliabiltyTextBase, selectedButton === 1 && styles.reliabiltyText]}>
-          완전 신뢰
-        </Text>
-        <Text style={[styles.reliabiltyTextBase, selectedButton === 2 && styles.reliabiltyText]}>
-          조금 신뢰
-        </Text>
-        <Text style={[styles.reliabiltyTextBase, selectedButton === 3 && styles.reliabiltyText]}>
-          조금 의심
-        </Text>
-        <Text style={[styles.reliabiltyTextBase, selectedButton === 4 && styles.reliabiltyText]}>
-          완전 의심
-        </Text>
+        {reliabilityTexts.map((textData) => (
+          <Text
+            key={textData.id}
+            style={[
+              styles.reliabiltyTextBase,
+              selectedButton === textData.id && styles.reliabiltyText,
+            ]}
+          >
+            {textData.text}
+          </Text>
+        ))}
       </View>
       <TouchableOpacity style={styles.submitButton} onPress={() => {}}>
         <Text style={styles.buttonText}>투표하고 결과보기</Text>

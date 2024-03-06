@@ -14,10 +14,10 @@ import { WithLocalSvg } from 'react-native-svg';
 import MainArrowSvg from '../../../assets/icon/mainarrow.svg';
 import { ReProcessedIssue } from '../../../shared/types/news';
 import CategoryLatestNewsSliderItem from './CategoryLatestNewsSliderItem';
-interface ReProcessedIssueProps {
+interface CategoryLatestNewsSliderProps {
   fakeNews: ReProcessedIssue[] | null;
 }
-const CategoryLatestNewsSlider = ({ fakeNews }: ReProcessedIssueProps) => {
+const CategoryLatestNewsSlider = ({ fakeNews }: CategoryLatestNewsSliderProps) => {
   const onClickButton = () => {
     console.log('해당 버튼은, 이동합니다');
   };
@@ -32,7 +32,7 @@ const CategoryLatestNewsSlider = ({ fakeNews }: ReProcessedIssueProps) => {
       <FlatList
         horizontal={false}
         showsHorizontalScrollIndicator={false}
-        snapToInterval={Dimensions.get('window').width}
+        style={styles.flatListStyle}
         data={fakeNews}
         keyExtractor={(item) => String(item.id)}
         renderItem={({ item }) => <CategoryLatestNewsSliderItem item={item} />}
@@ -68,6 +68,10 @@ const styles = StyleSheet.create({
     marginRight: 21,
     alignSelf: 'center',
     justifyContent: 'center',
+  },
+  flatListStyle: {
+    width: Dimensions.get('window').width,
+    marginBottom: 50,
   },
 });
 

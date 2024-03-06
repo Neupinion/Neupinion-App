@@ -20,7 +20,7 @@ import ReliabilitySLider from '../features/remakeissue/components/ReliabilitySli
 import CategoryLatestNewsSlider from '../features/remakeissue/components/CategoryLatestNewsSlider';
 import ReProcessedIssueDummy from '../dummy/ReProcessedIssueDummy';
 
-const TestPage = () => {
+const DetailPage = () => {
   const [bookMarkClicked, setBookMarkClicked] = useState(false);
   const onClickButton = () => {
     console.log('해당 버튼은, 이전 페이지로 이동합니다.');
@@ -133,4 +133,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default TestPage;
+export default DetailPage;

@@ -4,11 +4,11 @@ import theme from '../../../shared/styles/theme';
 import { ReProcessedIssue } from '../../../shared/types/news';
 import { formatDate } from '../constants/formatDate';
 
-interface ReProcessedIssueProps {
+interface CategoryLatestNewsSliderItemProps {
   item: ReProcessedIssue;
 }
 
-const ReProcessedIssueItem = ({ item }: ReProcessedIssueProps) => {
+const CategoryLatestNewsSliderItem = ({ item }: CategoryLatestNewsSliderItemProps) => {
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.card} onPress={() => {}}>
@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     backgroundColor: theme.color.gray,
-    // backgroundColor: theme.color.main,
+    borderRadius: 6,
     paddingHorizontal: 20,
     paddingVertical: 16,
     marginBottom: 16,
@@ -95,4 +95,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ReProcessedIssueItem;
+export default CategoryLatestNewsSliderItem;
