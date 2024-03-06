@@ -30,7 +30,7 @@ const ReliabilitySLider = () => {
   ];
 
   const [selectedButton, setSelectedButton] = useState(1);
-
+  const MOON_SVG_HEIGHT = 66.94156;
   const handleButtonPress = (buttonNumber: number) => {
     setSelectedButton(buttonNumber);
   };
@@ -49,7 +49,10 @@ const ReliabilitySLider = () => {
             style={[styles.svgBaseStyle, selectedButton === moon.id && styles.svgSelectedStyle]}
             onPress={() => handleButtonPress(moon.id)}
           >
-            <WithLocalSvg height={66.94156} asset={moon.SvgComponent as ImageSourcePropType} />
+            <WithLocalSvg
+              height={MOON_SVG_HEIGHT}
+              asset={moon.SvgComponent as ImageSourcePropType}
+            />
           </TouchableOpacity>
         ))}
       </View>
