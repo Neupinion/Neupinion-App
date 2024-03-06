@@ -32,14 +32,14 @@ describe('AfterIssueSlider component', () => {
     // Render AfterIssueSlider with sample data
     render(<AfterIssueSlider afterNews={afterNews} />);
 
-    // Wait for the component to finish rendering
-    await waitFor(() => {});
-
-    // Check if items are rendered in chronological order based on createdAt time
-    for (let i = 0; i < afterNews.length - 1; i++) {
-      const currentItemTime = new Date(afterNews[i].createdAt).getTime();
-      const nextItemTime = new Date(afterNews[i + 1].createdAt).getTime();
-      expect(currentItemTime).toBeLessThanOrEqual(nextItemTime);
-    }
+    // Wait for all items to be rendered
+    await waitFor(() => {
+      // Check if items are rendered in chronological order based on createdAt time
+      for (let i = 0; i < afterNews.length - 1; i++) {
+        const currentItemTime = new Date(afterNews[i].createdAt).getTime();
+        const nextItemTime = new Date(afterNews[i + 1].createdAt).getTime();
+        expect(currentItemTime).toBeLessThanOrEqual(nextItemTime);
+      }
+    });
   });
 });
