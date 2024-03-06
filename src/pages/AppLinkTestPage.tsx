@@ -3,17 +3,15 @@ import { Platform, Share, StyleSheet, Text, TouchableOpacity, View } from 'react
 import theme from '../shared/styles/theme';
 
 const AppLinkTestPage = () => {
-  const applink =
+  const appLink =
     Platform.OS === 'ios'
       ? 'https://apps.apple.com/us/app/kakaotalk/id362057947'
       : 'https://play.google.com/store/search?q=%EC%B9%B4%EC%B9%B4%EC%98%A4%ED%86%A1%ED%86%A1&c=apps&hl=ko';
 
-  const weblink = 'https://www.newneek.co/post/gRY7vi'
-  const appLinkShare = async () => {
+  const appLinkShare = () => async () => {
     try {
       const result = await Share.share({
-        //message: applink,
-        message: weblink,
+        message: appLink,
       });
 
       if (result.action === Share.sharedAction) {
@@ -34,7 +32,7 @@ const AppLinkTestPage = () => {
     <View style={styles.container}>
       <TouchableOpacity
         style={{ width: 220, height: 110, backgroundColor: 'white' }}
-        onPress={() => appLinkShare()}
+        onPress={appLinkShare}
       >
         <Text style={{ backgroundColor: 'black' }}>공유하기</Text>
       </TouchableOpacity>
