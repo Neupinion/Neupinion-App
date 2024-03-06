@@ -3,15 +3,17 @@ import { Platform, Share, StyleSheet, Text, TouchableOpacity, View } from 'react
 import theme from '../shared/styles/theme';
 
 const AppLinkTestPage = () => {
-  const link =
+  const applink =
     Platform.OS === 'ios'
       ? 'https://apps.apple.com/us/app/kakaotalk/id362057947'
       : 'https://play.google.com/store/search?q=%EC%B9%B4%EC%B9%B4%EC%98%A4%ED%86%A1%ED%86%A1&c=apps&hl=ko';
 
+  const weblink = 'https://www.newneek.co/post/gRY7vi'
   const appLinkShare = async () => {
     try {
       const result = await Share.share({
-        message: link,
+        //message: applink,
+        message: weblink,
       });
 
       if (result.action === Share.sharedAction) {
