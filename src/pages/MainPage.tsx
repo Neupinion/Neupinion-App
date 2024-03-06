@@ -24,6 +24,7 @@ import FollowUpIssueContainer from '../features/followupissue/components/FollowU
 import CategorySlider from '../features/remakeissue/components/CategorySlider';
 import { getFormatDate } from '../features/date/functions/formatDate';
 import AfterIssueSlider from '../features/remakeissue/components/AfterIssueSlider';
+
 import FollowUpIssueDummy from '../dummy/FollowUpIssueDummy';
 
 const MainPage = () => {
@@ -63,7 +64,9 @@ const MainPage = () => {
     <View style={styles.container}>
       <View style={styles.headerContainer}>
         <View style={styles.headerLeftContainer}>
-          <Text style={styles.headerDateText}>{getFormatDate(date)}</Text>
+          <TouchableOpacity onPress={pressDateArrow}>
+            <Text style={styles.headerDateText}>{getFormatDate(date)}</Text>
+          </TouchableOpacity>
           <TouchableOpacity style={styles.headerArrow} onPress={pressDateArrow}>
             <WithLocalSvg width={12} height={12} asset={MainArrowSvg as ImageSourcePropType} />
           </TouchableOpacity>
@@ -116,8 +119,7 @@ const MainPage = () => {
           </ScrollView>
         </>
       )}
-
-      <DateModal isOpen={isDateModalOpen} onClose={onCloseModal} />
+      {isDateModalOpen && <DateModal closeModal={onCloseModal} />}
     </View>
   );
 };
@@ -158,6 +160,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontStyle: 'normal',
     fontWeight: '700',
+    fontFamily: fontFamily.pretendard.bold,
     lineHeight: 24,
     letterSpacing: -0.48,
     color: 'rgba(255,255,255,0.98)',
