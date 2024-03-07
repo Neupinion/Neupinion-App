@@ -55,8 +55,8 @@ const OpinionPostItPopup: React.FC<OpinionPostItPopupProps> = ({ closeModal, tit
 
 const styles = StyleSheet.create({
   container: {
+    display: 'flex',
     width: 320,
-    height: 480,
     flexShrink: 0,
     borderRadius: 10,
     backgroundColor: '#212A3C',
@@ -127,6 +127,7 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     marginTop: 28,
+    marginBottom: 24,
     width: 280,
     height: 50,
     flexShrink: 0,
