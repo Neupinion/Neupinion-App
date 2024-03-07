@@ -60,9 +60,9 @@ const OpinionPinPage = () => {
               onPress={() => onSelectPin(index)}
             >
               <View style={styles.pinContainer}>
-                <TouchableOpacity style={styles.pin} onPress={onClickCheckButton}>
+                <View style={styles.pin}>
                   <WithLocalSvg width={20} height={20} asset={OpinionPin as ImageSourcePropType} />
-                </TouchableOpacity>
+                </View>
               </View>
               <View style={styles.sentenceContainer}>
                 <Text style={styles.sentenceText}>{item}</Text>
