@@ -23,8 +23,12 @@ const AppLinkTestPage = () => {
       } else if (result.action === Share.dismissedAction) {
         console.log('dismissed');
       }
-    } catch (e) {
-      alert(e);
+    } catch (e: unknown) {
+      if (e instanceof Error) {
+        console.log(e.message);
+      } else {
+        console.log('An unknown error occurred');
+      }
     }
   };
 
