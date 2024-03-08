@@ -31,7 +31,7 @@ const AfterIssueItem = ({ item }: AfterIssueItemProps) => {
           <Text style={styles.titleText} numberOfLines={1} ellipsizeMode="tail">
             {item.title}
           </Text>
-          <Text style={styles.titleUnderText} >
+          <Text style={styles.titleUnderText}>
             &quot;{item.reprocessedIssueTitle}&quot;에 대한 정정보도가 나왔어요
           </Text>
         </TouchableOpacity>

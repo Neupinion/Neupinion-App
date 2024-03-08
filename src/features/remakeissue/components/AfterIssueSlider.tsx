@@ -29,9 +29,7 @@ const AfterIssueSlider = ({ afterNews }: AfterIssueProps) => {
       {!afterNews || afterNews.length === 0 ? (
         <View style={styles.card}>
           <Text style={styles.titleText}>내가 투표한 기사의 새소식을 알려드려요!</Text>
-          <Text style={styles.titleUnderText}>
-            이슈에 투표를 하면, 관련 기사를 빠르게 알려드릴게요
-          </Text>
+          <Text style={styles.titleUnderText}>이슈에 투표를 하면, 관련 기사를 빠르게</Text>
         </View>
       ) : (
         <FlatList
