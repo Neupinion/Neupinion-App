@@ -26,6 +26,7 @@ import { getFormatDate } from '../features/date/functions/formatDate';
 import AfterIssueSlider from '../features/remakeissue/components/AfterIssueSlider';
 
 import FollowUpIssueDummy from '../dummy/FollowUpIssueDummy';
+import fontFamily from '../shared/styles/fontFamily';
 
 const MainPage = () => {
   const { date } = useDate();

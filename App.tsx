@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import MainPage from './src/pages/MainPage';
 import { DateProvider } from './src/features/date/provider/DateProvider';
 import { useCachedResources } from './src/useCachedResources';
