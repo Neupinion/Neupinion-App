@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontStyle: 'normal',
     fontWeight: '600',
-    lineHeight: 22.5,
+    lineHeight: 23,
     letterSpacing: -0.45,
     color: theme.color.white,
   },
