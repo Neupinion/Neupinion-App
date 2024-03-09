@@ -2,13 +2,13 @@ import React from 'react';
 import {
   Dimensions,
   ImageSourcePropType,
-  Keyboard,
+  Keyboard, KeyboardAvoidingView, Platform,
   StyleSheet,
   Text,
   TouchableOpacity,
   TouchableWithoutFeedback,
-  View,
-} from 'react-native';
+  View
+} from "react-native";
 import theme from '../shared/styles/theme';
 import { WithLocalSvg } from 'react-native-svg';
 import OpinionBackButton from '../assets/icon/opinionbackbutton.svg';
@@ -48,33 +48,50 @@ const OpinionPostPage = () => {
           </TouchableOpacity>
           <Text style={styles.topTextStyle}>의견쓰기</Text>
           <TouchableOpacity style={styles.topSvgStyle} onPress={onClickCheckButton}>
-            <WithLocalSvg width={17} height={12} asset={OpinionCheckButton as ImageSourcePropType} />
+            <WithLocalSvg
+              width={17}
+              height={12}
+              asset={OpinionCheckButton as ImageSourcePropType}
+            />
           </TouchableOpacity>
         </View>
-        <View style={styles.choosePinContainer}>
-          <View style={styles.pinFirstTextContainer}>
-            <PinTextNumberContainer
-              circleNumber={1}
-              circleText={'의견을 남길 부분을 선택해주세요'}
-              isActivate={true}
-            />
-            {sentenceIndex !== undefined && (
-              <TouchableOpacity style={styles.showNewsButton} onPress={onClickShowNewsButton}>
-                <Text style={styles.showNewsText}>뉴스보기</Text>
-              </TouchableOpacity>
-            )}
+        <KeyboardAvoidingView
+          behavior={Platform.select({ ios: 'padding', android: undefined })}
+          style={styles.avoid}
+        >
+          <View style={styles.choosePinContainer}>
+            <View style={styles.pinFirstTextContainer}>
+              <PinTextNumberContainer
+                circleNumber={1}
+                circleText={'의견을 남길 부분을 선택해주세요'}
+                isActivate={true}
+              />
+              {sentenceIndex !== undefined && (
+                <TouchableOpacity style={styles.showNewsButton} onPress={onClickShowNewsButton}>
+                  <Text style={styles.showNewsText}>뉴스보기</Text>
+                </TouchableOpacity>
+              )}
+            </View>
+            {sentenceIndex === undefined && <PinButton />}
+            {sentenceIndex !== undefined && <SentenceBox sentenceNumber={sentenceIndex} />}
           </View>
-          {sentenceIndex === undefined && <PinButton />}
-          {sentenceIndex !== undefined && <SentenceBox sentenceNumber={sentenceIndex} />}
-        </View>
-        <View style={styles.choosePinContainer}>
-          <PinTextNumberContainer
-            circleNumber={2}
-            circleText={'생각 쓰기'}
-            isActivate={sentenceIndex !== undefined}
-          />
-          <OpinionWriteContainer isActivate={sentenceIndex !== undefined} />
-        </View>
+          <View style={styles.choosePinContainer}>
+            <PinTextNumberContainer
+              circleNumber={2}
+              circleText={'생각 쓰기'}
+              isActivate={sentenceIndex !== undefined}
+            />
+            <OpinionWriteContainer isActivate={sentenceIndex !== undefined} />
+          </View>
+          <View style={styles.choosePinContainer}>
+            <PinTextNumberContainer
+              circleNumber={2}
+              circleText={'생각 쓰기'}
+              isActivate={sentenceIndex !== undefined}
+            />
+            <OpinionWriteContainer isActivate={sentenceIndex !== undefined} />
+          </View>
+        </KeyboardAvoidingView>
       </View>
     </TouchableWithoutFeedback>
   );
@@ -142,6 +159,9 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     lineHeight: 21,
     letterSpacing: -0.42,
+  },
+  avoid: {
+    flex: 1,
   },
 });
 
