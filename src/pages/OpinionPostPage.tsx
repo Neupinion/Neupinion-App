@@ -66,7 +66,7 @@ const OpinionPostPage = () => {
         ref={scrollViewRef}
         contentContainerStyle={[
           styles.scrollViewContainer,
-          { paddingBottom: isTextInputFocused ? targetY : 0 },
+          { paddingBottom: isTextInputFocused ? 200 : 0 },
         ]}
       >
         <View
