@@ -4,13 +4,13 @@ import {
   ImageSourcePropType,
   Keyboard,
   KeyboardAvoidingView,
-  Platform,
+  Platform, ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
   TouchableWithoutFeedback,
-  View,
-} from 'react-native';
+  View
+} from "react-native";
 import theme from '../shared/styles/theme';
 import { WithLocalSvg } from 'react-native-svg';
 import OpinionBackButton from '../assets/icon/opinionbackbutton.svg';
@@ -43,24 +43,31 @@ const OpinionPostPage = () => {
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <View style={styles.container}>
-        <View style={styles.topContainer}>
-          <TouchableOpacity style={styles.topSvgStyle} onPress={onClickBackButton}>
-            <WithLocalSvg width={10} height={20} asset={OpinionBackButton as ImageSourcePropType} />
-          </TouchableOpacity>
-          <Text style={styles.topTextStyle}>의견쓰기</Text>
-          <TouchableOpacity style={styles.topSvgStyle} onPress={onClickCheckButton}>
-            <WithLocalSvg
-              width={17}
-              height={12}
-              asset={OpinionCheckButton as ImageSourcePropType}
-            />
-          </TouchableOpacity>
-        </View>
-        <KeyboardAvoidingView
-          behavior={Platform.select({ ios: 'padding', android: undefined })}
-          style={styles.avoid}
+      <KeyboardAvoidingView
+        behavior={Platform.select({ ios: 'padding', android: 'height' })}
+        style={styles.container}
+      >
+        <ScrollView
+          contentContainerStyle={styles.scrollViewContainer}
+          keyboardShouldPersistTaps="handled"
         >
+          <View style={styles.topContainer}>
+            <TouchableOpacity style={styles.topSvgStyle} onPress={onClickBackButton}>
+              <WithLocalSvg
+                width={10}
+                height={20}
+                asset={OpinionBackButton as ImageSourcePropType}
+              />
+            </TouchableOpacity>
+            <Text style={styles.topTextStyle}>의견쓰기</Text>
+            <TouchableOpacity style={styles.topSvgStyle} onPress={onClickCheckButton}>
+              <WithLocalSvg
+                width={17}
+                height={12}
+                asset={OpinionCheckButton as ImageSourcePropType}
+              />
+            </TouchableOpacity>
+          </View>
           <View style={styles.choosePinContainer}>
             <View style={styles.pinFirstTextContainer}>
               <PinTextNumberContainer
@@ -100,8 +107,8 @@ const OpinionPostPage = () => {
               </View>
             </View>
           </View>
-        </KeyboardAvoidingView>
-      </View>
+        </ScrollView>
+      </KeyboardAvoidingView>
     </TouchableWithoutFeedback>
   );
 };
@@ -110,6 +117,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: theme.color.black,
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  scrollViewContainer: {
+    flex: 1,
     flexDirection: 'column',
     alignItems: 'center',
   },
