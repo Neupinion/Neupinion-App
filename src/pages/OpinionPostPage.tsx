@@ -124,6 +124,7 @@ const styles = StyleSheet.create({
   },
   scrollViewContainer: {
     display: 'flex',
+    minHeight: Dimensions.get('window').height,
     width: Dimensions.get('window').width,
     flexDirection: 'column',
     alignItems: 'center',
