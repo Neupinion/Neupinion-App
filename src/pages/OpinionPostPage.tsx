@@ -2,13 +2,15 @@ import React from 'react';
 import {
   Dimensions,
   ImageSourcePropType,
-  Keyboard, KeyboardAvoidingView, Platform,
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
   StyleSheet,
   Text,
   TouchableOpacity,
   TouchableWithoutFeedback,
-  View
-} from "react-native";
+  View,
+} from 'react-native';
 import theme from '../shared/styles/theme';
 import { WithLocalSvg } from 'react-native-svg';
 import OpinionBackButton from '../assets/icon/opinionbackbutton.svg';
@@ -78,18 +80,25 @@ const OpinionPostPage = () => {
           <View style={styles.choosePinContainer}>
             <PinTextNumberContainer
               circleNumber={2}
-              circleText={'생각 쓰기'}
+              circleText={'생각쓰기'}
               isActivate={sentenceIndex !== undefined}
             />
             <OpinionWriteContainer isActivate={sentenceIndex !== undefined} />
           </View>
           <View style={styles.choosePinContainer}>
             <PinTextNumberContainer
-              circleNumber={2}
-              circleText={'생각 쓰기'}
+              circleNumber={3}
+              circleText={'신뢰도 평가하기'}
               isActivate={sentenceIndex !== undefined}
             />
-            <OpinionWriteContainer isActivate={sentenceIndex !== undefined} />
+            <View style={styles.buttonContainer}>
+              <View style={styles.button}>
+                <Text style={styles.buttonText}>믿을 수 있어요</Text>
+              </View>
+              <View style={styles.button}>
+                <Text style={styles.buttonText}>의심이 가요</Text>
+              </View>
+            </View>
           </View>
         </KeyboardAvoidingView>
       </View>
@@ -162,6 +171,32 @@ const styles = StyleSheet.create({
   },
   avoid: {
     flex: 1,
+  },
+  buttonContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 10,
+    width: 338,
+  },
+  button: {
+    display: 'flex',
+    borderRadius: 10,
+    backgroundColor: '#212A3C',
+    width: 164,
+    padding: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: 10,
+  },
+  buttonText: {
+    color: '#4E5867',
+    fontStyle: 'normal',
+    fontSize: 18,
+    fontWeight: '700',
+    lineHeight: 27,
+    letterSpacing: -0.54,
   },
 });
 
