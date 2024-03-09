@@ -46,16 +46,12 @@ const OpinionPostPage = () => {
 
   const keyboardDismiss = () => {
     Keyboard.dismiss;
+    scrollViewRef.current?.scrollTo({ y: 0, animated: true });
     setIsTextInputFocused(false);
   };
 
   useEffect(() => {
-    if (isTextInputFocused) {
-      scrollViewRef.current?.scrollTo({ y: targetY, animated: true });
-    } else {
-      setTargetY(0);
-      scrollViewRef.current?.scrollTo({ y: 0, animated: true });
-    }
+    if (isTextInputFocused) scrollViewRef.current?.scrollTo({ y: targetY, animated: true });
   }, [isTextInputFocused]);
 
   return (
@@ -84,7 +80,7 @@ const OpinionPostPage = () => {
           <View
             onLayout={(event) => {
               const { y } = event.nativeEvent.layout;
-              setTargetY(y + 30); // 원하는 컴포넌트로부터 215만큼 아래에 위치
+              setTargetY(y + 30); // 디자인에서 정의한 크기로 이동
             }}
             style={styles.choosePinContainer}
           >
