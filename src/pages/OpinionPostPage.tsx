@@ -3,8 +3,6 @@ import {
   Dimensions,
   ImageSourcePropType,
   Keyboard,
-  KeyboardAvoidingView,
-  Platform,
   ScrollView,
   StyleSheet,
   Text,
@@ -55,17 +53,14 @@ const OpinionPostPage = () => {
     if (isTextInputFocused) {
       scrollViewRef.current?.scrollTo({ y: targetY, animated: true });
     } else {
-      const targetYPosition = 0;
-      scrollViewRef.current?.scrollTo({ y: targetYPosition, animated: true });
+      setTargetY(0);
+      scrollViewRef.current?.scrollTo({ y: 0, animated: true });
     }
   }, [isTextInputFocused]);
 
   return (
     <TouchableWithoutFeedback onPress={keyboardDismiss}>
-      <KeyboardAvoidingView
-        behavior={Platform.select({ ios: 'padding', android: 'height' })}
-        style={styles.container}
-      >
+      <View style={styles.container}>
         <View style={styles.topContainer}>
           <TouchableOpacity style={styles.topSvgStyle} onPress={onClickBackButton}>
             <WithLocalSvg width={10} height={20} asset={OpinionBackButton as ImageSourcePropType} />
@@ -81,13 +76,15 @@ const OpinionPostPage = () => {
         </View>
         <ScrollView
           ref={scrollViewRef}
-          contentContainerStyle={styles.scrollViewContainer}
-          keyboardShouldPersistTaps="handled"
+          contentContainerStyle={[
+            styles.scrollViewContainer,
+            { height: Dimensions.get('window').height - 96 + targetY },
+          ]}
         >
           <View
             onLayout={(event) => {
               const { y } = event.nativeEvent.layout;
-              setTargetY(y + 215); // 원하는 컴포넌트로부터 215만큼 아래에 위치
+              setTargetY(y + 30); // 원하는 컴포넌트로부터 215만큼 아래에 위치
             }}
             style={styles.choosePinContainer}
           >
@@ -133,7 +130,7 @@ const OpinionPostPage = () => {
             </View>
           </View>
         </ScrollView>
-      </KeyboardAvoidingView>
+      </View>
     </TouchableWithoutFeedback>
   );
 };
@@ -147,7 +144,6 @@ const styles = StyleSheet.create({
   },
   scrollViewContainer: {
     width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height,
     flexDirection: 'column',
     alignItems: 'center',
   },
