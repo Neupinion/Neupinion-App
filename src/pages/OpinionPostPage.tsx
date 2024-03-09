@@ -17,10 +17,12 @@ import OpinionCheckButton from '../assets/icon/opinionpurplecheck.svg';
 import PinButton from '../features/opinionpost/components/PinButton';
 import PinTextNumberContainer from '../features/opinionpost/components/PinTextNumberContainer';
 import OpinionWriteContainer from '../features/opinionpost/components/OpinionWriteContainer';
+import OpinionInfoIcon from '../assets/icon/opinioninfoicon.svg';
 import SentenceBox from '../features/opinionpost/components/SentenceBox';
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { RootStackParamList } from '../rootStackParamList';
 import { StackNavigationProp } from '@react-navigation/stack';
+import OpinionEvaluateCredibility from "../features/opinionpost/components/OpinionEvaluateCredibility";
 
 const OpinionPostPage = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
@@ -60,13 +62,7 @@ const OpinionPostPage = () => {
           <WithLocalSvg width={17} height={12} asset={OpinionCheckButton as ImageSourcePropType} />
         </TouchableOpacity>
       </View>
-      <ScrollView
-        ref={scrollViewRef}
-        contentContainerStyle={[
-          styles.scrollViewContainer,
-          { height: Dimensions.get('window').height - 96 + targetY },
-        ]}
-      >
+      <ScrollView ref={scrollViewRef} contentContainerStyle={[styles.scrollViewContainer]}>
         <View
           onLayout={(event) => {
             const { y } = event.nativeEvent.layout;
@@ -106,14 +102,7 @@ const OpinionPostPage = () => {
             circleText={'신뢰도 평가하기'}
             isActivate={sentenceIndex !== undefined}
           />
-          <View style={styles.buttonContainer}>
-            <View style={styles.button}>
-              <Text style={styles.buttonText}>믿을 수 있어요</Text>
-            </View>
-            <View style={styles.button}>
-              <Text style={styles.buttonText}>의심이 가요</Text>
-            </View>
-          </View>
+          <OpinionEvaluateCredibility isActivate={sentenceIndex !== undefined} />
         </View>
       </ScrollView>
     </View>
@@ -128,6 +117,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   scrollViewContainer: {
+    display: 'flex',
     width: Dimensions.get('window').width,
     flexDirection: 'column',
     alignItems: 'center',
@@ -190,32 +180,6 @@ const styles = StyleSheet.create({
   },
   avoid: {
     flex: 1,
-  },
-  buttonContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 10,
-    width: 338,
-  },
-  button: {
-    display: 'flex',
-    borderRadius: 10,
-    backgroundColor: '#212A3C',
-    width: 164,
-    padding: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-    gap: 10,
-  },
-  buttonText: {
-    color: '#4E5867',
-    fontStyle: 'normal',
-    fontSize: 18,
-    fontWeight: '700',
-    lineHeight: 27,
-    letterSpacing: -0.54,
   },
 });
 
