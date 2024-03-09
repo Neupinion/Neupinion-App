@@ -44,90 +44,79 @@ const OpinionPostPage = () => {
     navigation.navigate('OpinionPin');
   };
 
-  const keyboardDismiss = () => {
-    Keyboard.dismiss;
-    scrollViewRef.current?.scrollTo({ y: 0, animated: true });
-    setIsTextInputFocused(false);
-  };
-
   useEffect(() => {
     if (isTextInputFocused) scrollViewRef.current?.scrollTo({ y: targetY, animated: true });
+    else scrollViewRef.current?.scrollTo({ y: 0, animated: true });
   }, [isTextInputFocused]);
 
   return (
-    <TouchableWithoutFeedback onPress={keyboardDismiss}>
-      <View style={styles.container}>
-        <View style={styles.topContainer}>
-          <TouchableOpacity style={styles.topSvgStyle} onPress={onClickBackButton}>
-            <WithLocalSvg width={10} height={20} asset={OpinionBackButton as ImageSourcePropType} />
-          </TouchableOpacity>
-          <Text style={styles.topTextStyle}>의견쓰기</Text>
-          <TouchableOpacity style={styles.topSvgStyle} onPress={onClickCheckButton}>
-            <WithLocalSvg
-              width={17}
-              height={12}
-              asset={OpinionCheckButton as ImageSourcePropType}
-            />
-          </TouchableOpacity>
-        </View>
-        <ScrollView
-          ref={scrollViewRef}
-          contentContainerStyle={[
-            styles.scrollViewContainer,
-            { height: Dimensions.get('window').height - 96 + targetY },
-          ]}
-        >
-          <View
-            onLayout={(event) => {
-              const { y } = event.nativeEvent.layout;
-              setTargetY(y + 30); // 디자인에서 정의한 크기로 이동
-            }}
-            style={styles.choosePinContainer}
-          >
-            <View style={styles.pinFirstTextContainer}>
-              <PinTextNumberContainer
-                circleNumber={1}
-                circleText={'의견을 남길 부분을 선택해주세요'}
-                isActivate={true}
-              />
-              {sentenceIndex !== undefined && (
-                <TouchableOpacity style={styles.showNewsButton} onPress={onClickShowNewsButton}>
-                  <Text style={styles.showNewsText}>뉴스보기</Text>
-                </TouchableOpacity>
-              )}
-            </View>
-            {sentenceIndex === undefined && <PinButton />}
-            {sentenceIndex !== undefined && <SentenceBox sentenceNumber={sentenceIndex} />}
-          </View>
-          <View style={styles.choosePinContainer}>
-            <PinTextNumberContainer
-              circleNumber={2}
-              circleText={'생각쓰기'}
-              isActivate={sentenceIndex !== undefined}
-            />
-            <OpinionWriteContainer
-              isActivate={sentenceIndex !== undefined}
-              setIsTextInputFocused={setIsTextInputFocused}
-            />
-          </View>
-          <View style={styles.choosePinContainer}>
-            <PinTextNumberContainer
-              circleNumber={3}
-              circleText={'신뢰도 평가하기'}
-              isActivate={sentenceIndex !== undefined}
-            />
-            <View style={styles.buttonContainer}>
-              <View style={styles.button}>
-                <Text style={styles.buttonText}>믿을 수 있어요</Text>
-              </View>
-              <View style={styles.button}>
-                <Text style={styles.buttonText}>의심이 가요</Text>
-              </View>
-            </View>
-          </View>
-        </ScrollView>
+    <View style={styles.container}>
+      <View style={styles.topContainer}>
+        <TouchableOpacity style={styles.topSvgStyle} onPress={onClickBackButton}>
+          <WithLocalSvg width={10} height={20} asset={OpinionBackButton as ImageSourcePropType} />
+        </TouchableOpacity>
+        <Text style={styles.topTextStyle}>의견쓰기</Text>
+        <TouchableOpacity style={styles.topSvgStyle} onPress={onClickCheckButton}>
+          <WithLocalSvg width={17} height={12} asset={OpinionCheckButton as ImageSourcePropType} />
+        </TouchableOpacity>
       </View>
-    </TouchableWithoutFeedback>
+      <ScrollView
+        ref={scrollViewRef}
+        contentContainerStyle={[
+          styles.scrollViewContainer,
+          { height: Dimensions.get('window').height - 96 + targetY },
+        ]}
+      >
+        <View
+          onLayout={(event) => {
+            const { y } = event.nativeEvent.layout;
+            setTargetY(y + 30); // 디자인에서 정의한 크기로 이동
+          }}
+          style={styles.choosePinContainer}
+        >
+          <View style={styles.pinFirstTextContainer}>
+            <PinTextNumberContainer
+              circleNumber={1}
+              circleText={'의견을 남길 부분을 선택해주세요'}
+              isActivate={true}
+            />
+            {sentenceIndex !== undefined && (
+              <TouchableOpacity style={styles.showNewsButton} onPress={onClickShowNewsButton}>
+                <Text style={styles.showNewsText}>뉴스보기</Text>
+              </TouchableOpacity>
+            )}
+          </View>
+          {sentenceIndex === undefined && <PinButton />}
+          {sentenceIndex !== undefined && <SentenceBox sentenceNumber={sentenceIndex} />}
+        </View>
+        <View style={styles.choosePinContainer}>
+          <PinTextNumberContainer
+            circleNumber={2}
+            circleText={'생각쓰기'}
+            isActivate={sentenceIndex !== undefined}
+          />
+          <OpinionWriteContainer
+            isActivate={sentenceIndex !== undefined}
+            setIsTextInputFocused={setIsTextInputFocused}
+          />
+        </View>
+        <View style={styles.choosePinContainer}>
+          <PinTextNumberContainer
+            circleNumber={3}
+            circleText={'신뢰도 평가하기'}
+            isActivate={sentenceIndex !== undefined}
+          />
+          <View style={styles.buttonContainer}>
+            <View style={styles.button}>
+              <Text style={styles.buttonText}>믿을 수 있어요</Text>
+            </View>
+            <View style={styles.button}>
+              <Text style={styles.buttonText}>의심이 가요</Text>
+            </View>
+          </View>
+        </View>
+      </ScrollView>
+    </View>
   );
 };
 

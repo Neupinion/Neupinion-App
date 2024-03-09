@@ -28,6 +28,9 @@ const OpinionWriteContainer = ({
         multiline
         numberOfLines={4}
         onChangeText={handleTextChange}
+        onBlur={() => {
+          setIsTextInputFocused(false);
+        }}
         onFocus={() => {
           setIsTextInputFocused(true);
         }}
