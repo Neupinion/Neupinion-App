@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ImageSourcePropType, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import theme from '../../../shared/styles/theme';
 import { WithLocalSvg } from 'react-native-svg';
@@ -9,18 +9,37 @@ interface OpinionEvaluateCredibilityProps {
 }
 
 const OpinionEvaluateCredibility = ({ isActivate }: OpinionEvaluateCredibilityProps) => {
-  const onClickButton = () => {
-    console.log('버튼누름');
+  const [selectedOption, setSelectedOption] = useState<string | null>(null);
+  const onClickButton = (option: string) => {
+    setSelectedOption(option);
   };
+
+  const getButtonStyle = (option: string) => [
+    styles.button,
+    selectedOption === option && styles.selectedButton,
+  ];
+
+  const getButtonTextStyle = (option: string) => [
+    styles.buttonText,
+    selectedOption === option && styles.selectedButtonText,
+  ];
 
   return (
     <View style={styles.container}>
       <View style={styles.buttonContainer}>
-        <TouchableOpacity disabled={!isActivate} onPress={onClickButton} style={styles.button}>
-          <Text style={styles.buttonText}>믿을 수 있어요</Text>
+        <TouchableOpacity
+          disabled={!isActivate || selectedOption === 'trust'}
+          onPress={() => onClickButton('trust')}
+          style={getButtonStyle('trust')}
+        >
+          <Text style={getButtonTextStyle('trust')}>믿을 수 있어요</Text>
         </TouchableOpacity>
-        <TouchableOpacity disabled={!isActivate} onPress={onClickButton} style={styles.button}>
-          <Text style={styles.buttonText}>의심이 가요</Text>
+        <TouchableOpacity
+          disabled={!isActivate || selectedOption === 'doubt'}
+          onPress={() => onClickButton('doubt')}
+          style={getButtonStyle('doubt')}
+        >
+          <Text style={getButtonTextStyle('doubt')}>의심이 가요</Text>
         </TouchableOpacity>
       </View>
       <View style={styles.infoContainer}>
@@ -138,6 +157,12 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     lineHeight: 27,
     letterSpacing: -0.54,
+  },
+  selectedButton: {
+    backgroundColor: theme.color.main,
+  },
+  selectedButtonText: {
+    color: theme.color.white,
   },
 });
 

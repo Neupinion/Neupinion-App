@@ -22,7 +22,7 @@ import SentenceBox from '../features/opinionpost/components/SentenceBox';
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { RootStackParamList } from '../rootStackParamList';
 import { StackNavigationProp } from '@react-navigation/stack';
-import OpinionEvaluateCredibility from "../features/opinionpost/components/OpinionEvaluateCredibility";
+import OpinionEvaluateCredibility from '../features/opinionpost/components/OpinionEvaluateCredibility';
 
 const OpinionPostPage = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
