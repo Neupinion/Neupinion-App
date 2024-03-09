@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
 import {
-  Animated,
   Dimensions,
   ImageSourcePropType,
   Keyboard,
@@ -30,6 +29,7 @@ const OpinionPostPage = () => {
   type ScreenRouteProp = RouteProp<RootStackParamList, 'OpinionPost'>;
   const route = useRoute<ScreenRouteProp>();
 
+  const [targetY, setTargetY] = useState(0);
   const [isTextInputFocused, setIsTextInputFocused] = useState(false);
   const scrollViewRef = useRef<ScrollView>(null);
 
@@ -53,8 +53,7 @@ const OpinionPostPage = () => {
 
   useEffect(() => {
     if (isTextInputFocused) {
-      const targetYPosition = 1000;
-      scrollViewRef.current?.scrollTo({ y: targetYPosition, animated: true });
+      scrollViewRef.current?.scrollTo({ y: targetY, animated: true });
     } else {
       const targetYPosition = 0;
       scrollViewRef.current?.scrollTo({ y: targetYPosition, animated: true });
@@ -85,7 +84,13 @@ const OpinionPostPage = () => {
           contentContainerStyle={styles.scrollViewContainer}
           keyboardShouldPersistTaps="handled"
         >
-          <View style={styles.choosePinContainer}>
+          <View
+            onLayout={(event) => {
+              const { y } = event.nativeEvent.layout;
+              setTargetY(y + 215); // 원하는 컴포넌트로부터 215만큼 아래에 위치
+            }}
+            style={styles.choosePinContainer}
+          >
             <View style={styles.pinFirstTextContainer}>
               <PinTextNumberContainer
                 circleNumber={1}
@@ -141,7 +146,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   scrollViewContainer: {
-    flex: 1,
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height,
     flexDirection: 'column',
     alignItems: 'center',
   },
