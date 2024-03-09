@@ -31,7 +31,7 @@ const OpinionPostPage = () => {
   const route = useRoute<ScreenRouteProp>();
 
   const [isTextInputFocused, setIsTextInputFocused] = useState(false);
-  const [keyboardHeight] = useState(new Animated.Value(0));
+  const scrollViewRef = useRef<ScrollView>(null);
 
   const sentenceIndex = route.params?.sentenceNumber;
   const onClickBackButton = () => {
@@ -53,19 +53,11 @@ const OpinionPostPage = () => {
 
   useEffect(() => {
     if (isTextInputFocused) {
-      Animated.timing(keyboardHeight, {
-        toValue: 30,
-        duration: 250,
-        useNativeDriver: false,
-      }).start();
-      console.log("키보드 올라와");
+      const targetYPosition = 1000;
+      scrollViewRef.current?.scrollTo({ y: targetYPosition, animated: true });
     } else {
-      Animated.timing(keyboardHeight, {
-        toValue: 0,
-        duration: 250,
-        useNativeDriver: false,
-      }).start();
-      console.log("키보드 내려가");
+      const targetYPosition = 0;
+      scrollViewRef.current?.scrollTo({ y: targetYPosition, animated: true });
     }
   }, [isTextInputFocused]);
 
@@ -89,60 +81,52 @@ const OpinionPostPage = () => {
           </TouchableOpacity>
         </View>
         <ScrollView
+          ref={scrollViewRef}
           contentContainerStyle={styles.scrollViewContainer}
           keyboardShouldPersistTaps="handled"
         >
-          <Animated.View
-            style={{
-              flex: 1,
-              flexDirection: 'column',
-              alignItems: 'center',
-              marginBottom: keyboardHeight,
-            }}
-          >
-            <View style={styles.choosePinContainer}>
-              <View style={styles.pinFirstTextContainer}>
-                <PinTextNumberContainer
-                  circleNumber={1}
-                  circleText={'의견을 남길 부분을 선택해주세요'}
-                  isActivate={true}
-                />
-                {sentenceIndex !== undefined && (
-                  <TouchableOpacity style={styles.showNewsButton} onPress={onClickShowNewsButton}>
-                    <Text style={styles.showNewsText}>뉴스보기</Text>
-                  </TouchableOpacity>
-                )}
+          <View style={styles.choosePinContainer}>
+            <View style={styles.pinFirstTextContainer}>
+              <PinTextNumberContainer
+                circleNumber={1}
+                circleText={'의견을 남길 부분을 선택해주세요'}
+                isActivate={true}
+              />
+              {sentenceIndex !== undefined && (
+                <TouchableOpacity style={styles.showNewsButton} onPress={onClickShowNewsButton}>
+                  <Text style={styles.showNewsText}>뉴스보기</Text>
+                </TouchableOpacity>
+              )}
+            </View>
+            {sentenceIndex === undefined && <PinButton />}
+            {sentenceIndex !== undefined && <SentenceBox sentenceNumber={sentenceIndex} />}
+          </View>
+          <View style={styles.choosePinContainer}>
+            <PinTextNumberContainer
+              circleNumber={2}
+              circleText={'생각쓰기'}
+              isActivate={sentenceIndex !== undefined}
+            />
+            <OpinionWriteContainer
+              isActivate={sentenceIndex !== undefined}
+              setIsTextInputFocused={setIsTextInputFocused}
+            />
+          </View>
+          <View style={styles.choosePinContainer}>
+            <PinTextNumberContainer
+              circleNumber={3}
+              circleText={'신뢰도 평가하기'}
+              isActivate={sentenceIndex !== undefined}
+            />
+            <View style={styles.buttonContainer}>
+              <View style={styles.button}>
+                <Text style={styles.buttonText}>믿을 수 있어요</Text>
               </View>
-              {sentenceIndex === undefined && <PinButton />}
-              {sentenceIndex !== undefined && <SentenceBox sentenceNumber={sentenceIndex} />}
-            </View>
-            <View style={styles.choosePinContainer}>
-              <PinTextNumberContainer
-                circleNumber={2}
-                circleText={'생각쓰기'}
-                isActivate={sentenceIndex !== undefined}
-              />
-              <OpinionWriteContainer
-                isActivate={sentenceIndex !== undefined}
-                setIsTextInputFocused={setIsTextInputFocused}
-              />
-            </View>
-            <View style={styles.choosePinContainer}>
-              <PinTextNumberContainer
-                circleNumber={3}
-                circleText={'신뢰도 평가하기'}
-                isActivate={sentenceIndex !== undefined}
-              />
-              <View style={styles.buttonContainer}>
-                <View style={styles.button}>
-                  <Text style={styles.buttonText}>믿을 수 있어요</Text>
-                </View>
-                <View style={styles.button}>
-                  <Text style={styles.buttonText}>의심이 가요</Text>
-                </View>
+              <View style={styles.button}>
+                <Text style={styles.buttonText}>의심이 가요</Text>
               </View>
             </View>
-          </Animated.View>
+          </View>
         </ScrollView>
       </KeyboardAvoidingView>
     </TouchableWithoutFeedback>
