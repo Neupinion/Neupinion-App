@@ -30,6 +30,7 @@ const OpinionPostPage = () => {
   type ScreenRouteProp = RouteProp<RootStackParamList, 'OpinionPost'>;
   const route = useRoute<ScreenRouteProp>();
 
+  const [isTextInputFocused, setIsTextInputFocused] = useState(false);
   const [keyboardHeight] = useState(new Animated.Value(0));
 
   const sentenceIndex = route.params?.sentenceNumber;
@@ -45,31 +46,31 @@ const OpinionPostPage = () => {
     navigation.navigate('OpinionPin');
   };
 
+  const keyboardDismiss = () => {
+    Keyboard.dismiss;
+    setIsTextInputFocused(false);
+  };
+
   useEffect(() => {
-    const keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', () => {
+    if (isTextInputFocused) {
       Animated.timing(keyboardHeight, {
         toValue: 30,
         duration: 250,
         useNativeDriver: false,
       }).start();
-    });
-
-    const keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', () => {
+      console.log("키보드 올라와");
+    } else {
       Animated.timing(keyboardHeight, {
         toValue: 0,
         duration: 250,
         useNativeDriver: false,
       }).start();
-    });
-
-    return () => {
-      keyboardDidShowListener.remove();
-      keyboardDidHideListener.remove();
-    };
-  }, []);
+      console.log("키보드 내려가");
+    }
+  }, [isTextInputFocused]);
 
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+    <TouchableWithoutFeedback onPress={keyboardDismiss}>
       <KeyboardAvoidingView
         behavior={Platform.select({ ios: 'padding', android: 'height' })}
         style={styles.container}
@@ -92,7 +93,12 @@ const OpinionPostPage = () => {
           keyboardShouldPersistTaps="handled"
         >
           <Animated.View
-            style={{ flex: 1, flexDirection: 'column', alignItems: 'center', marginBottom: keyboardHeight }}
+            style={{
+              flex: 1,
+              flexDirection: 'column',
+              alignItems: 'center',
+              marginBottom: keyboardHeight,
+            }}
           >
             <View style={styles.choosePinContainer}>
               <View style={styles.pinFirstTextContainer}>
@@ -116,7 +122,10 @@ const OpinionPostPage = () => {
                 circleText={'생각쓰기'}
                 isActivate={sentenceIndex !== undefined}
               />
-              <OpinionWriteContainer isActivate={sentenceIndex !== undefined} />
+              <OpinionWriteContainer
+                isActivate={sentenceIndex !== undefined}
+                setIsTextInputFocused={setIsTextInputFocused}
+              />
             </View>
             <View style={styles.choosePinContainer}>
               <PinTextNumberContainer

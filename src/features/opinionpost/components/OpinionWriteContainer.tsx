@@ -4,8 +4,13 @@ import theme from '../../../shared/styles/theme';
 
 interface OpinionWriteContainerProps {
   isActivate: boolean;
+  setIsTextInputFocused: React.Dispatch<React.SetStateAction<boolean>>;
 }
-const OpinionWriteContainer = ({ isActivate }: OpinionWriteContainerProps) => {
+
+const OpinionWriteContainer = ({
+  isActivate,
+  setIsTextInputFocused,
+}: OpinionWriteContainerProps) => {
   const [text, setText] = useState('');
 
   const handleTextChange = (inputText: string) => {
@@ -23,6 +28,9 @@ const OpinionWriteContainer = ({ isActivate }: OpinionWriteContainerProps) => {
         multiline
         numberOfLines={4}
         onChangeText={handleTextChange}
+        onFocus={() => {
+          setIsTextInputFocused(true);
+        }}
         value={text}
         editable={isActivate}
       />
