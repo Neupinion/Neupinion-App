@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   Animated,
   Dimensions,
@@ -30,7 +30,7 @@ const OpinionPostPage = () => {
   type ScreenRouteProp = RouteProp<RootStackParamList, 'OpinionPost'>;
   const route = useRoute<ScreenRouteProp>();
 
-  const [keyboardHeight, setKeyboardHeight] = useState(new Animated.Value(0));
+  const [keyboardHeight] = useState(new Animated.Value(0));
 
   const sentenceIndex = route.params?.sentenceNumber;
   const onClickBackButton = () => {
@@ -46,9 +46,9 @@ const OpinionPostPage = () => {
   };
 
   useEffect(() => {
-    const keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', (e) => {
+    const keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', () => {
       Animated.timing(keyboardHeight, {
-        toValue: e.endCoordinates.height,
+        toValue: 30,
         duration: 250,
         useNativeDriver: false,
       }).start();
@@ -74,30 +74,26 @@ const OpinionPostPage = () => {
         behavior={Platform.select({ ios: 'padding', android: 'height' })}
         style={styles.container}
       >
+        <View style={styles.topContainer}>
+          <TouchableOpacity style={styles.topSvgStyle} onPress={onClickBackButton}>
+            <WithLocalSvg width={10} height={20} asset={OpinionBackButton as ImageSourcePropType} />
+          </TouchableOpacity>
+          <Text style={styles.topTextStyle}>의견쓰기</Text>
+          <TouchableOpacity style={styles.topSvgStyle} onPress={onClickCheckButton}>
+            <WithLocalSvg
+              width={17}
+              height={12}
+              asset={OpinionCheckButton as ImageSourcePropType}
+            />
+          </TouchableOpacity>
+        </View>
         <ScrollView
           contentContainerStyle={styles.scrollViewContainer}
           keyboardShouldPersistTaps="handled"
         >
           <Animated.View
-            style={{ flexDirection: 'column', alignItems: 'center', marginBottom: keyboardHeight }}
+            style={{ flex: 1, flexDirection: 'column', alignItems: 'center', marginBottom: keyboardHeight }}
           >
-            <View style={styles.topContainer}>
-              <TouchableOpacity style={styles.topSvgStyle} onPress={onClickBackButton}>
-                <WithLocalSvg
-                  width={10}
-                  height={20}
-                  asset={OpinionBackButton as ImageSourcePropType}
-                />
-              </TouchableOpacity>
-              <Text style={styles.topTextStyle}>의견쓰기</Text>
-              <TouchableOpacity style={styles.topSvgStyle} onPress={onClickCheckButton}>
-                <WithLocalSvg
-                  width={17}
-                  height={12}
-                  asset={OpinionCheckButton as ImageSourcePropType}
-                />
-              </TouchableOpacity>
-            </View>
             <View style={styles.choosePinContainer}>
               <View style={styles.pinFirstTextContainer}>
                 <PinTextNumberContainer
@@ -138,7 +134,6 @@ const OpinionPostPage = () => {
               </View>
             </View>
           </Animated.View>
-
         </ScrollView>
       </KeyboardAvoidingView>
     </TouchableWithoutFeedback>
