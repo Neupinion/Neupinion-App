@@ -62,7 +62,13 @@ const OpinionPostPage = () => {
           <WithLocalSvg width={17} height={12} asset={OpinionCheckButton as ImageSourcePropType} />
         </TouchableOpacity>
       </View>
-      <ScrollView ref={scrollViewRef} contentContainerStyle={[styles.scrollViewContainer]}>
+      <ScrollView
+        ref={scrollViewRef}
+        contentContainerStyle={[
+          styles.scrollViewContainer,
+          { paddingBottom: isTextInputFocused ? targetY : 0 },
+        ]}
+      >
         <View
           onLayout={(event) => {
             const { y } = event.nativeEvent.layout;
