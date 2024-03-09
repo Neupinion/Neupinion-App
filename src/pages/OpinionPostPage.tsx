@@ -2,12 +2,10 @@ import React, { useEffect, useRef, useState } from 'react';
 import {
   Dimensions,
   ImageSourcePropType,
-  Keyboard,
   ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
-  TouchableWithoutFeedback,
   View,
 } from 'react-native';
 import theme from '../shared/styles/theme';
@@ -17,7 +15,6 @@ import OpinionCheckButton from '../assets/icon/opinionpurplecheck.svg';
 import PinButton from '../features/opinionpost/components/PinButton';
 import PinTextNumberContainer from '../features/opinionpost/components/PinTextNumberContainer';
 import OpinionWriteContainer from '../features/opinionpost/components/OpinionWriteContainer';
-import OpinionInfoIcon from '../assets/icon/opinioninfoicon.svg';
 import SentenceBox from '../features/opinionpost/components/SentenceBox';
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { RootStackParamList } from '../rootStackParamList';
