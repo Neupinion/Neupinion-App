@@ -17,7 +17,7 @@ describe('AfterIssueSlider component', () => {
 
     // Expect FlatList to render only one item
     expect(queryAllByText('내가 투표한 기사의 새소식을 알려드려요!').length).toBe(1);
-    expect(queryAllByText('이슈에 투표를 하면, 관련 기사를 빠르게 전해드려요').length).toBe(1);
+    expect(queryAllByText('이슈에 투표를 하면, 관련 기사를 빠르게 알려드릴게요').length).toBe(1);
     expect(queryByText('더 많은 후속보도 확인하기')).toBeNull();
   });
 
