@@ -3,13 +3,12 @@ import { render } from '@testing-library/react-native';
 import AfterIssueItem from './AfterIssueItem';
 
 describe('AfterIssueItem component', () => {
-  it('correctly applies numberOfLines={1} and ellipsizeMode="tail" to titleText when title is longer than one line', () => {
-    // Define a long title that spans across multiple lines
+  it('titleText 가 한줄울 넘어갈 때 numberOfLines={1} and ellipsizeMode="tail"을 랜더링 하는가', () => {
     const longTitle =
       'This is a very long title that will span across multiple lines when rendered';
 
     // Render AfterIssueItem with a long title
-    const { queryAllByText } = render(
+    const { getByText } = render(
       <AfterIssueItem
         item={{
           id: 1,
@@ -20,15 +19,8 @@ describe('AfterIssueItem component', () => {
         }}
       />,
     );
-    const titleTextElements = queryAllByText(longTitle);
-
-    // Expect titleText not to be found in the component
-    // expect(titleTextElements).toHaveLength(0);
-
-    // Check if the titleText has numberOfLines={1} and ellipsizeMode="tail" applied
-    titleTextElements.forEach((titleText) => {
-      expect(titleText.props.numberOfLines).toBe(1);
-      expect(titleText.props.ellipsizeMode).toBe('tail');
-    });
+    const titleText = getByText(longTitle);
+    expect(titleText.props.numberOfLines).toBe(1);
+    expect(titleText.props.ellipsizeMode).toBe('tail');
   });
 });
