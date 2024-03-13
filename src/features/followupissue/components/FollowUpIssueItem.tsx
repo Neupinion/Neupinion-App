@@ -7,17 +7,21 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 interface FollowUpIssueItemProps {
   item: FollowUpIssue;
+  index: number;
 }
 
 const CARD_ITEM_SIZE = Dimensions.get('window').width * 0.915;
 const CARD_SPACER_ITEM_SIZE = (Dimensions.get('window').width - CARD_ITEM_SIZE) / 2;
-const FollowUpIssueItem = ({ item }: FollowUpIssueItemProps) => {
+const FollowUpIssueItem = ({ item, index }: FollowUpIssueItemProps) => {
   if (!item.title) {
     return <View style={{ width: CARD_SPACER_ITEM_SIZE }}></View>;
   }
 
   return (
-    <View style={{ width: CARD_ITEM_SIZE, alignItems: 'center', justifyContent: 'center' }}>
+    <View
+      testID={'Animation_Card_' + index.toString()}
+      style={{ width: CARD_ITEM_SIZE, alignItems: 'center', justifyContent: 'center' }}
+    >
       <TouchableOpacity onPress={() => {}}>
         <LinearGradient
           start={{ x: 0, y: 1 }}

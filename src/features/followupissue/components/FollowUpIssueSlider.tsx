@@ -40,13 +40,14 @@ const FollowUpIssueSlider = ({ followUpIssue }: FollowUpIssueSliderProps) => {
   return (
     <View style={styles.container}>
       <Animated.FlatList
+        testID={'FlatList'}
         showsHorizontalScrollIndicator={false}
         data={preparedFollowUpIssue}
         keyExtractor={(item) => String(item.id)}
         style={styles.flatListStyle}
         snapToInterval={CARD_ITEM_SIZE}
         horizontal={true}
-        renderItem={({ item }) => <FollowUpIssueItem item={item} />}
+        renderItem={({ item, index }) => <FollowUpIssueItem item={item} index={index} />}
         decelerationRate={0}
         bounces={false}
         scrollEventThrottle={16}
