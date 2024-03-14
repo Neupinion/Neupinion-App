@@ -17,7 +17,7 @@ import ShareSvg from '../assets/icon/share.svg';
 import RemakeIssueContentsSlider from '../features/remakeissue/components/RemakeIssueContentsSlider';
 import OpinionWriteSlider from '../features/remakeissue/components/OpinionWriteSlider';
 import ReliabilitySlider from '../features/remakeissue/components/ReliabilitySlider';
-import CategoryLatestNewsSlider from '../features/remakeissue/components/CategoryLatestNewsSlider';
+import CategoryLatestNews from '../features/remakeissue/components/CategoryLatestNews';
 import ReProcessedIssueDummy from '../dummy/ReProcessedIssueDummy';
 
 const DetailPage = () => {
@@ -63,7 +63,7 @@ const DetailPage = () => {
         <View style={styles.divideLine}></View>
         <ReliabilitySlider />
         <View style={styles.divideLine}></View>
-        <CategoryLatestNewsSlider fakeNews={reprocessedIssue} />
+        <CategoryLatestNews fakeNews={reprocessedIssue} />
       </ScrollView>
     </View>
   );

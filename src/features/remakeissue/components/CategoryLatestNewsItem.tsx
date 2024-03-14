@@ -8,7 +8,7 @@ interface CategoryLatestNewsSliderItemProps {
   item: ReProcessedIssue;
 }
 
-const CategoryLatestNewsSliderItem = ({ item }: CategoryLatestNewsSliderItemProps) => {
+const CategoryLatestNewsItem = ({ item }: CategoryLatestNewsSliderItemProps) => {
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.card} onPress={() => {}}>
@@ -95,4 +95,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CategoryLatestNewsSliderItem;
+export default CategoryLatestNewsItem;

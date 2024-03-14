@@ -13,11 +13,11 @@ import theme from '../../../shared/styles/theme';
 import { WithLocalSvg } from 'react-native-svg';
 import MainArrowSvg from '../../../assets/icon/mainarrow.svg';
 import { ReProcessedIssue } from '../../../shared/types/news';
-import CategoryLatestNewsSliderItem from './CategoryLatestNewsSliderItem';
+import CategoryLatestNewsItem from './CategoryLatestNewsItem';
 interface CategoryLatestNewsSliderProps {
   fakeNews: ReProcessedIssue[] | null;
 }
-const CategoryLatestNewsSlider = ({ fakeNews }: CategoryLatestNewsSliderProps) => {
+const CategoryLatestNews = ({ fakeNews }: CategoryLatestNewsSliderProps) => {
   const onClickButton = () => {
     console.log('해당 버튼은, 이동합니다');
   };
@@ -35,7 +35,7 @@ const CategoryLatestNewsSlider = ({ fakeNews }: CategoryLatestNewsSliderProps) =
         style={styles.flatListStyle}
         data={fakeNews}
         keyExtractor={(item) => String(item.id)}
-        renderItem={({ item }) => <CategoryLatestNewsSliderItem item={item} />}
+        renderItem={({ item }) => <CategoryLatestNewsItem item={item} />}
       />
     </View>
   );
@@ -75,4 +75,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CategoryLatestNewsSlider;
+export default CategoryLatestNews;
