@@ -19,6 +19,9 @@
     "setupFilesAfterEnv": ["<rootDir>/jest.setup.js"]
   },
   "dependencies": {
+    "@react-navigation/native": "^6.1.14",
+    "@react-navigation/native-stack": "^6.9.22",
+    "@react-navigation/stack": "^6.3.25",
     "axios": "^1.6.7",
     "expo": "~49.0.15",
     "expo-font": "^11.10.3",
@@ -33,6 +36,10 @@
     "react-native": "0.72.6",
     "react-native-calendars": "^1.1303.0",
     "react-native-dotenv": "^3.4.10",
+    "react-native-gesture-handler": "^2.15.0",
+    "react-native-reanimated": "^3.7.2",
+    "react-native-safe-area-context": "^4.6.3",
+    "react-native-screens": "~3.22.0",
     "react-native-svg": "13.9.0",
     "react-test-renderer": "^18.2.0"
   },
