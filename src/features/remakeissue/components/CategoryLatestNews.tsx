@@ -29,14 +29,8 @@ const CategoryLatestNews = ({ fakeNews }: CategoryLatestNewsSliderProps) => {
           <WithLocalSvg width={14} height={14} asset={MainArrowSvg as ImageSourcePropType} />
         </TouchableOpacity>
       </View>
-      <FlatList
-        horizontal={false}
-        showsHorizontalScrollIndicator={false}
-        style={styles.flatListStyle}
-        data={fakeNews}
-        keyExtractor={(item) => String(item.id)}
-        renderItem={({ item }) => <CategoryLatestNewsItem item={item} />}
-      />
+      {fakeNews &&
+        fakeNews.map((item) => <CategoryLatestNewsItem key={item.id} item={item} />)}
     </View>
   );
 };
