@@ -15,18 +15,13 @@ import Moon1Svg from '../../../assets/icon/moon1.svg';
 import Moon2Svg from '../../../assets/icon/moon2.svg';
 import Moon3Svg from '../../../assets/icon/moon3.svg';
 import Moon4Svg from '../../../assets/icon/moon4.svg';
+import { reliabilityText } from '../constants/reliabilty';
 const ReliabilitySlider = () => {
   const moons = [
     { id: 1, SvgComponent: Moon1Svg },
     { id: 2, SvgComponent: Moon2Svg },
     { id: 3, SvgComponent: Moon3Svg },
     { id: 4, SvgComponent: Moon4Svg },
-  ];
-  const reliabilityTexts = [
-    { id: 1, text: '완전 신뢰' },
-    { id: 2, text: '조금 신뢰' },
-    { id: 3, text: '조금 의심' },
-    { id: 4, text: '완전 의심' },
   ];
 
   const [selectedButton, setSelectedButton] = useState(1);
@@ -57,7 +52,7 @@ const ReliabilitySlider = () => {
         ))}
       </View>
       <View style={styles.reliabiltContainer}>
-        {reliabilityTexts.map((textData) => (
+        {reliabilityText.map((textData) => (
           <Text
             key={textData.id}
             style={[
