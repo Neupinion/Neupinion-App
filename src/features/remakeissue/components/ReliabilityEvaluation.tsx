@@ -16,7 +16,7 @@ import Moon2Svg from '../../../assets/icon/moon2.svg';
 import Moon3Svg from '../../../assets/icon/moon3.svg';
 import Moon4Svg from '../../../assets/icon/moon4.svg';
 import { reliabilityText } from '../constants/reliabilty';
-const ReliabilitySlider = () => {
+const ReliabilityEvaluation = () => {
   const moons = [
     { id: 1, SvgComponent: Moon1Svg },
     { id: 2, SvgComponent: Moon2Svg },
@@ -143,4 +143,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ReliabilitySlider;
+export default ReliabilityEvaluation;

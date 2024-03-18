@@ -16,7 +16,7 @@ import AnotherBookMarkSvg from '../assets/icon/anotherbookmark.svg';
 import ShareSvg from '../assets/icon/share.svg';
 import RemakeIssueContentsSlider from '../features/remakeissue/components/RemakeIssueContentsSlider';
 import OpinionWriteSlider from '../features/remakeissue/components/OpinionWriteSlider';
-import ReliabilitySlider from '../features/remakeissue/components/ReliabilitySlider';
+import ReliabilityEvaluation from '../features/remakeissue/components/ReliabilityEvaluation';
 import CategoryLatestNews from '../features/remakeissue/components/CategoryLatestNews';
 import ReProcessedIssueDummy from '../dummy/ReProcessedIssueDummy';
 
@@ -61,7 +61,7 @@ const DetailPage = () => {
         <View style={styles.divideLine}></View>
         <OpinionWriteSlider />
         <View style={styles.divideLine}></View>
-        <ReliabilitySlider />
+        <ReliabilityEvaluation />
         <View style={styles.divideLine}></View>
         <CategoryLatestNews fakeNews={reprocessedIssue} />
       </ScrollView>
