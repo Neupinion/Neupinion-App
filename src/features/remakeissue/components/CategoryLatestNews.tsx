@@ -6,7 +6,6 @@ import {
   Dimensions,
   TouchableOpacity,
   ImageSourcePropType,
-  FlatList,
 } from 'react-native';
 import GlobalTextStyles from '../../../shared/styles/GlobalTextStyles';
 import theme from '../../../shared/styles/theme';
@@ -29,8 +28,7 @@ const CategoryLatestNews = ({ fakeNews }: CategoryLatestNewsSliderProps) => {
           <WithLocalSvg width={14} height={14} asset={MainArrowSvg as ImageSourcePropType} />
         </TouchableOpacity>
       </View>
-      {fakeNews &&
-        fakeNews.map((item) => <CategoryLatestNewsItem key={item.id} item={item} />)}
+      {fakeNews && fakeNews.map((item) => <CategoryLatestNewsItem key={item.id} item={item} />)}
     </View>
   );
 };
