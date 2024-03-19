@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   Animated,
   Dimensions,
@@ -42,6 +42,11 @@ const OpinionWriteBottomSheet = ({
     useNativeDriver: true,
   });
 
+  useEffect(() => {
+    if (isModalVisible) {
+      resetBottomSheet.start();
+    }
+  }, [isModalVisible]);
   const closeModal = () => {
     closeBottomSheet.start(() => {
       setModalVisible(false);
@@ -86,7 +91,7 @@ const OpinionWriteBottomSheet = ({
 const styles = StyleSheet.create({
   background: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: 'purple',
   },
   overlay: {
     flex: 1,
