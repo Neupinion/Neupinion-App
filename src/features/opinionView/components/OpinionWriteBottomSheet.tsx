@@ -91,7 +91,6 @@ const OpinionWriteBottomSheet = ({
 const styles = StyleSheet.create({
   background: {
     flex: 1,
-    backgroundColor: 'purple',
   },
   overlay: {
     flex: 1,
