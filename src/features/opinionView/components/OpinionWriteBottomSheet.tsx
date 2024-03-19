@@ -78,8 +78,10 @@ const OpinionWriteBottomSheet = ({
         </TouchableWithoutFeedback>
         <Animated.View
           style={{ ...styles.bottomSheetContainer, transform: [{ translateY: translateY }] }}
-          {...panResponders.panHandlers}
         >
+          <View style={styles.panResponderContainer} {...panResponders.panHandlers}>
+            <View style={styles.panResponder}/>
+          </View>
           <Text>{title}</Text>
           <Text>{content}</Text>
         </Animated.View>
@@ -98,12 +100,24 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.4)',
   },
   bottomSheetContainer: {
-    height: 300,
+    display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: '#212A3C',
+    borderTopLeftRadius: 24,
+    borderTopRightRadius: 24,
+  },
+  panResponderContainer: {
+    height: 24,
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  panResponder: {
+    width: 44,
+    height: 4,
+    borderRadius: 4,
     backgroundColor: 'white',
-    borderTopLeftRadius: 10,
-    borderTopRightRadius: 10,
   },
 });
 
