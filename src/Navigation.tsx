@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import OpinionPostPage from './pages/OpinionPostPage';
 import OpinionPinPage from './pages/OpinionPinPage';
 import MainPage from './pages/MainPage';
+import DetailPage from "./pages/DetailPage";
 
 const Stack = createNativeStackNavigator();
 
@@ -15,6 +16,9 @@ const Navigation = () => {
           headerShown: false,
         }}
       >
+        <Stack.Group>
+          <Stack.Screen name="DetailPage" component={DetailPage}></Stack.Screen>
+        </Stack.Group>
         <Stack.Group>
           <Stack.Screen name="OpinionPost" component={OpinionPostPage}></Stack.Screen>
           <Stack.Screen name="OpinionPin" component={OpinionPinPage}></Stack.Screen>
