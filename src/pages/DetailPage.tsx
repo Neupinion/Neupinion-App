@@ -19,6 +19,7 @@ import OpinionWriteSlider from '../features/remakeissue/components/OpinionWriteS
 import ReliabilityEvaluation from '../features/remakeissue/components/ReliabilityEvaluation';
 import CategoryLatestNews from '../features/remakeissue/components/CategoryLatestNews';
 import ReProcessedIssueDummy from '../dummy/ReProcessedIssueDummy';
+import OpinionWriteBottomSheet from "../features/opinionView/components/OpinionWriteBottomSheet";
 
 const DetailPage = () => {
   const [bookMarkClicked, setBookMarkClicked] = useState(false);
@@ -65,6 +66,7 @@ const DetailPage = () => {
         <View style={styles.divideLine}></View>
         <CategoryLatestNews fakeNews={reprocessedIssue} />
       </ScrollView>
+      <OpinionWriteBottomSheet modalVisible={true} title={'안녕'} content={'잘가'}/>
     </View>
   );
 };
