@@ -15,6 +15,7 @@ import theme from '../../../shared/styles/theme';
 import fontFamily from '../../../shared/styles/fontFamily';
 import { WithLocalSvg } from 'react-native-svg';
 import OpinionPin from '../../../assets/icon/opinionpin.svg';
+import WarningPopup from '../../popup/components/WarningPopup';
 
 interface OpinionWriteBottomSheetProps {
   modalVisible: boolean;
@@ -28,9 +29,13 @@ const OpinionWriteBottomSheet = ({
   content,
 }: OpinionWriteBottomSheetProps) => {
   const [isModalVisible, setModalVisible] = useState(modalVisible);
-  const animationDuration: number = 300;
+  const [isDeletePopupVisible, setIsDeletePopupVisible] = useState(false);
+
   const screenHeight = Dimensions.get('screen').height;
+
+  const animationDuration: number = 300;
   const panY = useRef(new Animated.Value(screenHeight)).current;
+
   const translateY = panY.interpolate({
     inputRange: [-1, 0, 1],
     outputRange: [0, 0, 1],
@@ -64,7 +69,7 @@ const OpinionWriteBottomSheet = ({
   };
 
   const onClickDeleteButton = () => {
-    console.log('삭제버튼 클릭');
+    setIsDeletePopupVisible(true);
   };
 
   const panResponders = useRef(
@@ -113,6 +118,12 @@ const OpinionWriteBottomSheet = ({
             <Text style={styles.deleteButtonText}>삭제하기</Text>
           </TouchableOpacity>
         </Animated.View>
+        <WarningPopup
+          modalVisible={isDeletePopupVisible}
+          title={'작성한 의견을 삭제하시겠습니까?'}
+          onClose={() => setIsDeletePopupVisible(false)}
+          onConfirm={() => {}}
+        />
       </View>
     </Modal>
   );
