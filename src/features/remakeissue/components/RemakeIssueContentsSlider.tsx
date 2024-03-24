@@ -13,7 +13,7 @@ import theme from '../../../shared/styles/theme';
 import { WithLocalSvg } from 'react-native-svg';
 import SeeOriginalSvg from '../../../assets/icon/seeOriginal.svg';
 import axios from 'axios';
-import { ReProcessedIssue, sameCategoryReprocessedIssues } from "../../../shared/types/news";
+import { sameCategoryReprocessedIssues } from "../../../shared/types/news";
 import { formatDate } from '../constants/formatDate';
 const RemakeIssueContentsSlider = () => {
   const onClickButton = () => {
