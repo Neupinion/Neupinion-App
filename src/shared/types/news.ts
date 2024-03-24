@@ -16,3 +16,21 @@ export interface FollowUpIssue {
   reprocessedIssueTitle: string;
   createdAt: string;
 }
+interface Content {
+  id: number;
+  paragraph: string;
+  selected: boolean;
+}
+export interface sameCategoryReprocessedIssues{
+  id: number;
+  title: string;
+  imageUrl: string;
+  caption: string;
+  category: string;
+  isBookmarked: boolean;
+  trustVote: string;
+  createdAt: string;
+  originUrl: string;
+  content: Content[];
+  tags: string[];
+}
