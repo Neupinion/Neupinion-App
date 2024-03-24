@@ -13,11 +13,13 @@ import theme from '../../../shared/styles/theme';
 import { WithLocalSvg } from 'react-native-svg';
 import SeeOriginalSvg from '../../../assets/icon/seeOriginal.svg';
 import axios from 'axios';
+import { ReProcessedIssue, sameCategoryReprocessedIssues } from "../../../shared/types/news";
+import { formatDate } from '../constants/formatDate';
 const RemakeIssueContentsSlider = () => {
   const onClickButton = () => {
     console.log('해당 버튼은, 이전 페이지로 이동합니다.');
   };
-  const [reprocessedIssue, setReprocessedIssue] = useState([]);
+  const [reprocessedIssue, setReprocessedIssue] = useState<sameCategoryReprocessedIssues | null>(null);
   const getIssueData = async () => {
     try {
       const resp = await axios.get('https://dev.neupinion.com/reprocessed-issue/1');
@@ -33,39 +35,43 @@ const RemakeIssueContentsSlider = () => {
   }, []);
   return (
     <View style={styles.container}>
-      <Text style={styles.contentsTitle}>{reprocessedIssue.title}</Text>
-      <View style={styles.titleUnderContainer}>
-        <View style={{ flexDirection: 'row' }}>
-          <View style={styles.tagBox}>
-            <Text style={styles.tagText}>{reprocessedIssue.category}</Text>
+      {reprocessedIssue && (
+        <>
+          <Text style={styles.contentsTitle}>{reprocessedIssue.title}</Text>
+          <View style={styles.titleUnderContainer}>
+            <View style={{ flexDirection: 'row' }}>
+              <View style={styles.tagBox}>
+                <Text style={styles.tagText}>{reprocessedIssue.category}</Text>
+              </View>
+              <Text style={styles.dateText}>{formatDate(reprocessedIssue.createdAt)}</Text>
+            </View>
+            <TouchableOpacity style={styles.headerSvg} onPress={onClickButton}>
+              <WithLocalSvg width={79} height={30} asset={SeeOriginalSvg as ImageSourcePropType} />
+            </TouchableOpacity>
           </View>
-          <Text style={styles.dateText}>{reprocessedIssue.createdAt}</Text>
-        </View>
-        <TouchableOpacity style={styles.headerSvg} onPress={onClickButton}>
-          <WithLocalSvg width={79} height={30} asset={SeeOriginalSvg as ImageSourcePropType} />
-        </TouchableOpacity>
-      </View>
-      <Image source={{ uri: reprocessedIssue.imageUrl }} style={styles.cardImage} />
-      <View style={styles.contentsBody}>
-        {reprocessedIssue.content &&
-          reprocessedIssue.content.map((contentItem, index) => (
-            <Text key={index} style={styles.contentsBodyText}>
-              {contentItem.paragraph}
-            </Text>
-          ))}
-      </View>
-      <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={styles.TagScrollViewStyle}
-      >
-        {reprocessedIssue.content &&
-          reprocessedIssue.content.map((contentItem, index) => (
-            <Text key={index} style={styles.contentsBodyText}>
-              {contentItem.paragraph}
-            </Text>
-          ))}
-      </ScrollView>
+          <Image source={{ uri: reprocessedIssue.imageUrl }} style={styles.cardImage} />
+          <View style={styles.contentsBody}>
+            {reprocessedIssue.content &&
+              reprocessedIssue.content.map((contentItem, index) => (
+                <Text key={index} style={styles.contentsBodyText}>
+                  {contentItem.paragraph}
+                </Text>
+              ))}
+          </View>
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={styles.TagScrollViewStyle}
+          >
+            {reprocessedIssue.content &&
+              reprocessedIssue.content.map((contentItem, index) => (
+                <Text key={index} style={styles.contentsBodyText}>
+                  {contentItem.paragraph}
+                </Text>
+              ))}
+          </ScrollView>
+        </>
+      )}
     </View>
   );
 };
