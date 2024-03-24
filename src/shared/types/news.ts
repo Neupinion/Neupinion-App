@@ -1,5 +1,3 @@
-import { getsameCategoryReprocessedIssues } from "../../features/remakeissue/remotes/sameCategoryReprocessedIssue";
-
 export interface ReProcessedIssue {
   id: string | number;
   title: string;
