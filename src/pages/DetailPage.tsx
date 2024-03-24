@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Dimensions,
   ImageSourcePropType,
@@ -18,17 +18,35 @@ import RemakeIssueContentsSlider from '../features/remakeissue/components/Remake
 import OpinionWriteSlider from '../features/remakeissue/components/OpinionWriteSlider';
 import ReliabilityEvaluation from '../features/remakeissue/components/ReliabilityEvaluation';
 import CategoryLatestNews from '../features/remakeissue/components/CategoryLatestNews';
-import ReProcessedIssueDummy from '../dummy/ReProcessedIssueDummy';
+import axios from 'axios';
 
-const DetailPage = () => {
+const DetailPage: React.FC = () => {
   const [bookMarkClicked, setBookMarkClicked] = useState(false);
+  const [reprocessedIssue, setReprocessedIssue] = useState([]);
   const onClickButton = () => {
-    console.log('해당 버튼은, 이전 페이지로 이동합니다.');
+    console.log('해당 버튼은, 원문 페이지로 이동합니다.');
   };
   const toggleBookMark = () => {
     setBookMarkClicked(!bookMarkClicked);
   };
-  const reprocessedIssue = ReProcessedIssueDummy;
+  const getReprocessedIssueList = async () => {
+    try {
+      const current = '1';
+      const category = 'ENTERTAINMENTS';
+      const resp = await axios.get(
+        `https://dev.neupinion.com/reprocessed-issue/by-category?current=${current}&category=${category}`,
+      );
+      const data = resp.data;
+      setReprocessedIssue(data);
+      console.log(data);
+    } catch (error) {
+      console.error('게시글 목록을 불러오는 중 오류 발생:', error);
+    }
+  };
+
+  useEffect(() => {
+    getReprocessedIssueList();
+  }, []);
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
