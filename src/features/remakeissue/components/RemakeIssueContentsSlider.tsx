@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -12,43 +12,60 @@ import {
 import theme from '../../../shared/styles/theme';
 import { WithLocalSvg } from 'react-native-svg';
 import SeeOriginalSvg from '../../../assets/icon/seeOriginal.svg';
-
+import axios from 'axios';
+import { ReProcessedIssue } from '../../../shared/types/news';
 const RemakeIssueContentsSlider = () => {
   const onClickButton = () => {
     console.log('해당 버튼은, 이전 페이지로 이동합니다.');
   };
-  const data = ['#펜타곤', '#폭발', '#9.11 테러'];
+  const [reprocessedIssue, setReprocessedIssue] = useState([]);
+  const getIssueData = async () => {
+    try {
+      const resp = await axios.get('https://dev.neupinion.com/reprocessed-issue/1');
+      const data = resp.data;
+      setReprocessedIssue(data);
+      console.log(data);
+    } catch (error) {
+      console.error('게시글 목록을 불러오는 중 오류 발생:', error);
+    }
+  };
+  useEffect(() => {
+    getIssueData();
+  }, []);
   return (
     <View style={styles.container}>
-      <Text style={styles.contentsTitle}>“펜타곤 대형 폭발”…美증시 출렁</Text>
+      <Text style={styles.contentsTitle}>{reprocessedIssue.title}</Text>
       <View style={styles.titleUnderContainer}>
         <View style={{ flexDirection: 'row' }}>
           <View style={styles.tagBox}>
-            <Text style={styles.tagText}>category</Text>
+            <Text style={styles.tagText}>{reprocessedIssue.category}</Text>
           </View>
-          <Text style={styles.dateText}>createAT</Text>
+          <Text style={styles.dateText}>{reprocessedIssue.createdAt}</Text>
         </View>
         <TouchableOpacity style={styles.headerSvg} onPress={onClickButton}>
           <WithLocalSvg width={79} height={30} asset={SeeOriginalSvg as ImageSourcePropType} />
         </TouchableOpacity>
       </View>
-      <Image source={{ uri: 'https://image.com?data=value' }} style={styles.cardImage} />
+      <Image source={{ uri: reprocessedIssue.imageUrl }} style={styles.cardImage} />
       <View style={styles.contentsBody}>
-        <Text style={styles.contentsBodyText}>
-          블룸버그통신 등에 따르면 22일(현지 시간) 오전 9시를 전후로 미 워싱턴DC에 있는 펜타곤으로
-          보이는 건물에서 검은 연기가 피어오르는 사진이 트위터를 통해 국내외로 빠르게 확산했다.
-        </Text>
+        {reprocessedIssue.content &&
+          reprocessedIssue.content.map((contentItem, index) => (
+            <Text key={index} style={styles.contentsBodyText}>
+              {contentItem.paragraph}
+            </Text>
+          ))}
       </View>
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={styles.TagScrollViewStyle}
       >
-        {data.map((item, index) => (
-          <View key={index} style={styles.hashTagBox}>
-            <Text style={styles.hashTagText}>{item}</Text>
-          </View>
-        ))}
+        {reprocessedIssue.content &&
+          reprocessedIssue.content.map((contentItem, index) => (
+            <Text key={index} style={styles.contentsBodyText}>
+              {contentItem.paragraph}
+            </Text>
+          ))}
       </ScrollView>
     </View>
   );
