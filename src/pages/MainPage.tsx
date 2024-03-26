@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import {
   ActivityIndicator,
   Dimensions,
@@ -24,16 +24,13 @@ import FollowUpIssueContainer from '../features/followupissue/components/FollowU
 import CategorySlider from '../features/remakeissue/components/CategorySlider';
 import { getFormatDate } from '../features/date/functions/formatDate';
 import AfterIssueSlider from '../features/remakeissue/components/AfterIssueSlider';
-
 import FollowUpIssueDummy from '../dummy/FollowUpIssueDummy';
 import fontFamily from '../shared/styles/fontFamily';
+import { useModal } from '../shared/hooks/useModal';
 
 const MainPage = () => {
   const { date } = useDate();
-  const [isDateModalOpen, setIsDateModalOpen] = useState(false);
-  const onCloseModal = () => {
-    setIsDateModalOpen(!isDateModalOpen);
-  };
+  const { openModal, closeModal } = useModal();
 
   const onClickButton = () => {
     console.log('해당 버튼은, 페이지 이동이나 ui의 임시 이벤트를 다룹니다.');
@@ -57,18 +54,17 @@ const MainPage = () => {
       });
   }, [date]);
 
-  const pressDateArrow = () => {
-    setIsDateModalOpen(!isDateModalOpen);
-  };
-
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
         <View style={styles.headerLeftContainer}>
-          <TouchableOpacity onPress={pressDateArrow}>
+          <TouchableOpacity onPress={() => openModal(<DateModal closeModal={closeModal} />)}>
             <Text style={styles.headerDateText}>{getFormatDate(date)}</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.headerArrow} onPress={pressDateArrow}>
+          <TouchableOpacity
+            style={styles.headerArrow}
+            onPress={() => openModal(<DateModal closeModal={closeModal} />)}
+          >
             <WithLocalSvg width={12} height={12} asset={MainArrowSvg as ImageSourcePropType} />
           </TouchableOpacity>
         </View>
@@ -120,7 +116,6 @@ const MainPage = () => {
           </ScrollView>
         </>
       )}
-      {isDateModalOpen && <DateModal closeModal={onCloseModal} />}
     </View>
   );
 };
