@@ -3,6 +3,7 @@ import { DateProvider } from './src/features/date/provider/DateProvider';
 import { useCachedResources } from './src/useCachedResources';
 import Navigation from './src/Navigation';
 import { RecoilRoot } from 'recoil';
+import GlobalModal from "./src/shared/components/GlobalModal";
 
 export default function App(): JSX.Element | null {
   const isLoaded = useCachedResources();
@@ -11,6 +12,7 @@ export default function App(): JSX.Element | null {
     return (
       <RecoilRoot>
         <DateProvider>
+          <GlobalModal />
           <Navigation />
         </DateProvider>
       </RecoilRoot>
