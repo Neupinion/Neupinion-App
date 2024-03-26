@@ -4,19 +4,16 @@ import { bottomSheetState } from '../../recoil/bottomSheetState';
 import {
   Animated,
   Dimensions,
-  Modal,
   PanResponder,
   StyleSheet,
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
 
+const screenHeight = Dimensions.get('screen').height;
+const animationDuration: number = 500;
 const GlobalBottomSheet: React.FC = () => {
   const [{ isOpen, content }, setBottomSheetState] = useRecoilState(bottomSheetState);
-
-  const screenHeight = Dimensions.get('screen').height;
-
-  const animationDuration: number = 500;
   const panY = useRef(new Animated.Value(screenHeight)).current;
 
   const translateY = panY.interpolate({
@@ -49,7 +46,9 @@ const GlobalBottomSheet: React.FC = () => {
   }, [isOpen]);
 
   const handleClose = () => {
-    setBottomSheetState({ isOpen: false, content: null });
+    closeBottomSheet.start(() => {
+      setBottomSheetState({ isOpen: false, content: null });
+    });
   };
 
   const panResponders = useRef(
@@ -69,7 +68,7 @@ const GlobalBottomSheet: React.FC = () => {
     }),
   ).current;
 
-  return (
+  return isOpen ? (
     <View style={styles.overlay}>
       <TouchableWithoutFeedback onPress={onClickBackGroundBottomSheet}>
         <View style={styles.background} />
@@ -81,7 +80,7 @@ const GlobalBottomSheet: React.FC = () => {
         {content}
       </Animated.View>
     </View>
-  );
+  ) : null;
 };
 
 const styles = StyleSheet.create({
