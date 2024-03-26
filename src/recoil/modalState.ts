@@ -1,5 +1,5 @@
 import { atom } from 'recoil';
-import { ModalState } from '../shared/types/modalTypes';
+import { ModalState } from '../shared/types/modal';
 
 export const modalState = atom<ModalState>({
   key: 'modalState',
