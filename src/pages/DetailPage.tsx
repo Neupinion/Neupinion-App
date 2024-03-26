@@ -151,7 +151,7 @@ const styles = StyleSheet.create({
   },
   testButton: {
     width: Dimensions.get('window').width,
-    height: 100,
+    height: 10,
     color: theme.color.white,
   },
 });
