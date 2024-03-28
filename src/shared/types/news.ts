@@ -1,3 +1,5 @@
+import { getRemakeIssueContent } from "../../features/remakeissue/remotes/RemakeIssueContent";
+
 export interface ReProcessedIssue {
   id: string | number;
   title: string;
@@ -21,7 +23,7 @@ interface Content {
   paragraph: string;
   selected: boolean;
 }
-export interface SameCategoryReprocessedIssue {
+export interface RemakeIssueContent {
   id: number;
   title: string;
   imageUrl: string;

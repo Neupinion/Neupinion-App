@@ -29,12 +29,12 @@ const DetailPage: React.FC = () => {
   const toggleBookMark = () => {
     setBookMarkClicked(!bookMarkClicked);
   };
-  const current = 1;
+  const current = '1';
   const category = 'ENTERTAINMENTS';
 
   const fetchReprocessedIssue = () => getSameCategoryReprocessedIssues(current, category);
   const {
-    data: reprocessedIssue, // Renamed fetchedReprocessedIssue to reprocessedIssue
+    data: reprocessedIssue,
     isLoading,
     error,
     fetchData,
@@ -43,7 +43,7 @@ const DetailPage: React.FC = () => {
   useEffect(() => {
     fetchData()
       .then((data) => {
-        console.log('Reprocessed Issues:', data); // 추가된 부분
+        console.log('Reprocessed Issues:', data);
         console.log('성공');
       })
       .catch((error) => {
