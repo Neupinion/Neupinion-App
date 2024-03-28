@@ -21,7 +21,7 @@ interface Content {
   paragraph: string;
   selected: boolean;
 }
-export interface sameCategoryReprocessedIssues{
+export interface SameCategoryReprocessedIssue {
   id: number;
   title: string;
   imageUrl: string;

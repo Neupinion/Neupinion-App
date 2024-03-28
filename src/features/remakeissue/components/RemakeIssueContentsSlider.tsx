@@ -13,13 +13,15 @@ import theme from '../../../shared/styles/theme';
 import { WithLocalSvg } from 'react-native-svg';
 import SeeOriginalSvg from '../../../assets/icon/seeOriginal.svg';
 import axios from 'axios';
-import { sameCategoryReprocessedIssues } from "../../../shared/types/news";
+import { SameCategoryReprocessedIssue } from '../../../shared/types/news';
 import { formatDate } from '../constants/formatDate';
 const RemakeIssueContentsSlider = () => {
   const onClickButton = () => {
     console.log('해당 버튼은, 이전 페이지로 이동합니다.');
   };
-  const [reprocessedIssue, setReprocessedIssue] = useState<sameCategoryReprocessedIssues | null>(null);
+  const [reprocessedIssue, setReprocessedIssue] = useState<SameCategoryReprocessedIssue | null>(
+    null,
+  );
   const getIssueData = async () => {
     try {
       const resp = await axios.get('https://dev.neupinion.com/reprocessed-issue/1');
