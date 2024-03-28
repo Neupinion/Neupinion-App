@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import {
   View,
   Text,
@@ -12,28 +12,31 @@ import {
 import theme from '../../../shared/styles/theme';
 import { WithLocalSvg } from 'react-native-svg';
 import SeeOriginalSvg from '../../../assets/icon/seeOriginal.svg';
-import axios from 'axios';
-import { SameCategoryReprocessedIssue } from '../../../shared/types/news';
 import { formatDate } from '../constants/formatDate';
+import useFetch from '../../../shared/hooks/useFetch';
+import { getRemakeIssueContent } from '../remotes/RemakeIssueContent';
 const RemakeIssueContentsSlider = () => {
   const onClickButton = () => {
     console.log('해당 버튼은, 이전 페이지로 이동합니다.');
   };
-  const [reprocessedIssue, setReprocessedIssue] = useState<SameCategoryReprocessedIssue | null>(
-    null,
-  );
-  const getIssueData = async () => {
-    try {
-      const resp = await axios.get('https://dev.neupinion.com/reprocessed-issue/1');
-      const data = resp.data;
-      setReprocessedIssue(data);
-      console.log(data);
-    } catch (error) {
-      console.error('게시글 목록을 불러오는 중 오류 발생:', error);
-    }
-  };
+  const id = '1';
+  const fetchReprocessedIssue = () => getRemakeIssueContent(id);
+  const {
+    data: reprocessedIssue,
+    isLoading,
+    error,
+    fetchData,
+  } = useFetch(fetchReprocessedIssue, false);
+
   useEffect(() => {
-    getIssueData();
+    fetchData()
+      .then((data) => {
+        console.log('RemakeIssueContent:', data);
+        console.log('성공');
+      })
+      .catch((error) => {
+        console.error('Error fetching reprocessed issues:', error);
+      });
   }, []);
   return (
     <View style={styles.container}>
