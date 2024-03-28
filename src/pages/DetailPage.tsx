@@ -18,34 +18,37 @@ import RemakeIssueContentsSlider from '../features/remakeissue/components/Remake
 import OpinionWriteSlider from '../features/remakeissue/components/OpinionWriteSlider';
 import ReliabilityEvaluation from '../features/remakeissue/components/ReliabilityEvaluation';
 import CategoryLatestNews from '../features/remakeissue/components/CategoryLatestNews';
-import axios from 'axios';
+import { getSameCategoryReprocessedIssues } from '../features/remakeissue/remotes/SameCategoryReprocessedIssue';
+import useFetch from '../shared/hooks/useFetch';
 
 const DetailPage: React.FC = () => {
   const [bookMarkClicked, setBookMarkClicked] = useState(false);
-  const [reprocessedIssue, setReprocessedIssue] = useState([]);
   const onClickButton = () => {
     console.log('해당 버튼은, 원문 페이지로 이동합니다.');
   };
   const toggleBookMark = () => {
     setBookMarkClicked(!bookMarkClicked);
   };
-  const getReprocessedIssueList = async () => {
-    try {
-      const current = '1';
-      const category = 'ENTERTAINMENTS';
-      const resp = await axios.get(
-        `https://dev.neupinion.com/reprocessed-issue/by-category?current=${current}&category=${category}`,
-      );
-      const data = resp.data;
-      setReprocessedIssue(data);
-      console.log(data);
-    } catch (error) {
-      console.error('게시글 목록을 불러오는 중 오류 발생:', error);
-    }
-  };
+  const current = 1;
+  const category = 'ENTERTAINMENTS';
+
+  const fetchReprocessedIssue = () => getSameCategoryReprocessedIssues(current, category);
+  const {
+    data: reprocessedIssue, // Renamed fetchedReprocessedIssue to reprocessedIssue
+    isLoading,
+    error,
+    fetchData,
+  } = useFetch(fetchReprocessedIssue, false);
 
   useEffect(() => {
-    getReprocessedIssueList();
+    fetchData()
+      .then((data) => {
+        console.log('Reprocessed Issues:', data); // 추가된 부분
+        console.log('성공');
+      })
+      .catch((error) => {
+        console.error('Error fetching reprocessed issues:', error);
+      });
   }, []);
   return (
     <View style={styles.container}>
