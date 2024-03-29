@@ -14,11 +14,13 @@ export const useModal = () => {
       closeAnimation?: Animated.CompositeAnimation,
     ) => {
       const newContent: ModalContent = { component, openAnimation, closeAnimation };
-      setModalState((prevState) => ({
-        isOpen: true,
-        content: [...prevState.content, newContent],
-      }));
-      openAnimation?.start();
+
+      newContent?.openAnimation?.start(() => {
+        setModalState((prevState) => ({
+          isOpen: true,
+          content: [...prevState.content, newContent],
+        }));
+      });
     },
     [setModalState],
   );
