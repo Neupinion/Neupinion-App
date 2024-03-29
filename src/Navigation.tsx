@@ -4,7 +4,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import OpinionPostPage from './pages/OpinionPostPage';
 import OpinionPinPage from './pages/OpinionPinPage';
 import MainPage from './pages/MainPage';
-import DetailPage from "./pages/DetailPage";
+import DetailPage from './pages/DetailPage';
+import Modal from './shared/components/Modal';
 
 const Stack = createNativeStackNavigator();
 
@@ -25,6 +26,16 @@ const Navigation = () => {
         </Stack.Group>
         <Stack.Group>
           <Stack.Screen name="MainPage" component={MainPage}></Stack.Screen>
+        </Stack.Group>
+        <Stack.Group>
+          <Stack.Screen
+            name="Modal"
+            component={Modal}
+            options={{
+              presentation: 'transparentModal',
+              animation: 'fade',
+            }}
+          />
         </Stack.Group>
       </Stack.Navigator>
     </NavigationContainer>
