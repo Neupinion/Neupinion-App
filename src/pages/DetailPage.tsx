@@ -20,10 +20,11 @@ import ReliabilityEvaluation from '../features/remakeissue/components/Reliabilit
 import CategoryLatestNews from '../features/remakeissue/components/CategoryLatestNews';
 import ReProcessedIssueDummy from '../dummy/ReProcessedIssueDummy';
 import OpinionWriteBottomSheet from '../features/opinionView/components/OpinionWriteBottomSheet';
-import { useBottomSheet } from '../shared/hooks/useBottomSheet';
+import { useModal } from '../shared/hooks/useModal';
 
 const DetailPage = () => {
-  const { openBottomSheet } = useBottomSheet();
+  const { openModal } = useModal();
+
   const [bookMarkClicked, setBookMarkClicked] = useState(false);
   const onClickButton = () => {
     console.log('해당 버튼은, 이전 페이지로 이동합니다.');
@@ -71,7 +72,7 @@ const DetailPage = () => {
       <TouchableOpacity
         style={styles.testButton}
         onPress={() =>
-          openBottomSheet(
+          openModal(
             <OpinionWriteBottomSheet
               title={
                 '    블룸버그통신 등에 따르면 22일(현지 시간) 오전 9시를 전후 로 미 워싱턴DC에 있는 펜타곤으로 보이는 건물에서 검은 연기가 피어오르는 사진이 트위터를 통해 국내외로 빠르게 확산했다.'
