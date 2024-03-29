@@ -3,25 +3,23 @@ import { DateProvider } from './src/features/date/provider/DateProvider';
 import { useCachedResources } from './src/useCachedResources';
 import Navigation from './src/Navigation';
 import { RecoilRoot } from 'recoil';
-import GlobalModal from './src/shared/components/GlobalModal';
+import GlobalModal from './src/shared/components/Modal';
 import GlobalBottomSheet from './src/shared/components/GlobalBottomSheet';
-import { Host, Portal } from 'react-native-portalize';
-
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import 'react-native-gesture-handler';
 export default function App(): JSX.Element | null {
   const isLoaded = useCachedResources();
 
   if (isLoaded) {
     return (
       <RecoilRoot>
-        <DateProvider>
-          <Host>
+        <GestureHandlerRootView>
+          <DateProvider>
             <Navigation />
-            <Portal>
-              <GlobalModal />
-              <GlobalBottomSheet />
-            </Portal>
-          </Host>
-        </DateProvider>
+            <GlobalModal />
+            <GlobalBottomSheet />
+          </DateProvider>
+        </GestureHandlerRootView>
       </RecoilRoot>
     );
   } else {
