@@ -1,23 +1,40 @@
 import React from 'react';
-import { useRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import { modalState } from '../../recoil/modalState';
-import { StyleSheet, View } from 'react-native';
+import { Dimensions, StyleSheet, View } from 'react-native';
+import { ModalContent } from '../types/modal';
 
 const Modal: React.FC = () => {
-  const [{ isOpen, content }, setModalState] = useRecoilState(modalState);
+  const { isOpen, content } = useRecoilValue(modalState);
 
-  const handleClose = () => {
-    setModalState({ isOpen: false, content: null });
-  };
+  if (!isOpen) return null;
 
   return (
-    isOpen ? <View style={styles.modalView}>{content}</View> : null;
+    <View style={styles.container}>
+      {content.map((modalContent: ModalContent, index) => (
+        <View key={index} style={styles.modalView}>
+          {modalContent.component}
+        </View>
+      ))}
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: 1,
+  },
   modalView: {
-    flex: 1,
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height,
   },
 });
 
