@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   Dimensions,
   View,
@@ -6,6 +6,8 @@ import {
   StyleSheet,
   TouchableOpacity,
   ImageSourcePropType,
+  Animated,
+  PanResponder,
 } from 'react-native';
 import theme from '../../../shared/styles/theme';
 import fontFamily from '../../../shared/styles/fontFamily';
@@ -26,6 +28,16 @@ const OpinionWriteBottomSheet = ({ title, content }: OpinionWriteBottomSheetProp
     console.log('수정버튼 클릭');
   };
 
+  const onClickDeleteButton = () => {
+    openModal(
+      <WarningPopup
+        title={'작성한 의견을 삭제하시겠습니까?'}
+        onClose={closeModal}
+        onConfirm={() => {}}
+      />,
+    );
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.panResponderContainer}>
@@ -44,18 +56,7 @@ const OpinionWriteBottomSheet = ({ title, content }: OpinionWriteBottomSheetProp
       <TouchableOpacity style={styles.modifyButton} onPress={onClickModifyButton}>
         <Text style={styles.modifyButtonText}>수정하기</Text>
       </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.deleteButton}
-        onPress={() =>
-          openModal(
-            <WarningPopup
-              title={'작성한 의견을 삭제하시겠습니까?'}
-              onClose={closeModal}
-              onConfirm={() => {}}
-            />,
-          )
-        }
-      >
+      <TouchableOpacity style={styles.deleteButton} onPress={onClickDeleteButton}>
         <Text style={styles.deleteButtonText}>삭제하기</Text>
       </TouchableOpacity>
     </View>
@@ -64,6 +65,8 @@ const OpinionWriteBottomSheet = ({ title, content }: OpinionWriteBottomSheetProp
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
+    backgroundColor: 'white',
     justifyContent: 'center',
     alignItems: 'center',
   },
