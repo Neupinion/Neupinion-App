@@ -48,7 +48,7 @@ const ReliabilityEvaluation = () => {
         },
       );
 
-      console.log('투표 결과가 제출되었습니다.', response.data);
+      console.log('투표 결과가 성공적으로 제출되었습니다.', response.data);
     } catch (error) {
       console.error('투표 결과 제출 중 오류 발생:', error);
     }

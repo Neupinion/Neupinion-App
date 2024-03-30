@@ -9,6 +9,7 @@ interface ColorPalette {
   gray4: string;
   gray5: string;
   gray6: string;
+  gray7: string;
   white: string;
 }
 
@@ -34,6 +35,7 @@ const theme: Theme = {
     gray4: '#4E5867',
     gray5: '#394358',
     gray6: '#71788F',
+    gray7: '#212A3C',
     white: '#FFFFFF',
   },
   gradient: {
