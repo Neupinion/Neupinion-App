@@ -14,8 +14,6 @@ import OpinioinWriterSvg from '../../../assets/icon/opinionwrite.svg';
 import { WithLocalSvg } from 'react-native-svg';
 import Pin from '../../../assets/icon/pin.svg';
 import fontFamily from '../../../shared/styles/fontFamily';
-import ReliabiltyBackGroundSvg from "../../../assets/icon/reliabiltybackground2.svg";
-import OpinionCardSvg from "../../../assets/icon/opinionCard.svg"
 
 const opinionTrue = false;
 const data = [
@@ -55,6 +53,7 @@ const OpinionWriteSlider = () => {
           keyExtractor={(item, index) => index.toString()}
           renderItem={({ item }) => (
             <View style={styles.card}>
+              <View style={styles.triangle} />
               <View style={styles.cardTop}>
                 <View style={styles.pin}>
                   <WithLocalSvg width={20} height={20} asset={Pin as ImageSourcePropType} />
@@ -142,15 +141,16 @@ const styles = StyleSheet.create({
   card: {
     alignItems: 'flex-start',
     justifyContent: 'flex-start',
-    // backgroundColor: theme.color.gray7,
     backgroundColor: theme.color.gray7,
     width: 160,
     height: 165,
     paddingVertical: 18,
+    borderRadius: 5,
   },
   cardTop: {
     flexDirection: 'row',
-    paddingHorizontal: 12,
+    marginHorizontal: 12,
+    //backgroundColor: theme.color.main,
   },
   titleText: {
     color: theme.color.white,
@@ -193,6 +193,19 @@ const styles = StyleSheet.create({
   OpinionCardSvg: {
     width: 160,
     height: 165,
+  },
+  triangle: {
+    width: 0,
+    height: 0,
+    backgroundColor: 'transparent',
+    borderStyle: 'solid',
+    borderLeftWidth: 18, // 각 변의 길이를 18로 설정
+    borderBottomWidth: 18, // 각 변의 길이를 18로 설정
+    borderLeftColor: 'transparent',
+    borderBottomColor: '#11111A', // 삼각형의 색상 설정
+    position: 'absolute',
+    right: 0,
+    bottom: 0,
   },
 });
 
