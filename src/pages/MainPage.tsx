@@ -32,9 +32,10 @@ const MainPage = () => {
   const { date } = useDate();
   const { openModal, closeModal } = useModal();
 
-  const onClickButton = () => {
-    console.log('해당 버튼은, 페이지 이동이나 ui의 임시 이벤트를 다룹니다.');
+  const openDateModal = () => {
+    openModal(<DateModal onClose={closeModal} />);
   };
+
   const fetchReprocessedIssue = () => getReprocessedIssues(date);
 
   const {
@@ -54,17 +55,18 @@ const MainPage = () => {
       });
   }, [date]);
 
+  const onClickButton = () => {
+    console.log('해당 버튼은, 페이지 이동이나 ui의 임시 이벤트를 다룹니다.');
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
         <View style={styles.headerLeftContainer}>
-          <TouchableOpacity onPress={() => openModal(<DateModal closeModal={closeModal} />)}>
+          <TouchableOpacity onPress={openDateModal}>
             <Text style={styles.headerDateText}>{getFormatDate(date)}</Text>
           </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.headerArrow}
-            onPress={() => openModal(<DateModal closeModal={closeModal} />)}
-          >
+          <TouchableOpacity style={styles.headerArrow} onPress={openDateModal}>
             <WithLocalSvg width={12} height={12} asset={MainArrowSvg as ImageSourcePropType} />
           </TouchableOpacity>
         </View>
