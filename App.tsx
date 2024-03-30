@@ -5,7 +5,7 @@ import Navigation from './src/Navigation';
 import { RecoilRoot } from 'recoil';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import 'react-native-gesture-handler';
-import Modal from  './src/shared/components/Modal'
+import ModalContainer from './src/shared/components/ModalContainer';
 export default function App(): JSX.Element | null {
   const isLoaded = useCachedResources();
 
@@ -14,7 +14,7 @@ export default function App(): JSX.Element | null {
       <RecoilRoot>
         <GestureHandlerRootView>
           <DateProvider>
-            <Modal />
+            <ModalContainer />
             <Navigation />
           </DateProvider>
         </GestureHandlerRootView>

@@ -1,8 +1,9 @@
 import React, { ReactNode } from 'react';
 import { useRecoilValue } from 'recoil';
 import { modalState } from '../../recoil/modalState';
-import { Dimensions, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { ModalContent } from '../types/modal';
+import { Modal } from 'react-native';
 
 interface ModalWrapperProps {
   children?: ReactNode;
@@ -10,13 +11,13 @@ interface ModalWrapperProps {
 }
 
 const ModalWrapper: React.FC<ModalWrapperProps> = ({ children, component }) => (
-  <View style={styles.modalView}>
+  <Modal style={styles.modalView} visible={true} animationType="fade" transparent>
     {component}
     {children}
-  </View>
+  </Modal>
 );
 
-const Modal: React.FC = () => {
+const ModalContainer: React.FC = () => {
   const { isOpen, content } = useRecoilValue(modalState);
 
   if (!isOpen || content.length === 0) return null;
@@ -45,7 +46,6 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundColor: 'rgba(0, 0, 0, 1)',
     zIndex: 1,
   },
   modalView: {
@@ -60,4 +60,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Modal;
+export default ModalContainer;
