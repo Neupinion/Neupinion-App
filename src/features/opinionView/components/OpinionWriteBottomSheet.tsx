@@ -32,7 +32,7 @@ const OpinionWriteBottomSheet = ({ title, content, onClose }: OpinionWriteBottom
 
   const panY = useRef(new Animated.Value(Dimensions.get('screen').height)).current;
 
-  const openBottomSheet = () => createOpenBottomSheetAnimation(panY).start;
+  const openBottomSheet = () => createOpenBottomSheetAnimation(panY).start();
 
   useEffect(() => {
     openBottomSheet();
