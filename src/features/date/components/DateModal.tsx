@@ -24,6 +24,7 @@ import {
   createCloseDateModalAnimation,
   createOpenDateModalAnimation,
 } from '../constants/dateModalAnimation';
+import calendarTheme from '../constants/calendarTheme';
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
 LocaleConfig.locales['kr'] = koreaLocales;
@@ -107,21 +108,7 @@ const DateModal: React.FC<DateModalProps> = ({ onClose }) => {
             maxDate={cvtParamDate(new Date())}
             current={toDashDate(date)}
             disableAllTouchEventsForDisabledDays={true}
-            theme={{
-              selectedDayBackgroundColor: '#7E58E9',
-              arrowColor: 'rgba(255, 255, 255, 0.8)',
-              todayTextColor: '#ffffff',
-              dayTextColor: '#ffffff',
-              calendarBackground: 'rgba(0, 0, 0, 0)',
-              monthTextColor: '#ffffff',
-              textMonthFontWeight: '500',
-              textDayFontWeight: '500',
-              textDisabledColor: 'rgba(255, 255, 255, 0.3)',
-              textInactiveColor: 'rgba(0, 0, 0, 0.3)',
-              textDayFontSize: 18,
-              textMonthFontSize: 18,
-              textDayHeaderFontSize: 12,
-            }}
+            theme={calendarTheme}
           />
         </View>
         <TouchableOpacity onPress={onCloseModal} style={styles.closeButton}>
