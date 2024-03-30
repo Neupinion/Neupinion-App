@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -14,27 +14,41 @@ import OpinioinWriterSvg from '../../../assets/icon/opinionwrite.svg';
 import { WithLocalSvg } from 'react-native-svg';
 import Pin from '../../../assets/icon/pin.svg';
 import fontFamily from '../../../shared/styles/fontFamily';
+import useFetch from '../../../shared/hooks/useFetch';
+import { getMyOpinionWrite } from '../remotes/opinionWrite';
 
-const opinionTrue = false;
-const data = [
-  {
-    title: '블룸버그통신 등에 따르면 22일(현지 시간) 오전 9시를 전후로',
-    content:
-      '트럼프 지지 성향의 극우 음모론 단체인 큐어넌과 연관된 계정에서 사진이 게시된 것이 매우 의심스럽다. 공신력 있',
-  },
-  {
-    title: '블룸버그통신 등에 따르면 22일(현지 시간) 오전 9시를 전후로',
-    content:
-      '트럼프 지지 성향의 극우 음모론 단체인 큐어넌과 연관된 계정에서 사진이 게시된 것이 매우 의심스럽다. 공신력 있',
-  },
-];
+const issueId = 1;
 const OpinionWriteSlider = () => {
+  const fetchMyOpinionWrite = () => getMyOpinionWrite(issueId);
+  const {
+    data: myOpinionWrite,
+    isLoading,
+    error,
+    fetchData,
+  } = useFetch(fetchMyOpinionWrite, false);
+  const [noOpinion, setNoOpinion] = useState(true);
+
+  useEffect(() => {
+    fetchData()
+      .then((myOpinionWrite) => {
+        if (Array.isArray(myOpinionWrite) && myOpinionWrite.length > 0) {
+          setNoOpinion(false);
+        } else {
+          setNoOpinion(true);
+        }
+        console.log('성공');
+      })
+      .catch((error) => {
+        console.error('Error fetching reprocessed issues:', error);
+      });
+  }, []);
+  console.log('myOpinionWrite:', myOpinionWrite);
   return (
     <View style={styles.container}>
       <View style={styles.titleContainer}>
         <Text style={GlobalTextStyles.NormalText17}>의견 쓰기</Text>
       </View>
-      {opinionTrue ? (
+      {noOpinion ? (
         <>
           <View style={{ justifyContent: 'flex-start', marginLeft: -30 }}>
             <WithLocalSvg
@@ -48,7 +62,7 @@ const OpinionWriteSlider = () => {
       ) : (
         <FlatList
           horizontal
-          data={data}
+          data={myOpinionWrite}
           contentContainerStyle={styles.cardContainer}
           keyExtractor={(item, index) => index.toString()}
           renderItem={({ item }) => (
@@ -59,7 +73,7 @@ const OpinionWriteSlider = () => {
                   <WithLocalSvg width={20} height={20} asset={Pin as ImageSourcePropType} />
                 </View>
                 <Text style={styles.titleText} numberOfLines={1} ellipsizeMode="tail">
-                  {item.title}
+                  {item.paragraphContent}
                 </Text>
               </View>
               <View style={styles.dotLine} />
