@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
   Animated,
-  Modal,
   StyleSheet,
   Dimensions,
   View,
@@ -16,15 +15,15 @@ import { useDate } from '../provider/DateProvider';
 import { WithLocalSvg } from 'react-native-svg';
 import DateModalClose from '../../../assets/icon/datemodalclose.svg';
 import {
-  dateModalAfterOpacity,
-  dateModalAfterScale,
-  dateModalAfterY,
-  dateModalAnimationDuration,
   dateModalInitialOpacity,
   dateModalInitialScale,
   dateModalInitialY,
 } from '../constants/modalAnimationNumber';
 import { toDashDate } from '../constants/toDashDate';
+import {
+  createCloseDateModalAnimation,
+  createOpenDateModalAnimation,
+} from '../constants/dateModalAnimation';
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
 LocaleConfig.locales['kr'] = koreaLocales;
@@ -32,13 +31,23 @@ LocaleConfig.locales['kr'] = koreaLocales;
 LocaleConfig.defaultLocale = 'kr';
 
 interface DateModalProps {
-  closeModal: () => void;
+  onClose: () => void;
 }
 
-const DateModal: React.FC<DateModalProps> = ({ closeModal }) => {
+const DateModal: React.FC<DateModalProps> = ({ onClose }) => {
   const [modalY] = useState(new Animated.Value(dateModalInitialY));
   const [modalOpacity] = useState(new Animated.Value(dateModalInitialOpacity));
   const [modalScale] = useState(new Animated.Value(dateModalInitialScale));
+
+  const animationOpen = () =>
+    createOpenDateModalAnimation(modalY, modalOpacity, modalScale).start();
+
+  useEffect(() => {
+    animationOpen();
+  }, []);
+
+  const animationClose = () =>
+    createCloseDateModalAnimation(modalY, modalOpacity, modalScale).start(onClose);
 
   const { date, setDate } = useDate();
   const [selectedDate, setSelectedDate] = useState(toDashDate(date));
@@ -58,50 +67,6 @@ const DateModal: React.FC<DateModalProps> = ({ closeModal }) => {
   const markedDates = {
     [selectedDate]: { selected: true, selectedColor: '#7E58E9' },
   };
-
-  const animationOpen = () => {
-    Animated.parallel([
-      Animated.timing(modalY, {
-        toValue: dateModalAfterY,
-        duration: dateModalAnimationDuration,
-        useNativeDriver: true,
-      }),
-      Animated.timing(modalOpacity, {
-        toValue: dateModalAfterOpacity,
-        duration: dateModalAnimationDuration,
-        useNativeDriver: true,
-      }),
-      Animated.timing(modalScale, {
-        toValue: dateModalAfterScale,
-        duration: dateModalAnimationDuration,
-        useNativeDriver: true,
-      }),
-    ]).start();
-  };
-
-  const animationClose = () => {
-    Animated.parallel([
-      Animated.timing(modalY, {
-        toValue: dateModalInitialY,
-        duration: dateModalAnimationDuration,
-        useNativeDriver: true,
-      }),
-      Animated.timing(modalOpacity, {
-        toValue: dateModalInitialOpacity,
-        duration: dateModalAnimationDuration,
-        useNativeDriver: true,
-      }),
-      Animated.timing(modalScale, {
-        toValue: dateModalInitialScale,
-        duration: dateModalAnimationDuration,
-        useNativeDriver: true,
-      }),
-    ]).start(closeModal);
-  };
-
-  useEffect(() => {
-    animationOpen();
-  }, []);
 
   return (
     <Animated.View
