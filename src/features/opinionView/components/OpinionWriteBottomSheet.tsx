@@ -14,12 +14,12 @@ import theme from '../../../shared/styles/theme';
 import fontFamily from '../../../shared/styles/fontFamily';
 import { WithLocalSvg } from 'react-native-svg';
 import OpinionPin from '../../../assets/icon/opinionpin.svg';
-import WarningPopup from '../../popup/components/WarningPopup';
 import { useModal } from '../../../shared/hooks/useModal';
 import {
   createCloseBottomSheetAnimation,
   createOpenBottomSheetAnimation,
 } from '../../../shared/constants/bottomSheetAnimation';
+import WarningModal from '../../../shared/components/WarningModal';
 
 interface OpinionWriteBottomSheetProps {
   title: string;
@@ -63,7 +63,7 @@ const OpinionWriteBottomSheet = ({ title, content, onClose }: OpinionWriteBottom
 
   const onClickDeleteButton = () => {
     openModal(
-      <WarningPopup
+      <WarningModal
         title={'작성한 의견을 삭제하시겠습니까?'}
         onClose={closeModal}
         onConfirm={() => {}}

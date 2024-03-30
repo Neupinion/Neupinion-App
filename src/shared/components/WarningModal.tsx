@@ -1,16 +1,16 @@
-import { ImageSourcePropType, Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import React, { useEffect, useState } from 'react';
-import theme from '../../../shared/styles/theme';
-import fontFamily from '../../../shared/styles/fontFamily';
-import Exclamation from '../../../assets/icon/warningpopupexclamation.svg';
+import { ImageSourcePropType, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import React from 'react';
+import theme from '../styles/theme';
+import fontFamily from '../styles/fontFamily';
+import Exclamation from '../../assets/icon/warningpopupexclamation.svg';
 import { WithLocalSvg } from 'react-native-svg';
 
-interface WarningPopup {
+interface WarningModalProps {
   title: string;
   onClose: () => void;
   onConfirm: () => void;
 }
-const WarningPopup = ({ title, onClose, onConfirm }: WarningPopup) => {
+const WarningModal = ({ title, onClose, onConfirm }: WarningModalProps) => {
   const onClickCancel = () => {
     onClose();
   };
@@ -117,4 +117,4 @@ const styles = StyleSheet.create({
     letterSpacing: -0.51,
   },
 });
-export default WarningPopup;
+export default WarningModal;
