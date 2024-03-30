@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import {
   Dimensions,
   View,
@@ -8,6 +8,7 @@ import {
   ImageSourcePropType,
   Animated,
   PanResponder,
+  TouchableWithoutFeedback,
 } from 'react-native';
 import theme from '../../../shared/styles/theme';
 import fontFamily from '../../../shared/styles/fontFamily';
@@ -15,14 +16,46 @@ import { WithLocalSvg } from 'react-native-svg';
 import OpinionPin from '../../../assets/icon/opinionpin.svg';
 import WarningPopup from '../../popup/components/WarningPopup';
 import { useModal } from '../../../shared/hooks/useModal';
+import {
+  createCloseBottomSheetAnimation,
+  createOpenBottomSheetAnimation,
+} from '../../../shared/constants/bottomSheetAnimation';
 
 interface OpinionWriteBottomSheetProps {
   title: string;
   content: string;
+  onClose: () => void;
 }
 
-const OpinionWriteBottomSheet = ({ title, content }: OpinionWriteBottomSheetProps) => {
+const OpinionWriteBottomSheet = ({ title, content, onClose }: OpinionWriteBottomSheetProps) => {
   const { openModal, closeModal } = useModal();
+
+  const panY = useRef(new Animated.Value(Dimensions.get('screen').height)).current;
+
+  const openBottomSheet = () => createOpenBottomSheetAnimation(panY).start;
+
+  useEffect(() => {
+    openBottomSheet();
+  }, []);
+
+  const closeBottomSheet = () => createCloseBottomSheetAnimation(panY).start(onClose);
+
+  const panResponders = useRef(
+    PanResponder.create({
+      onStartShouldSetPanResponder: () => true,
+      onMoveShouldSetPanResponder: () => false,
+      onPanResponderMove: (event, gestureState) => {
+        panY.setValue(gestureState.dy);
+      },
+      onPanResponderRelease: (event, gestureState) => {
+        if (gestureState.dy > 0 && gestureState.vy > 1.5) {
+          closeBottomSheet();
+        } else {
+          openBottomSheet();
+        }
+      },
+    }),
+  ).current;
 
   const onClickModifyButton = () => {
     console.log('수정버튼 클릭');
@@ -38,37 +71,60 @@ const OpinionWriteBottomSheet = ({ title, content }: OpinionWriteBottomSheetProp
     );
   };
 
+  const translateY = panY.interpolate({
+    inputRange: [-1, 0, 1],
+    outputRange: [0, 0, 1],
+  });
+
   return (
-    <View style={styles.container}>
-      <View style={styles.panResponderContainer}>
-        <View style={styles.panResponder} />
-      </View>
-      <View style={styles.titleContainer}>
-        <View style={styles.pinContainer}>
-          <TouchableOpacity style={styles.pin}>
-            <WithLocalSvg width={20} height={20} asset={OpinionPin as ImageSourcePropType} />
-          </TouchableOpacity>
+    <View style={styles.overlay}>
+      <TouchableWithoutFeedback onPress={closeBottomSheet}>
+        <View style={styles.background} />
+      </TouchableWithoutFeedback>
+      <Animated.View
+        style={{ ...styles.bottomSheetContainer, transform: [{ translateY }] }}
+        {...panResponders.panHandlers}
+      >
+        <View style={styles.panResponderContainer}>
+          <View style={styles.panResponder} />
         </View>
-        <Text style={styles.titleText}>{title}</Text>
-      </View>
-      <View style={styles.dotLine} />
-      <Text style={styles.contentText}>{content}</Text>
-      <TouchableOpacity style={styles.modifyButton} onPress={onClickModifyButton}>
-        <Text style={styles.modifyButtonText}>수정하기</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.deleteButton} onPress={onClickDeleteButton}>
-        <Text style={styles.deleteButtonText}>삭제하기</Text>
-      </TouchableOpacity>
+        <View style={styles.titleContainer}>
+          <View style={styles.pinContainer}>
+            <TouchableOpacity style={styles.pin}>
+              <WithLocalSvg width={20} height={20} asset={OpinionPin as ImageSourcePropType} />
+            </TouchableOpacity>
+          </View>
+          <Text style={styles.titleText}>{title}</Text>
+        </View>
+        <View style={styles.dotLine} />
+        <Text style={styles.contentText}>{content}</Text>
+        <TouchableOpacity style={styles.modifyButton} onPress={onClickModifyButton}>
+          <Text style={styles.modifyButtonText}>수정하기</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.deleteButton} onPress={onClickDeleteButton}>
+          <Text style={styles.deleteButtonText}>삭제하기</Text>
+        </TouchableOpacity>
+      </Animated.View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  background: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: 'rgba(0, 0, 0, 0.4)',
+  },
+  overlay: {
+    flex: 1,
+    justifyContent: 'flex-end',
+  },
+  bottomSheetContainer: {
+    display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: '#212A3C',
+    borderTopLeftRadius: 24,
+    borderTopRightRadius: 24,
   },
   panResponderContainer: {
     height: 24,
