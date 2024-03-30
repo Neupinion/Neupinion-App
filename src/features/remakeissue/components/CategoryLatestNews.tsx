@@ -11,10 +11,10 @@ import GlobalTextStyles from '../../../shared/styles/GlobalTextStyles';
 import theme from '../../../shared/styles/theme';
 import { WithLocalSvg } from 'react-native-svg';
 import MainArrowSvg from '../../../assets/icon/mainarrow.svg';
-import { ReProcessedIssue } from '../../../shared/types/news';
+import { SameCategoryReProcessedIssue } from '../../../shared/types/news';
 import CategoryLatestNewsItem from './CategoryLatestNewsItem';
 interface CategoryLatestNewsSliderProps {
-  fakeNews: ReProcessedIssue[] | null;
+  fakeNews: SameCategoryReProcessedIssue[] | null;
 }
 const CategoryLatestNews = ({ fakeNews }: CategoryLatestNewsSliderProps) => {
   const onClickButton = () => {

@@ -1,20 +1,15 @@
 import React from 'react';
+import MainPage from './src/pages/MainPage';
 import { DateProvider } from './src/features/date/provider/DateProvider';
-import { useCachedResources } from './src/useCachedResources';
-import Navigation from './src/Navigation';
-import { RecoilRoot } from 'recoil';
-export default function App(): JSX.Element | null {
-  const isLoaded = useCachedResources();
+import DetailPage from "./src/pages/DetailPage";
+import { RNSVGMarker } from "react-native-svg";
 
-  if (isLoaded) {
-    return (
-      <RecoilRoot>
-        <DateProvider>
-          <Navigation />
-        </DateProvider>
-      </RecoilRoot>
-    );
-  } else {
-    return null;
-  }
+
+export default function App(): JSX.Element {
+  return (
+    // <DateProvider>
+    //   <MainPage />
+    // </DateProvider>
+    <DetailPage />
+  );
 }

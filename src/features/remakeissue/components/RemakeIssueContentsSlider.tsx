@@ -31,13 +31,14 @@ const RemakeIssueContentsSlider = () => {
   useEffect(() => {
     fetchData()
       .then((data) => {
-        console.log('RemakeIssueContent:', data);
-        console.log('성공');
+        // console.log('RemakeIssueContent:', data);
+        // console.log('성공');
       })
       .catch((error) => {
-        console.error('Error fetching reprocessed issues:', error);
+        // console.error('Error fetching reprocessed issues:', error);
       });
   }, []);
+  console.log('RemakeIssueContent:', reprocessedIssue);
   return (
     <View style={styles.container}>
       {reprocessedIssue && (

@@ -14,6 +14,8 @@ import OpinioinWriterSvg from '../../../assets/icon/opinionwrite.svg';
 import { WithLocalSvg } from 'react-native-svg';
 import Pin from '../../../assets/icon/pin.svg';
 import fontFamily from '../../../shared/styles/fontFamily';
+import ReliabiltyBackGroundSvg from "../../../assets/icon/reliabiltybackground2.svg";
+import OpinionCardSvg from "../../../assets/icon/opinionCard.svg"
 
 const opinionTrue = false;
 const data = [
@@ -140,6 +142,7 @@ const styles = StyleSheet.create({
   card: {
     alignItems: 'flex-start',
     justifyContent: 'flex-start',
+    // backgroundColor: theme.color.gray7,
     backgroundColor: theme.color.gray7,
     width: 160,
     height: 165,
@@ -186,6 +189,10 @@ const styles = StyleSheet.create({
     flexShrink: 0,
     gap: 16,
     flexDirection: 'row',
+  },
+  OpinionCardSvg: {
+    width: 160,
+    height: 165,
   },
 });
 
