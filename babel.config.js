@@ -3,7 +3,6 @@ module.exports = function(api) {
   return {
     presets: ['babel-preset-expo'],
     plugins: [
-      // react-native-dotenv 설정
       [
         'module:react-native-dotenv',
         {
@@ -15,8 +14,6 @@ module.exports = function(api) {
           allowUndefined: true,
         }
       ],
-      // react-native-reanimated 플러그인
-      'react-native-reanimated/plugin',
     ]
   };
 };
