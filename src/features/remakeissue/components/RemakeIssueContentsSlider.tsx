@@ -14,7 +14,7 @@ import { WithLocalSvg } from 'react-native-svg';
 import SeeOriginalSvg from '../../../assets/icon/seeOriginal.svg';
 import { formatDate } from '../constants/formatDate';
 import useFetch from '../../../shared/hooks/useFetch';
-import { getRemakeIssueContent } from '../remotes/RemakeIssueContent';
+import { getRemakeIssueContent } from '../remotes/remakeIssueContent';
 const RemakeIssueContentsSlider = () => {
   const onClickButton = () => {
     console.log('해당 버튼은, 이전 페이지로 이동합니다.');
