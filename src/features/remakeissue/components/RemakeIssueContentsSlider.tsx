@@ -20,12 +20,7 @@ const RemakeIssueContentsSlider = ({ id }: { id: number }) => {
     console.log('해당 버튼은, 이전 페이지로 이동합니다.');
   };
   const fetchReprocessedIssue = () => getRemakeIssueContent(id);
-  const {
-    data: reprocessedIssue,
-    isLoading,
-    error,
-    fetchData,
-  } = useFetch(fetchReprocessedIssue, false);
+  const { data: remakeIssue, isLoading, error, fetchData } = useFetch(fetchReprocessedIssue, false);
 
   useEffect(() => {
     fetchData()
@@ -33,30 +28,30 @@ const RemakeIssueContentsSlider = ({ id }: { id: number }) => {
         console.log('RemakeIssueContentSlider: 성공');
       })
       .catch((error) => {
-        console.error('Error fetching reprocessed issues:', error);
+        console.error('RemakeIssueContentSlider:', error);
       });
   }, []);
-  console.log('RemakeIssueContent:', reprocessedIssue);
+  console.log('RemakeIssueContent:', remakeIssue);
   return (
     <View style={styles.container}>
-      {reprocessedIssue && (
+      {remakeIssue && (
         <>
-          <Text style={styles.contentsTitle}>{reprocessedIssue.title}</Text>
+          <Text style={styles.contentsTitle}>{remakeIssue.title}</Text>
           <View style={styles.titleUnderContainer}>
             <View style={{ flexDirection: 'row' }}>
               <View style={styles.tagBox}>
-                <Text style={styles.tagText}>{reprocessedIssue.category}</Text>
+                <Text style={styles.tagText}>{remakeIssue.category}</Text>
               </View>
-              <Text style={styles.dateText}>{formatDate(reprocessedIssue.createdAt)}</Text>
+              <Text style={styles.dateText}>{formatDate(remakeIssue.createdAt)}</Text>
             </View>
             <TouchableOpacity style={styles.headerSvg} onPress={onClickButton}>
               <WithLocalSvg width={79} height={30} asset={SeeOriginalSvg as ImageSourcePropType} />
             </TouchableOpacity>
           </View>
-          <Image source={{ uri: reprocessedIssue.imageUrl }} style={styles.cardImage} />
+          <Image source={{ uri: remakeIssue.imageUrl }} style={styles.cardImage} />
           <View style={styles.contentsBody}>
-            {reprocessedIssue.content &&
-              reprocessedIssue.content.map((contentItem, index) => (
+            {remakeIssue.content &&
+              remakeIssue.content.map((contentItem, index) => (
                 <Text key={index} style={styles.contentsBodyText}>
                   {contentItem.paragraph}
                 </Text>
@@ -67,8 +62,8 @@ const RemakeIssueContentsSlider = ({ id }: { id: number }) => {
             showsHorizontalScrollIndicator={false}
             contentContainerStyle={styles.TagScrollViewStyle}
           >
-            {reprocessedIssue.content &&
-              reprocessedIssue.content.map((contentItem, index) => (
+            {remakeIssue.content &&
+              remakeIssue.content.map((contentItem, index) => (
                 <Text key={index} style={styles.contentsBodyText}>
                   {contentItem.paragraph}
                 </Text>

@@ -17,8 +17,7 @@ import fontFamily from '../../../shared/styles/fontFamily';
 import useFetch from '../../../shared/hooks/useFetch';
 import { getMyOpinionWrite } from '../remotes/opinionWrite';
 
-const issueId = 1;
-const OpinionWriteSlider = () => {
+const OpinionWriteSlider = ({ issueId }: { issueId: number }) => {
   const fetchMyOpinionWrite = () => getMyOpinionWrite(issueId);
   const {
     data: myOpinionWrite,
@@ -36,10 +35,10 @@ const OpinionWriteSlider = () => {
         } else {
           setNoOpinion(true);
         }
-        console.log('성공');
+        console.log('내가 작성한 의견쓰기: 성공');
       })
       .catch((error) => {
-        console.error('Error fetching reprocessed issues:', error);
+        console.error('내가 작성한 의견쓰기:', error);
       });
   }, []);
   console.log('myOpinionWrite:', myOpinionWrite);

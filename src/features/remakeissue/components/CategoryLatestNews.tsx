@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   View,
   Text,
@@ -11,24 +11,59 @@ import GlobalTextStyles from '../../../shared/styles/GlobalTextStyles';
 import theme from '../../../shared/styles/theme';
 import { WithLocalSvg } from 'react-native-svg';
 import MainArrowSvg from '../../../assets/icon/mainarrow.svg';
-import { SameCategoryReProcessedIssue } from '../../../shared/types/news';
 import CategoryLatestNewsItem from './CategoryLatestNewsItem';
-interface CategoryLatestNewsSliderProps {
-  fakeNews: SameCategoryReProcessedIssue[] | null;
-}
-const CategoryLatestNews = ({ fakeNews }: CategoryLatestNewsSliderProps) => {
+import { getSameCategoryReprocessedIssues } from '../remotes/sameCategoryReprocessedIssue';
+import useFetch from '../../../shared/hooks/useFetch';
+
+const CategoryLatestNews = ({ current, category }: { current: number; category: string }) => {
   const onClickButton = () => {
     console.log('해당 버튼은, 이동합니다');
+  };
+  const fetchReprocessedIssue = () => getSameCategoryReprocessedIssues(current, category);
+  const {
+    data: reprocessedIssue,
+    isLoading,
+    error,
+    fetchData,
+  } = useFetch(fetchReprocessedIssue, false);
+
+  useEffect(() => {
+    fetchData()
+      .then(() => {
+        console.log('동일 카테고리 최신 소식: 성공');
+        console.log('SameCategory ReprocessedIssues:', reprocessedIssue);
+      })
+      .catch((error) => {
+        console.error('동일 카테고리 최신 소식: 실패', error);
+      });
+  }, []);
+
+  type CategoryMapping = {
+    [key: string]: string;
+  };
+
+  const categoryMapping: CategoryMapping = {
+    ENTERTAINMENTS: '연예',
+    POLITICS: '정치',
+    ECONOMY: '경제',
+    SOCIETY: '사회',
+    WORLD: '국제',
+    SPORTS: '스포츠',
   };
   return (
     <View style={styles.container}>
       <View style={styles.titleContainer}>
-        <Text style={GlobalTextStyles.NormalText17}>국제 카테고리의 최신 소식</Text>
+        <Text style={GlobalTextStyles.NormalText17}>
+          {categoryMapping[category]} 카테고리의 최신 소식
+        </Text>
         <TouchableOpacity style={styles.svgStyle} onPress={onClickButton}>
           <WithLocalSvg width={14} height={14} asset={MainArrowSvg as ImageSourcePropType} />
         </TouchableOpacity>
       </View>
-      {fakeNews && fakeNews.map((item) => <CategoryLatestNewsItem key={item.id} item={item} />)}
+      {reprocessedIssue &&
+        reprocessedIssue.map((item) => (
+          <CategoryLatestNewsItem key={item.id} item={item} category={category} />
+        ))}
     </View>
   );
 };
