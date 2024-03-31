@@ -20,6 +20,7 @@ import {
   createOpenBottomSheetAnimation,
 } from '../../../shared/constants/bottomSheetAnimation';
 import WarningModal from '../../../shared/components/WarningModal';
+import { GESTURE_SPEED_THRESHOLD } from "../../../shared/constants/bottomSheetGestureConstants";
 
 interface OpinionWriteBottomSheetProps {
   title: string;
@@ -48,7 +49,7 @@ const OpinionWriteBottomSheet = ({ title, content, onClose }: OpinionWriteBottom
         panY.setValue(gestureState.dy);
       },
       onPanResponderRelease: (event, gestureState) => {
-        if (gestureState.dy > 0 && gestureState.vy > 1.5) {
+        if (gestureState.dy > 0 && gestureState.vy > GESTURE_SPEED_THRESHOLD) {
           closeBottomSheet();
         } else {
           openBottomSheet();
