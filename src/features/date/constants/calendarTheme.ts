@@ -1,16 +1,18 @@
 import { Theme } from 'react-native-calendars/src/types';
+import theme from '../../../shared/styles/theme';
+import { colorWithOpacity } from '../../../shared/functions/colorWithOpacity';
 
 const calendarTheme: Theme = {
-  selectedDayBackgroundColor: '#7E58E9',
-  arrowColor: 'rgba(255, 255, 255, 0.8)',
-  todayTextColor: '#ffffff',
-  dayTextColor: '#ffffff',
-  calendarBackground: 'rgba(0, 0, 0, 0)',
-  monthTextColor: '#ffffff',
+  selectedDayBackgroundColor: theme.color.main,
+  arrowColor: colorWithOpacity(theme.color.white, 0.8),
+  todayTextColor: theme.color.white,
+  dayTextColor: theme.color.white,
+  calendarBackground: colorWithOpacity(theme.color.black, 0),
+  monthTextColor: theme.color.white,
   textMonthFontWeight: '500',
   textDayFontWeight: '500',
-  textDisabledColor: 'rgba(255, 255, 255, 0.3)',
-  textInactiveColor: 'rgba(0, 0, 0, 0.3)',
+  textDisabledColor: colorWithOpacity(theme.color.white, 0.3),
+  textInactiveColor: colorWithOpacity(theme.color.black, 0.3),
   textDayFontSize: 18,
   textMonthFontSize: 18,
   textDayHeaderFontSize: 12,
