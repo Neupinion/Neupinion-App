@@ -1,53 +1,43 @@
-import { ImageSourcePropType, Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import React, { useEffect, useState } from 'react';
-import theme from '../../../shared/styles/theme';
-import fontFamily from '../../../shared/styles/fontFamily';
-import Exclamation from '../../../assets/icon/warningpopupexclamation.svg';
+import { ImageSourcePropType, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import React from 'react';
+import theme from '../styles/theme';
+import fontFamily from '../styles/fontFamily';
+import Exclamation from '../../assets/icon/warningpopupexclamation.svg';
 import { WithLocalSvg } from 'react-native-svg';
 
-interface WarningPopup {
-  modalVisible: boolean;
+interface WarningModalProps {
   title: string;
   onClose: () => void;
   onConfirm: () => void;
 }
-const WarningPopup = ({ modalVisible, title, onClose, onConfirm }: WarningPopup) => {
-  const [isModalVisible, setModalVisible] = useState(modalVisible);
-
-  useEffect(() => {
-    setModalVisible(modalVisible);
-  }, [modalVisible]);
+const WarningModal = ({ title, onClose, onConfirm }: WarningModalProps) => {
   const onClickCancel = () => {
-    setModalVisible(false);
     onClose();
   };
 
   const onClickConfirm = () => {
-    setModalVisible(false);
     onClose();
     onConfirm();
   };
 
   return (
-    <Modal visible={isModalVisible} animationType={'fade'} transparent statusBarTranslucent>
-      <View style={styles.overlay}>
-        <View style={styles.popupContainer}>
-          <View style={styles.exclamationCircle}>
-            <WithLocalSvg width={7} height={28.5} asset={Exclamation as ImageSourcePropType} />
-          </View>
-          <Text style={styles.titleText}>{title}</Text>
-          <Text style={styles.warningText}>이 작업은 취소할 수 없습니다.</Text>
-          <View style={styles.buttonContainer}>
-            <TouchableOpacity onPress={onClickCancel} style={styles.cancelButton}>
-              <Text style={styles.buttonText}>취소</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={onClickConfirm} style={styles.confirmButton}>
-              <Text style={styles.buttonText}>확인</Text>
-            </TouchableOpacity>
-          </View>
+    <View style={styles.overlay}>
+      <View style={styles.popupContainer}>
+        <View style={styles.exclamationCircle}>
+          <WithLocalSvg width={7} height={28.5} asset={Exclamation as ImageSourcePropType} />
+        </View>
+        <Text style={styles.titleText}>{title}</Text>
+        <Text style={styles.warningText}>이 작업은 취소할 수 없습니다.</Text>
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity onPress={onClickCancel} style={styles.cancelButton}>
+            <Text style={styles.buttonText}>취소</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={onClickConfirm} style={styles.confirmButton}>
+            <Text style={styles.buttonText}>확인</Text>
+          </TouchableOpacity>
         </View>
       </View>
-    </Modal>
+    </View>
   );
 };
 
@@ -127,4 +117,4 @@ const styles = StyleSheet.create({
     letterSpacing: -0.51,
   },
 });
-export default WarningPopup;
+export default WarningModal;

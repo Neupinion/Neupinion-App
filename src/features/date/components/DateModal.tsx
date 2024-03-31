@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
   Animated,
-  Modal,
   StyleSheet,
   Dimensions,
   View,
@@ -16,15 +15,16 @@ import { useDate } from '../provider/DateProvider';
 import { WithLocalSvg } from 'react-native-svg';
 import DateModalClose from '../../../assets/icon/datemodalclose.svg';
 import {
-  dateModalAfterOpacity,
-  dateModalAfterScale,
-  dateModalAfterY,
-  dateModalAnimationDuration,
   dateModalInitialOpacity,
   dateModalInitialScale,
   dateModalInitialY,
 } from '../constants/modalAnimationNumber';
 import { toDashDate } from '../constants/toDashDate';
+import {
+  createCloseDateModalAnimation,
+  createOpenDateModalAnimation,
+} from '../constants/dateModalAnimation';
+import calendarTheme from '../constants/calendarTheme';
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
 LocaleConfig.locales['kr'] = koreaLocales;
@@ -32,13 +32,23 @@ LocaleConfig.locales['kr'] = koreaLocales;
 LocaleConfig.defaultLocale = 'kr';
 
 interface DateModalProps {
-  closeModal: () => void;
+  onClose: () => void;
 }
 
-const DateModal: React.FC<DateModalProps> = ({ closeModal }) => {
+const DateModal: React.FC<DateModalProps> = ({ onClose }) => {
   const [modalY] = useState(new Animated.Value(dateModalInitialY));
   const [modalOpacity] = useState(new Animated.Value(dateModalInitialOpacity));
   const [modalScale] = useState(new Animated.Value(dateModalInitialScale));
+
+  const animationOpen = () =>
+    createOpenDateModalAnimation(modalY, modalOpacity, modalScale).start();
+
+  useEffect(() => {
+    animationOpen();
+  }, []);
+
+  const animationClose = () =>
+    createCloseDateModalAnimation(modalY, modalOpacity, modalScale).start(onClose);
 
   const { date, setDate } = useDate();
   const [selectedDate, setSelectedDate] = useState(toDashDate(date));
@@ -59,113 +69,53 @@ const DateModal: React.FC<DateModalProps> = ({ closeModal }) => {
     [selectedDate]: { selected: true, selectedColor: '#7E58E9' },
   };
 
-  const animationOpen = () => {
-    Animated.parallel([
-      Animated.timing(modalY, {
-        toValue: dateModalAfterY,
-        duration: dateModalAnimationDuration,
-        useNativeDriver: true,
-      }),
-      Animated.timing(modalOpacity, {
-        toValue: dateModalAfterOpacity,
-        duration: dateModalAnimationDuration,
-        useNativeDriver: true,
-      }),
-      Animated.timing(modalScale, {
-        toValue: dateModalAfterScale,
-        duration: dateModalAnimationDuration,
-        useNativeDriver: true,
-      }),
-    ]).start();
-  };
-
-  const animationClose = () => {
-    Animated.parallel([
-      Animated.timing(modalY, {
-        toValue: dateModalInitialY,
-        duration: dateModalAnimationDuration,
-        useNativeDriver: true,
-      }),
-      Animated.timing(modalOpacity, {
-        toValue: dateModalInitialOpacity,
-        duration: dateModalAnimationDuration,
-        useNativeDriver: true,
-      }),
-      Animated.timing(modalScale, {
-        toValue: dateModalInitialScale,
-        duration: dateModalAnimationDuration,
-        useNativeDriver: true,
-      }),
-    ]).start(closeModal);
-  };
-
-  useEffect(() => {
-    animationOpen();
-  }, []);
-
   return (
-    <Modal transparent animationType="none">
+    <Animated.View
+      style={[
+        styles.overlay,
+        {
+          opacity: modalOpacity,
+        },
+      ]}
+    >
+      <TouchableOpacity
+        testID={'dim-button'}
+        onPress={onCloseModal}
+        style={styles.dimButton}
+      ></TouchableOpacity>
       <Animated.View
         style={[
-          styles.overlay,
+          styles.container,
           {
-            opacity: modalOpacity,
+            transform: [{ translateY: modalY }, { scale: modalScale }],
           },
         ]}
       >
-        <TouchableOpacity
-          testID={'dim-button'}
-          onPress={onCloseModal}
-          style={styles.dimButton}
-        ></TouchableOpacity>
-        <Animated.View
-          style={[
-            styles.container,
-            {
-              transform: [{ translateY: modalY }, { scale: modalScale }],
-            },
-          ]}
-        >
-          <View style={styles.titleContainer}>
-            <Text style={styles.titleText}>날짜 선택</Text>
-            <Text style={styles.subtitleText}>KST(GMT+9)기준</Text>
-          </View>
-          <View style={styles.calendarContainer}>
-            <Calendar
-              style={styles.calendar}
-              firstDay={1}
-              monthFormat={'yyyy년 MM월'}
-              onDayPress={onDaySelect}
-              markedDates={markedDates}
-              hideExtraDays={true}
-              disableMonthChange={true}
-              minDate={'2024-01-01'}
-              maxDate={cvtParamDate(new Date())}
-              current={toDashDate(date)}
-              disableAllTouchEventsForDisabledDays={true}
-              theme={{
-                selectedDayBackgroundColor: '#7E58E9',
-                arrowColor: 'rgba(255, 255, 255, 0.8)',
-                todayTextColor: '#ffffff',
-                dayTextColor: '#ffffff',
-                calendarBackground: 'rgba(0, 0, 0, 0)',
-                monthTextColor: '#ffffff',
-                textMonthFontWeight: '500',
-                textDayFontWeight: '500',
-                textDisabledColor: 'rgba(255, 255, 255, 0.3)',
-                textInactiveColor: 'rgba(0, 0, 0, 0.3)',
-                textDayFontSize: 18,
-                textMonthFontSize: 18,
-                textDayHeaderFontSize: 12,
-              }}
-            />
-          </View>
-          <TouchableOpacity onPress={onCloseModal} style={styles.closeButton}>
-            <WithLocalSvg width={14} height={14} asset={DateModalClose as ImageSourcePropType} />
-          </TouchableOpacity>
-        </Animated.View>
+        <View style={styles.titleContainer}>
+          <Text style={styles.titleText}>날짜 선택</Text>
+          <Text style={styles.subtitleText}>KST(GMT+9)기준</Text>
+        </View>
+        <View style={styles.calendarContainer}>
+          <Calendar
+            style={styles.calendar}
+            firstDay={1}
+            monthFormat={'yyyy년 MM월'}
+            onDayPress={onDaySelect}
+            markedDates={markedDates}
+            hideExtraDays={true}
+            disableMonthChange={true}
+            minDate={'2024-01-01'}
+            maxDate={cvtParamDate(new Date())}
+            current={toDashDate(date)}
+            disableAllTouchEventsForDisabledDays={true}
+            theme={calendarTheme}
+          />
+        </View>
+        <TouchableOpacity onPress={onCloseModal} style={styles.closeButton}>
+          <WithLocalSvg width={14} height={14} asset={DateModalClose as ImageSourcePropType} />
+        </TouchableOpacity>
       </Animated.View>
-    </Modal>
+    </Animated.View>
   );
 };
 
