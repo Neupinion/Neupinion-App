@@ -31,13 +31,12 @@ const CategoryLatestNews = ({ current, category }: { current: number; category: 
     fetchData()
       .then(() => {
         console.log('동일 카테고리 최신 소식: 성공');
-        console.log('SameCategory ReprocessedIssues:', reprocessedIssue);
       })
       .catch((error) => {
         console.error('동일 카테고리 최신 소식: 실패', error);
       });
   }, []);
-
+  console.log('SameCategory ReprocessedIssues:', reprocessedIssue);
   type CategoryMapping = {
     [key: string]: string;
   };
