@@ -15,11 +15,10 @@ import SeeOriginalSvg from '../../../assets/icon/seeOriginal.svg';
 import { formatDate } from '../constants/formatDate';
 import useFetch from '../../../shared/hooks/useFetch';
 import { getRemakeIssueContent } from '../remotes/remakeIssueContent';
-const RemakeIssueContentsSlider = () => {
+const RemakeIssueContentsSlider = ({ id }: { id: number }) => {
   const onClickButton = () => {
     console.log('해당 버튼은, 이전 페이지로 이동합니다.');
   };
-  const id: number = 1;
   const fetchReprocessedIssue = () => getRemakeIssueContent(id);
   const {
     data: reprocessedIssue,
