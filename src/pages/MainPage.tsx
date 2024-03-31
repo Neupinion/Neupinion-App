@@ -55,10 +55,6 @@ const MainPage = () => {
       });
   }, [date]);
 
-  const onClickButton = () => {
-    console.log('해당 버튼은, 페이지 이동이나 ui의 임시 이벤트를 다룹니다.');
-  };
-
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
@@ -71,10 +67,10 @@ const MainPage = () => {
           </TouchableOpacity>
         </View>
         <View style={styles.headerRightContainer}>
-          <TouchableOpacity style={styles.headerSvg} onPress={onClickButton}>
+          <TouchableOpacity style={styles.headerSvg} onPress={() => {}}>
             <WithLocalSvg width={20} height={20} asset={MainSearch as ImageSourcePropType} />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.headerSvg} onPress={onClickButton}>
+          <TouchableOpacity style={styles.headerSvg} onPress={() => {}}>
             <WithLocalSvg width={20} height={20} asset={MainUser as ImageSourcePropType} />
           </TouchableOpacity>
         </View>
@@ -95,14 +91,14 @@ const MainPage = () => {
             <FakeIssueSlider fakeNews={reprocessedIssue} />
             <View style={styles.titleContainer}>
               <Text style={GlobalTextStyles.NormalText17}>카테고리1</Text>
-              <TouchableOpacity style={styles.svgStyle} onPress={onClickButton}>
+              <TouchableOpacity style={styles.svgStyle} onPress={() => {}}>
                 <WithLocalSvg width={14} height={14} asset={MainArrowSvg as ImageSourcePropType} />
               </TouchableOpacity>
             </View>
             <CategorySlider categoryIssues={reprocessedIssue} />
             <View style={styles.titleContainer}>
               <Text style={GlobalTextStyles.NormalText17}>카테고리2</Text>
-              <TouchableOpacity style={styles.svgStyle} onPress={onClickButton}>
+              <TouchableOpacity style={styles.svgStyle} onPress={() => {}}>
                 <WithLocalSvg width={14} height={14} asset={MainArrowSvg as ImageSourcePropType} />
               </TouchableOpacity>
             </View>
@@ -110,7 +106,7 @@ const MainPage = () => {
             <View style={styles.divideLine}></View>
             <View style={styles.titleContainer}>
               <Text style={GlobalTextStyles.NormalText17}>후속이슈</Text>
-              <TouchableOpacity style={styles.svgStyle} onPress={onClickButton}>
+              <TouchableOpacity style={styles.svgStyle} onPress={() => {}}>
                 <WithLocalSvg width={14} height={14} asset={MainArrowSvg as ImageSourcePropType} />
               </TouchableOpacity>
             </View>
