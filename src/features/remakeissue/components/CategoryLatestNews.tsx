@@ -14,6 +14,7 @@ import MainArrowSvg from '../../../assets/icon/mainarrow.svg';
 import CategoryLatestNewsItem from './CategoryLatestNewsItem';
 import { getSameCategoryReprocessedIssues } from '../remotes/sameCategoryReprocessedIssue';
 import useFetch from '../../../shared/hooks/useFetch';
+import { categoryMapping } from '../constants/newsCategoryMapping';
 
 const CategoryLatestNews = ({ current, category }: { current: number; category: string }) => {
   const onClickButton = () => {
@@ -37,18 +38,7 @@ const CategoryLatestNews = ({ current, category }: { current: number; category: 
       });
   }, []);
   console.log('SameCategory ReprocessedIssues:', reprocessedIssue);
-  type CategoryMapping = {
-    [key: string]: string;
-  };
 
-  const categoryMapping: CategoryMapping = {
-    ENTERTAINMENTS: '연예',
-    POLITICS: '정치',
-    ECONOMY: '경제',
-    SOCIETY: '사회',
-    WORLD: '국제',
-    SPORTS: '스포츠',
-  };
   return (
     <View style={styles.container}>
       <View style={styles.titleContainer}>

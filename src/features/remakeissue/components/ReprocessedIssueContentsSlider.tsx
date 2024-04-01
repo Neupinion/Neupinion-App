@@ -14,12 +14,12 @@ import { WithLocalSvg } from 'react-native-svg';
 import SeeOriginalSvg from '../../../assets/icon/seeOriginal.svg';
 import { formatDate } from '../constants/formatDate';
 import useFetch from '../../../shared/hooks/useFetch';
-import { getRemakeIssueContent } from '../remotes/remakeIssueContent';
-const RemakeIssueContentsSlider = ({ id }: { id: number }) => {
+import { getReprocessedIssueContent } from '../remotes/remakeIssueContent';
+const ReprocessedIssueContentsSlider = ({ id }: { id: number }) => {
   const onClickButton = () => {
     console.log('해당 버튼은, 이전 페이지로 이동합니다.');
   };
-  const fetchReprocessedIssue = () => getRemakeIssueContent(id);
+  const fetchReprocessedIssue = () => getReprocessedIssueContent(id);
   const { data: remakeIssue, isLoading, error, fetchData } = useFetch(fetchReprocessedIssue, false);
 
   useEffect(() => {
@@ -182,4 +182,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default RemakeIssueContentsSlider;
+export default ReprocessedIssueContentsSlider;

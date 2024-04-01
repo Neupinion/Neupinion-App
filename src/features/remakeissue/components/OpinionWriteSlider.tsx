@@ -142,9 +142,6 @@ const styles = StyleSheet.create({
   },
   pin: {
     marginTop: 4,
-    // position: 'absolute',
-    // left: 12,
-    // top: 5,
   },
   cardContainer: {
     width: Dimensions.get('window').width,
@@ -163,7 +160,6 @@ const styles = StyleSheet.create({
   cardTop: {
     flexDirection: 'row',
     marginHorizontal: 12,
-    //backgroundColor: theme.color.main,
   },
   titleText: {
     color: theme.color.white,
@@ -212,10 +208,10 @@ const styles = StyleSheet.create({
     height: 0,
     backgroundColor: 'transparent',
     borderStyle: 'solid',
-    borderLeftWidth: 18, // 각 변의 길이를 18로 설정
-    borderBottomWidth: 18, // 각 변의 길이를 18로 설정
+    borderLeftWidth: 18,
+    borderBottomWidth: 18,
     borderLeftColor: 'transparent',
-    borderBottomColor: '#11111A', // 삼각형의 색상 설정
+    borderBottomColor: '#11111A',
     position: 'absolute',
     right: 0,
     bottom: 0,

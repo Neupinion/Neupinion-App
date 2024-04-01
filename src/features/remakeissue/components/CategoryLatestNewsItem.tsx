@@ -1,11 +1,11 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Dimensions, Image } from 'react-native';
 import theme from '../../../shared/styles/theme';
-import { SameCategoryReProcessedIssue } from '../../../shared/types/news';
+import { SameCategoryReprocessedIssue } from '../../../shared/types/news';
 import { formatDate } from '../constants/formatDate';
 
 interface CategoryLatestNewsSliderItemProps {
-  item: SameCategoryReProcessedIssue;
+  item: SameCategoryReprocessedIssue;
 }
 
 const CategoryLatestNewsItem = ({
