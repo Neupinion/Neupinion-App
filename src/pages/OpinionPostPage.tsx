@@ -31,13 +31,6 @@ const OpinionPostPage = () => {
   const scrollViewRef = useRef<ScrollView>(null);
 
   const sentenceIndex = route.params?.sentenceNumber;
-  const onClickBackButton = () => {
-    console.log('뒤로가기');
-  };
-
-  const onClickCheckButton = () => {
-    console.log('내용이 없다면 알럿을...');
-  };
 
   const onClickShowNewsButton = () => {
     navigation.navigate('OpinionPin');
@@ -51,11 +44,11 @@ const OpinionPostPage = () => {
   return (
     <View style={styles.container}>
       <View style={styles.topContainer}>
-        <TouchableOpacity style={styles.topSvgStyle} onPress={onClickBackButton}>
+        <TouchableOpacity style={styles.topSvgStyle} onPress={() => {}}>
           <WithLocalSvg width={10} height={20} asset={OpinionBackButton as ImageSourcePropType} />
         </TouchableOpacity>
         <Text style={styles.topTextStyle}>의견쓰기</Text>
-        <TouchableOpacity style={styles.topSvgStyle} onPress={onClickCheckButton}>
+        <TouchableOpacity style={styles.topSvgStyle} onPress={() => {}}>
           <WithLocalSvg width={17} height={12} asset={OpinionCheckButton as ImageSourcePropType} />
         </TouchableOpacity>
       </View>

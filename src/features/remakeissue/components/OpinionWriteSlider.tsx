@@ -9,10 +9,19 @@ import {
 } from 'react-native';
 import GlobalTextStyles from '../../../shared/styles/GlobalTextStyles';
 import theme from '../../../shared/styles/theme';
-import OpinioinWriterSvg from '../../../assets/icon/opinionwrite.svg';
+import OpinionWriterSvg from '../../../assets/icon/opinionwrite.svg';
 import { WithLocalSvg } from 'react-native-svg';
+import { RouteProp, useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from '../../../rootStackParamList';
 
 const OpinionWriteSlider = () => {
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
+
+  const onClickShowNewsButton = () => {
+    navigation.navigate('OpinionPost', { sentenceNumber: undefined });
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.titleContainer}>
@@ -22,11 +31,11 @@ const OpinionWriteSlider = () => {
         <WithLocalSvg
           width={125.5}
           height={99.08478}
-          asset={OpinioinWriterSvg as ImageSourcePropType}
+          asset={OpinionWriterSvg as ImageSourcePropType}
         />
       </View>
       <Text style={styles.textStyle}>아직 의견이 없어요!</Text>
-      <TouchableOpacity style={styles.opinionButton} onPress={() => {}}>
+      <TouchableOpacity style={styles.opinionButton} onPress={onClickShowNewsButton}>
         <View>
           <Text style={styles.buttonText}>의견 남기기</Text>
         </View>
