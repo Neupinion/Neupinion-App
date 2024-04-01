@@ -1,15 +1,52 @@
-import React from 'react';
-import { ImageSourcePropType, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import React, { useEffect } from 'react';
+import {
+  ActivityIndicator,
+  ImageSourcePropType,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import { WithLocalSvg } from 'react-native-svg';
 import OpinionPin from '../../../assets/icon/opinionpin.svg';
 import theme from '../../../shared/styles/theme';
 import OpinionPinSentenceDummy from '../../../dummy/OpinionPinSentenceDummy';
+import { getReprocessedIssueById } from '../../remakeissue/remotes/reprocessedissue';
+import useFetch from '../../../shared/hooks/useFetch';
+import GlobalTextStyles from '../../../shared/styles/GlobalTextStyles';
 
 interface SentenceBoxProps {
   sentenceNumber: number;
 }
 const SentenceBox = ({ sentenceNumber }: SentenceBoxProps) => {
-  const opinionString = OpinionPinSentenceDummy[sentenceNumber];
+  const fetchReprocessedIssueById = () => getReprocessedIssueById(1);
+  const {
+    data: reprocessedIssue,
+    isLoading,
+    error,
+    fetchData,
+  } = useFetch(fetchReprocessedIssueById, false);
+
+  useEffect(() => {
+    void fetchData();
+  }, []);
+
+  if (isLoading) {
+    return (
+      <View style={styles.sentenceContainer}>
+        <ActivityIndicator size="large" style={styles.activityIndicator} />
+      </View>
+    );
+  }
+
+  if (error || reprocessedIssue === null) {
+    return (
+      <View style={styles.sentenceContainer}>
+        <Text style={GlobalTextStyles.NormalText17}>ERROR</Text>
+      </View>
+    );
+  }
+
   return (
     <View style={styles.sentenceContainer}>
       <View style={styles.pinContainer}>
@@ -18,7 +55,9 @@ const SentenceBox = ({ sentenceNumber }: SentenceBoxProps) => {
         </TouchableOpacity>
       </View>
       <View style={styles.sentenceContainerSmall}>
-        <Text style={styles.sentenceText}>{opinionString}</Text>
+        <Text style={styles.sentenceText}>
+          {reprocessedIssue.content[sentenceNumber].paragraph}
+        </Text>
       </View>
     </View>
   );
@@ -57,6 +96,10 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     lineHeight: 21,
     letterSpacing: -0.42,
+  },
+  activityIndicator: {
+    flex: 1,
+    alignSelf: 'center',
   },
 });
 
