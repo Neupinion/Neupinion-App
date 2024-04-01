@@ -19,7 +19,7 @@ import OpinionWriteSlider from '../features/remakeissue/components/OpinionWriteS
 import ReliabilityEvaluation from '../features/remakeissue/components/ReliabilityEvaluation';
 import CategoryLatestNews from '../features/remakeissue/components/CategoryLatestNews';
 import ReProcessedIssueDummy from '../dummy/ReProcessedIssueDummy';
-import OpinionWriteBottomSheet from '../features/opinionView/components/OpinionWriteBottomSheet';
+import OpinionWriteBottomSheet from '../features/opinion/components/OpinionWriteBottomSheet';
 import { useModal } from '../shared/hooks/useModal';
 
 const DetailPage = () => {
