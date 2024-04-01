@@ -58,7 +58,9 @@ const OpinionPostPage = () => {
         setError(error as ErrorResponse);
       } finally {
         setIsLoading(false);
-        navigation.goBack();
+        if (!error) {
+          navigation.goBack();
+        }
       }
     }
   };
