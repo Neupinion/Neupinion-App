@@ -42,10 +42,7 @@ const ReliabilityEvaluation = ({ issueId }: { issueId: number }) => {
           issueId: issueId,
         },
       });
-      console.log('투표 결과가 성공적으로 제출되었습니다.', data);
-    } catch (error) {
-      console.error('투표 결과 제출 중 오류 발생:', error);
-    }
+    } catch (error) {}
   };
   return (
     <View style={styles.container}>

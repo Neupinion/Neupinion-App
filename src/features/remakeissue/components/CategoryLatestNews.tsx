@@ -30,14 +30,9 @@ const CategoryLatestNews = ({ current, category }: { current: number; category: 
 
   useEffect(() => {
     fetchData()
-      .then(() => {
-        console.log('동일 카테고리 최신 소식: 성공');
-      })
-      .catch((error) => {
-        console.error('동일 카테고리 최신 소식: 실패', error);
-      });
+      .then(() => {})
+      .catch((error) => {});
   }, []);
-  console.log('SameCategory ReprocessedIssues:', reprocessedIssue);
 
   return (
     <View style={styles.container}>

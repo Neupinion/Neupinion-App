@@ -28,14 +28,9 @@ const ReprocessedIssueContentsSlider = ({ id }: { id: number }) => {
 
   useEffect(() => {
     fetchData()
-      .then(() => {
-        console.log('ReprocessedIssueContentSlider: 성공');
-      })
-      .catch((error) => {
-        console.error('ReprocessedIssueContentSlider:', error);
-      });
+      .then(() => {})
+      .catch((error) => {});
   }, []);
-  console.log('ReprocessedIssueContent:', reprocessedIssue);
   return (
     <View style={styles.container}>
       {reprocessedIssue && (

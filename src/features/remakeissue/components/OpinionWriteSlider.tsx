@@ -32,16 +32,12 @@ const OpinionWriteSlider = ({ issueId }: { issueId: number }) => {
       .then((data) => {
         if (Array.isArray(data) && data.length === 0) {
           setNoOpinion(true);
-          console.log('의견을 쓰지 않음!', noOpinion);
         } else {
           setNoOpinion(false);
         }
       })
-      .catch((error) => {
-        console.error('내가 작성한 의견쓰기:', error);
-      });
+      .catch((error) => {});
   }, []);
-  console.log('myOpinionWrite:', myOpinionWrite);
   return (
     <View style={styles.container}>
       <View style={styles.titleContainer}>
