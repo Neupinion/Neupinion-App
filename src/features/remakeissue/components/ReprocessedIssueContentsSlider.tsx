@@ -7,7 +7,6 @@ import {
   TouchableOpacity,
   Image,
   Dimensions,
-  ScrollView,
 } from 'react-native';
 import theme from '../../../shared/styles/theme';
 import { WithLocalSvg } from 'react-native-svg';
@@ -62,18 +61,6 @@ const ReprocessedIssueContentsSlider = ({ id }: { id: number }) => {
                 </Text>
               ))}
           </View>
-          <ScrollView
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={styles.TagScrollViewStyle}
-          >
-            {reprocessedIssue.content &&
-              reprocessedIssue.content.map((contentItem, index) => (
-                <Text key={index} style={styles.contentsBodyText}>
-                  {contentItem.paragraph}
-                </Text>
-              ))}
-          </ScrollView>
         </>
       )}
     </View>

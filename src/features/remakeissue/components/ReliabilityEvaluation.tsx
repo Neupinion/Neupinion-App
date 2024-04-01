@@ -16,7 +16,7 @@ import Moon2Svg from '../../../assets/icon/moon2.svg';
 import Moon3Svg from '../../../assets/icon/moon3.svg';
 import Moon4Svg from '../../../assets/icon/moon4.svg';
 import { reliabilityText } from '../constants/reliabilty';
-import axios from 'axios';
+import { client } from '../../../shared/remotes/axios';
 const ReliabilityEvaluation = ({ issueId }: { issueId: number }) => {
   const moons = [
     { id: 1, SvgComponent: Moon1Svg },
@@ -37,16 +37,12 @@ const ReliabilityEvaluation = ({ issueId }: { issueId: number }) => {
         status: selectedText,
       };
 
-      const response = await axios.put(
-        `https://dev.neupinion.com/reprocessed-issue/${issueId}/trust-vote`,
-        data,
-        {
-          params: {
-            issueId: issueId,
-          },
+      await client.put(`/reprocessed-issue/${issueId}/trust-vote`, data, {
+        params: {
+          issueId: issueId,
         },
-      );
-      console.log('투표 결과가 성공적으로 제출되었습니다.', response.data);
+      });
+      console.log('투표 결과가 성공적으로 제출되었습니다.', data);
     } catch (error) {
       console.error('투표 결과 제출 중 오류 발생:', error);
     }
