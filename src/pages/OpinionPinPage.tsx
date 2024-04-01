@@ -23,12 +23,10 @@ const OpinionPinPage = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   const [selectedPinIndex, setSelectedPinIndex] = useState(0);
   const onClickBackButton = () => {
-    console.log('뒤로가기');
     navigation.goBack();
   };
 
   const onClickCheckButton = () => {
-    console.log('내용이 없다면 알럿을...');
     navigation.navigate('OpinionPost', { sentenceNumber: selectedPinIndex });
   };
 

@@ -30,21 +30,25 @@ const OpinionPostPage = () => {
   const [isTextInputFocused, setIsTextInputFocused] = useState(false);
   const scrollViewRef = useRef<ScrollView>(null);
 
+  useEffect(() => {
+    if (isTextInputFocused) scrollViewRef.current?.scrollTo({ y: targetY, animated: true });
+    else scrollViewRef.current?.scrollTo({ y: 0, animated: true });
+  }, [isTextInputFocused]);
+
   const sentenceIndex = route.params?.sentenceNumber;
 
   const onClickShowNewsButton = () => {
     navigation.navigate('OpinionPin');
   };
 
-  useEffect(() => {
-    if (isTextInputFocused) scrollViewRef.current?.scrollTo({ y: targetY, animated: true });
-    else scrollViewRef.current?.scrollTo({ y: 0, animated: true });
-  }, [isTextInputFocused]);
+  const onClickBackButton = () => {
+    navigation.goBack();
+  };
 
   return (
     <View style={styles.container}>
       <View style={styles.topContainer}>
-        <TouchableOpacity style={styles.topSvgStyle} onPress={() => {}}>
+        <TouchableOpacity style={styles.topSvgStyle} onPress={onClickBackButton}>
           <WithLocalSvg width={10} height={20} asset={OpinionBackButton as ImageSourcePropType} />
         </TouchableOpacity>
         <Text style={styles.topTextStyle}>의견쓰기</Text>

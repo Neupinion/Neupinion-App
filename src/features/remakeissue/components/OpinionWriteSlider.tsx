@@ -11,14 +11,14 @@ import GlobalTextStyles from '../../../shared/styles/GlobalTextStyles';
 import theme from '../../../shared/styles/theme';
 import OpinionWriterSvg from '../../../assets/icon/opinionwrite.svg';
 import { WithLocalSvg } from 'react-native-svg';
-import { RouteProp, useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../../../rootStackParamList';
 
 const OpinionWriteSlider = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
 
-  const onClickShowNewsButton = () => {
+  const onClickOpinionButton = () => {
     navigation.navigate('OpinionPost', { sentenceNumber: undefined });
   };
 
@@ -35,7 +35,7 @@ const OpinionWriteSlider = () => {
         />
       </View>
       <Text style={styles.textStyle}>아직 의견이 없어요!</Text>
-      <TouchableOpacity style={styles.opinionButton} onPress={onClickShowNewsButton}>
+      <TouchableOpacity style={styles.opinionButton} onPress={onClickOpinionButton}>
         <View>
           <Text style={styles.buttonText}>의견 남기기</Text>
         </View>
