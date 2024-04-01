@@ -35,3 +35,11 @@ export interface FollowUpIssue {
   reprocessedIssueTitle: string;
   createdAt: string;
 }
+
+export interface Opinion {
+  id: number;
+  paragraphId: number;
+  paragraphContent: string;
+  content: string;
+  isReliable: boolean;
+}
