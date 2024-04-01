@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import {
+  ActivityIndicator,
   Dimensions,
   ImageSourcePropType,
   ScrollView,
@@ -12,30 +13,32 @@ import theme from '../shared/styles/theme';
 import { WithLocalSvg } from 'react-native-svg';
 import OpinionBackButton from '../assets/icon/opinionbackbutton.svg';
 import OpinionCheckButton from '../assets/icon/opinionpurplecheck.svg';
-import PinButton from '../features/opinionpost/components/PinButton';
-import PinTextNumberContainer from '../features/opinionpost/components/PinTextNumberContainer';
-import OpinionWriteContainer from '../features/opinionpost/components/OpinionWriteContainer';
-import SentenceBox from '../features/opinionpost/components/SentenceBox';
+import PinButton from '../features/opinion/components/PinButton';
+import PinTextNumberContainer from '../features/opinion/components/PinTextNumberContainer';
+import OpinionWriteContainer from '../features/opinion/components/OpinionWriteContainer';
+import SentenceBox from '../features/opinion/components/SentenceBox';
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { RootStackParamList } from '../rootStackParamList';
 import { StackNavigationProp } from '@react-navigation/stack';
-import OpinionEvaluateCredibility from '../features/opinionpost/components/OpinionEvaluateCredibility';
+import OpinionEvaluateCredibility from '../features/opinion/components/OpinionEvaluateCredibility';
+import { postReprocessedIssueOpinion } from '../features/opinion/remotes/opinion';
+import { ErrorResponse } from '../shared/types/errorResponse';
+import GlobalTextStyles from '../shared/styles/GlobalTextStyles';
 
 const OpinionPostPage = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   type ScreenRouteProp = RouteProp<RootStackParamList, 'OpinionPost'>;
   const route = useRoute<ScreenRouteProp>();
 
-  const [targetY, setTargetY] = useState(0);
   const [isTextInputFocused, setIsTextInputFocused] = useState(false);
+
+  const [targetY, setTargetY] = useState(0);
   const scrollViewRef = useRef<ScrollView>(null);
 
   useEffect(() => {
     if (isTextInputFocused) scrollViewRef.current?.scrollTo({ y: targetY, animated: true });
     else scrollViewRef.current?.scrollTo({ y: 0, animated: true });
   }, [isTextInputFocused]);
-
-  const sentenceIndex = route.params?.sentenceNumber;
 
   const onClickShowNewsButton = () => {
     navigation.navigate('OpinionPin');
@@ -45,6 +48,47 @@ const OpinionPostPage = () => {
     navigation.goBack();
   };
 
+  const [text, setText] = useState('');
+  const sentenceIndex = route.params?.sentenceNumber;
+  const [isReliable, setIsReliable] = useState<boolean | undefined>(undefined);
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const onClickConfirmButton = async () => {
+    if (sentenceIndex !== undefined && isReliable !== undefined && text.length) {
+      setIsLoading(true);
+      setError(null);
+
+      try {
+        await postReprocessedIssueOpinion(sentenceIndex, 1, text, isReliable);
+      } catch (error) {
+        setError(error.message);
+      } finally {
+        setIsLoading(false);
+        navigation.goBack();
+      }
+    } else {
+      console.log('post 불가능합니다.');
+    }
+  };
+
+  if (isLoading) {
+    return (
+      <View style={styles.container}>
+        <ActivityIndicator size="large" style={styles.activityIndicator} />
+      </View>
+    );
+  }
+
+  if (error) {
+    return (
+      <View style={styles.container}>
+        <Text style={GlobalTextStyles.NormalText17}>ERROR</Text>
+      </View>
+    );
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.topContainer}>
@@ -52,7 +96,7 @@ const OpinionPostPage = () => {
           <WithLocalSvg width={10} height={20} asset={OpinionBackButton as ImageSourcePropType} />
         </TouchableOpacity>
         <Text style={styles.topTextStyle}>의견쓰기</Text>
-        <TouchableOpacity style={styles.topSvgStyle} onPress={() => {}}>
+        <TouchableOpacity style={styles.topSvgStyle} onPress={onClickConfirmButton}>
           <WithLocalSvg width={17} height={12} asset={OpinionCheckButton as ImageSourcePropType} />
         </TouchableOpacity>
       </View>
@@ -94,6 +138,8 @@ const OpinionPostPage = () => {
           <OpinionWriteContainer
             isActivate={sentenceIndex !== undefined}
             setIsTextInputFocused={setIsTextInputFocused}
+            text={text}
+            setText={setText}
           />
         </View>
         <View style={styles.choosePinContainer}>
@@ -102,7 +148,11 @@ const OpinionPostPage = () => {
             circleText={'신뢰도 평가하기'}
             isActivate={sentenceIndex !== undefined}
           />
-          <OpinionEvaluateCredibility isActivate={sentenceIndex !== undefined} />
+          <OpinionEvaluateCredibility
+            isActivate={sentenceIndex !== undefined}
+            isReliable={isReliable}
+            setIsReliable={setIsReliable}
+          />
         </View>
       </ScrollView>
     </View>
@@ -181,6 +231,10 @@ const styles = StyleSheet.create({
   },
   avoid: {
     flex: 1,
+  },
+  activityIndicator: {
+    flex: 1,
+    alignSelf: 'center',
   },
 });
 
