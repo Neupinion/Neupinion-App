@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import GlobalTextStyles from '../../../shared/styles/GlobalTextStyles';
 import theme from '../../../shared/styles/theme';
-import OpinioinWriterSvg from '../../../assets/icon/opinionwrite.svg';
+import OpinionWriterSvg from '../../../assets/icon/opinionwrite.svg';
 import { WithLocalSvg } from 'react-native-svg';
 import Pin from '../../../assets/icon/pin.svg';
 import fontFamily from '../../../shared/styles/fontFamily';
@@ -29,13 +29,13 @@ const OpinionWriteSlider = ({ issueId }: { issueId: number }) => {
 
   useEffect(() => {
     fetchData()
-      .then((myOpinionWrite) => {
-        if (Array.isArray(myOpinionWrite) && myOpinionWrite.length > 0) {
-          setNoOpinion(false);
-        } else {
+      .then((data) => {
+        if (Array.isArray(data) && data.length === 0) {
           setNoOpinion(true);
+          console.log('의견을 쓰지 않음!', noOpinion);
+        } else {
+          setNoOpinion(false);
         }
-        console.log('내가 작성한 의견쓰기: 성공');
       })
       .catch((error) => {
         console.error('내가 작성한 의견쓰기:', error);
@@ -53,7 +53,7 @@ const OpinionWriteSlider = ({ issueId }: { issueId: number }) => {
             <WithLocalSvg
               width={125.5}
               height={99.08478}
-              asset={OpinioinWriterSvg as ImageSourcePropType}
+              asset={OpinionWriterSvg as ImageSourcePropType}
             />
           </View>
           <Text style={styles.textStyle}>아직 의견이 없어요!</Text>
