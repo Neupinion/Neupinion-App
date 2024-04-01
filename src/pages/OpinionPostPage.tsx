@@ -40,20 +40,12 @@ const OpinionPostPage = () => {
     else scrollViewRef.current?.scrollTo({ y: 0, animated: true });
   }, [isTextInputFocused]);
 
-  const onClickShowNewsButton = () => {
-    navigation.navigate('OpinionPin');
-  };
-
-  const onClickBackButton = () => {
-    navigation.goBack();
-  };
-
   const [text, setText] = useState('');
   const sentenceIndex = route.params?.sentenceNumber;
   const [isReliable, setIsReliable] = useState<boolean | undefined>(undefined);
 
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<ErrorResponse | null>(null);
 
   const onClickConfirmButton = async () => {
     if (sentenceIndex !== undefined && isReliable !== undefined && text.length) {
@@ -63,14 +55,20 @@ const OpinionPostPage = () => {
       try {
         await postReprocessedIssueOpinion(sentenceIndex, 1, text, isReliable);
       } catch (error) {
-        setError(error.message);
+        setError(error as ErrorResponse);
       } finally {
         setIsLoading(false);
         navigation.goBack();
       }
-    } else {
-      console.log('post 불가능합니다.');
     }
+  };
+
+  const onClickShowNewsButton = () => {
+    navigation.navigate('OpinionPin');
+  };
+
+  const onClickBackButton = () => {
+    navigation.goBack();
   };
 
   if (isLoading) {
