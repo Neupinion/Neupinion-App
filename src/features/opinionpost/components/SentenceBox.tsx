@@ -10,7 +10,6 @@ import {
 import { WithLocalSvg } from 'react-native-svg';
 import OpinionPin from '../../../assets/icon/opinionpin.svg';
 import theme from '../../../shared/styles/theme';
-import OpinionPinSentenceDummy from '../../../dummy/OpinionPinSentenceDummy';
 import { getReprocessedIssueById } from '../../remakeissue/remotes/reprocessedissue';
 import useFetch from '../../../shared/hooks/useFetch';
 import GlobalTextStyles from '../../../shared/styles/GlobalTextStyles';

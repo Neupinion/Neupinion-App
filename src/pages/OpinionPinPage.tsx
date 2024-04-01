@@ -14,7 +14,6 @@ import { WithLocalSvg } from 'react-native-svg';
 import OpinionBackButton from '../assets/icon/opinionbackbutton.svg';
 import OpinionCheckButton from '../assets/icon/opinionpurplecheck.svg';
 import OpinionPinIssue from '../features/opinionpost/components/OpinionPinIssue';
-import opinionPinSentenceDummy from '../dummy/OpinionPinSentenceDummy';
 import OpinionPin from '../assets/icon/opinionpin.svg';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
