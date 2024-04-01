@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
+  ActivityIndicator,
   Dimensions,
   ImageSourcePropType,
   ScrollView,
@@ -18,10 +19,27 @@ import OpinionPin from '../assets/icon/opinionpin.svg';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../rootStackParamList';
+import { getReprocessedIssueById } from '../features/remakeissue/remotes/reprocessedissue';
+import useFetch from '../shared/hooks/useFetch';
+import GlobalTextStyles from '../shared/styles/GlobalTextStyles';
+import { ReprocessedIssueContent } from '../shared/types/news';
 
 const OpinionPinPage = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   const [selectedPinIndex, setSelectedPinIndex] = useState(0);
+
+  const fetchReprocessedIssueById = () => getReprocessedIssueById(1);
+  const {
+    data: reprocessedIssue,
+    isLoading,
+    error,
+    fetchData,
+  } = useFetch(fetchReprocessedIssueById, false);
+
+  useEffect(() => {
+    void fetchData();
+  }, []);
+
   const onClickBackButton = () => {
     navigation.goBack();
   };
@@ -33,6 +51,22 @@ const OpinionPinPage = () => {
   const onSelectPin = (index: number) => {
     setSelectedPinIndex(index);
   };
+
+  if (isLoading) {
+    return (
+      <View style={styles.container}>
+        <ActivityIndicator size="large" style={styles.activityIndicator} />
+      </View>
+    );
+  }
+
+  if (error || reprocessedIssue === null) {
+    return (
+      <View style={styles.container}>
+        <Text style={GlobalTextStyles.NormalText17}>ERROR</Text>
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>
@@ -49,9 +83,9 @@ const OpinionPinPage = () => {
         <View style={styles.pinTextContainer}>
           <Text style={styles.pinTextTitle}>의견을 남길 부분을 선택해주세요.</Text>
         </View>
-        <OpinionPinIssue />
+        <OpinionPinIssue reprocessedIssue={reprocessedIssue} />
         <View style={styles.pinSentenceContainer}>
-          {opinionPinSentenceDummy.map((item: string, index: number) => (
+          {reprocessedIssue?.content.map((item: ReprocessedIssueContent, index: number) => (
             <TouchableOpacity
               key={index}
               style={[styles.pinSentence, { opacity: selectedPinIndex === index ? 1 : 0.3 }]}
@@ -63,7 +97,7 @@ const OpinionPinPage = () => {
                 </View>
               </View>
               <View style={styles.sentenceContainer}>
-                <Text style={styles.sentenceText}>{item}</Text>
+                <Text style={styles.sentenceText}>{item.paragraph}</Text>
               </View>
             </TouchableOpacity>
           ))}
@@ -161,6 +195,10 @@ const styles = StyleSheet.create({
   pin: {
     width: 20,
     height: 20,
+  },
+  activityIndicator: {
+    flex: 1,
+    alignSelf: 'center',
   },
 });
 
