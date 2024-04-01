@@ -19,7 +19,7 @@ const OpinionWriteSlider = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
 
   const onClickOpinionButton = () => {
-    navigation.navigate('OpinionPost', { sentenceNumber: undefined });
+    navigation.navigate('OpinionPost');
   };
 
   return (
