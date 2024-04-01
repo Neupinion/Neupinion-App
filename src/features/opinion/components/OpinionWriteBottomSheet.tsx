@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   Dimensions,
   View,
@@ -20,15 +20,18 @@ import {
   createOpenBottomSheetAnimation,
 } from '../../../shared/constants/bottomSheetAnimation';
 import WarningModal from '../../../shared/components/WarningModal';
-import { GESTURE_SPEED_THRESHOLD } from "../../../shared/constants/bottomSheetGestureConstants";
+import { GESTURE_SPEED_THRESHOLD } from '../../../shared/constants/bottomSheetGestureConstants';
+import { ErrorResponse } from '../../../shared/types/errorResponse';
+import { deleteReprocessedIssueOpinion } from '../remotes/opinion';
 
 interface OpinionWriteBottomSheetProps {
+  id: number;
   title: string;
   content: string;
   onClose: () => void;
 }
 
-const OpinionWriteBottomSheet = ({ title, content, onClose }: OpinionWriteBottomSheetProps) => {
+const OpinionWriteBottomSheet = ({ id, title, content, onClose }: OpinionWriteBottomSheetProps) => {
   const { openModal, closeModal } = useModal();
 
   const panY = useRef(new Animated.Value(Dimensions.get('screen').height)).current;
@@ -62,12 +65,29 @@ const OpinionWriteBottomSheet = ({ title, content, onClose }: OpinionWriteBottom
     console.log('수정버튼 클릭');
   };
 
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<ErrorResponse | null>(null);
+  const onClickConfirmWarningModal = async () => {
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      await deleteReprocessedIssueOpinion(id);
+    } catch (error) {
+      setError(error as ErrorResponse);
+    } finally {
+      setIsLoading(false);
+      closeModal();
+      closeBottomSheet();
+    }
+  };
+
   const onClickDeleteButton = () => {
     openModal(
       <WarningModal
         title={'작성한 의견을 삭제하시겠습니까?'}
         onClose={closeModal}
-        onConfirm={() => {}}
+        onConfirm={onClickConfirmWarningModal}
       />,
     );
   };

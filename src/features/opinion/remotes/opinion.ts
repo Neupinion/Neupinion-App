@@ -13,3 +13,7 @@ export const postReprocessedIssueOpinion = async (
     isReliable: isReliable,
   });
 };
+
+export const deleteReprocessedIssueOpinion = async (opinionId: number) => {
+  return await client.delete(`reprocessed-issue/opinion/${opinionId}`);
+};
