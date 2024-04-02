@@ -30,25 +30,36 @@ const OpinionPostPage = () => {
   type ScreenRouteProp = RouteProp<RootStackParamList, 'OpinionPost'>;
   const route = useRoute<ScreenRouteProp>();
 
+  const extractText = () => {
+    return route.params?.opinionWrite?.content || '';
+  };
+
+  const extractSentenceIndex = () => {
+    if (route.params?.opinionWrite?.paragraphId !== undefined) {
+      return route.params.opinionWrite.paragraphId;
+    }
+    return route.params.sentenceNumber !== undefined ? route.params.sentenceNumber : undefined;
+  };
+
+  const extractIsReliable = () => {
+    return route.params?.opinionWrite?.isReliable;
+  };
+
   const [issueId] = useState<number>(route.params.issueId);
-  const [text, setText] = useState<string>(
-    route.params?.opinionWrite ? route.params.opinionWrite.content : '',
-  );
-  const [sentenceIndex] = useState<number>(
-    route.params?.opinionWrite
-      ? route.params.opinionWrite.paragraphId
-      : route.params?.sentenceNumber
-        ? route.params.sentenceNumber
-        : 1,
-  );
-  const [isReliable, setIsReliable] = useState<boolean | undefined>(
-    route.params?.opinionWrite ? route.params.opinionWrite.isReliable : undefined,
-  );
+  const [text, setText] = useState<string>(extractText);
+  const [sentenceIndex, setSentenceIndex] = useState<number | undefined>(extractSentenceIndex);
+  const [isReliable, setIsReliable] = useState<boolean | undefined>(extractIsReliable);
+
+  useEffect(() => {
+    setText(extractText);
+    setSentenceIndex(extractSentenceIndex);
+    setIsReliable(extractIsReliable);
+  }, [route.params]);
 
   const { isLoading, error, fetchData } = useFetch(
     () =>
       postReprocessedIssueOpinion(
-        sentenceIndex,
+        typeof sentenceIndex === 'number' ? sentenceIndex : 1,
         issueId,
         text,
         typeof isReliable === 'boolean' ? isReliable : true,
