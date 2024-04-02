@@ -44,7 +44,7 @@ const OpinionPinPage = () => {
   };
 
   const onClickCheckButton = () => {
-    navigation.navigate('OpinionPost', { sentenceNumber: selectedPinIndex });
+    navigation.navigate('OpinionPost', { issueId: 1, sentenceNumber: selectedPinIndex });
   };
 
   const onSelectPin = (index: number) => {

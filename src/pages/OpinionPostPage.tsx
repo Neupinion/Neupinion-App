@@ -22,16 +22,48 @@ import { RootStackParamList } from '../rootStackParamList';
 import { StackNavigationProp } from '@react-navigation/stack';
 import OpinionEvaluateCredibility from '../features/opinion/components/OpinionEvaluateCredibility';
 import { postReprocessedIssueOpinion } from '../features/opinion/remotes/opinion';
-import { ErrorResponse } from '../shared/types/errorResponse';
 import GlobalTextStyles from '../shared/styles/GlobalTextStyles';
+import useFetch from '../shared/hooks/useFetch';
 
 const OpinionPostPage = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   type ScreenRouteProp = RouteProp<RootStackParamList, 'OpinionPost'>;
   const route = useRoute<ScreenRouteProp>();
 
-  const [isTextInputFocused, setIsTextInputFocused] = useState(false);
+  const [issueId] = useState<number>(route.params.issueId);
+  const [text, setText] = useState<string>(
+    route.params?.opinionWrite ? route.params.opinionWrite.content : '',
+  );
+  const [sentenceIndex] = useState<number>(
+    route.params?.opinionWrite
+      ? route.params.opinionWrite.paragraphId
+      : route.params?.sentenceNumber
+        ? route.params.sentenceNumber
+        : 1,
+  );
+  const [isReliable, setIsReliable] = useState<boolean | undefined>(
+    route.params?.opinionWrite ? route.params.opinionWrite.isReliable : undefined,
+  );
 
+  const { isLoading, error, fetchData } = useFetch(
+    () =>
+      postReprocessedIssueOpinion(
+        sentenceIndex,
+        issueId,
+        text,
+        typeof isReliable === 'boolean' ? isReliable : true,
+      ),
+    false,
+  );
+  const onClickConfirmButton = async () => {
+    if (sentenceIndex !== undefined && isReliable !== undefined && text.length) {
+      await fetchData().then(() => {
+        navigation.goBack();
+      });
+    }
+  };
+
+  const [isTextInputFocused, setIsTextInputFocused] = useState(false);
   const [targetY, setTargetY] = useState(0);
   const scrollViewRef = useRef<ScrollView>(null);
 
@@ -39,31 +71,6 @@ const OpinionPostPage = () => {
     if (isTextInputFocused) scrollViewRef.current?.scrollTo({ y: targetY, animated: true });
     else scrollViewRef.current?.scrollTo({ y: 0, animated: true });
   }, [isTextInputFocused]);
-
-  const [text, setText] = useState('');
-  const sentenceIndex = route.params?.sentenceNumber;
-  const [isReliable, setIsReliable] = useState<boolean | undefined>(undefined);
-
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<ErrorResponse | null>(null);
-
-  const onClickConfirmButton = async () => {
-    if (sentenceIndex !== undefined && isReliable !== undefined && text.length) {
-      setIsLoading(true);
-      setError(null);
-
-      try {
-        await postReprocessedIssueOpinion(sentenceIndex, 1, text, isReliable);
-      } catch (error) {
-        setError(error as ErrorResponse);
-      } finally {
-        setIsLoading(false);
-        if (!error) {
-          navigation.goBack();
-        }
-      }
-    }
-  };
 
   const onClickShowNewsButton = () => {
     navigation.navigate('OpinionPin');
@@ -96,7 +103,7 @@ const OpinionPostPage = () => {
           <WithLocalSvg width={10} height={20} asset={OpinionBackButton as ImageSourcePropType} />
         </TouchableOpacity>
         <Text style={styles.topTextStyle}>의견쓰기</Text>
-        <TouchableOpacity style={styles.topSvgStyle} onPress={onClickConfirmButton}>
+        <TouchableOpacity style={styles.topSvgStyle} onPress={void onClickConfirmButton}>
           <WithLocalSvg width={17} height={12} asset={OpinionCheckButton as ImageSourcePropType} />
         </TouchableOpacity>
       </View>
