@@ -23,15 +23,24 @@ import WarningModal from '../../../shared/components/WarningModal';
 import { GESTURE_SPEED_THRESHOLD } from '../../../shared/constants/bottomSheetGestureConstants';
 import { ErrorResponse } from '../../../shared/types/errorResponse';
 import { deleteReprocessedIssueOpinion } from '../remotes/opinion';
+import { OpinionWrite } from '../../../shared/types/news';
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from '../../../rootStackParamList';
+import useFetch from '../../../shared/hooks/useFetch';
 
 interface OpinionWriteBottomSheetProps {
-  id: number;
-  title: string;
-  content: string;
+  issueId: number;
+  opinionWrite: OpinionWrite;
   onClose: () => void;
 }
 
-const OpinionWriteBottomSheet = ({ id, title, content, onClose }: OpinionWriteBottomSheetProps) => {
+const OpinionWriteBottomSheet = ({
+  issueId,
+  opinionWrite,
+  onClose,
+}: OpinionWriteBottomSheetProps) => {
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   const { openModal, closeModal } = useModal();
 
   const panY = useRef(new Animated.Value(Dimensions.get('screen').height)).current;
@@ -62,25 +71,14 @@ const OpinionWriteBottomSheet = ({ id, title, content, onClose }: OpinionWriteBo
   ).current;
 
   const onClickModifyButton = () => {
-    console.log('수정버튼 클릭');
+    navigation.navigate('OpinionPost', { issueId: issueId, opinionWrite: opinionWrite });
   };
 
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<ErrorResponse | null>(null);
-  const onClickConfirmWarningModal = async () => {
-    setIsLoading(true);
-    setError(null);
-
-    try {
-      await deleteReprocessedIssueOpinion(id);
-    } catch (error) {
-      setError(error as ErrorResponse);
-    } finally {
-      setIsLoading(false);
-      closeModal();
-      closeBottomSheet();
-    }
-  };
+  const { fetchData } = useFetch(() => deleteReprocessedIssueOpinion(opinionWrite.id), false);
+  const onClickConfirmWarningModal = fetchData().then(() => {
+    closeModal();
+    closeBottomSheet();
+  });
 
   const onClickDeleteButton = () => {
     openModal(
@@ -115,10 +113,10 @@ const OpinionWriteBottomSheet = ({ id, title, content, onClose }: OpinionWriteBo
               <WithLocalSvg width={20} height={20} asset={OpinionPin as ImageSourcePropType} />
             </TouchableOpacity>
           </View>
-          <Text style={styles.titleText}>{title}</Text>
+          <Text style={styles.titleText}>{opinionWrite.paragraphContent}</Text>
         </View>
         <View style={styles.dotLine} />
-        <Text style={styles.contentText}>{content}</Text>
+        <Text style={styles.contentText}>{opinionWrite.content}</Text>
         <TouchableOpacity style={styles.modifyButton} onPress={onClickModifyButton}>
           <Text style={styles.modifyButtonText}>수정하기</Text>
         </TouchableOpacity>
