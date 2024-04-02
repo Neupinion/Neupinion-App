@@ -14,37 +14,48 @@ import MainArrowLeftSvg from '../assets/icon/mainarrowLeft.svg';
 import BookMarkSvg from '../assets/icon/bookmark.svg';
 import AnotherBookMarkSvg from '../assets/icon/anotherbookmark.svg';
 import ShareSvg from '../assets/icon/share.svg';
-import RemakeIssueContentsSlider from '../features/remakeissue/components/RemakeIssueContentsSlider';
+import ReprocessedIssueContentsSlider from '../features/remakeissue/components/ReprocessedIssueContentsSlider';
 import OpinionWriteSlider from '../features/remakeissue/components/OpinionWriteSlider';
 import ReliabilityEvaluation from '../features/remakeissue/components/ReliabilityEvaluation';
 import CategoryLatestNews from '../features/remakeissue/components/CategoryLatestNews';
-import ReProcessedIssueDummy from '../dummy/ReProcessedIssueDummy';
-import { useNavigation } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { RootStackParamList } from '../rootStackParamList';
+import { client } from '../shared/remotes/axios';
+import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { RootStackParamList } from "../rootStackParamList";
 
-const DetailPage = () => {
+const ReprocessedIssueDetailPage: React.FC = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
+  type ScreenRouteProp = RouteProp<RootStackParamList, 'ReprocessedIssueDetailPage'>;
+  const route = useRoute<ScreenRouteProp>();
+  const id: number = route.params.id;
+  const category = 'ENTERTAINMENTS';
+
   const [bookMarkClicked, setBookMarkClicked] = useState(false);
-  const toggleBookMark = () => {
-    setBookMarkClicked(!bookMarkClicked);
-  };
-  const onClickBackButton = () => {
-    navigation.goBack();
+  const toggleBookmark = async () => {
+    try {
+      const payload = { isBookmarked: !bookMarkClicked };
+      await client.put(`/reprocessed-issue/${id}/bookmark`, payload);
+      setBookMarkClicked(!bookMarkClicked);
+      console.log('북마크 put: 성공');
+    } catch (error) {
+      console.error('북마크 put: 실패', error);
+    }
   };
 
-  const reprocessedIssue = ReProcessedIssueDummy;
+  const onClickButton = () => {
+    console.log('해당 버튼은, 원문 페이지로 이동합니다.');
+  };
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
         <View style={styles.headerLeftContainer}>
-          <TouchableOpacity style={styles.svgStyle} onPress={onClickBackButton}>
+          <TouchableOpacity style={styles.svgStyle} onPress={onClickButton}>
             <WithLocalSvg height={30} asset={MainArrowLeftSvg as ImageSourcePropType} />
           </TouchableOpacity>
           <Text style={styles.headerText}>진짜일까, 가짜일까?</Text>
         </View>
         <View style={styles.headerRightContainer}>
-          <TouchableOpacity style={styles.headerSvg} onPress={toggleBookMark}>
+          <TouchableOpacity style={styles.headerSvg} onPress={toggleBookmark}>
             {bookMarkClicked ? (
               <WithLocalSvg
                 width={23}
@@ -55,20 +66,20 @@ const DetailPage = () => {
               <WithLocalSvg width={23} height={23} asset={BookMarkSvg as ImageSourcePropType} />
             )}
           </TouchableOpacity>
-          <TouchableOpacity style={styles.headerSvg} onPress={() => {}}>
+          <TouchableOpacity style={styles.headerSvg} onPress={onClickButton}>
             <WithLocalSvg width={24} height={23} asset={ShareSvg as ImageSourcePropType} />
           </TouchableOpacity>
         </View>
       </View>
       <View style={styles.headerUnderLine} />
       <ScrollView style={{ width: Dimensions.get('window').width, flex: 1 }}>
-        <RemakeIssueContentsSlider />
+        <ReprocessedIssueContentsSlider id={id} />
         <View style={styles.divideLine}></View>
-        <OpinionWriteSlider navigation={navigation} issueId={1} />
+        <OpinionWriteSlider issueId={id} />
         <View style={styles.divideLine}></View>
-        <ReliabilityEvaluation />
+        <ReliabilityEvaluation issueId={id} />
         <View style={styles.divideLine}></View>
-        <CategoryLatestNews fakeNews={reprocessedIssue} />
+        <CategoryLatestNews current={id} category={category} />
       </ScrollView>
     </View>
   );
@@ -138,4 +149,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DetailPage;
+export default ReprocessedIssueDetailPage;

@@ -32,11 +32,10 @@ const ReliabilityEvaluation = ({ issueId }: { issueId: number }) => {
   };
   const submitVoteResult = async () => {
     try {
-      const selectedText = reliabilityText.find((item) => item.id === selectedButton)?.entext;
+      const selectedText = reliabilityText.find((item) => item.id === selectedButton)?.value;
       const data = {
         status: selectedText,
       };
-
       await client.put(`/reprocessed-issue/${issueId}/trust-vote`, data, {
         params: {
           issueId: issueId,

@@ -29,9 +29,7 @@ const CategoryLatestNews = ({ current, category }: { current: number; category: 
   } = useFetch(fetchReprocessedIssue, false);
 
   useEffect(() => {
-    fetchData()
-      .then(() => {})
-      .catch((error) => {});
+    void fetchData();
   }, []);
 
   return (

@@ -27,9 +27,7 @@ const ReprocessedIssueContentsSlider = ({ id }: { id: number }) => {
   } = useFetch(fetchReprocessedIssue, false);
 
   useEffect(() => {
-    fetchData()
-      .then(() => {})
-      .catch((error) => {});
+    void fetchData();
   }, []);
   return (
     <View style={styles.container}>
