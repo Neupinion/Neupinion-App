@@ -51,7 +51,7 @@ const OpinionWriteSlider = ({ navigation, issueId }: OpinionWriteSliderProps) =>
         />
       </View>
       <Text style={styles.textStyle}>아직 의견이 없어요!</Text>
-      <TouchableOpacity style={styles.opinionButton} onPress={onClickButton}>
+      <TouchableOpacity style={styles.opinionButton} onPress={onClickOpinionButton}>
         <View>
           <Text style={styles.buttonText}>의견 남기기</Text>
         </View>
