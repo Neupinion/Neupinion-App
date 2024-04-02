@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import {
   View,
   Text,
@@ -12,23 +12,15 @@ import theme from '../../../shared/styles/theme';
 import { WithLocalSvg } from 'react-native-svg';
 import SeeOriginalSvg from '../../../assets/icon/seeOriginal.svg';
 import { formatDate } from '../constants/formatDate';
-import useFetch from '../../../shared/hooks/useFetch';
-import { getReprocessedIssueContent } from '../remotes/reprocessedIssueContent';
-const ReprocessedIssueContentsSlider = ({ id }: { id: number }) => {
+import { ReprocessedIssueContent } from '../../../shared/types/news';
+
+interface ReprocessedIssueContentsProps {
+  reprocessedIssue: ReprocessedIssueContent | null;
+}
+const ReprocessedIssueContentsSlider = ({ reprocessedIssue }: ReprocessedIssueContentsProps) => {
   const onClickButton = () => {
     console.log('해당 버튼은, 이전 페이지로 이동합니다.');
   };
-  const fetchReprocessedIssue = () => getReprocessedIssueContent(id);
-  const {
-    data: reprocessedIssue,
-    isLoading,
-    error,
-    fetchData,
-  } = useFetch(fetchReprocessedIssue, false);
-
-  useEffect(() => {
-    void fetchData();
-  }, []);
   return (
     <View style={styles.container}>
       {reprocessedIssue && (

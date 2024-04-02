@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Dimensions,
   ImageSourcePropType,
@@ -19,16 +19,17 @@ import OpinionWriteSlider from '../features/remakeissue/components/OpinionWriteS
 import ReliabilityEvaluation from '../features/remakeissue/components/ReliabilityEvaluation';
 import CategoryLatestNews from '../features/remakeissue/components/CategoryLatestNews';
 import { client } from '../shared/remotes/axios';
-import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
-import { StackNavigationProp } from "@react-navigation/stack";
-import { RootStackParamList } from "../rootStackParamList";
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from '../rootStackParamList';
+import { getReprocessedIssueContent } from '../features/remakeissue/remotes/reprocessedIssueContent';
+import useFetch from '../shared/hooks/useFetch';
 
 const ReprocessedIssueDetailPage: React.FC = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   type ScreenRouteProp = RouteProp<RootStackParamList, 'ReprocessedIssueDetailPage'>;
   const route = useRoute<ScreenRouteProp>();
   const id: number = route.params.id;
-  const category = 'ENTERTAINMENTS';
 
   const [bookMarkClicked, setBookMarkClicked] = useState(false);
   const toggleBookmark = async () => {
@@ -41,6 +42,17 @@ const ReprocessedIssueDetailPage: React.FC = () => {
       console.error('북마크 put: 실패', error);
     }
   };
+  const fetchReprocessedIssue = () => getReprocessedIssueContent(id);
+  const {
+    data: reprocessedIssue,
+    isLoading,
+    error,
+    fetchData,
+  } = useFetch(fetchReprocessedIssue, false);
+
+  useEffect(() => {
+    void fetchData();
+  }, []);
 
   const onClickButton = () => {
     console.log('해당 버튼은, 원문 페이지로 이동합니다.');
@@ -73,13 +85,13 @@ const ReprocessedIssueDetailPage: React.FC = () => {
       </View>
       <View style={styles.headerUnderLine} />
       <ScrollView style={{ width: Dimensions.get('window').width, flex: 1 }}>
-        <ReprocessedIssueContentsSlider id={id} />
+        <ReprocessedIssueContentsSlider reprocessedIssue={reprocessedIssue} />
         <View style={styles.divideLine}></View>
         <OpinionWriteSlider issueId={id} />
         <View style={styles.divideLine}></View>
         <ReliabilityEvaluation issueId={id} />
         <View style={styles.divideLine}></View>
-        <CategoryLatestNews current={id} category={category} />
+        <CategoryLatestNews current={id} category={reprocessedIssue!.category} />
       </ScrollView>
     </View>
   );
