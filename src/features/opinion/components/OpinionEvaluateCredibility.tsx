@@ -5,13 +5,13 @@ import { WithLocalSvg } from 'react-native-svg';
 import OpinionInfoIcon from '../../../assets/icon/opinioninfoicon.svg';
 
 interface OpinionEvaluateCredibilityProps {
-  isActivate: boolean;
+  isActivated: boolean;
   isReliable: boolean | undefined;
   setIsReliable: React.Dispatch<React.SetStateAction<boolean | undefined>>;
 }
 
 const OpinionEvaluateCredibility = ({
-  isActivate,
+  isActivated,
   isReliable,
   setIsReliable,
 }: OpinionEvaluateCredibilityProps) => {
@@ -32,14 +32,14 @@ const OpinionEvaluateCredibility = ({
     <View style={styles.container}>
       <View style={styles.buttonContainer}>
         <TouchableOpacity
-          disabled={!isActivate || isReliable === true}
+          disabled={!isActivated || isReliable === true}
           onPress={() => onClickButton(true)}
           style={getButtonStyle(true)}
         >
           <Text style={getButtonTextStyle(true)}>믿을 수 있어요</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          disabled={!isActivate || isReliable === false}
+          disabled={!isActivated || isReliable === false}
           onPress={() => onClickButton(false)}
           style={getButtonStyle(false)}
         >

@@ -118,7 +118,7 @@ const OpinionPostPage = () => {
             <PinTextNumberContainer
               circleNumber={1}
               circleText={'의견을 남길 부분을 선택해주세요'}
-              isActivate={true}
+              isActivated={true}
             />
             {sentenceIndex !== undefined && (
               <TouchableOpacity style={styles.showNewsButton} onPress={onClickShowNewsButton}>
@@ -133,10 +133,10 @@ const OpinionPostPage = () => {
           <PinTextNumberContainer
             circleNumber={2}
             circleText={'생각쓰기'}
-            isActivate={sentenceIndex !== undefined}
+            isActivated={sentenceIndex !== undefined}
           />
           <OpinionWriteContainer
-            isActivate={sentenceIndex !== undefined}
+            isActivated={sentenceIndex !== undefined}
             setIsTextInputFocused={setIsTextInputFocused}
             text={text}
             setText={setText}
@@ -146,10 +146,10 @@ const OpinionPostPage = () => {
           <PinTextNumberContainer
             circleNumber={3}
             circleText={'신뢰도 평가하기'}
-            isActivate={sentenceIndex !== undefined}
+            isActivated={sentenceIndex !== undefined}
           />
           <OpinionEvaluateCredibility
-            isActivate={sentenceIndex !== undefined}
+            isActivated={sentenceIndex !== undefined}
             isReliable={isReliable}
             setIsReliable={setIsReliable}
           />

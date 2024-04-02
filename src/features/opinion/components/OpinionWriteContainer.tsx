@@ -3,14 +3,14 @@ import { StyleSheet, Text, TextInput, View } from 'react-native';
 import theme from '../../../shared/styles/theme';
 
 interface OpinionWriteContainerProps {
-  isActivate: boolean;
+  isActivated: boolean;
   setIsTextInputFocused: React.Dispatch<React.SetStateAction<boolean>>;
   text: string;
   setText: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const OpinionWriteContainer = ({
-  isActivate,
+  isActivated,
   setIsTextInputFocused,
   text,
   setText,
@@ -37,7 +37,7 @@ const OpinionWriteContainer = ({
           setIsTextInputFocused(true);
         }}
         value={text}
-        editable={isActivate}
+        editable={isActivated}
       />
       <View style={styles.textNumberContainer}>
         <Text style={styles.textNumberText}>{`${text.length}자/300자`}</Text>
