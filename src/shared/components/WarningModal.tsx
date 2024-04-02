@@ -4,20 +4,19 @@ import theme from '../styles/theme';
 import fontFamily from '../styles/fontFamily';
 import Exclamation from '../../assets/icon/warningpopupexclamation.svg';
 import { WithLocalSvg } from 'react-native-svg';
-import { ErrorResponse } from "../types/errorResponse";
 
 interface WarningModalProps {
   title: string;
   onClose: () => void;
-  onConfirm: () => Promise<void>;
+  onConfirm: Promise<void>;
 }
 const WarningModal = ({ title, onClose, onConfirm }: WarningModalProps) => {
   const onClickCancel = () => {
     onClose();
   };
 
-  const onClickConfirm = async () => {
-    await onConfirm();
+  const onClickConfirm = () => {
+    void onConfirm;
   };
 
   return (
