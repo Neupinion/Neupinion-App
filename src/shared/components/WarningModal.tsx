@@ -8,7 +8,7 @@ import { WithLocalSvg } from 'react-native-svg';
 interface WarningModalProps {
   title: string;
   onClose: () => void;
-  onConfirm: () => void;
+  onConfirm: () => void | Promise<void>;
 }
 const WarningModal = ({ title, onClose, onConfirm }: WarningModalProps) => {
   const onClickCancel = () => {
