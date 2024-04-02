@@ -14,12 +14,28 @@ import { WithLocalSvg } from 'react-native-svg';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../../../rootStackParamList';
+import { useModal } from "../../../shared/hooks/useModal";
+import OpinionWriteBottomSheet from "../../opinion/components/OpinionWriteBottomSheet";
+import { OpinionWriteDummy } from "../../../dummy/OpinionWriteDummy";
 
-const OpinionWriteSlider = () => {
+interface OpinionWriteSliderProps {
+  issueId: number;
+}
+const OpinionWriteSlider = ({ issueId }: OpinionWriteSliderProps) => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
+  const { openModal, closeModal } = useModal();
 
+  const onClickButton = () => {
+    openModal(
+      <OpinionWriteBottomSheet
+        issueId={issueId}
+        opinionWrite={OpinionWriteDummy}
+        onClose={closeModal}
+      />,
+    );
+  };
   const onClickOpinionButton = () => {
-    navigation.navigate('OpinionPost');
+    navigation.navigate('OpinionPost', { issueId: issueId });
   };
 
   return (

@@ -19,36 +19,26 @@ import OpinionWriteSlider from '../features/remakeissue/components/OpinionWriteS
 import ReliabilityEvaluation from '../features/remakeissue/components/ReliabilityEvaluation';
 import CategoryLatestNews from '../features/remakeissue/components/CategoryLatestNews';
 import ReProcessedIssueDummy from '../dummy/ReProcessedIssueDummy';
-import OpinionWriteBottomSheet from '../features/opinion/components/OpinionWriteBottomSheet';
-import { useModal } from '../shared/hooks/useModal';
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from '../rootStackParamList';
 
 const DetailPage = () => {
-  const { openModal, closeModal } = useModal();
-
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   const [bookMarkClicked, setBookMarkClicked] = useState(false);
-  const onClickButton = () => {
-    openModal(
-      <OpinionWriteBottomSheet
-        id={7}
-        title={
-          '    블룸버그통신 등에 따르면 22일(현지 시간) 오전 9시를 전후 로 미 워싱턴DC에 있는 펜타곤으로 보이는 건물에서 검은 연기가 피어오르는 사진이 트위터를 통해 국내외로 빠르게 확산했다.'
-        }
-        content={
-          '최초로 게시된 곳이 공신력 있는 매체가 아니고 트위터라서 신뢰도가 떨어지는 듯. 계정도 그냥 개인 계정인 것 같아서 추가적인 확인이 필요할 것 같다.'
-        }
-        onClose={closeModal}
-      />,
-    );
-  };
   const toggleBookMark = () => {
     setBookMarkClicked(!bookMarkClicked);
   };
+  const onClickBackButton = () => {
+    navigation.goBack();
+  };
+
   const reprocessedIssue = ReProcessedIssueDummy;
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
         <View style={styles.headerLeftContainer}>
-          <TouchableOpacity style={styles.svgStyle} onPress={onClickButton}>
+          <TouchableOpacity style={styles.svgStyle} onPress={onClickBackButton}>
             <WithLocalSvg height={30} asset={MainArrowLeftSvg as ImageSourcePropType} />
           </TouchableOpacity>
           <Text style={styles.headerText}>진짜일까, 가짜일까?</Text>
@@ -65,7 +55,7 @@ const DetailPage = () => {
               <WithLocalSvg width={23} height={23} asset={BookMarkSvg as ImageSourcePropType} />
             )}
           </TouchableOpacity>
-          <TouchableOpacity style={styles.headerSvg} onPress={onClickButton}>
+          <TouchableOpacity style={styles.headerSvg} onPress={() => {}}>
             <WithLocalSvg width={24} height={23} asset={ShareSvg as ImageSourcePropType} />
           </TouchableOpacity>
         </View>
@@ -74,7 +64,7 @@ const DetailPage = () => {
       <ScrollView style={{ width: Dimensions.get('window').width, flex: 1 }}>
         <RemakeIssueContentsSlider />
         <View style={styles.divideLine}></View>
-        <OpinionWriteSlider />
+        <OpinionWriteSlider issueId={1} />
         <View style={styles.divideLine}></View>
         <ReliabilityEvaluation />
         <View style={styles.divideLine}></View>
