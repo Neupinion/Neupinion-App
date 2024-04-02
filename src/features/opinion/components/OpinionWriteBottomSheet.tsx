@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import {
   Dimensions,
   View,
@@ -21,26 +21,25 @@ import {
 } from '../../../shared/constants/bottomSheetAnimation';
 import WarningModal from '../../../shared/components/WarningModal';
 import { GESTURE_SPEED_THRESHOLD } from '../../../shared/constants/bottomSheetGestureConstants';
-import { ErrorResponse } from '../../../shared/types/errorResponse';
 import { deleteReprocessedIssueOpinion } from '../remotes/opinion';
 import { OpinionWrite } from '../../../shared/types/news';
-import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../../../rootStackParamList';
 import useFetch from '../../../shared/hooks/useFetch';
 
 interface OpinionWriteBottomSheetProps {
+  navigation: StackNavigationProp<RootStackParamList>;
   issueId: number;
   opinionWrite: OpinionWrite;
   onClose: () => void;
 }
 
 const OpinionWriteBottomSheet = ({
+  navigation,
   issueId,
   opinionWrite,
   onClose,
 }: OpinionWriteBottomSheetProps) => {
-  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   const { openModal, closeModal } = useModal();
 
   const panY = useRef(new Animated.Value(Dimensions.get('screen').height)).current;
@@ -71,14 +70,16 @@ const OpinionWriteBottomSheet = ({
   ).current;
 
   const onClickModifyButton = () => {
+    closeBottomSheet();
     navigation.navigate('OpinionPost', { issueId: issueId, opinionWrite: opinionWrite });
   };
 
   const { fetchData } = useFetch(() => deleteReprocessedIssueOpinion(opinionWrite.id), false);
-  const onClickConfirmWarningModal = fetchData().then(() => {
-    closeModal();
-    closeBottomSheet();
-  });
+  const onClickConfirmWarningModal = () =>
+    fetchData().then(() => {
+      closeModal();
+      closeBottomSheet();
+    });
 
   const onClickDeleteButton = () => {
     openModal(

@@ -64,7 +64,7 @@ const DetailPage = () => {
       <ScrollView style={{ width: Dimensions.get('window').width, flex: 1 }}>
         <RemakeIssueContentsSlider />
         <View style={styles.divideLine}></View>
-        <OpinionWriteSlider issueId={1} />
+        <OpinionWriteSlider navigation={navigation} issueId={1} />
         <View style={styles.divideLine}></View>
         <ReliabilityEvaluation />
         <View style={styles.divideLine}></View>
