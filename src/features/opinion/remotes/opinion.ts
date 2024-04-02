@@ -1,5 +1,4 @@
 import { client } from '../../../shared/remotes/axios';
-import { Opinion, ReprocessedIssueId } from "../../../shared/types/news";
 
 export const postReprocessedIssueOpinion = async (
   paragraphId: number,
@@ -17,9 +16,4 @@ export const postReprocessedIssueOpinion = async (
 
 export const deleteReprocessedIssueOpinion = async (opinionId: number) => {
   return await client.delete(`reprocessed-issue/opinion/${opinionId}`);
-};
-
-export const getReprocessedIssueOpinionById = async (issueId: number) => {
-  const { data } = await client.get<Opinion[]>(`/reprocessed-issue/${issueId}/me`);
-  return data;
 };

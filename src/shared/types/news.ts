@@ -36,7 +36,7 @@ export interface FollowUpIssue {
   createdAt: string;
 }
 
-export interface Opinion {
+export interface OpinionWrite {
   id: number;
   paragraphId: number;
   paragraphContent: string;
