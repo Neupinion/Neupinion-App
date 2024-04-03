@@ -54,17 +54,17 @@ const ReprocessedIssueContentsSlider = ({ reprocessedIssue }: ReprocessedIssueCo
   );
 };
 const markdownStyles = StyleSheet.create({
-  heading1: {
-    fontSize: 32,
-    color: theme.color.main,
-  },
-  heading2: {
-    fontSize: 30,
-  },
-  heading3: {
-    fontSize: 18,
-  },
-  text: {
+  // heading1: {
+  //   fontSize: 32,
+  //   color: theme.color.main,
+  // },
+  // heading2: {
+  //   fontSize: 30,
+  // },
+  // heading3: {
+  //   fontSize: 18,
+  // },
+  body: {
     textAlign: 'justify',
     color: theme.color.white,
     fontStyle: 'normal',

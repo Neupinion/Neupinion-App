@@ -14,8 +14,6 @@ import MainArrowSvg from '../../../assets/icon/mainarrow.svg';
 import CategoryLatestNewsItem from './CategoryLatestNewsItem';
 import { getSameCategoryReprocessedIssues } from '../remotes/sameCategoryReprocessedIssue';
 import useFetch from '../../../shared/hooks/useFetch';
-import { categoryMapping } from '../constants/newsCategoryMapping';
-
 const CategoryLatestNews = ({ current, category }: { current: number; category: string }) => {
   const onClickButton = () => {
     console.log('해당 버튼은, 이동합니다');
@@ -35,9 +33,7 @@ const CategoryLatestNews = ({ current, category }: { current: number; category: 
   return (
     <View style={styles.container}>
       <View style={styles.titleContainer}>
-        <Text style={GlobalTextStyles.NormalText17}>
-          {categoryMapping[category]} 카테고리의 최신 소식
-        </Text>
+        <Text style={GlobalTextStyles.NormalText17}>{category} 카테고리의 최신 소식</Text>
         <TouchableOpacity style={styles.svgStyle} onPress={onClickButton}>
           <WithLocalSvg width={14} height={14} asset={MainArrowSvg as ImageSourcePropType} />
         </TouchableOpacity>

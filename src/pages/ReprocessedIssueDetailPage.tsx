@@ -18,7 +18,6 @@ import ReprocessedIssueContentsSlider from '../features/remakeissue/components/R
 import OpinionWriteSlider from '../features/remakeissue/components/OpinionWriteSlider';
 import ReliabilityEvaluation from '../features/remakeissue/components/ReliabilityEvaluation';
 import CategoryLatestNews from '../features/remakeissue/components/CategoryLatestNews';
-import { client } from '../shared/remotes/axios';
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../rootStackParamList';
@@ -58,7 +57,10 @@ const ReprocessedIssueDetailPage: React.FC = () => {
           <Text style={styles.headerText}>진짜일까, 가짜일까?</Text>
         </View>
         <View style={styles.headerRightContainer}>
-          <TouchableOpacity style={styles.headerSvg} onPress={() => toggleBookmark(id, bookMarkClicked, setBookMarkClicked)}>
+          <TouchableOpacity
+            style={styles.headerSvg}
+            onPress={() => toggleBookmark(id, bookMarkClicked, setBookMarkClicked)}
+          >
             {bookMarkClicked ? (
               <WithLocalSvg
                 width={23}
@@ -82,7 +84,7 @@ const ReprocessedIssueDetailPage: React.FC = () => {
         <View style={styles.divideLine}></View>
         <ReliabilityEvaluation issueId={id} />
         <View style={styles.divideLine}></View>
-        {/*<CategoryLatestNews current={id} category={reprocessedIssue!.category} />*/}
+        <CategoryLatestNews current={id} category={reprocessedIssue!.category} />
       </ScrollView>
     </View>
   );
