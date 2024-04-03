@@ -24,7 +24,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../rootStackParamList';
 import { getReprocessedIssueContent } from '../features/remakeissue/remotes/reprocessedIssueContent';
 import useFetch from '../shared/hooks/useFetch';
-
+import toggleBookmark from '../features/remakeissue/remotes/toggleBookmark';
 const ReprocessedIssueDetailPage: React.FC = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   type ScreenRouteProp = RouteProp<RootStackParamList, 'ReprocessedIssueDetailPage'>;
@@ -32,16 +32,7 @@ const ReprocessedIssueDetailPage: React.FC = () => {
   const id: number = route.params.id;
 
   const [bookMarkClicked, setBookMarkClicked] = useState(false);
-  const toggleBookmark = async () => {
-    try {
-      const payload = { isBookmarked: !bookMarkClicked };
-      await client.put(`/reprocessed-issue/${id}/bookmark`, payload);
-      setBookMarkClicked(!bookMarkClicked);
-      console.log('북마크 put: 성공');
-    } catch (error) {
-      console.error('북마크 put: 실패', error);
-    }
-  };
+
   const fetchReprocessedIssue = () => getReprocessedIssueContent(id);
   const {
     data: reprocessedIssue,
@@ -67,7 +58,7 @@ const ReprocessedIssueDetailPage: React.FC = () => {
           <Text style={styles.headerText}>진짜일까, 가짜일까?</Text>
         </View>
         <View style={styles.headerRightContainer}>
-          <TouchableOpacity style={styles.headerSvg} onPress={toggleBookmark}>
+          <TouchableOpacity style={styles.headerSvg} onPress={() => toggleBookmark(id, bookMarkClicked, setBookMarkClicked)}>
             {bookMarkClicked ? (
               <WithLocalSvg
                 width={23}
@@ -91,7 +82,7 @@ const ReprocessedIssueDetailPage: React.FC = () => {
         <View style={styles.divideLine}></View>
         <ReliabilityEvaluation issueId={id} />
         <View style={styles.divideLine}></View>
-        <CategoryLatestNews current={id} category={reprocessedIssue!.category} />
+        {/*<CategoryLatestNews current={id} category={reprocessedIssue!.category} />*/}
       </ScrollView>
     </View>
   );

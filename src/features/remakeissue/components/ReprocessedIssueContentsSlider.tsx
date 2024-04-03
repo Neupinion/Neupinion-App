@@ -13,6 +13,7 @@ import { WithLocalSvg } from 'react-native-svg';
 import SeeOriginalSvg from '../../../assets/icon/seeOriginal.svg';
 import { formatDate } from '../constants/formatDate';
 import { ReprocessedIssueContent } from '../../../shared/types/news';
+import Markdown from 'react-native-markdown-display';
 
 interface ReprocessedIssueContentsProps {
   reprocessedIssue: ReprocessedIssueContent | null;
@@ -41,9 +42,10 @@ const ReprocessedIssueContentsSlider = ({ reprocessedIssue }: ReprocessedIssueCo
           <View style={styles.contentsBody}>
             {reprocessedIssue.content &&
               reprocessedIssue.content.map((contentItem, index) => (
-                <Text key={index} style={styles.contentsBodyText}>
+                <Markdown style={markdownStyles} key={index}>
+                  {/*<Text style={styles.contentsBodyText}>{contentItem.paragraph}</Text>*/}
                   {contentItem.paragraph}
-                </Text>
+                </Markdown>
               ))}
           </View>
         </>
@@ -51,6 +53,27 @@ const ReprocessedIssueContentsSlider = ({ reprocessedIssue }: ReprocessedIssueCo
     </View>
   );
 };
+const markdownStyles = StyleSheet.create({
+  heading1: {
+    fontSize: 32,
+    color: theme.color.main,
+  },
+  heading2: {
+    fontSize: 30,
+  },
+  heading3: {
+    fontSize: 18,
+  },
+  text: {
+    textAlign: 'justify',
+    color: theme.color.white,
+    fontStyle: 'normal',
+    fontSize: 14,
+    fontWeight: '700',
+    lineHeight: 21,
+    letterSpacing: -0.42,
+  },
+});
 
 const styles = StyleSheet.create({
   container: {
