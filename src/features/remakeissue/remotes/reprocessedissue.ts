@@ -1,5 +1,5 @@
 import { client } from '../../../shared/remotes/axios';
-import { ReProcessedIssue, ReprocessedIssueId } from "../../../shared/types/news";
+import { ReProcessedIssue, ReprocessedIssueId } from '../../../shared/types/news';
 
 export const getReprocessedIssues = async (date: string) => {
   const { data } = await client.get<ReProcessedIssue[]>('/reprocessed-issue', {
