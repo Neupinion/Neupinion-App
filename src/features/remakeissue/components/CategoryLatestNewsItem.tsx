@@ -6,12 +6,10 @@ import { formatDate } from '../constants/formatDate';
 
 interface CategoryLatestNewsSliderItemProps {
   item: SameCategoryReprocessedIssue;
+  category: string;
 }
 
-const CategoryLatestNewsItem = ({
-  item,
-  category,
-}: CategoryLatestNewsSliderItemProps & { category: string }) => {
+const CategoryLatestNewsItem = ({ item, category }: CategoryLatestNewsSliderItemProps) => {
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.card} onPress={() => {}}>
