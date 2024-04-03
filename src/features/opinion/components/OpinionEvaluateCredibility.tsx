@@ -4,17 +4,17 @@ import theme from '../../../shared/styles/theme';
 import { WithLocalSvg } from 'react-native-svg';
 import OpinionInfoIcon from '../../../assets/icon/opinioninfoicon.svg';
 
-interface OpinionEvaluateCredibilityProps {
+interface OpinionEvaluateReliabilityProps {
   isActivated: boolean;
   isReliable: boolean | undefined;
   setIsReliable: React.Dispatch<React.SetStateAction<boolean | undefined>>;
 }
 
-const OpinionEvaluateCredibility = ({
+const OpinionEvaluateReliability = ({
   isActivated,
   isReliable,
   setIsReliable,
-}: OpinionEvaluateCredibilityProps) => {
+}: OpinionEvaluateReliabilityProps) => {
   const onClickButton = (option: boolean) => {
     setIsReliable(option);
   };
@@ -170,4 +170,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default OpinionEvaluateCredibility;
+export default OpinionEvaluateReliability;

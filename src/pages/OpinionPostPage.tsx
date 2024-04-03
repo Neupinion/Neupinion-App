@@ -20,7 +20,7 @@ import SentenceBox from '../features/opinion/components/SentenceBox';
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { RootStackParamList } from '../rootStackParamList';
 import { StackNavigationProp } from '@react-navigation/stack';
-import OpinionEvaluateCredibility from '../features/opinion/components/OpinionEvaluateCredibility';
+import OpinionEvaluateReliability from '../features/opinion/components/OpinionEvaluateCredibility';
 import { postReprocessedIssueOpinion } from '../features/opinion/remotes/opinion';
 import GlobalTextStyles from '../shared/styles/GlobalTextStyles';
 import useFetch from '../shared/hooks/useFetch';
@@ -166,7 +166,7 @@ const OpinionPostPage = () => {
             circleText={'신뢰도 평가하기'}
             isActivated={sentenceIndex !== undefined}
           />
-          <OpinionEvaluateCredibility
+          <OpinionEvaluateReliability
             isActivated={sentenceIndex !== undefined}
             isReliable={isReliable}
             setIsReliable={setIsReliable}
