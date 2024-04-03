@@ -16,7 +16,7 @@ import Moon2Svg from '../../../assets/icon/moon2.svg';
 import Moon3Svg from '../../../assets/icon/moon3.svg';
 import Moon4Svg from '../../../assets/icon/moon4.svg';
 import { reliabilityText } from '../constants/reliabilty';
-import { client } from '../../../shared/remotes/axios';
+import submitVoteResult from '../remotes/submitVoteResult';
 const ReliabilityEvaluation = ({ issueId }: { issueId: number }) => {
   const moons = [
     { id: 1, SvgComponent: Moon1Svg },
@@ -30,19 +30,7 @@ const ReliabilityEvaluation = ({ issueId }: { issueId: number }) => {
   const handleButtonPress = (buttonNumber: number) => {
     setSelectedButton(buttonNumber);
   };
-  const submitVoteResult = async () => {
-    try {
-      const selectedText = reliabilityText.find((item) => item.id === selectedButton)?.value;
-      const data = {
-        status: selectedText,
-      };
-      await client.put(`/reprocessed-issue/${issueId}/trust-vote`, data, {
-        params: {
-          issueId: issueId,
-        },
-      });
-    } catch (error) {}
-  };
+
   return (
     <View style={styles.container}>
       <View style={styles.titleContainer}>
@@ -78,7 +66,10 @@ const ReliabilityEvaluation = ({ issueId }: { issueId: number }) => {
           </Text>
         ))}
       </View>
-      <TouchableOpacity style={styles.submitButton} onPress={() => submitVoteResult()}>
+      <TouchableOpacity
+        style={styles.submitButton}
+        onPress={() => submitVoteResult(issueId, selectedButton, reliabilityText)}
+      >
         <Text style={styles.buttonText}>투표하고 결과보기</Text>
       </TouchableOpacity>
     </View>
