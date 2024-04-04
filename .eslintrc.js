@@ -41,6 +41,11 @@ module.exports = {
             'error',
             'always'
         ],
+        '@typescript-eslint/no-misused-promises': [2, {
+            'checksVoidReturn': {
+                'attributes': false
+            }
+        }],
         'prettier/prettier': 'error',
         'no-empty-function': 'off',
         '@typescript-eslint/no-empty-function': 'off',
