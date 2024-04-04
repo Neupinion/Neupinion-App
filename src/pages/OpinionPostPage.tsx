@@ -38,17 +38,19 @@ const OpinionPostPage = () => {
     if (route.params?.opinionWrite?.paragraphId !== undefined) {
       return route.params.opinionWrite.paragraphId;
     }
-    return route.params.sentenceNumber !== undefined ? route.params.sentenceNumber : undefined;
+    return route.params.sentenceNumber !== undefined ? route.params.sentenceNumber : 0;
   };
 
   const extractIsReliable = () => {
-    return route.params?.opinionWrite?.isReliable;
+    return route.params?.opinionWrite?.isReliable || true;
   };
+
+  const [isEditMode, setIsEditMode] = useState<boolean>(!!route.params.opinionWrite);
 
   const [issueId] = useState<number>(route.params.issueId);
   const [text, setText] = useState<string>(extractText);
-  const [sentenceIndex, setSentenceIndex] = useState<number | undefined>(extractSentenceIndex);
-  const [isReliable, setIsReliable] = useState<boolean | undefined>(extractIsReliable);
+  const [sentenceIndex, setSentenceIndex] = useState<number>(extractSentenceIndex);
+  const [isReliable, setIsReliable] = useState<boolean>(extractIsReliable);
 
   useEffect(() => {
     setText(extractText);
@@ -56,18 +58,21 @@ const OpinionPostPage = () => {
     setIsReliable(extractIsReliable);
   }, [route.params]);
 
+  const [sentenceNumberDefined, setSentenceNumberDefined] = useState<boolean>(isEditMode);
+  const [isReliableDefined, setIsReliableDefined] = useState<boolean>(isEditMode);
+
+  useEffect(() => {
+    setIsEditMode(!!route.params.opinionWrite);
+    setSentenceNumberDefined(isEditMode || route.params.sentenceNumber !== undefined);
+    setIsReliableDefined(isEditMode || isReliable);
+  }, [route.params, isEditMode, isReliable]);
+
   const { isLoading, error, fetchData } = useFetch(
-    () =>
-      postReprocessedIssueOpinion(
-        typeof sentenceIndex === 'number' ? sentenceIndex : 1,
-        issueId,
-        text,
-        typeof isReliable === 'boolean' ? isReliable : true,
-      ),
+    () => postReprocessedIssueOpinion(sentenceIndex, issueId, text, isReliable),
     false,
   );
   const onClickConfirmButton = async () => {
-    if (sentenceIndex !== undefined && isReliable !== undefined && text.length) {
+    if (sentenceNumberDefined && isReliableDefined && text.length) {
       await fetchData().then(() => {
         navigation.goBack();
       });
@@ -114,7 +119,7 @@ const OpinionPostPage = () => {
           <WithLocalSvg width={10} height={20} asset={OpinionBackButton as ImageSourcePropType} />
         </TouchableOpacity>
         <Text style={styles.topTextStyle}>의견쓰기</Text>
-        <TouchableOpacity style={styles.topSvgStyle} onPress={void onClickConfirmButton}>
+        <TouchableOpacity style={styles.topSvgStyle} onPress={onClickConfirmButton}>
           <WithLocalSvg width={17} height={12} asset={OpinionCheckButton as ImageSourcePropType} />
         </TouchableOpacity>
       </View>
@@ -138,23 +143,23 @@ const OpinionPostPage = () => {
               circleText={'의견을 남길 부분을 선택해주세요'}
               isActivated={true}
             />
-            {sentenceIndex !== undefined && (
+            {sentenceNumberDefined && (
               <TouchableOpacity style={styles.showNewsButton} onPress={onClickShowNewsButton}>
                 <Text style={styles.showNewsText}>뉴스보기</Text>
               </TouchableOpacity>
             )}
           </View>
-          {sentenceIndex === undefined && <PinButton />}
-          {sentenceIndex !== undefined && <SentenceBox sentenceNumber={sentenceIndex} />}
+          {!sentenceNumberDefined && <PinButton />}
+          {sentenceNumberDefined && <SentenceBox sentenceNumber={sentenceIndex} />}
         </View>
         <View style={styles.choosePinContainer}>
           <PinTextNumberContainer
             circleNumber={2}
             circleText={'생각쓰기'}
-            isActivated={sentenceIndex !== undefined}
+            isActivated={sentenceNumberDefined}
           />
           <OpinionWriteContainer
-            isActivated={sentenceIndex !== undefined}
+            isActivated={sentenceNumberDefined}
             setIsTextInputFocused={setIsTextInputFocused}
             text={text}
             setText={setText}
@@ -164,10 +169,10 @@ const OpinionPostPage = () => {
           <PinTextNumberContainer
             circleNumber={3}
             circleText={'신뢰도 평가하기'}
-            isActivated={sentenceIndex !== undefined}
+            isActivated={sentenceNumberDefined}
           />
           <OpinionEvaluateReliability
-            isActivated={sentenceIndex !== undefined}
+            isActivated={sentenceNumberDefined}
             isReliable={isReliable}
             setIsReliable={setIsReliable}
           />

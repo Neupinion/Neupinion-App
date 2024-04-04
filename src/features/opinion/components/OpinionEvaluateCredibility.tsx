@@ -7,7 +7,7 @@ import OpinionInfoIcon from '../../../assets/icon/opinioninfoicon.svg';
 interface OpinionEvaluateReliabilityProps {
   isActivated: boolean;
   isReliable: boolean | undefined;
-  setIsReliable: React.Dispatch<React.SetStateAction<boolean | undefined>>;
+  setIsReliable: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const OpinionEvaluateReliability = ({
