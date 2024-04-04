@@ -10,7 +10,7 @@ export interface ReProcessedIssue {
 }
 
 export interface ReprocessedIssueContent {
-  id: string | number;
+  id: number;
   paragraph: string;
   selected: boolean;
 }

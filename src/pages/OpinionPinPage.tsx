@@ -84,11 +84,11 @@ const OpinionPinPage = () => {
         </View>
         <OpinionPinIssue reprocessedIssue={reprocessedIssue} />
         <View style={styles.pinSentenceContainer}>
-          {reprocessedIssue?.content.map((item: ReprocessedIssueContent, index: number) => (
+          {reprocessedIssue?.content.map((item: ReprocessedIssueContent) => (
             <TouchableOpacity
-              key={index}
-              style={[styles.pinSentence, { opacity: selectedPinIndex === index ? 1 : 0.3 }]}
-              onPress={() => onSelectPin(index)}
+              key={item.id}
+              style={[styles.pinSentence, { opacity: selectedPinIndex === item.id ? 1 : 0.3 }]}
+              onPress={() => onSelectPin(item.id)}
             >
               <View style={styles.pinContainer}>
                 <View style={styles.pin}>
