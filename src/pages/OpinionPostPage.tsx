@@ -165,6 +165,7 @@ const OpinionPostPage = () => {
           <OpinionEvaluateReliability
             isActivated={sentenceNumberDefined}
             isReliable={isReliable}
+            isEditMode={isEditMode}
             setIsReliable={setIsReliable}
           />
         </View>
