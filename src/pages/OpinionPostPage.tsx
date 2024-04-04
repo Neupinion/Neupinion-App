@@ -35,27 +35,20 @@ const OpinionPostPage = () => {
   type ScreenRouteProp = RouteProp<RootStackParamList, 'OpinionPost'>;
   const route = useRoute<ScreenRouteProp>();
 
-  const [isEditMode, setIsEditMode] = useState<boolean>(!!route.params.opinionWrite);
+  const [isEditMode] = useState<boolean>(!!route.params.opinionWrite);
 
   const [issueId] = useState<number>(route.params.issueId);
   const [text, setText] = useState<string>(extractText(route));
   const [sentenceIndex, setSentenceIndex] = useState<number>(extractSentenceIndex(route));
   const [isReliable, setIsReliable] = useState<boolean>(extractIsReliable(route));
 
-  useEffect(() => {
-    setText(extractText(route));
-    setSentenceIndex(extractSentenceIndex(route));
-    setIsReliable(extractIsReliable(route));
-  }, [route.params]);
-
   const [sentenceNumberDefined, setSentenceNumberDefined] = useState<boolean>(isEditMode);
   const [isReliableDefined, setIsReliableDefined] = useState<boolean>(isEditMode);
 
   useEffect(() => {
-    setIsEditMode(!!route.params.opinionWrite);
-    setSentenceNumberDefined(isEditMode || route.params.sentenceNumber !== undefined);
-    setIsReliableDefined(isEditMode || isReliable);
-  }, [route.params, isEditMode, isReliable]);
+    setSentenceIndex(extractSentenceIndex(route));
+    setSentenceNumberDefined(route.params.sentenceNumber !== undefined);
+  }, [route.params]);
 
   const { isLoading, error, fetchData } = useFetch(
     () => postReprocessedIssueOpinion(sentenceIndex, issueId, text, isReliable),
@@ -165,8 +158,9 @@ const OpinionPostPage = () => {
           <OpinionEvaluateReliability
             isActivated={sentenceNumberDefined}
             isReliable={isReliable}
-            isEditMode={isEditMode}
+            isReliableDefined={isReliableDefined}
             setIsReliable={setIsReliable}
+            setIsReliableDefined={setIsReliableDefined}
           />
         </View>
       </ScrollView>

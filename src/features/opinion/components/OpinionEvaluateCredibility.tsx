@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { ImageSourcePropType, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import theme from '../../../shared/styles/theme';
 import { WithLocalSvg } from 'react-native-svg';
@@ -7,29 +7,30 @@ import OpinionInfoIcon from '../../../assets/icon/opinioninfoicon.svg';
 interface OpinionEvaluateReliabilityProps {
   isActivated: boolean;
   isReliable: boolean;
-  isEditMode: boolean;
+  isReliableDefined: boolean;
   setIsReliable: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsReliableDefined: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const OpinionEvaluateReliability = ({
   isActivated,
   isReliable,
-  isEditMode,
+  isReliableDefined,
   setIsReliable,
+  setIsReliableDefined,
 }: OpinionEvaluateReliabilityProps) => {
-  const [hasBeenClicked, setHasBeenClicked] = useState(isEditMode);
   const onClickButton = (option: boolean) => {
     setIsReliable(option);
-    setHasBeenClicked(true);
+    setIsReliableDefined(true);
   };
 
   const getButtonStyle = (option: boolean) => [
     styles.button,
-    isReliable === option && isActivated && hasBeenClicked && styles.selectedButton,
+    isReliable === option && isActivated && isReliableDefined && styles.selectedButton,
   ];
   const getButtonTextStyle = (option: boolean) => [
     styles.buttonText,
-    isReliable === option && isActivated && hasBeenClicked && styles.selectedButtonText,
+    isReliable === option && isActivated && isReliableDefined && styles.selectedButtonText,
   ];
 
   return (
