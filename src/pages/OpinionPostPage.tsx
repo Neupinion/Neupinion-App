@@ -47,7 +47,7 @@ const OpinionPostPage = () => {
 
   useEffect(() => {
     setSentenceIndex(extractSentenceIndex(route));
-    setSentenceNumberDefined(route.params.sentenceNumber !== undefined);
+    setSentenceNumberDefined(route.params.sentenceNumber !== undefined || isEditMode);
   }, [route.params]);
 
   const { isLoading, error, fetchData } = useFetch(
