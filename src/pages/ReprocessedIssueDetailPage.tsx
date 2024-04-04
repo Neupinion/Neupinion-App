@@ -84,7 +84,9 @@ const ReprocessedIssueDetailPage: React.FC = () => {
         <View style={styles.divideLine}></View>
         <ReliabilityEvaluation issueId={id} />
         <View style={styles.divideLine}></View>
-        <CategoryLatestNews current={id} category={reprocessedIssue!.category} />
+        {reprocessedIssue !== null && (
+          <CategoryLatestNews current={id} category={reprocessedIssue.category} />
+        )}
       </ScrollView>
     </View>
   );

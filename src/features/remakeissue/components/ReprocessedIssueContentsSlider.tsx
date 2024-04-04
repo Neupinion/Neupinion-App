@@ -43,7 +43,6 @@ const ReprocessedIssueContentsSlider = ({ reprocessedIssue }: ReprocessedIssueCo
             {reprocessedIssue.content &&
               reprocessedIssue.content.map((contentItem, index) => (
                 <Markdown style={markdownStyles} key={index}>
-                  {/*<Text style={styles.contentsBodyText}>{contentItem.paragraph}</Text>*/}
                   {contentItem.paragraph}
                 </Markdown>
               ))}
@@ -62,6 +61,18 @@ const markdownStyles = StyleSheet.create({
     fontWeight: '700',
     lineHeight: 21,
     letterSpacing: -0.42,
+  },
+  heading2: {
+    fontSize: 17,
+    marginTop: 15,
+  },
+  blockquote: {
+    backgroundColor: '#11111A',
+    borderColor: '#CCC',
+    borderLeftWidth: 3,
+    marginLeft: 3,
+    paddingHorizontal: 5,
+    marginTop: 15,
   },
 });
 

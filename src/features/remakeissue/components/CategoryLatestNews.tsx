@@ -14,7 +14,11 @@ import MainArrowSvg from '../../../assets/icon/mainarrow.svg';
 import CategoryLatestNewsItem from './CategoryLatestNewsItem';
 import { getSameCategoryReprocessedIssues } from '../remotes/sameCategoryReprocessedIssue';
 import useFetch from '../../../shared/hooks/useFetch';
-const CategoryLatestNews = ({ current, category }: { current: number; category: string }) => {
+interface CategoryLatestNewsProps {
+  current: number;
+  category: string;
+}
+const CategoryLatestNews = ({ current, category }: CategoryLatestNewsProps) => {
   const onClickButton = () => {
     console.log('해당 버튼은, 이동합니다');
   };
