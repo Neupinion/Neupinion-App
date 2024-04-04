@@ -24,38 +24,28 @@ import OpinionEvaluateReliability from '../features/opinion/components/OpinionEv
 import { postReprocessedIssueOpinion } from '../features/opinion/remotes/opinion';
 import GlobalTextStyles from '../shared/styles/GlobalTextStyles';
 import useFetch from '../shared/hooks/useFetch';
+import {
+  extractIsReliable,
+  extractSentenceIndex,
+  extractText,
+} from '../features/opinion/functions/opinionElementExtractFunction';
 
 const OpinionPostPage = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   type ScreenRouteProp = RouteProp<RootStackParamList, 'OpinionPost'>;
   const route = useRoute<ScreenRouteProp>();
 
-  const extractText = () => {
-    return route.params?.opinionWrite?.content || '';
-  };
-
-  const extractSentenceIndex = () => {
-    if (route.params?.opinionWrite?.paragraphId !== undefined) {
-      return route.params.opinionWrite.paragraphId;
-    }
-    return route.params.sentenceNumber !== undefined ? route.params.sentenceNumber : 0;
-  };
-
-  const extractIsReliable = () => {
-    return route.params?.opinionWrite?.isReliable || true;
-  };
-
   const [isEditMode, setIsEditMode] = useState<boolean>(!!route.params.opinionWrite);
 
   const [issueId] = useState<number>(route.params.issueId);
-  const [text, setText] = useState<string>(extractText);
-  const [sentenceIndex, setSentenceIndex] = useState<number>(extractSentenceIndex);
-  const [isReliable, setIsReliable] = useState<boolean>(extractIsReliable);
+  const [text, setText] = useState<string>(extractText(route));
+  const [sentenceIndex, setSentenceIndex] = useState<number>(extractSentenceIndex(route));
+  const [isReliable, setIsReliable] = useState<boolean>(extractIsReliable(route));
 
   useEffect(() => {
-    setText(extractText);
-    setSentenceIndex(extractSentenceIndex);
-    setIsReliable(extractIsReliable);
+    setText(extractText(route));
+    setSentenceIndex(extractSentenceIndex(route));
+    setIsReliable(extractIsReliable(route));
   }, [route.params]);
 
   const [sentenceNumberDefined, setSentenceNumberDefined] = useState<boolean>(isEditMode);
@@ -71,6 +61,7 @@ const OpinionPostPage = () => {
     () => postReprocessedIssueOpinion(sentenceIndex, issueId, text, isReliable),
     false,
   );
+
   const onClickConfirmButton = async () => {
     if (sentenceNumberDefined && isReliableDefined && text.length) {
       await fetchData().then(() => {
