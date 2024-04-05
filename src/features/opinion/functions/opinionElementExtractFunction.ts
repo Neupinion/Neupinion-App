@@ -1,6 +1,10 @@
 import { RouteProp } from '@react-navigation/native';
 import { RootStackParamList } from '../../../rootStackParamList';
 
+export const extractOpinionId = (route: RouteProp<RootStackParamList, 'OpinionPost'>) => {
+  return route.params?.opinionWrite?.id || 0;
+};
+
 export const extractText = (route: RouteProp<RootStackParamList, 'OpinionPost'>) => {
   return route.params?.opinionWrite?.content || '';
 };

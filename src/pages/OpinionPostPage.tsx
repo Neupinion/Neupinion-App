@@ -21,11 +21,15 @@ import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { RootStackParamList } from '../rootStackParamList';
 import { StackNavigationProp } from '@react-navigation/stack';
 import OpinionEvaluateReliability from '../features/opinion/components/OpinionEvaluateCredibility';
-import { postReprocessedIssueOpinion } from '../features/opinion/remotes/opinion';
+import {
+  patchReprocessedIssueOpinion,
+  postReprocessedIssueOpinion,
+} from '../features/opinion/remotes/opinion';
 import GlobalTextStyles from '../shared/styles/GlobalTextStyles';
 import useFetch from '../shared/hooks/useFetch';
 import {
   extractIsReliable,
+  extractOpinionId,
   extractSentenceIndex,
   extractText,
 } from '../features/opinion/functions/opinionElementExtractFunction';
@@ -38,6 +42,7 @@ const OpinionPostPage = () => {
   const [isEditMode] = useState<boolean>(!!route.params.opinionWrite);
 
   const [issueId] = useState<number>(route.params.issueId);
+  const [opinionId] = useState<number>(extractOpinionId(route));
   const [text, setText] = useState<string>(extractText(route));
   const [sentenceIndex, setSentenceIndex] = useState<number>(extractSentenceIndex(route));
   const [isReliable, setIsReliable] = useState<boolean>(extractIsReliable(route));
@@ -51,7 +56,10 @@ const OpinionPostPage = () => {
   }, [route.params]);
 
   const { isLoading, error, fetchData } = useFetch(
-    () => postReprocessedIssueOpinion(sentenceIndex, issueId, text, isReliable),
+    () =>
+      isEditMode
+        ? patchReprocessedIssueOpinion(opinionId, sentenceIndex, text, isReliable)
+        : postReprocessedIssueOpinion(sentenceIndex, issueId, text, isReliable),
     false,
   );
 
