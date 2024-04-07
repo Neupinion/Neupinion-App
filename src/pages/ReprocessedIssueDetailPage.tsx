@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
+  ActivityIndicator,
   Dimensions,
   ImageSourcePropType,
   ScrollView,
@@ -24,6 +25,7 @@ import { RootStackParamList } from '../rootStackParamList';
 import { getReprocessedIssueContent } from '../features/remakeissue/remotes/reprocessedIssueContent';
 import useFetch from '../shared/hooks/useFetch';
 import toggleBookmark from '../features/remakeissue/remotes/toggleBookmark';
+import GlobalTextStyles from '../shared/styles/GlobalTextStyles';
 const ReprocessedIssueDetailPage: React.FC = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   type ScreenRouteProp = RouteProp<RootStackParamList, 'ReprocessedIssueDetailPage'>;
@@ -33,11 +35,32 @@ const ReprocessedIssueDetailPage: React.FC = () => {
   const [bookMarkClicked, setBookMarkClicked] = useState(false);
 
   const fetchReprocessedIssue = () => getReprocessedIssueContent(id);
-  const { data: reprocessedIssue, fetchData } = useFetch(fetchReprocessedIssue, false);
+  const {
+    data: reprocessedIssue,
+    isLoading,
+    error,
+    fetchData,
+  } = useFetch(fetchReprocessedIssue, false);
 
   useEffect(() => {
     void fetchData();
   }, []);
+
+  if (isLoading) {
+    return (
+      <View style={styles.container}>
+        <ActivityIndicator size="large" style={styles.activityIndicator} />
+      </View>
+    );
+  }
+
+  if (error) {
+    return (
+      <View style={styles.container}>
+        <Text style={GlobalTextStyles.NormalText17}>ERROR</Text>
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>
@@ -145,6 +168,10 @@ const styles = StyleSheet.create({
     marginTop: 40,
     flexShrink: 0,
     backgroundColor: '#21202F',
+  },
+  activityIndicator: {
+    flex: 1,
+    alignSelf: 'center',
   },
 });
 
