@@ -10,9 +10,10 @@ interface FakeIssueItemProps {
   item: ReProcessedIssue;
   index: number;
   scrollX: Animated.Value;
+  onClick: () => void;
 }
 
-const FakeIssueItem = ({ item, index, scrollX }: FakeIssueItemProps) => {
+const FakeIssueItem = ({ item, index, scrollX, onClick }: FakeIssueItemProps) => {
   if (!item.imageUrl) {
     return <View style={{ width: SPACER_ITEM_SIZE }}></View>;
   }
@@ -47,7 +48,7 @@ const FakeIssueItem = ({ item, index, scrollX }: FakeIssueItemProps) => {
           },
         ]}
       >
-        <TouchableOpacity onPress={() => {}}>
+        <TouchableOpacity onPress={onClick}>
           <LinearGradient
             start={{ x: 1, y: 1 }}
             end={{ x: 0, y: 0 }}

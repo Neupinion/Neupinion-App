@@ -89,10 +89,10 @@ const MainPage = () => {
             <View style={styles.titleContainer}>
               <Text style={GlobalTextStyles.NormalText17}>가짜뉴스 이슈(타이틀 변경 예정)</Text>
             </View>
-            <FakeIssueSlider fakeNews={reprocessedIssue} />
+            <FakeIssueSlider onClickIssue={onClickReprocessedIssue} fakeNews={reprocessedIssue} />
             <View style={styles.titleContainer}>
               <Text style={GlobalTextStyles.NormalText17}>카테고리1</Text>
-              <TouchableOpacity style={styles.svgStyle} onPress={onClickReprocessedIssue}>
+              <TouchableOpacity style={styles.svgStyle} onPress={() => {}}>
                 <WithLocalSvg width={14} height={14} asset={MainArrowSvg as ImageSourcePropType} />
               </TouchableOpacity>
             </View>

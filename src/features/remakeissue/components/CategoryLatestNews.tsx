@@ -19,9 +19,6 @@ interface CategoryLatestNewsProps {
   category: string;
 }
 const CategoryLatestNews = ({ current, category }: CategoryLatestNewsProps) => {
-  const onClickButton = () => {
-    console.log('해당 버튼은, 이동합니다');
-  };
   const fetchReprocessedIssue = () => getSameCategoryReprocessedIssues(current, category);
   const { data: reprocessedIssue, fetchData } = useFetch(fetchReprocessedIssue, false);
 
@@ -33,7 +30,7 @@ const CategoryLatestNews = ({ current, category }: CategoryLatestNewsProps) => {
     <View style={styles.container}>
       <View style={styles.titleContainer}>
         <Text style={GlobalTextStyles.NormalText17}>{category} 카테고리의 최신 소식</Text>
-        <TouchableOpacity style={styles.svgStyle} onPress={onClickButton}>
+        <TouchableOpacity style={styles.svgStyle} onPress={() => {}}>
           <WithLocalSvg width={14} height={14} asset={MainArrowSvg as ImageSourcePropType} />
         </TouchableOpacity>
       </View>

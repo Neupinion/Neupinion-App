@@ -43,7 +43,7 @@ const ReprocessedIssueDetailPage: React.FC = () => {
     <View style={styles.container}>
       <View style={styles.headerContainer}>
         <View style={styles.headerLeftContainer}>
-          <TouchableOpacity style={styles.svgStyle} onPress={() => {}}>
+          <TouchableOpacity style={styles.svgStyle} onPress={navigation.goBack}>
             <WithLocalSvg height={30} asset={MainArrowLeftSvg as ImageSourcePropType} />
           </TouchableOpacity>
           <Text style={styles.headerText}>진짜일까, 가짜일까?</Text>

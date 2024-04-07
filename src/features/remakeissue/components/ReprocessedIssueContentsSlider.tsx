@@ -12,16 +12,13 @@ import theme from '../../../shared/styles/theme';
 import { WithLocalSvg } from 'react-native-svg';
 import SeeOriginalSvg from '../../../assets/icon/seeOriginal.svg';
 import { formatDate } from '../constants/formatDate';
-import { ReprocessedIssueContent } from '../../../shared/types/news';
+import { ReprocessedIssueId } from '../../../shared/types/news';
 import Markdown from 'react-native-markdown-display';
 
 interface ReprocessedIssueContentsProps {
-  reprocessedIssue: ReprocessedIssueContent | null;
+  reprocessedIssue: ReprocessedIssueId | null;
 }
 const ReprocessedIssueContentsSlider = ({ reprocessedIssue }: ReprocessedIssueContentsProps) => {
-  const onClickButton = () => {
-    console.log('해당 버튼은, 이전 페이지로 이동합니다.');
-  };
   return (
     <View style={styles.container}>
       {reprocessedIssue && (
@@ -34,7 +31,7 @@ const ReprocessedIssueContentsSlider = ({ reprocessedIssue }: ReprocessedIssueCo
               </View>
               <Text style={styles.dateText}>{formatDate(reprocessedIssue.createdAt)}</Text>
             </View>
-            <TouchableOpacity style={styles.headerSvg} onPress={onClickButton}>
+            <TouchableOpacity style={styles.headerSvg} onPress={() => {}}>
               <WithLocalSvg width={79} height={30} asset={SeeOriginalSvg as ImageSourcePropType} />
             </TouchableOpacity>
           </View>
