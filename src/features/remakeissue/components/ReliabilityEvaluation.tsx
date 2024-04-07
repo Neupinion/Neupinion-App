@@ -16,7 +16,8 @@ import Moon2Svg from '../../../assets/icon/moon2.svg';
 import Moon3Svg from '../../../assets/icon/moon3.svg';
 import Moon4Svg from '../../../assets/icon/moon4.svg';
 import { reliabilityText } from '../constants/reliabilty';
-const ReliabilityEvaluation = () => {
+import submitVoteResult from '../remotes/submitVoteResult';
+const ReliabilityEvaluation = ({ issueId }: { issueId: number }) => {
   const moons = [
     { id: 1, SvgComponent: Moon1Svg },
     { id: 2, SvgComponent: Moon2Svg },
@@ -29,6 +30,7 @@ const ReliabilityEvaluation = () => {
   const handleButtonPress = (buttonNumber: number) => {
     setSelectedButton(buttonNumber);
   };
+
   return (
     <View style={styles.container}>
       <View style={styles.titleContainer}>
@@ -64,7 +66,10 @@ const ReliabilityEvaluation = () => {
           </Text>
         ))}
       </View>
-      <TouchableOpacity style={styles.submitButton} onPress={() => {}}>
+      <TouchableOpacity
+        style={styles.submitButton}
+        onPress={() => submitVoteResult(issueId, selectedButton, reliabilityText)}
+      >
         <Text style={styles.buttonText}>투표하고 결과보기</Text>
       </TouchableOpacity>
     </View>

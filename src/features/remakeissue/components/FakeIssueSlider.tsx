@@ -9,8 +9,9 @@ import { invisibleLeftCardData, invisibleRightCardData } from '../constants/invi
 
 interface FakeIssueProps {
   fakeNews: ReProcessedIssue[] | null;
+  onClickIssue: () => void;
 }
-const FakeIssueSlider = ({ fakeNews }: FakeIssueProps) => {
+const FakeIssueSlider = ({ fakeNews, onClickIssue }: FakeIssueProps) => {
   const [slideIndex, setSlideIndex] = useState(0);
 
   const scrollX = React.useRef(new Animated.Value(0)).current;
@@ -58,7 +59,7 @@ const FakeIssueSlider = ({ fakeNews }: FakeIssueProps) => {
             snapToInterval={ITEM_SIZE}
             horizontal={true}
             renderItem={({ item, index }) => (
-              <FakeIssueItem item={item} index={index} scrollX={scrollX} />
+              <FakeIssueItem item={item} index={index} scrollX={scrollX} onClick={onClickIssue} />
             )}
             decelerationRate={0}
             bounces={false}

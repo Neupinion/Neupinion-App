@@ -28,6 +28,13 @@ export interface ReprocessedIssueId {
   tags: string[];
 }
 
+export interface SameCategoryReprocessedIssue {
+  id: number;
+  title: string;
+  imageUrl: string;
+  createdAt: string;
+}
+
 export interface FollowUpIssue {
   id: string | number;
   title: string;

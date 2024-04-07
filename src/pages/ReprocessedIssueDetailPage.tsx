@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
+  ActivityIndicator,
   Dimensions,
   ImageSourcePropType,
   ScrollView,
@@ -14,37 +15,67 @@ import MainArrowLeftSvg from '../assets/icon/mainarrowLeft.svg';
 import BookMarkSvg from '../assets/icon/bookmark.svg';
 import AnotherBookMarkSvg from '../assets/icon/anotherbookmark.svg';
 import ShareSvg from '../assets/icon/share.svg';
-import RemakeIssueContentsSlider from '../features/remakeissue/components/RemakeIssueContentsSlider';
+import ReprocessedIssueContentsSlider from '../features/remakeissue/components/ReprocessedIssueContentsSlider';
 import OpinionWriteSlider from '../features/remakeissue/components/OpinionWriteSlider';
 import ReliabilityEvaluation from '../features/remakeissue/components/ReliabilityEvaluation';
 import CategoryLatestNews from '../features/remakeissue/components/CategoryLatestNews';
-import ReProcessedIssueDummy from '../dummy/ReProcessedIssueDummy';
-import { useNavigation } from '@react-navigation/native';
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../rootStackParamList';
-
-const DetailPage = () => {
+import { getReprocessedIssueContent } from '../features/remakeissue/remotes/reprocessedIssueContent';
+import useFetch from '../shared/hooks/useFetch';
+import toggleBookmark from '../features/remakeissue/remotes/toggleBookmark';
+import GlobalTextStyles from '../shared/styles/GlobalTextStyles';
+const ReprocessedIssueDetailPage: React.FC = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
-  const [bookMarkClicked, setBookMarkClicked] = useState(false);
-  const toggleBookMark = () => {
-    setBookMarkClicked(!bookMarkClicked);
-  };
-  const onClickBackButton = () => {
-    navigation.goBack();
-  };
+  type ScreenRouteProp = RouteProp<RootStackParamList, 'ReprocessedIssueDetailPage'>;
+  const route = useRoute<ScreenRouteProp>();
+  const id: number = route.params.id;
 
-  const reprocessedIssue = ReProcessedIssueDummy;
+  const [bookMarkClicked, setBookMarkClicked] = useState(false);
+
+  const fetchReprocessedIssue = () => getReprocessedIssueContent(id);
+  const {
+    data: reprocessedIssue,
+    isLoading,
+    error,
+    fetchData,
+  } = useFetch(fetchReprocessedIssue, false);
+
+  useEffect(() => {
+    void fetchData();
+  }, []);
+
+  if (isLoading) {
+    return (
+      <View style={styles.container}>
+        <ActivityIndicator size="large" style={styles.activityIndicator} />
+      </View>
+    );
+  }
+
+  if (error) {
+    return (
+      <View style={styles.container}>
+        <Text style={GlobalTextStyles.NormalText17}>ERROR</Text>
+      </View>
+    );
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
         <View style={styles.headerLeftContainer}>
-          <TouchableOpacity style={styles.svgStyle} onPress={onClickBackButton}>
+          <TouchableOpacity style={styles.svgStyle} onPress={navigation.goBack}>
             <WithLocalSvg height={30} asset={MainArrowLeftSvg as ImageSourcePropType} />
           </TouchableOpacity>
           <Text style={styles.headerText}>진짜일까, 가짜일까?</Text>
         </View>
         <View style={styles.headerRightContainer}>
-          <TouchableOpacity style={styles.headerSvg} onPress={toggleBookMark}>
+          <TouchableOpacity
+            style={styles.headerSvg}
+            onPress={() => toggleBookmark(id, bookMarkClicked, setBookMarkClicked)}
+          >
             {bookMarkClicked ? (
               <WithLocalSvg
                 width={23}
@@ -62,13 +93,15 @@ const DetailPage = () => {
       </View>
       <View style={styles.headerUnderLine} />
       <ScrollView style={{ width: Dimensions.get('window').width, flex: 1 }}>
-        <RemakeIssueContentsSlider />
-        <View style={styles.divideLine}></View>
-        <OpinionWriteSlider navigation={navigation} issueId={1} />
-        <View style={styles.divideLine}></View>
-        <ReliabilityEvaluation />
-        <View style={styles.divideLine}></View>
-        <CategoryLatestNews fakeNews={reprocessedIssue} />
+        <ReprocessedIssueContentsSlider reprocessedIssue={reprocessedIssue} />
+        <View style={styles.divideLine} />
+        <OpinionWriteSlider navigation={navigation} issueId={id} />
+        <View style={styles.divideLine} />
+        <ReliabilityEvaluation issueId={id} />
+        <View style={styles.divideLine} />
+        {reprocessedIssue !== null && (
+          <CategoryLatestNews current={id} category={reprocessedIssue.category} />
+        )}
       </ScrollView>
     </View>
   );
@@ -136,6 +169,10 @@ const styles = StyleSheet.create({
     flexShrink: 0,
     backgroundColor: '#21202F',
   },
+  activityIndicator: {
+    flex: 1,
+    alignSelf: 'center',
+  },
 });
 
-export default DetailPage;
+export default ReprocessedIssueDetailPage;

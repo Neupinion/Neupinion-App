@@ -1,14 +1,15 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Dimensions, Image } from 'react-native';
 import theme from '../../../shared/styles/theme';
-import { ReProcessedIssue } from '../../../shared/types/news';
+import { SameCategoryReprocessedIssue } from '../../../shared/types/news';
 import { formatDate } from '../constants/formatDate';
 
 interface CategoryLatestNewsSliderItemProps {
-  item: ReProcessedIssue;
+  item: SameCategoryReprocessedIssue;
+  category: string;
 }
 
-const CategoryLatestNewsItem = ({ item }: CategoryLatestNewsSliderItemProps) => {
+const CategoryLatestNewsItem = ({ item, category }: CategoryLatestNewsSliderItemProps) => {
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.card} onPress={() => {}}>
@@ -16,7 +17,7 @@ const CategoryLatestNewsItem = ({ item }: CategoryLatestNewsSliderItemProps) => 
           <Text style={styles.titleText}>{item.title}</Text>
           <View style={styles.titleUnderContainer}>
             <View style={styles.tagBox}>
-              <Text style={styles.tagText}>{item.category}</Text>
+              <Text style={styles.tagText}>{category}</Text>
             </View>
             <Text style={styles.dateText}>{formatDate(item.createdAt)}</Text>
           </View>

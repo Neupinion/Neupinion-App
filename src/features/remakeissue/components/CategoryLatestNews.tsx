@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   View,
   Text,
@@ -11,24 +11,33 @@ import GlobalTextStyles from '../../../shared/styles/GlobalTextStyles';
 import theme from '../../../shared/styles/theme';
 import { WithLocalSvg } from 'react-native-svg';
 import MainArrowSvg from '../../../assets/icon/mainarrow.svg';
-import { ReProcessedIssue } from '../../../shared/types/news';
 import CategoryLatestNewsItem from './CategoryLatestNewsItem';
-interface CategoryLatestNewsSliderProps {
-  fakeNews: ReProcessedIssue[] | null;
+import { getSameCategoryReprocessedIssues } from '../remotes/sameCategoryReprocessedIssue';
+import useFetch from '../../../shared/hooks/useFetch';
+interface CategoryLatestNewsProps {
+  current: number;
+  category: string;
 }
-const CategoryLatestNews = ({ fakeNews }: CategoryLatestNewsSliderProps) => {
-  const onClickButton = () => {
-    console.log('해당 버튼은, 이동합니다');
-  };
+const CategoryLatestNews = ({ current, category }: CategoryLatestNewsProps) => {
+  const fetchReprocessedIssue = () => getSameCategoryReprocessedIssues(current, category);
+  const { data: reprocessedIssue, fetchData } = useFetch(fetchReprocessedIssue, false);
+
+  useEffect(() => {
+    void fetchData();
+  }, []);
+
   return (
     <View style={styles.container}>
       <View style={styles.titleContainer}>
-        <Text style={GlobalTextStyles.NormalText17}>국제 카테고리의 최신 소식</Text>
-        <TouchableOpacity style={styles.svgStyle} onPress={onClickButton}>
+        <Text style={GlobalTextStyles.NormalText17}>{category} 카테고리의 최신 소식</Text>
+        <TouchableOpacity style={styles.svgStyle} onPress={() => {}}>
           <WithLocalSvg width={14} height={14} asset={MainArrowSvg as ImageSourcePropType} />
         </TouchableOpacity>
       </View>
-      {fakeNews && fakeNews.map((item) => <CategoryLatestNewsItem key={item.id} item={item} />)}
+      {reprocessedIssue &&
+        reprocessedIssue.map((item) => (
+          <CategoryLatestNewsItem key={item.id} item={item} category={category} />
+        ))}
     </View>
   );
 };

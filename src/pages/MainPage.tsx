@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   ActivityIndicator,
   Dimensions,
@@ -24,18 +24,25 @@ import FollowUpIssueContainer from '../features/followupissue/components/FollowU
 import CategorySlider from '../features/remakeissue/components/CategorySlider';
 import { getFormatDate } from '../features/date/functions/formatDate';
 import AfterIssueSlider from '../features/remakeissue/components/AfterIssueSlider';
+
 import FollowUpIssueDummy from '../dummy/FollowUpIssueDummy';
 import fontFamily from '../shared/styles/fontFamily';
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from '../rootStackParamList';
 import { useModal } from '../shared/hooks/useModal';
 
 const MainPage = () => {
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   const { date } = useDate();
   const { openModal, closeModal } = useModal();
 
   const openDateModal = () => {
     openModal(<DateModal onClose={closeModal} />);
   };
-
+  const onClickReprocessedIssue = () => {
+    navigation.navigate('ReprocessedIssueDetailPage', { id: 1 });
+  };
   const fetchReprocessedIssue = () => getReprocessedIssues(date);
 
   const {
@@ -46,13 +53,7 @@ const MainPage = () => {
   } = useFetch(fetchReprocessedIssue, false);
 
   useEffect(() => {
-    fetchData()
-      .then(() => {
-        console.log('데이터를 성공적으로 가져왔습니다.');
-      })
-      .catch((error) => {
-        console.error('데이터 가져오기 실패:', error);
-      });
+    void fetchData();
   }, [date]);
 
   return (
@@ -88,7 +89,7 @@ const MainPage = () => {
             <View style={styles.titleContainer}>
               <Text style={GlobalTextStyles.NormalText17}>가짜뉴스 이슈(타이틀 변경 예정)</Text>
             </View>
-            <FakeIssueSlider fakeNews={reprocessedIssue} />
+            <FakeIssueSlider onClickIssue={onClickReprocessedIssue} fakeNews={reprocessedIssue} />
             <View style={styles.titleContainer}>
               <Text style={GlobalTextStyles.NormalText17}>카테고리1</Text>
               <TouchableOpacity style={styles.svgStyle} onPress={() => {}}>
