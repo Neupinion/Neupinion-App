@@ -33,25 +33,17 @@ const ReprocessedIssueDetailPage: React.FC = () => {
   const [bookMarkClicked, setBookMarkClicked] = useState(false);
 
   const fetchReprocessedIssue = () => getReprocessedIssueContent(id);
-  const {
-    data: reprocessedIssue,
-    isLoading,
-    error,
-    fetchData,
-  } = useFetch(fetchReprocessedIssue, false);
+  const { data: reprocessedIssue, fetchData } = useFetch(fetchReprocessedIssue, false);
 
   useEffect(() => {
     void fetchData();
   }, []);
 
-  const onClickButton = () => {
-    console.log('해당 버튼은, 원문 페이지로 이동합니다.');
-  };
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
         <View style={styles.headerLeftContainer}>
-          <TouchableOpacity style={styles.svgStyle} onPress={onClickButton}>
+          <TouchableOpacity style={styles.svgStyle} onPress={() => {}}>
             <WithLocalSvg height={30} asset={MainArrowLeftSvg as ImageSourcePropType} />
           </TouchableOpacity>
           <Text style={styles.headerText}>진짜일까, 가짜일까?</Text>
@@ -71,7 +63,7 @@ const ReprocessedIssueDetailPage: React.FC = () => {
               <WithLocalSvg width={23} height={23} asset={BookMarkSvg as ImageSourcePropType} />
             )}
           </TouchableOpacity>
-          <TouchableOpacity style={styles.headerSvg} onPress={onClickButton}>
+          <TouchableOpacity style={styles.headerSvg} onPress={() => {}}>
             <WithLocalSvg width={24} height={23} asset={ShareSvg as ImageSourcePropType} />
           </TouchableOpacity>
         </View>
@@ -79,11 +71,11 @@ const ReprocessedIssueDetailPage: React.FC = () => {
       <View style={styles.headerUnderLine} />
       <ScrollView style={{ width: Dimensions.get('window').width, flex: 1 }}>
         <ReprocessedIssueContentsSlider reprocessedIssue={reprocessedIssue} />
-        <View style={styles.divideLine}></View>
-        <OpinionWriteSlider issueId={id} />
-        <View style={styles.divideLine}></View>
+        <View style={styles.divideLine} />
+        <OpinionWriteSlider navigation={navigation} issueId={id} />
+        <View style={styles.divideLine} />
         <ReliabilityEvaluation issueId={id} />
-        <View style={styles.divideLine}></View>
+        <View style={styles.divideLine} />
         {reprocessedIssue !== null && (
           <CategoryLatestNews current={id} category={reprocessedIssue.category} />
         )}

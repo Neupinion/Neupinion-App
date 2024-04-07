@@ -23,7 +23,7 @@ const Navigation = () => {
             <Stack.Screen name="MainPage" component={MainPage} />
           </Stack.Group>
           <Stack.Group>
-            <Stack.Screen name="DetailPage" component={ReprocessedIssueDetailPage} />
+            <Stack.Screen name="ReprocessedIssueDetailPage" component={ReprocessedIssueDetailPage} />
           </Stack.Group>
           <Stack.Group>
             <Stack.Screen name="OpinionPost" component={OpinionPostPage} />

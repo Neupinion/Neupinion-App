@@ -23,12 +23,7 @@ const CategoryLatestNews = ({ current, category }: CategoryLatestNewsProps) => {
     console.log('해당 버튼은, 이동합니다');
   };
   const fetchReprocessedIssue = () => getSameCategoryReprocessedIssues(current, category);
-  const {
-    data: reprocessedIssue,
-    isLoading,
-    error,
-    fetchData,
-  } = useFetch(fetchReprocessedIssue, false);
+  const { data: reprocessedIssue, fetchData } = useFetch(fetchReprocessedIssue, false);
 
   useEffect(() => {
     void fetchData();

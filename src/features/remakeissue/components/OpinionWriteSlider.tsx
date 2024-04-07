@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import {
   View,
   Text,
@@ -16,34 +16,48 @@ import Pin from '../../../assets/icon/pin.svg';
 import fontFamily from '../../../shared/styles/fontFamily';
 import useFetch from '../../../shared/hooks/useFetch';
 import { getMyOpinionWrite } from '../remotes/opinionWrite';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from '../../../rootStackParamList';
+import { useModal } from '../../../shared/hooks/useModal';
+import OpinionWriteBottomSheet from '../../opinion/components/OpinionWriteBottomSheet';
+import { OpinionWrite } from '../../../shared/types/news';
 
-const OpinionWriteSlider = ({ issueId }: { issueId: number }) => {
+interface OpinionWriteSliderProps {
+  navigation: StackNavigationProp<RootStackParamList>;
+  issueId: number;
+}
+
+const OpinionWriteSlider = ({ navigation, issueId }: OpinionWriteSliderProps) => {
+  const { openModal, closeModal } = useModal();
+
+  const onClickOpinion = (opinionData: OpinionWrite) => {
+    openModal(
+      <OpinionWriteBottomSheet
+        navigation={navigation}
+        issueId={issueId}
+        opinionWrite={opinionData}
+        onClose={closeModal}
+      />,
+    );
+  };
+
+  const onClickOpinionPost = () => {
+    navigation.navigate('OpinionPost', { issueId: issueId });
+  };
+
   const fetchMyOpinionWrite = () => getMyOpinionWrite(issueId);
-  const {
-    data: myOpinionWrite,
-    isLoading,
-    error,
-    fetchData,
-  } = useFetch(fetchMyOpinionWrite, false);
-  const [noOpinion, setNoOpinion] = useState(true);
+  const { data: myOpinionWrite, fetchData } = useFetch(fetchMyOpinionWrite, false);
 
   useEffect(() => {
-    fetchData()
-      .then((data) => {
-        if (Array.isArray(data) && data.length === 0) {
-          setNoOpinion(true);
-        } else {
-          setNoOpinion(false);
-        }
-      })
-      .catch((error) => {});
+    void fetchData();
   }, []);
+
   return (
     <View style={styles.container}>
       <View style={styles.titleContainer}>
         <Text style={GlobalTextStyles.NormalText17}>의견 쓰기</Text>
       </View>
-      {noOpinion ? (
+      {Array.isArray(myOpinionWrite) && myOpinionWrite.length === 0 ? (
         <>
           <View style={{ justifyContent: 'flex-start', marginLeft: -30 }}>
             <WithLocalSvg
@@ -61,7 +75,7 @@ const OpinionWriteSlider = ({ issueId }: { issueId: number }) => {
           contentContainerStyle={styles.cardContainer}
           keyExtractor={(item, index) => index.toString()}
           renderItem={({ item }) => (
-            <View style={styles.card}>
+            <TouchableOpacity onPress={() => onClickOpinion(item)} style={styles.card}>
               <View style={styles.triangle} />
               <View style={styles.cardTop}>
                 <View style={styles.pin}>
@@ -77,11 +91,11 @@ const OpinionWriteSlider = ({ issueId }: { issueId: number }) => {
                   {item.content}
                 </Text>
               </View>
-            </View>
+            </TouchableOpacity>
           )}
         />
       )}
-      <TouchableOpacity style={styles.opinionButton} onPress={() => {}}>
+      <TouchableOpacity style={styles.opinionButton} onPress={onClickOpinionPost}>
         <View>
           <Text style={styles.buttonText}>의견 남기기</Text>
         </View>
