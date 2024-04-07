@@ -9,10 +9,35 @@ import {
 } from 'react-native';
 import GlobalTextStyles from '../../../shared/styles/GlobalTextStyles';
 import theme from '../../../shared/styles/theme';
-import OpinioinWriterSvg from '../../../assets/icon/opinionwrite.svg';
+import OpinionWriterSvg from '../../../assets/icon/opinionwrite.svg';
 import { WithLocalSvg } from 'react-native-svg';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from '../../../rootStackParamList';
+import { useModal } from '../../../shared/hooks/useModal';
+import OpinionWriteBottomSheet from '../../opinion/components/OpinionWriteBottomSheet';
+import { OpinionWriteDummy } from '../../../dummy/OpinionWriteDummy';
 
-const OpinionWriteSlider = () => {
+interface OpinionWriteSliderProps {
+  navigation: StackNavigationProp<RootStackParamList>;
+  issueId: number;
+}
+const OpinionWriteSlider = ({ navigation, issueId }: OpinionWriteSliderProps) => {
+  const { openModal, closeModal } = useModal();
+
+  const onClickButton = () => {
+    openModal(
+      <OpinionWriteBottomSheet
+        navigation={navigation}
+        issueId={issueId}
+        opinionWrite={OpinionWriteDummy}
+        onClose={closeModal}
+      />,
+    );
+  };
+  const onClickOpinionButton = () => {
+    navigation.navigate('OpinionPost', { issueId: issueId });
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.titleContainer}>
@@ -22,11 +47,11 @@ const OpinionWriteSlider = () => {
         <WithLocalSvg
           width={125.5}
           height={99.08478}
-          asset={OpinioinWriterSvg as ImageSourcePropType}
+          asset={OpinionWriterSvg as ImageSourcePropType}
         />
       </View>
       <Text style={styles.textStyle}>아직 의견이 없어요!</Text>
-      <TouchableOpacity style={styles.opinionButton} onPress={() => {}}>
+      <TouchableOpacity style={styles.opinionButton} onPress={onClickOpinionButton}>
         <View>
           <Text style={styles.buttonText}>의견 남기기</Text>
         </View>

@@ -5,24 +5,24 @@ import theme from '../../../shared/styles/theme';
 interface PinTextNumberContainerProps {
   circleNumber: number;
   circleText: string;
-  isActivate: boolean;
+  isActivated: boolean;
 }
 const PinTextNumberContainer = ({
   circleNumber,
   circleText,
-  isActivate,
+  isActivated,
 }: PinTextNumberContainerProps) => {
   const circleStyle = [
     styles.circle,
-    { backgroundColor: isActivate ? theme.color.main : '#394358' },
+    { backgroundColor: isActivated ? theme.color.main : '#394358' },
   ];
   const circleTextStyle = [
     styles.circleText,
-    { color: isActivate ? theme.color.white : '#71788F' },
+    { color: isActivated ? theme.color.white : '#71788F' },
   ];
   const choosePinTextStyle = [
     styles.choosePinText,
-    { color: isActivate ? theme.color.white : '#4E5867' },
+    { color: isActivated ? theme.color.white : '#4E5867' },
   ];
 
   return (

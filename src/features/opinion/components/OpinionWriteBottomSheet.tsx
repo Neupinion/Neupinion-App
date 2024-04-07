@@ -20,15 +20,26 @@ import {
   createOpenBottomSheetAnimation,
 } from '../../../shared/constants/bottomSheetAnimation';
 import WarningModal from '../../../shared/components/WarningModal';
-import { GESTURE_SPEED_THRESHOLD } from "../../../shared/constants/bottomSheetGestureConstants";
+import { GESTURE_SPEED_THRESHOLD } from '../../../shared/constants/bottomSheetGestureConstants';
+import { deleteReprocessedIssueOpinion } from '../remotes/opinion';
+import { OpinionWrite } from '../../../shared/types/news';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from '../../../rootStackParamList';
+import useFetch from '../../../shared/hooks/useFetch';
 
 interface OpinionWriteBottomSheetProps {
-  title: string;
-  content: string;
+  navigation: StackNavigationProp<RootStackParamList>;
+  issueId: number;
+  opinionWrite: OpinionWrite;
   onClose: () => void;
 }
 
-const OpinionWriteBottomSheet = ({ title, content, onClose }: OpinionWriteBottomSheetProps) => {
+const OpinionWriteBottomSheet = ({
+  navigation,
+  issueId,
+  opinionWrite,
+  onClose,
+}: OpinionWriteBottomSheetProps) => {
   const { openModal, closeModal } = useModal();
 
   const panY = useRef(new Animated.Value(Dimensions.get('screen').height)).current;
@@ -59,15 +70,23 @@ const OpinionWriteBottomSheet = ({ title, content, onClose }: OpinionWriteBottom
   ).current;
 
   const onClickModifyButton = () => {
-    console.log('수정버튼 클릭');
+    closeBottomSheet();
+    navigation.navigate('OpinionPost', { issueId: issueId, opinionWrite: opinionWrite });
   };
+
+  const { fetchData } = useFetch(() => deleteReprocessedIssueOpinion(opinionWrite.id), false);
+  const onClickConfirmWarningModal = () =>
+    fetchData().then(() => {
+      closeModal();
+      closeBottomSheet();
+    });
 
   const onClickDeleteButton = () => {
     openModal(
       <WarningModal
         title={'작성한 의견을 삭제하시겠습니까?'}
         onClose={closeModal}
-        onConfirm={() => {}}
+        onConfirm={onClickConfirmWarningModal}
       />,
     );
   };
@@ -95,10 +114,10 @@ const OpinionWriteBottomSheet = ({ title, content, onClose }: OpinionWriteBottom
               <WithLocalSvg width={20} height={20} asset={OpinionPin as ImageSourcePropType} />
             </TouchableOpacity>
           </View>
-          <Text style={styles.titleText}>{title}</Text>
+          <Text style={styles.titleText}>{opinionWrite.paragraphContent}</Text>
         </View>
         <View style={styles.dotLine} />
-        <Text style={styles.contentText}>{content}</Text>
+        <Text style={styles.contentText}>{opinionWrite.content}</Text>
         <TouchableOpacity style={styles.modifyButton} onPress={onClickModifyButton}>
           <Text style={styles.modifyButtonText}>수정하기</Text>
         </TouchableOpacity>

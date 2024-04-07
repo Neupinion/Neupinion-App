@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import {
+  ActivityIndicator,
   Dimensions,
   ImageSourcePropType,
   ScrollView,
@@ -12,41 +13,96 @@ import theme from '../shared/styles/theme';
 import { WithLocalSvg } from 'react-native-svg';
 import OpinionBackButton from '../assets/icon/opinionbackbutton.svg';
 import OpinionCheckButton from '../assets/icon/opinionpurplecheck.svg';
-import PinButton from '../features/opinionpost/components/PinButton';
-import PinTextNumberContainer from '../features/opinionpost/components/PinTextNumberContainer';
-import OpinionWriteContainer from '../features/opinionpost/components/OpinionWriteContainer';
-import SentenceBox from '../features/opinionpost/components/SentenceBox';
+import PinButton from '../features/opinion/components/PinButton';
+import PinTextNumberContainer from '../features/opinion/components/PinTextNumberContainer';
+import OpinionWriteContainer from '../features/opinion/components/OpinionWriteContainer';
+import SentenceBox from '../features/opinion/components/SentenceBox';
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { RootStackParamList } from '../rootStackParamList';
 import { StackNavigationProp } from '@react-navigation/stack';
-import OpinionEvaluateCredibility from '../features/opinionpost/components/OpinionEvaluateCredibility';
+import OpinionEvaluateReliability from '../features/opinion/components/OpinionEvaluateCredibility';
+import {
+  patchReprocessedIssueOpinion,
+  postReprocessedIssueOpinion,
+} from '../features/opinion/remotes/opinion';
+import GlobalTextStyles from '../shared/styles/GlobalTextStyles';
+import useFetch from '../shared/hooks/useFetch';
+import {
+  extractIsReliable,
+  extractOpinionId,
+  extractSentenceIndex,
+  extractText,
+} from '../features/opinion/functions/opinionElementExtractFunction';
 
 const OpinionPostPage = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   type ScreenRouteProp = RouteProp<RootStackParamList, 'OpinionPost'>;
   const route = useRoute<ScreenRouteProp>();
 
-  const [targetY, setTargetY] = useState(0);
+  const [isEditMode] = useState<boolean>(!!route.params.opinionWrite);
+
+  const [issueId] = useState<number>(route.params.issueId);
+  const [opinionId] = useState<number>(extractOpinionId(route));
+  const [text, setText] = useState<string>(extractText(route));
+  const [sentenceIndex, setSentenceIndex] = useState<number>(extractSentenceIndex(route));
+  const [isReliable, setIsReliable] = useState<boolean>(extractIsReliable(route));
+
+  const [sentenceNumberDefined, setSentenceNumberDefined] = useState<boolean>(isEditMode);
+  const [isReliableDefined, setIsReliableDefined] = useState<boolean>(isEditMode);
+
+  useEffect(() => {
+    setSentenceIndex(extractSentenceIndex(route));
+    setSentenceNumberDefined(route.params.sentenceNumber !== undefined || isEditMode);
+  }, [route.params]);
+
+  const { isLoading, error, fetchData } = useFetch(
+    () =>
+      isEditMode
+        ? patchReprocessedIssueOpinion(opinionId, sentenceIndex, text, isReliable)
+        : postReprocessedIssueOpinion(sentenceIndex, issueId, text, isReliable),
+    false,
+  );
+
+  const onClickConfirmButton = async () => {
+    if (sentenceNumberDefined && isReliableDefined && text.length) {
+      await fetchData().then(() => {
+        navigation.goBack();
+      });
+    }
+  };
+
   const [isTextInputFocused, setIsTextInputFocused] = useState(false);
+  const [targetY, setTargetY] = useState(0);
   const scrollViewRef = useRef<ScrollView>(null);
-
-  const sentenceIndex = route.params?.sentenceNumber;
-  const onClickBackButton = () => {
-    console.log('뒤로가기');
-  };
-
-  const onClickCheckButton = () => {
-    console.log('내용이 없다면 알럿을...');
-  };
-
-  const onClickShowNewsButton = () => {
-    navigation.navigate('OpinionPin');
-  };
 
   useEffect(() => {
     if (isTextInputFocused) scrollViewRef.current?.scrollTo({ y: targetY, animated: true });
     else scrollViewRef.current?.scrollTo({ y: 0, animated: true });
   }, [isTextInputFocused]);
+
+  const onClickShowNewsButton = () => {
+    navigation.navigate('OpinionPin');
+  };
+
+  const onClickBackButton = () => {
+    navigation.goBack();
+  };
+
+  if (isLoading) {
+    return (
+      <View style={styles.container}>
+        <ActivityIndicator size="large" style={styles.activityIndicator} />
+      </View>
+    );
+  }
+
+  if (error) {
+    return (
+      <View style={styles.container}>
+        <Text style={GlobalTextStyles.NormalText17}>ERROR</Text>
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>
@@ -55,7 +111,7 @@ const OpinionPostPage = () => {
           <WithLocalSvg width={10} height={20} asset={OpinionBackButton as ImageSourcePropType} />
         </TouchableOpacity>
         <Text style={styles.topTextStyle}>의견쓰기</Text>
-        <TouchableOpacity style={styles.topSvgStyle} onPress={onClickCheckButton}>
+        <TouchableOpacity style={styles.topSvgStyle} onPress={onClickConfirmButton}>
           <WithLocalSvg width={17} height={12} asset={OpinionCheckButton as ImageSourcePropType} />
         </TouchableOpacity>
       </View>
@@ -77,35 +133,43 @@ const OpinionPostPage = () => {
             <PinTextNumberContainer
               circleNumber={1}
               circleText={'의견을 남길 부분을 선택해주세요'}
-              isActivate={true}
+              isActivated={true}
             />
-            {sentenceIndex !== undefined && (
+            {sentenceNumberDefined && (
               <TouchableOpacity style={styles.showNewsButton} onPress={onClickShowNewsButton}>
                 <Text style={styles.showNewsText}>뉴스보기</Text>
               </TouchableOpacity>
             )}
           </View>
-          {sentenceIndex === undefined && <PinButton />}
-          {sentenceIndex !== undefined && <SentenceBox sentenceNumber={sentenceIndex} />}
+          {!sentenceNumberDefined && <PinButton />}
+          {sentenceNumberDefined && <SentenceBox sentenceNumber={sentenceIndex} />}
         </View>
         <View style={styles.choosePinContainer}>
           <PinTextNumberContainer
             circleNumber={2}
             circleText={'생각쓰기'}
-            isActivate={sentenceIndex !== undefined}
+            isActivated={sentenceNumberDefined}
           />
           <OpinionWriteContainer
-            isActivate={sentenceIndex !== undefined}
+            isActivated={sentenceNumberDefined}
             setIsTextInputFocused={setIsTextInputFocused}
+            text={text}
+            setText={setText}
           />
         </View>
         <View style={styles.choosePinContainer}>
           <PinTextNumberContainer
             circleNumber={3}
             circleText={'신뢰도 평가하기'}
-            isActivate={sentenceIndex !== undefined}
+            isActivated={sentenceNumberDefined}
           />
-          <OpinionEvaluateCredibility isActivate={sentenceIndex !== undefined} />
+          <OpinionEvaluateReliability
+            isActivated={sentenceNumberDefined}
+            isReliable={isReliable}
+            isReliableDefined={isReliableDefined}
+            setIsReliable={setIsReliable}
+            setIsReliableDefined={setIsReliableDefined}
+          />
         </View>
       </ScrollView>
     </View>
@@ -184,6 +248,10 @@ const styles = StyleSheet.create({
   },
   avoid: {
     flex: 1,
+  },
+  activityIndicator: {
+    flex: 1,
+    alignSelf: 'center',
   },
 });
 

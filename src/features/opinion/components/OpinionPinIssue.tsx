@@ -1,16 +1,26 @@
 import React from 'react';
-import { Dimensions, StyleSheet, Text, View } from 'react-native';
-const OpinionPinIssue = () => {
+import { Dimensions, Image, StyleSheet, Text, View } from 'react-native';
+import { ReprocessedIssueId } from '../../../shared/types/news';
+import { formatDate } from '../../remakeissue/constants/formatDate';
+
+interface OpinionPinIssueProps {
+  reprocessedIssue: ReprocessedIssueId;
+}
+const OpinionPinIssue = ({ reprocessedIssue }: OpinionPinIssueProps) => {
   return (
     <View style={styles.issueContainer}>
-      <View style={styles.issueImage} />
+      <View style={styles.issueImage}>
+        <Image source={{ uri: reprocessedIssue.imageUrl }} style={styles.issueImage} />
+      </View>
       <View style={styles.issueTitleContainer}>
-        <Text style={styles.issueTitleText}>펜타곤 대형 폭발...美증시 출렁</Text>
+        <Text style={styles.issueTitleText}>{reprocessedIssue.title}</Text>
         <View style={styles.issueTagContainer}>
-          <View style={styles.tagBox}>
-            <Text style={styles.tagText}>국제</Text>
-          </View>
-          <Text style={styles.dateText}>2023.11.03</Text>
+          {reprocessedIssue.tags?.map((item: string, index: number) => (
+            <View key={index} style={styles.tagBox}>
+              <Text style={styles.tagText}>{item}</Text>
+            </View>
+          ))}
+          <Text style={styles.dateText}>{formatDate(reprocessedIssue.createdAt)}</Text>
         </View>
       </View>
     </View>
@@ -28,7 +38,9 @@ const styles = StyleSheet.create({
   issueImage: {
     width: '100%',
     height: 210,
-    backgroundColor: 'white',
+  },
+  imageStyle: {
+    flex: 1,
   },
   issueTitleContainer: {
     marginTop: 26,

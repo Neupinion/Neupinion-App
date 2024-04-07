@@ -1,45 +1,54 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { ImageSourcePropType, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import theme from '../../../shared/styles/theme';
 import { WithLocalSvg } from 'react-native-svg';
 import OpinionInfoIcon from '../../../assets/icon/opinioninfoicon.svg';
 
-interface OpinionEvaluateCredibilityProps {
-  isActivate: boolean;
+interface OpinionEvaluateReliabilityProps {
+  isActivated: boolean;
+  isReliable: boolean;
+  isReliableDefined: boolean;
+  setIsReliable: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsReliableDefined: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const OpinionEvaluateCredibility = ({ isActivate }: OpinionEvaluateCredibilityProps) => {
-  const [selectedOption, setSelectedOption] = useState<string | null>(null);
-  const onClickButton = (option: string) => {
-    setSelectedOption(option);
+const OpinionEvaluateReliability = ({
+  isActivated,
+  isReliable,
+  isReliableDefined,
+  setIsReliable,
+  setIsReliableDefined,
+}: OpinionEvaluateReliabilityProps) => {
+  const onClickButton = (option: boolean) => {
+    setIsReliable(option);
+    setIsReliableDefined(true);
   };
 
-  const getButtonStyle = (option: string) => [
+  const getButtonStyle = (option: boolean) => [
     styles.button,
-    selectedOption === option && styles.selectedButton,
+    isReliable === option && isActivated && isReliableDefined && styles.selectedButton,
   ];
-
-  const getButtonTextStyle = (option: string) => [
+  const getButtonTextStyle = (option: boolean) => [
     styles.buttonText,
-    selectedOption === option && styles.selectedButtonText,
+    isReliable === option && isActivated && isReliableDefined && styles.selectedButtonText,
   ];
 
   return (
     <View style={styles.container}>
       <View style={styles.buttonContainer}>
         <TouchableOpacity
-          disabled={!isActivate || selectedOption === 'trust'}
-          onPress={() => onClickButton('trust')}
-          style={getButtonStyle('trust')}
+          disabled={!isActivated || isReliable}
+          onPress={() => onClickButton(true)}
+          style={getButtonStyle(true)}
         >
-          <Text style={getButtonTextStyle('trust')}>믿을 수 있어요</Text>
+          <Text style={getButtonTextStyle(true)}>믿을 수 있어요</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          disabled={!isActivate || selectedOption === 'doubt'}
-          onPress={() => onClickButton('doubt')}
-          style={getButtonStyle('doubt')}
+          disabled={!isActivated || !isReliable}
+          onPress={() => onClickButton(false)}
+          style={getButtonStyle(false)}
         >
-          <Text style={getButtonTextStyle('doubt')}>의심이 가요</Text>
+          <Text style={getButtonTextStyle(false)}>의심이 가요</Text>
         </TouchableOpacity>
       </View>
       <View style={styles.infoContainer}>
@@ -166,4 +175,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default OpinionEvaluateCredibility;
+export default OpinionEvaluateReliability;
