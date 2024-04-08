@@ -1,0 +1,1 @@
+export const GESTURE_SPEED_THRESHOLD = 1.5;
