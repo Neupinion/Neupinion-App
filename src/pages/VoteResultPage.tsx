@@ -27,15 +27,7 @@ const VoteResultPage = () => {
         RightIcons={
           <>
             <TouchableOpacity style={styles.svgStyle} onPress={() => {}}>
-              {true ? (
-                <WithLocalSvg
-                  width={23}
-                  height={23}
-                  asset={AnotherBookMarkSvg as ImageSourcePropType}
-                />
-              ) : (
-                <WithLocalSvg width={23} height={23} asset={BookMarkSvg as ImageSourcePropType} />
-              )}
+              <WithLocalSvg width={23} height={23} asset={BookMarkSvg as ImageSourcePropType} />
             </TouchableOpacity>
             <TouchableOpacity style={styles.svgStyle} onPress={() => {}}>
               <WithLocalSvg width={24} height={23} asset={ShareSvg as ImageSourcePropType} />
@@ -44,7 +36,7 @@ const VoteResultPage = () => {
         }
       />
       <ScrollView style={styles.scrollViewStyle}>
-        
+
       </ScrollView>
     </View>
   );
