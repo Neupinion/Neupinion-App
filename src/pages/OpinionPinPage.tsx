@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import theme from '../shared/styles/theme';
 import { WithLocalSvg } from 'react-native-svg';
-import OpinionBackButton from '../assets/icon/opinionbackbutton.svg';
+import MainArrowLeft from '../assets/icon/mainarrowLeft.svg';
 import OpinionCheckButton from '../assets/icon/opinionpurplecheck.svg';
 import OpinionPinIssue from '../features/opinion/components/OpinionPinIssue';
 import OpinionPin from '../assets/icon/opinionpin.svg';
@@ -22,6 +22,7 @@ import { getReprocessedIssueById } from '../features/remakeissue/remotes/reproce
 import useFetch from '../shared/hooks/useFetch';
 import GlobalTextStyles from '../shared/styles/GlobalTextStyles';
 import { ReprocessedIssueContent } from '../shared/types/news';
+import PageHeader from '../shared/components/PageHeader';
 
 const OpinionPinPage = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
@@ -69,15 +70,18 @@ const OpinionPinPage = () => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.topContainer}>
-        <TouchableOpacity style={styles.topSvgStyle} onPress={onClickBackButton}>
-          <WithLocalSvg width={10} height={20} asset={OpinionBackButton as ImageSourcePropType} />
-        </TouchableOpacity>
-        <Text style={styles.topTextStyle}></Text>
-        <TouchableOpacity style={styles.topSvgStyle} onPress={onClickCheckButton}>
-          <WithLocalSvg width={17} height={12} asset={OpinionCheckButton as ImageSourcePropType} />
-        </TouchableOpacity>
-      </View>
+      <PageHeader
+        leftIcons={
+          <TouchableOpacity style={styles.topSvgStyle} onPress={onClickBackButton}>
+            <WithLocalSvg height={28} asset={MainArrowLeft as ImageSourcePropType} />
+          </TouchableOpacity>
+        }
+        RightIcons={
+          <TouchableOpacity style={styles.topSvgStyle} onPress={onClickCheckButton}>
+            <WithLocalSvg height={16} asset={OpinionCheckButton as ImageSourcePropType} />
+          </TouchableOpacity>
+        }
+      />
       <ScrollView style={styles.scrollViewStyle}>
         <View style={styles.pinTextContainer}>
           <Text style={styles.pinTextTitle}>의견을 남길 부분을 선택해주세요.</Text>
@@ -125,22 +129,11 @@ const styles = StyleSheet.create({
     width: Dimensions.get('window').width,
   },
   topSvgStyle: {
-    width: 30,
     height: 30,
+    width: 30,
+    padding: 5,
     alignItems: 'center',
-    alignSelf: 'center',
     justifyContent: 'center',
-  },
-  topTextStyle: {
-    width: 234,
-    color: theme.color.white,
-    marginHorizontal: 30,
-    textAlign: 'center',
-    fontSize: 16,
-    fontStyle: 'normal',
-    fontWeight: '700',
-    lineHeight: 24,
-    letterSpacing: -0.48,
   },
   pinTextContainer: {
     flexDirection: 'row',

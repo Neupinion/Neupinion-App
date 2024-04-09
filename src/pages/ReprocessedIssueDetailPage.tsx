@@ -26,6 +26,7 @@ import { getReprocessedIssueContent } from '../features/remakeissue/remotes/repr
 import useFetch from '../shared/hooks/useFetch';
 import toggleBookmark from '../features/remakeissue/remotes/toggleBookmark';
 import GlobalTextStyles from '../shared/styles/GlobalTextStyles';
+import PageHeader from '../shared/components/PageHeader';
 const ReprocessedIssueDetailPage: React.FC = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   type ScreenRouteProp = RouteProp<RootStackParamList, 'ReprocessedIssueDetailPage'>;
@@ -64,35 +65,37 @@ const ReprocessedIssueDetailPage: React.FC = () => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.headerContainer}>
-        <View style={styles.headerLeftContainer}>
+      <PageHeader
+        leftIcons={
           <TouchableOpacity style={styles.svgStyle} onPress={navigation.goBack}>
-            <WithLocalSvg height={30} asset={MainArrowLeftSvg as ImageSourcePropType} />
+            <WithLocalSvg height={25} asset={MainArrowLeftSvg as ImageSourcePropType} />
           </TouchableOpacity>
-          <Text style={styles.headerText}>진짜일까, 가짜일까?</Text>
-        </View>
-        <View style={styles.headerRightContainer}>
-          <TouchableOpacity
-            style={styles.headerSvg}
-            onPress={() => toggleBookmark(id, bookMarkClicked, setBookMarkClicked)}
-          >
-            {bookMarkClicked ? (
-              <WithLocalSvg
-                width={23}
-                height={23}
-                asset={AnotherBookMarkSvg as ImageSourcePropType}
-              />
-            ) : (
-              <WithLocalSvg width={23} height={23} asset={BookMarkSvg as ImageSourcePropType} />
-            )}
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.headerSvg} onPress={() => {}}>
-            <WithLocalSvg width={24} height={23} asset={ShareSvg as ImageSourcePropType} />
-          </TouchableOpacity>
-        </View>
-      </View>
+        }
+        centerText={'진짜일까, 가짜일까?'}
+        RightIcons={
+          <>
+            <TouchableOpacity
+              style={styles.headerSvg}
+              onPress={() => toggleBookmark(id, bookMarkClicked, setBookMarkClicked)}
+            >
+              {bookMarkClicked ? (
+                <WithLocalSvg
+                  width={23}
+                  height={23}
+                  asset={AnotherBookMarkSvg as ImageSourcePropType}
+                />
+              ) : (
+                <WithLocalSvg width={23} height={23} asset={BookMarkSvg as ImageSourcePropType} />
+              )}
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.headerSvg} onPress={() => {}}>
+              <WithLocalSvg width={24} height={23} asset={ShareSvg as ImageSourcePropType} />
+            </TouchableOpacity>
+          </>
+        }
+      />
       <View style={styles.headerUnderLine} />
-      <ScrollView style={{ width: Dimensions.get('window').width, flex: 1 }}>
+      <ScrollView style={styles.scrollViewStyle}>
         <ReprocessedIssueContentsSlider reprocessedIssue={reprocessedIssue} />
         <View style={styles.divideLine} />
         <OpinionWriteSlider navigation={navigation} issueId={id} />
@@ -114,32 +117,6 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     justifyContent: 'center',
   },
-  headerContainer: {
-    width: Dimensions.get('window').width,
-    height: 64,
-    marginTop: 45.76,
-    paddingLeft: 18,
-    paddingRight: 23,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  headerLeftContainer: {
-    flexDirection: 'row',
-  },
-  headerRightContainer: {
-    flexDirection: 'row',
-    gap: 10,
-  },
-  headerText: {
-    fontSize: 16,
-    color: theme.color.white,
-    fontStyle: 'normal',
-    fontWeight: '700',
-    lineHeight: 24,
-    letterSpacing: -0.48,
-    marginLeft: 70,
-  },
   headerSvg: {
     alignSelf: 'center',
   },
@@ -151,10 +128,14 @@ const styles = StyleSheet.create({
   },
   svgStyle: {
     height: 30,
+    width: 30,
     padding: 5,
-    justifyContent: 'center',
     alignItems: 'center',
-    flexShrink: 0,
+    justifyContent: 'center',
+  },
+  scrollViewStyle: {
+    width: Dimensions.get('window').width,
+    flex: 1,
   },
   headerUnderLine: {
     width: Dimensions.get('window').width,

@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import theme from '../shared/styles/theme';
 import { WithLocalSvg } from 'react-native-svg';
-import OpinionBackButton from '../assets/icon/opinionbackbutton.svg';
+import MainArrowLeft from '../assets/icon/mainarrowLeft.svg';
 import OpinionCheckButton from '../assets/icon/opinionpurplecheck.svg';
 import PinButton from '../features/opinion/components/PinButton';
 import PinTextNumberContainer from '../features/opinion/components/PinTextNumberContainer';
@@ -33,6 +33,7 @@ import {
   extractSentenceIndex,
   extractText,
 } from '../features/opinion/functions/opinionElementExtractFunction';
+import PageHeader from '../shared/components/PageHeader';
 
 const OpinionPostPage = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
@@ -106,15 +107,19 @@ const OpinionPostPage = () => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.topContainer}>
-        <TouchableOpacity style={styles.topSvgStyle} onPress={onClickBackButton}>
-          <WithLocalSvg width={10} height={20} asset={OpinionBackButton as ImageSourcePropType} />
-        </TouchableOpacity>
-        <Text style={styles.topTextStyle}>의견쓰기</Text>
-        <TouchableOpacity style={styles.topSvgStyle} onPress={onClickConfirmButton}>
-          <WithLocalSvg width={17} height={12} asset={OpinionCheckButton as ImageSourcePropType} />
-        </TouchableOpacity>
-      </View>
+      <PageHeader
+        leftIcons={
+          <TouchableOpacity style={styles.topSvgStyle} onPress={onClickBackButton}>
+            <WithLocalSvg height={28} asset={MainArrowLeft as ImageSourcePropType} />
+          </TouchableOpacity>
+        }
+        centerText={'의견쓰기'}
+        RightIcons={
+          <TouchableOpacity style={styles.topSvgStyle} onPress={onClickConfirmButton}>
+            <WithLocalSvg height={16} asset={OpinionCheckButton as ImageSourcePropType} />
+          </TouchableOpacity>
+        }
+      />
       <ScrollView
         ref={scrollViewRef}
         contentContainerStyle={[
@@ -199,22 +204,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   topSvgStyle: {
-    width: 30,
     height: 30,
+    width: 30,
+    padding: 5,
     alignItems: 'center',
-    alignSelf: 'center',
     justifyContent: 'center',
-  },
-  topTextStyle: {
-    width: 234,
-    color: theme.color.white,
-    marginHorizontal: 30,
-    textAlign: 'center',
-    fontSize: 16,
-    fontStyle: 'normal',
-    fontWeight: '700',
-    lineHeight: 24,
-    letterSpacing: -0.48,
   },
   choosePinContainer: {
     display: 'flex',

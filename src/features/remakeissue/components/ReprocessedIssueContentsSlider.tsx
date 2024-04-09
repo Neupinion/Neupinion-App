@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
     lineHeight: 30,
     letterSpacing: -0.6,
     marginLeft: 26,
-    marginTop: 8,
+    marginTop: 20,
   },
   titleUnderContainer: {
     width: Dimensions.get('window').width,
