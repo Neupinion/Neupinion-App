@@ -17,7 +17,15 @@ import Moon3Svg from '../../../assets/icon/moon3.svg';
 import Moon4Svg from '../../../assets/icon/moon4.svg';
 import { reliabilityText } from '../constants/reliabilty';
 import submitVoteResult from '../remotes/submitVoteResult';
-const ReliabilityEvaluation = ({ issueId }: { issueId: number }) => {
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from '../../../rootStackParamList';
+
+interface ReliabilityEvaluation {
+  navigation: StackNavigationProp<RootStackParamList>;
+  issueId: number;
+}
+
+const ReliabilityEvaluation = ({ navigation, issueId }: ReliabilityEvaluation) => {
   const moons = [
     { id: 1, SvgComponent: Moon1Svg },
     { id: 2, SvgComponent: Moon2Svg },
@@ -29,6 +37,11 @@ const ReliabilityEvaluation = ({ issueId }: { issueId: number }) => {
   const MOON_SVG_HEIGHT = 66.94156;
   const handleButtonPress = (buttonNumber: number) => {
     setSelectedButton(buttonNumber);
+  };
+
+  const onClickVoteResult = () => {
+    void submitVoteResult(issueId, selectedButton, reliabilityText);
+    navigation.navigate('VoteResultPage');
   };
 
   return (
@@ -66,10 +79,7 @@ const ReliabilityEvaluation = ({ issueId }: { issueId: number }) => {
           </Text>
         ))}
       </View>
-      <TouchableOpacity
-        style={styles.submitButton}
-        onPress={() => submitVoteResult(issueId, selectedButton, reliabilityText)}
-      >
+      <TouchableOpacity style={styles.submitButton} onPress={onClickVoteResult}>
         <Text style={styles.buttonText}>투표하고 결과보기</Text>
       </TouchableOpacity>
     </View>

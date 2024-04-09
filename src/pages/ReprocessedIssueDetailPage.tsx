@@ -97,7 +97,7 @@ const ReprocessedIssueDetailPage: React.FC = () => {
         <View style={styles.divideLine} />
         <OpinionWriteSlider navigation={navigation} issueId={id} />
         <View style={styles.divideLine} />
-        <ReliabilityEvaluation issueId={id} />
+        <ReliabilityEvaluation navigation={navigation} issueId={id} />
         <View style={styles.divideLine} />
         {reprocessedIssue !== null && (
           <CategoryLatestNews current={id} category={reprocessedIssue.category} />

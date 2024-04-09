@@ -6,6 +6,7 @@ import OpinionPinPage from './pages/OpinionPinPage';
 import MainPage from './pages/MainPage';
 import ModalContainer from './shared/components/ModalContainer';
 import ReprocessedIssueDetailPage from './pages/ReprocessedIssueDetailPage';
+import VoteResultPage from './pages/VoteResultPage';
 
 const Stack = createNativeStackNavigator();
 
@@ -31,6 +32,9 @@ const Navigation = () => {
           <Stack.Group>
             <Stack.Screen name="OpinionPost" component={OpinionPostPage} />
             <Stack.Screen name="OpinionPin" component={OpinionPinPage} />
+          </Stack.Group>
+          <Stack.Group>
+            <Stack.Screen name="VoteResultPage" component={VoteResultPage} />
           </Stack.Group>
         </Stack.Navigator>
       </NavigationContainer>

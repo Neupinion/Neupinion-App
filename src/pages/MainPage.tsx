@@ -24,7 +24,6 @@ import FollowUpIssueContainer from '../features/followupissue/components/FollowU
 import CategorySlider from '../features/remakeissue/components/CategorySlider';
 import { getFormatDate } from '../features/date/functions/formatDate';
 import AfterIssueSlider from '../features/remakeissue/components/AfterIssueSlider';
-
 import FollowUpIssueDummy from '../dummy/FollowUpIssueDummy';
 import fontFamily from '../shared/styles/fontFamily';
 import { useNavigation } from '@react-navigation/native';
