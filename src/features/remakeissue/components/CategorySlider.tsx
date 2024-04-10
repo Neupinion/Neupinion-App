@@ -1,7 +1,8 @@
 import React, { useMemo } from 'react';
-import { View, StyleSheet, FlatList, Text, Dimensions } from 'react-native';
+import { View, StyleSheet, FlatList, Text } from 'react-native';
 import { ReProcessedIssue } from '../../../shared/types/news';
 import CategoryItem from './CategoryItem';
+import { WINDOW_WIDTH } from "../../../shared/constants/display";
 
 interface CategorySliderProps {
   categoryIssues: ReProcessedIssue[] | null;
@@ -38,7 +39,7 @@ const CategorySlider = ({ categoryIssues }: CategorySliderProps) => {
 
 const styles = StyleSheet.create({
   categoryContainer: {
-    width: Dimensions.get('window').width,
+    width: WINDOW_WIDTH,
     height: 270,
     marginBottom: 20,
   },
@@ -47,7 +48,7 @@ const styles = StyleSheet.create({
     paddingRight: 20,
   },
   emptyContainer: {
-    width: Dimensions.get('window').width,
+    width: WINDOW_WIDTH,
     height: 270,
     flexDirection: 'column',
     alignItems: 'center',

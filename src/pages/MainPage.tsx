@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import {
   ActivityIndicator,
-  Dimensions,
   ImageSourcePropType,
   ScrollView,
   StyleSheet,
@@ -30,6 +29,7 @@ import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../rootStackParamList';
 import { useModal } from '../shared/hooks/useModal';
+import { WINDOW_WIDTH } from '../shared/constants/display';
 
 const MainPage = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
@@ -80,7 +80,7 @@ const MainPage = () => {
       {error && <Text style={GlobalTextStyles.NormalText17}>ERROR</Text>}
       {!isLoading && !error && (
         <>
-          <ScrollView style={{ width: Dimensions.get('window').width, flex: 1 }}>
+          <ScrollView style={{ width: WINDOW_WIDTH, flex: 1 }}>
             <View style={styles.titleContainer}>
               <Text style={GlobalTextStyles.NormalText17}>새로운 후속보도가 있어요!</Text>
             </View>
@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   headerContainer: {
-    width: Dimensions.get('window').width - 44,
+    width: WINDOW_WIDTH - 44,
     height: 30,
     marginTop: 66,
     marginBottom: 14,
@@ -146,7 +146,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   headerUnderLine: {
-    width: Dimensions.get('window').width,
+    width: WINDOW_WIDTH,
     height: 1,
     backgroundColor: 'rgba(226, 226, 226, 0.1)',
   },
@@ -173,7 +173,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   titleContainer: {
-    width: Dimensions.get('window').width,
+    width: WINDOW_WIDTH,
     marginTop: 20,
     flexDirection: 'row',
     alignItems: 'flex-start',
@@ -186,7 +186,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   divideLine: {
-    width: Dimensions.get('window').width,
+    width: WINDOW_WIDTH,
     height: 10,
     marginVertical: 12,
     flexShrink: 0,

@@ -3,7 +3,6 @@ import {
   View,
   Text,
   StyleSheet,
-  Dimensions,
   ImageSourcePropType,
   TouchableOpacity,
   FlatList,
@@ -21,6 +20,7 @@ import { RootStackParamList } from '../../../rootStackParamList';
 import { useModal } from '../../../shared/hooks/useModal';
 import OpinionWriteBottomSheet from '../../opinion/components/OpinionWriteBottomSheet';
 import { OpinionWrite } from '../../../shared/types/news';
+import { WINDOW_WIDTH } from "../../../shared/constants/display";
 
 interface OpinionWriteSliderProps {
   navigation: StackNavigationProp<RootStackParamList>;
@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   titleContainer: {
-    width: Dimensions.get('window').width,
+    width: WINDOW_WIDTH,
     marginTop: 30,
     marginBottom: 16,
   },
@@ -154,7 +154,7 @@ const styles = StyleSheet.create({
     marginTop: 4,
   },
   cardContainer: {
-    width: Dimensions.get('window').width,
+    width: WINDOW_WIDTH,
     gap: 16,
     marginLeft: 25,
   },

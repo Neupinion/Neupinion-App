@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import {
   ActivityIndicator,
-  Dimensions,
   ImageSourcePropType,
   ScrollView,
   StyleSheet,
@@ -34,6 +33,7 @@ import {
   extractText,
 } from '../features/opinion/functions/opinionElementExtractFunction';
 import PageHeader from '../shared/components/PageHeader';
+import { WINDOW_HEIGHT, WINDOW_WIDTH } from '../shared/constants/display';
 
 const OpinionPostPage = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
@@ -190,13 +190,13 @@ const styles = StyleSheet.create({
   },
   scrollViewContainer: {
     display: 'flex',
-    minHeight: Dimensions.get('window').height,
-    width: Dimensions.get('window').width,
+    minHeight: WINDOW_HEIGHT,
+    width: WINDOW_WIDTH,
     flexDirection: 'column',
     alignItems: 'center',
   },
   topContainer: {
-    width: Dimensions.get('window').width,
+    width: WINDOW_WIDTH,
     height: 30,
     marginTop: 66,
     flexDirection: 'row',

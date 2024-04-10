@@ -6,7 +6,6 @@ import {
   ImageSourcePropType,
   TouchableOpacity,
   Image,
-  Dimensions,
 } from 'react-native';
 import theme from '../../../shared/styles/theme';
 import { WithLocalSvg } from 'react-native-svg';
@@ -14,6 +13,7 @@ import SeeOriginalSvg from '../../../assets/icon/seeOriginal.svg';
 import { formatDate } from '../constants/formatDate';
 import { ReprocessedIssueId } from '../../../shared/types/news';
 import Markdown from 'react-native-markdown-display';
+import { WINDOW_WIDTH } from "../../../shared/constants/display";
 
 interface ReprocessedIssueContentsProps {
   reprocessedIssue: ReprocessedIssueId | null;
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   titleUnderContainer: {
-    width: Dimensions.get('window').width,
+    width: WINDOW_WIDTH,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   cardImage: {
-    width: Dimensions.get('window').width,
+    width: WINDOW_WIDTH,
     height: 200,
     resizeMode: 'cover',
     backgroundColor: theme.color.white,

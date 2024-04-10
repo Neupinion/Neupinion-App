@@ -1,10 +1,11 @@
 import React from 'react';
-import { View, Text, StyleSheet, Dimensions, ImageSourcePropType } from 'react-native';
+import { View, Text, StyleSheet, ImageSourcePropType } from 'react-native';
 import theme from '../../../shared/styles/theme';
 import { ReProcessedIssue } from '../../../shared/types/news';
 import { WithLocalSvg } from 'react-native-svg';
 import MessageIcon from '../../../assets/icon/message.svg';
 import UserIcon from '../../../assets/icon/user.svg';
+import { WINDOW_WIDTH } from "../../../shared/constants/display";
 interface FakeIssueIconProps {
   data: ReProcessedIssue[] | null;
   slideIndex: number;
@@ -30,7 +31,7 @@ const FakeIssueIcon = ({ data, slideIndex }: FakeIssueIconProps) => {
 
 const styles = StyleSheet.create({
   container: {
-    width: Dimensions.get('window').width,
+    width: WINDOW_WIDTH,
     marginTop: 14,
     height: 24,
     flexDirection: 'row',

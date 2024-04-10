@@ -21,7 +21,7 @@ const PageHeader = ({ leftIcons, centerText, RightIcons }: PageHeaderProps) => {
 
 const styles = StyleSheet.create({
   headerContainer: {
-    width: Dimensions.get('window').width,
+    width: WINDOW_WIDTH,
     height: 60,
     marginTop: 66,
     paddingLeft: 14,

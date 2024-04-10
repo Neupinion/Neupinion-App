@@ -1,14 +1,15 @@
 import { FollowUpIssue } from '../../../shared/types/news';
 import React, { useEffect, useMemo, useState } from 'react';
-import { Animated, Dimensions, View, StyleSheet } from 'react-native';
+import { Animated, View, StyleSheet } from 'react-native';
 import FollowUpIssueItem from './FollowUpIssueItem';
 import {
   invisibleFollowUpLeftCardData,
   invisibleFollowUpRightCardData,
 } from '../constants/invisibleFollowUpData';
 import Indicator from '../../remakeissue/components/Indicator';
+import { WINDOW_WIDTH } from '../../../shared/constants/display';
 
-const CARD_ITEM_SIZE = Dimensions.get('window').width * 0.915;
+const CARD_ITEM_SIZE = WINDOW_WIDTH * 0.915;
 
 interface FollowUpIssueSliderProps {
   followUpIssue: FollowUpIssue[] | null;
@@ -60,14 +61,14 @@ const FollowUpIssueSlider = ({ followUpIssue }: FollowUpIssueSliderProps) => {
 
 const styles = StyleSheet.create({
   container: {
-    width: Dimensions.get('window').width,
+    width: WINDOW_WIDTH,
     marginTop: 20,
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'flex-start',
   },
   flatListStyle: {
-    width: Dimensions.get('window').width,
+    width: WINDOW_WIDTH,
     height: 280,
   },
 });

@@ -1,9 +1,10 @@
 import React, { useMemo, useState } from 'react';
-import { View, StyleSheet, FlatList, Dimensions, Text } from 'react-native';
+import { View, StyleSheet, FlatList, Text } from 'react-native';
 import { FollowUpIssue } from '../../../shared/types/news';
 import AfterIssueItem from './AfterIssueItem';
 import Indicator from './Indicator';
 import theme from '../../../shared/styles/theme';
+import { WINDOW_WIDTH } from '../../../shared/constants/display';
 
 interface AfterIssueProps {
   afterNews: FollowUpIssue[] | null;
@@ -37,14 +38,12 @@ const AfterIssueSlider = ({ afterNews }: AfterIssueProps) => {
         <FlatList
           horizontal={true}
           showsHorizontalScrollIndicator={false}
-          snapToInterval={Dimensions.get('window').width}
+          snapToInterval={WINDOW_WIDTH}
           data={preparedAfterNews}
           keyExtractor={(item) => String(item.id)}
           renderItem={({ item }) => <AfterIssueItem item={item} />}
           onScroll={(event) => {
-            const newIndex = Math.round(
-              event.nativeEvent.contentOffset.x / Dimensions.get('window').width,
-            );
+            const newIndex = Math.round(event.nativeEvent.contentOffset.x / WINDOW_WIDTH);
             setSlideIndex(newIndex);
           }}
           decelerationRate="fast"

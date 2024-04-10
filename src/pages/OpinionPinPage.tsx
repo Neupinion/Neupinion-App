@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
   ActivityIndicator,
-  Dimensions,
   ImageSourcePropType,
   ScrollView,
   StyleSheet,
@@ -23,6 +22,7 @@ import useFetch from '../shared/hooks/useFetch';
 import GlobalTextStyles from '../shared/styles/GlobalTextStyles';
 import { ReprocessedIssueContent } from '../shared/types/news';
 import PageHeader from '../shared/components/PageHeader';
+import { WINDOW_WIDTH } from '../shared/constants/display';
 
 const OpinionPinPage = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   topContainer: {
-    width: Dimensions.get('window').width,
+    width: WINDOW_WIDTH,
     height: 30,
     marginTop: 66,
     flexDirection: 'row',
@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   scrollViewStyle: {
-    width: Dimensions.get('window').width,
+    width: WINDOW_WIDTH,
   },
   topSvgStyle: {
     height: 30,
@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    width: Dimensions.get('window').width,
+    width: WINDOW_WIDTH,
   },
   pinTextTitle: {
     marginTop: 20,

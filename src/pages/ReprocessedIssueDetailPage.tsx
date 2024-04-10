@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
   ActivityIndicator,
-  Dimensions,
   ImageSourcePropType,
   ScrollView,
   StyleSheet,
@@ -27,6 +26,7 @@ import useFetch from '../shared/hooks/useFetch';
 import toggleBookmark from '../features/remakeissue/remotes/toggleBookmark';
 import GlobalTextStyles from '../shared/styles/GlobalTextStyles';
 import PageHeader from '../shared/components/PageHeader';
+import { WINDOW_WIDTH } from '../shared/constants/display';
 const ReprocessedIssueDetailPage: React.FC = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   type ScreenRouteProp = RouteProp<RootStackParamList, 'ReprocessedIssueDetailPage'>;
@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   titleContainer: {
-    width: Dimensions.get('window').width,
+    width: WINDOW_WIDTH,
     marginTop: 20,
     flexDirection: 'row',
     alignItems: 'flex-start',
@@ -134,16 +134,16 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   scrollViewStyle: {
-    width: Dimensions.get('window').width,
+    width: WINDOW_WIDTH,
     flex: 1,
   },
   headerUnderLine: {
-    width: Dimensions.get('window').width,
+    width: WINDOW_WIDTH,
     height: 1,
     backgroundColor: 'rgba(226, 226, 226, 0.1)',
   },
   divideLine: {
-    width: Dimensions.get('window').width,
+    width: WINDOW_WIDTH,
     height: 10,
     marginVertical: 12,
     marginTop: 40,

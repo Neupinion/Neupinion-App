@@ -1,12 +1,5 @@
 import React, { useState } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  Dimensions,
-  ImageSourcePropType,
-  TouchableOpacity,
-} from 'react-native';
+import { View, Text, StyleSheet, ImageSourcePropType, TouchableOpacity } from 'react-native';
 import GlobalTextStyles from '../../../shared/styles/GlobalTextStyles';
 import ReliabiltyBackGroundSvg from '../../../assets/icon/reliabiltybackground2.svg';
 import { WithLocalSvg } from 'react-native-svg';
@@ -19,6 +12,7 @@ import { reliabilityText } from '../constants/reliabilty';
 import submitVoteResult from '../remotes/submitVoteResult';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../../../rootStackParamList';
+import { WINDOW_WIDTH } from '../../../shared/constants/display';
 
 interface ReliabilityEvaluation {
   navigation: StackNavigationProp<RootStackParamList>;
@@ -93,13 +87,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   titleContainer: {
-    width: Dimensions.get('window').width,
+    width: WINDOW_WIDTH,
     marginTop: 30,
     flexDirection: 'row',
     alignItems: 'flex-start',
   },
   ReliabiltyBackGroundSvg: {
-    width: Dimensions.get('window').width - 52,
+    width: WINDOW_WIDTH - 52,
     marginTop: 30,
     alignItems: 'center',
     opacity: 1,

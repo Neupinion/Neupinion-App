@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import {
   Animated,
   StyleSheet,
-  Dimensions,
   View,
   Text,
   ImageSourcePropType,
@@ -25,6 +24,7 @@ import {
   createOpenDateModalAnimation,
 } from '../constants/dateModalAnimation';
 import calendarTheme from '../constants/calendarTheme';
+import { WINDOW_HEIGHT, WINDOW_WIDTH } from '../../../shared/constants/display';
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
 LocaleConfig.locales['kr'] = koreaLocales;
@@ -121,7 +121,7 @@ const DateModal: React.FC<DateModalProps> = ({ onClose }) => {
 
 const styles = StyleSheet.create({
   container: {
-    width: Dimensions.get('window').width,
+    width: WINDOW_WIDTH,
     height: 450,
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
@@ -137,8 +137,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,0.8)',
   },
   dimButton: {
-    width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height - 450,
+    width: WINDOW_WIDTH,
+    height: WINDOW_HEIGHT - 450,
   },
   titleContainer: {
     marginTop: 22,
@@ -166,7 +166,7 @@ const styles = StyleSheet.create({
     marginLeft: 22,
   },
   calendarContainer: {
-    width: Dimensions.get('window').width,
+    width: WINDOW_WIDTH,
     height: 460,
     flexDirection: 'column',
     justifyContent: 'center',
@@ -174,7 +174,7 @@ const styles = StyleSheet.create({
   },
   calendar: {
     flex: 1,
-    width: Dimensions.get('window').width - 32,
+    width: WINDOW_WIDTH - 32,
     backgroundColor: 'rgba(0, 0, 0, 0)',
   },
   closeButton: {
