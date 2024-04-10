@@ -1,19 +1,12 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  ImageSourcePropType,
-  TouchableOpacity,
-  Image,
-} from 'react-native';
+import { View, Text, StyleSheet, ImageSourcePropType, TouchableOpacity, Image } from 'react-native';
 import theme from '../../../shared/styles/theme';
 import { WithLocalSvg } from 'react-native-svg';
 import SeeOriginalSvg from '../../../assets/icon/seeOriginal.svg';
 import { formatDate } from '../constants/formatDate';
 import { ReprocessedIssueId } from '../../../shared/types/news';
 import Markdown from 'react-native-markdown-display';
-import { WINDOW_WIDTH } from "../../../shared/constants/display";
+import { WINDOW_WIDTH } from '../../../shared/constants/display';
 
 interface ReprocessedIssueContentsProps {
   reprocessedIssue: ReprocessedIssueId | null;

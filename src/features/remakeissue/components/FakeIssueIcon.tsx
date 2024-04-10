@@ -5,7 +5,7 @@ import { ReProcessedIssue } from '../../../shared/types/news';
 import { WithLocalSvg } from 'react-native-svg';
 import MessageIcon from '../../../assets/icon/message.svg';
 import UserIcon from '../../../assets/icon/user.svg';
-import { WINDOW_WIDTH } from "../../../shared/constants/display";
+import { WINDOW_WIDTH } from '../../../shared/constants/display';
 interface FakeIssueIconProps {
   data: ReProcessedIssue[] | null;
   slideIndex: number;

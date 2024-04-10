@@ -1,6 +1,7 @@
-import { Animated, Dimensions } from 'react-native';
+import { Animated } from 'react-native';
+import { WINDOW_HEIGHT } from './display';
 
-const screenHeight = Dimensions.get('screen').height;
+const screenHeight = WINDOW_HEIGHT;
 const animationDuration: number = 300;
 const createOpenBottomSheetAnimation = (panY: Animated.Value) => {
   return Animated.timing(panY, {

@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import { View, StyleSheet, FlatList, Text } from 'react-native';
 import { ReProcessedIssue } from '../../../shared/types/news';
 import CategoryItem from './CategoryItem';
-import { WINDOW_WIDTH } from "../../../shared/constants/display";
+import { WINDOW_WIDTH } from '../../../shared/constants/display';
 
 interface CategorySliderProps {
   categoryIssues: ReProcessedIssue[] | null;

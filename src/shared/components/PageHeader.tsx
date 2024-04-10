@@ -1,7 +1,8 @@
 import React, { ReactNode } from 'react';
-import { Dimensions, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import theme from '../styles/theme';
 import fontFamily from '../styles/fontFamily';
+import { WINDOW_WIDTH } from '../constants/display';
 
 interface PageHeaderProps {
   leftIcons: ReactNode;
