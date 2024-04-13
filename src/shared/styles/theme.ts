@@ -34,7 +34,7 @@ const theme: Theme = {
     gray3: '#D3D3D3',
     gray4: '#4E5867',
     gray5: '#394358',
-    gray6: '#71788F',
+    gray6: '#D1D3D8',
     gray7: '#212A3C',
     white: '#FFFFFF',
   },
