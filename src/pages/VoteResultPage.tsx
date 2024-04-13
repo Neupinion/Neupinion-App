@@ -11,6 +11,8 @@ import toggleBookmark from '../features/remakeissue/remotes/toggleBookmark';
 import AnotherBookMarkSvg from '../assets/icon/anotherbookmark.svg';
 import BookMarkSvg from '../assets/icon/bookmark.svg';
 import ShareSvg from '../assets/icon/share.svg';
+import VoteChartContainer from "../features/vote/components/VoteChartContainer";
+import { VotedDataDummy } from "../dummy/VotedDataDummy";
 
 const VoteResultPage = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
@@ -36,7 +38,7 @@ const VoteResultPage = () => {
         }
       />
       <ScrollView style={styles.scrollViewStyle}>
-
+        <VoteChartContainer data={VotedDataDummy} />
       </ScrollView>
     </View>
   );
@@ -59,6 +61,11 @@ const styles = StyleSheet.create({
   scrollViewStyle: {
     width: Dimensions.get('window').width,
     flex: 1,
+  },
+  topContainer: {
+    paddingHorizontal: 26,
+    flexDirection: 'column',
+    alignItems: 'flex-start',
   },
 });
 
