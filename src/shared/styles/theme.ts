@@ -31,7 +31,7 @@ const theme: Theme = {
     gray: '#191926',
     gray1: '#4A4A5A',
     gray2: '#7E7D7A',
-    gray3: '#D3D3D3',
+    gray3: '#394358',
     gray4: '#4E5867',
     gray5: '#394358',
     gray6: '#D1D3D8',
