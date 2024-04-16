@@ -4,16 +4,16 @@ import theme from '../../../shared/styles/theme';
 import fontFamily from '../../../shared/styles/fontFamily';
 import { BubbleChartDataSet } from '../types/bubbleChartData';
 import BubbleChart from './BubbleChart';
-import { WINDOW_WIDTH } from "../../../shared/constants/display";
+import { WINDOW_WIDTH } from '../../../shared/constants/display';
 interface VoteBubbleChartProps {
   data: BubbleChartDataSet;
 }
 
 const data_dummy = [
-  { name: 'King Douchebag', color: 'yellow', value: 56 },
-  { name: 'Princess Kenny', color: 'pink', value: 26 },
-  { name: 'Heidi Turner', color: 'red', value: 10 },
-  { name: 'Eric Cartman', color: 'purple', value: 9 },
+  { name: '완전 의심', color: 'pink', value: 56 },
+  { name: '조금 신뢰', color: 'green', value: 26 },
+  { name: '조금 의심', color: 'blue', value: 10 },
+  { name: '완전 신뢰', color: 'purple', value: 9 },
 ];
 
 const VoteChartContainer = ({ data }: VoteBubbleChartProps) => {
@@ -28,7 +28,7 @@ const VoteChartContainer = ({ data }: VoteBubbleChartProps) => {
           총 투표 수: {data.totalVoted.toLocaleString('ko-KR')}표
         </Text>
       </View>
-      <BubbleChart height={340} width={WINDOW_WIDTH-52} data={data_dummy} />
+      <BubbleChart height={340} width={WINDOW_WIDTH - 52} data={data_dummy} />
       <TouchableOpacity style={styles.totalVotedButton} onPress={() => {}}>
         <Text style={styles.totalVotedButtonText}>통합 투표 결과 보기</Text>
       </TouchableOpacity>
