@@ -10,10 +10,10 @@ interface VoteBubbleChartProps {
 }
 
 const data_dummy = [
-  { name: '완전 의심', color: 'pink', value: 56 },
-  { name: '조금 신뢰', color: 'green', value: 26 },
-  { name: '조금 의심', color: 'blue', value: 10 },
-  { name: '완전 신뢰', color: 'purple', value: 9 },
+  { name: '완전 의심', value: 56 },
+  { name: '조금 신뢰', value: 26 },
+  { name: '조금 의심', value: 10 },
+  { name: '완전 신뢰', value: 9 },
 ];
 
 const VoteChartContainer = ({ data }: VoteBubbleChartProps) => {

@@ -1,62 +1,90 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import * as d3 from 'd3';
-import Svg, { Circle, G, Text as SVGText } from 'react-native-svg';
+import Svg, { Circle, G, Text as SVGText, Defs, RadialGradient, Stop } from 'react-native-svg';
 
-interface dataTypeDummy {
+interface DataTypeDummy {
   name: string;
-  color: string;
   value: number;
+  children?: DataTypeDummy[];
 }
+
 interface BubbleChartProps {
   height: number;
   width: number;
-  data: dataTypeDummy[];
+  data: DataTypeDummy[];
 }
 
 const BubbleChart = ({ height, width, data }: BubbleChartProps) => {
-  const pack = (data) =>
-    d3
-      .pack()
-      .size([width - 2, height - 2])
-      .padding(3)(d3.hierarchy({ children: data }).sum((d) => d.value));
+  const sortedData = [...data].sort((a, b) => b.value - a.value);
 
-  const root = pack(data);
+  const pack = (data: DataTypeDummy[]) =>
+    d3.pack<DataTypeDummy>().size([width, height]).padding(3)(
+      d3.hierarchy<DataTypeDummy>({ children: data } as DataTypeDummy).sum((d) => d.value),
+    );
+  const root = pack(sortedData);
 
-  const fontSizeGenerator = (value) => {
-    let size = 0;
+  const fontSizeGenerator = (value: number) => {
     if (value < 10) {
-      size = 12;
+      return 12;
     } else if (value >= 10 && value < 50) {
-      size = 16;
+      return 16;
     } else {
-      size = 20;
+      return 20;
     }
-    return size;
   };
 
-  const leaves = [];
-  for (const leaf of root.leaves()) {
-    leaves.push(
-      <G transform={`translate(${leaf.x + 1},${leaf.y + 1})`}>
-        <Circle r={leaf.r} fill={leaf.data.color} />
-        <SVGText
-          fill="#FFFFFF"
-          fontSize={fontSizeGenerator(leaf.data.value)}
-          x="0"
-          y={leaf.data.value * 0.1}
-          textAnchor="middle"
-        >
-          {leaf.data.name}
-        </SVGText>
-      </G>,
+  const leaves = root.leaves();
+  const rotationAngle = Math.PI / 4;
+
+  const newXs: number[] = [];
+  const newYs: number[] = [];
+
+  leaves.forEach((leaf: d3.HierarchyCircularNode<DataTypeDummy>) => {
+    const angle = Math.atan2(leaf.y - height / 2, leaf.x - width / 2) + rotationAngle;
+    const distance = Math.sqrt((leaf.x - width / 2) ** 2 + (leaf.y - height / 2) ** 2);
+    newXs.push(width / 2 + Math.cos(angle) * distance);
+    newYs.push(height / 2 + Math.sin(angle) * distance);
+  });
+
+  const colors = ['url(#gradient1)', 'url(#gradient2)', '#9682A3', '#1C64ED'];
+
+  const positionedLeaves = leaves.map((leaf, index) => {
+    const x = newXs[index];
+    const y = newYs[index];
+
+    return (
+      <G key={index} transform={`translate(${x},${y})`}>
+        <Circle r={leaf.r - 10} fill={colors[index % colors.length]} />
+        {index < leaves.length - 2 && (
+          <SVGText
+            fill="#FFFFFF"
+            fontSize={fontSizeGenerator(leaf.data.value)}
+            x="0"
+            y={leaf.data.value * 0.1}
+            textAnchor="middle"
+          >
+            {leaf.data.name}
+          </SVGText>
+        )}
+      </G>
     );
-  }
+  });
 
   return (
     <View style={styles.container}>
-      <Svg width={width || 400} height={height || 300}>
-        {leaves}
+      <Svg width={width} height={height}>
+        <Defs>
+          <RadialGradient id="gradient1" cx="50%" cy="0%" r="100%">
+            <Stop offset="17%" stopColor="#F375A6" />
+            <Stop offset="100%" stopColor="#F7B5D5" />
+          </RadialGradient>
+          <RadialGradient id="gradient2" cx="50%" cy="0%" r="100%">
+            <Stop offset="0%" stopColor="#4BC8C4" />
+            <Stop offset="100%" stopColor="#A8D7E0" />
+          </RadialGradient>
+        </Defs>
+        {positionedLeaves}
       </Svg>
     </View>
   );
@@ -67,6 +95,8 @@ const styles = StyleSheet.create({
     display: 'flex',
     width: '100%',
     alignSelf: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 
