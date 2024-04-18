@@ -29,14 +29,9 @@ const VoteChartContainer = ({ data }: VoteBubbleChartProps) => {
           총 투표 수: {data.totalVoted.toLocaleString('ko-KR')}표
         </Text>
       </View>
-      <BubbleChart height={340} width={WINDOW_WIDTH - 52} data={data_dummy} />
-      <TouchableOpacity style={styles.totalVotedButton} onPress={() => {}}>
-        <Text style={styles.totalVotedButtonText}>통합 투표 결과 보기</Text>
-      </TouchableOpacity>
-      <View style={styles.rankContainer}>
-        <Text style={styles.rankTitleText}>전체 투표 순위</Text>
+      <View style={styles.chartContainer}>
+        <BubbleChart height={340} width={WINDOW_WIDTH - 52} data={data_dummy} />
       </View>
-      <VoteRankContainer />
     </View>
   );
 };
@@ -47,12 +42,17 @@ const styles = StyleSheet.create({
     height: 400,
     flexDirection: 'column',
     alignItems: 'center',
+    marginBottom: 20,
   },
   topContainer: {
     marginTop: 30,
     width: '100%',
     flexDirection: 'column',
     alignItems: 'flex-start',
+  },
+  chartContainer: {
+    width: '100%',
+    alignItems: 'center',
   },
   rankContainer: {
     marginTop: 32,

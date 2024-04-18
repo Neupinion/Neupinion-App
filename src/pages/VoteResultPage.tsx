@@ -1,5 +1,5 @@
 import React from 'react';
-import { Dimensions, ImageSourcePropType, ScrollView, StyleSheet, TouchableOpacity, View } from "react-native";
+import { Dimensions, ImageSourcePropType, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import theme from '../shared/styles/theme';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useNavigation } from '@react-navigation/native';
@@ -13,6 +13,9 @@ import BookMarkSvg from '../assets/icon/bookmark.svg';
 import ShareSvg from '../assets/icon/share.svg';
 import VoteChartContainer from "../features/vote/components/VoteChartContainer";
 import { VotedDataDummy } from "../dummy/VotedDataDummy";
+import { WINDOW_WIDTH } from "../shared/constants/display";
+import VoteRankContainer from "../features/vote/components/VoteRankContainer";
+import fontFamily from "../shared/styles/fontFamily";
 
 const VoteResultPage = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
@@ -39,6 +42,16 @@ const VoteResultPage = () => {
       />
       <ScrollView style={styles.scrollViewStyle}>
         <VoteChartContainer data={VotedDataDummy} />
+        <View style={styles.underChartContainer}>
+          <TouchableOpacity style={styles.totalVotedButton} onPress={() => {}}>
+            <Text style={styles.totalVotedButtonText}>통합 투표 결과 보기</Text>
+          </TouchableOpacity>
+          <View style={styles.rankContainer}>
+            <Text style={styles.rankTitleText}>전체 투표 순위</Text>
+          </View>
+          <VoteRankContainer />
+        </View>
+        <View style={styles.divideLine}></View>
       </ScrollView>
     </View>
   );
@@ -66,6 +79,54 @@ const styles = StyleSheet.create({
     paddingHorizontal: 26,
     flexDirection: 'column',
     alignItems: 'flex-start',
+  },
+  underChartContainer: {
+    paddingHorizontal: 26,
+    marginBottom: 20,
+    alignItems: 'center',
+  },
+  divideLine: {
+    width: WINDOW_WIDTH,
+    height: 10,
+    marginVertical: 20,
+    flexShrink: 0,
+    backgroundColor: '#21202F',
+  },
+  rankContainer: {
+    marginTop: 32,
+    width: '100%',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+  },
+  totalVotedButton: {
+    display: 'flex',
+    borderRadius: 10,
+    width: 160,
+    height: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexShrink: 0,
+    backgroundColor: theme.color.gray3,
+    marginTop: 32,
+  },
+  totalVotedButtonText: {
+    fontFamily: fontFamily.pretendard.bold,
+    fontSize: 17,
+    fontStyle: 'normal',
+    fontWeight: '700',
+    lineHeight: 25.5,
+    letterSpacing: -0.51,
+    color: theme.color.white,
+    textAlign: 'center',
+  },
+  rankTitleText: {
+    fontFamily: fontFamily.pretendard.bold,
+    fontSize: 17,
+    fontStyle: 'normal',
+    fontWeight: '700',
+    lineHeight: 25.5,
+    letterSpacing: -0.51,
+    color: theme.color.white,
   },
 });
 
