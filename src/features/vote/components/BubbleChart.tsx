@@ -1,15 +1,14 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import * as d3 from 'd3';
-import Svg, { Circle, G, Defs, RadialGradient, Stop } from 'react-native-svg';
+import Svg, { Circle } from 'react-native-svg';
 import fontFamily from '../../../shared/styles/fontFamily';
 import theme from '../../../shared/styles/theme';
-
-interface DataTypeDummy {
-  name: string;
-  value: number;
-  children?: DataTypeDummy[];
-}
+import GradientBubble from './GradientBubble';
+import { bubbleColors } from '../constants/bubbleColor';
+import { getBubbleNameSize, getBubbleValueSize } from '../functions/fontSize';
+import { BUBBLE_DISTANCE, BUBBLE_SIZE_RATIO } from '../constants/bubbleConstants';
+import { DataTypeDummy } from '../types/bubbleGradient';
 
 interface BubbleChartProps {
   height: number;
@@ -19,58 +18,63 @@ interface BubbleChartProps {
 
 const BubbleChart = ({ height, width, data }: BubbleChartProps) => {
   const sortedData = [...data].sort((a, b) => b.value - a.value);
-
   const pack = (data: DataTypeDummy[]) =>
-    d3.pack<DataTypeDummy>().size([width, height]).padding(3)(
+    d3.pack<DataTypeDummy>().size([width, height]).padding(0)(
       d3.hierarchy<DataTypeDummy>({ children: data } as DataTypeDummy).sum((d) => d.value),
     );
   const root = pack(sortedData);
 
-  const leaves = root.leaves();
+  const bubbles = root.leaves();
   const rotationAngle = Math.PI / 4;
 
-  const newXs: number[] = [];
-  const newYs: number[] = [];
+  const bubbleX: number[] = [];
+  const bubbleY: number[] = [];
 
-  leaves.forEach((leaf: d3.HierarchyCircularNode<DataTypeDummy>) => {
+  bubbles.forEach((leaf: d3.HierarchyCircularNode<DataTypeDummy>) => {
     const angle = Math.atan2(leaf.y - height / 2, leaf.x - width / 2) + rotationAngle;
     const distance = Math.sqrt((leaf.x - width / 2) ** 2 + (leaf.y - height / 2) ** 2);
-    newXs.push(width / 2 + Math.cos(angle) * distance);
-    newYs.push(height / 2 + Math.sin(angle) * distance);
+    bubbleX.push(width / 2 + Math.cos(angle) * distance);
+    bubbleY.push(height / 2 + Math.sin(angle) * distance);
   });
-
-  const colors = ['url(#gradient1)', 'url(#gradient2)', '#1C64ED', '#9682A3'];
 
   return (
     <View style={styles.container}>
       <Svg width={width} height={height}>
-        <Defs>
-          <RadialGradient id="gradient1" cx="50%" cy="0%" r="100%">
-            <Stop offset="17%" stopColor="#F375A6" />
-            <Stop offset="100%" stopColor="#F7B5D5" />
-          </RadialGradient>
-          <RadialGradient id="gradient2" cx="50%" cy="0%" r="100%">
-            <Stop offset="0%" stopColor="#4BC8C4" />
-            <Stop offset="100%" stopColor="#A8D7E0" />
-          </RadialGradient>
-        </Defs>
-        {leaves.map((leaf, index) => (
+        <GradientBubble />
+        {bubbles.map((leaf, index) => (
           <React.Fragment key={index}>
             <Circle
-              cx={newXs[index]}
-              cy={newYs[index]}
-              r={leaf.r - 10}
-              fill={colors[index % colors.length]}
+              cx={bubbleX[index]}
+              cy={bubbleY[index]}
+              r={leaf.r * BUBBLE_SIZE_RATIO - BUBBLE_DISTANCE}
+              fill={bubbleColors[index % bubbleColors.length]}
             />
             {index < 2 && (
-              <Text
+              <View
                 style={[
-                  styles.bubbleFontStyle,
-                  { position: 'absolute', left: newXs[index] - leaf.r / 2, top: newYs[index] - 10 },
+                  styles.textContainer,
+                  {
+                    left: bubbleX[index] - leaf.r / 2,
+                    top: bubbleY[index] - leaf.r / 4,
+                    width: leaf.r,
+                    height: leaf.r / 2,
+                  },
                 ]}
               >
-                {leaf.data.name}
-              </Text>
+                <Text
+                  style={[styles.bubbleFontStyle, { fontSize: getBubbleNameSize(leaf.data.value) }]}
+                >
+                  {leaf.data.name}
+                </Text>
+                <Text
+                  style={[
+                    styles.bubbleFontStyle,
+                    { fontSize: getBubbleValueSize(leaf.data.value) },
+                  ]}
+                >
+                  {leaf.data.value + '%'}
+                </Text>
+              </View>
             )}
           </React.Fragment>
         ))}
@@ -87,11 +91,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  textContainer: {
+    position: 'absolute',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   bubbleFontStyle: {
     color: theme.color.white,
     fontFamily: fontFamily.pretendard.bold,
-    fontStyle: 'normal',
-    fontWeight: '600',
+    fontWeight: '700',
     textAlign: 'center',
   },
 });
