@@ -5,6 +5,7 @@ import fontFamily from '../../../shared/styles/fontFamily';
 import { BubbleChartDataSet } from '../types/bubbleChartData';
 import BubbleChart from './BubbleChart';
 import { WINDOW_WIDTH } from '../../../shared/constants/display';
+import VoteRankContainer from './VoteRankContainer';
 interface VoteBubbleChartProps {
   data: BubbleChartDataSet;
 }
@@ -35,6 +36,7 @@ const VoteChartContainer = ({ data }: VoteBubbleChartProps) => {
       <View style={styles.rankContainer}>
         <Text style={styles.rankTitleText}>전체 투표 순위</Text>
       </View>
+      <VoteRankContainer />
     </View>
   );
 };
