@@ -1,11 +1,11 @@
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import theme from '../../../shared/styles/theme';
 import fontFamily from '../../../shared/styles/fontFamily';
 import { BubbleChartDataSet } from '../types/bubbleChartData';
 import BubbleChart from './BubbleChart';
 import { WINDOW_WIDTH } from '../../../shared/constants/display';
-import VoteRankContainer from './VoteRankContainer';
+
 interface VoteBubbleChartProps {
   data: BubbleChartDataSet;
 }

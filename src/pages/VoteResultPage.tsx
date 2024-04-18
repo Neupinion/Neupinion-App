@@ -1,5 +1,13 @@
 import React from 'react';
-import { Dimensions, ImageSourcePropType, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import {
+  Dimensions,
+  ImageSourcePropType,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import theme from '../shared/styles/theme';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useNavigation } from '@react-navigation/native';
@@ -7,15 +15,13 @@ import { RootStackParamList } from '../rootStackParamList';
 import PageHeader from '../shared/components/PageHeader';
 import { WithLocalSvg } from 'react-native-svg';
 import MainArrowLeftSvg from '../assets/icon/mainarrowLeft.svg';
-import toggleBookmark from '../features/remakeissue/remotes/toggleBookmark';
-import AnotherBookMarkSvg from '../assets/icon/anotherbookmark.svg';
 import BookMarkSvg from '../assets/icon/bookmark.svg';
 import ShareSvg from '../assets/icon/share.svg';
-import VoteChartContainer from "../features/vote/components/VoteChartContainer";
-import { VotedDataDummy } from "../dummy/VotedDataDummy";
-import { WINDOW_WIDTH } from "../shared/constants/display";
-import VoteRankContainer from "../features/vote/components/VoteRankContainer";
-import fontFamily from "../shared/styles/fontFamily";
+import VoteChartContainer from '../features/vote/components/VoteChartContainer';
+import { VotedDataDummy } from '../dummy/VotedDataDummy';
+import { WINDOW_WIDTH } from '../shared/constants/display';
+import VoteRankContainer from '../features/vote/components/VoteRankContainer';
+import fontFamily from '../shared/styles/fontFamily';
 
 const VoteResultPage = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
