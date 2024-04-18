@@ -1,7 +1,9 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
 import * as d3 from 'd3';
-import Svg, { Circle, G, Text as SVGText, Defs, RadialGradient, Stop } from 'react-native-svg';
+import Svg, { Circle, G, Defs, RadialGradient, Stop } from 'react-native-svg';
+import fontFamily from '../../../shared/styles/fontFamily';
+import theme from '../../../shared/styles/theme';
 
 interface DataTypeDummy {
   name: string;
@@ -24,16 +26,6 @@ const BubbleChart = ({ height, width, data }: BubbleChartProps) => {
     );
   const root = pack(sortedData);
 
-  const fontSizeGenerator = (value: number) => {
-    if (value < 10) {
-      return 12;
-    } else if (value >= 10 && value < 50) {
-      return 16;
-    } else {
-      return 20;
-    }
-  };
-
   const leaves = root.leaves();
   const rotationAngle = Math.PI / 4;
 
@@ -47,29 +39,7 @@ const BubbleChart = ({ height, width, data }: BubbleChartProps) => {
     newYs.push(height / 2 + Math.sin(angle) * distance);
   });
 
-  const colors = ['url(#gradient1)', 'url(#gradient2)', '#9682A3', '#1C64ED'];
-
-  const positionedLeaves = leaves.map((leaf, index) => {
-    const x = newXs[index];
-    const y = newYs[index];
-
-    return (
-      <G key={index} transform={`translate(${x},${y})`}>
-        <Circle r={leaf.r - 10} fill={colors[index % colors.length]} />
-        {index < leaves.length - 2 && (
-          <SVGText
-            fill="#FFFFFF"
-            fontSize={fontSizeGenerator(leaf.data.value)}
-            x="0"
-            y={leaf.data.value * 0.1}
-            textAnchor="middle"
-          >
-            {leaf.data.name}
-          </SVGText>
-        )}
-      </G>
-    );
-  });
+  const colors = ['url(#gradient1)', 'url(#gradient2)', '#1C64ED', '#9682A3'];
 
   return (
     <View style={styles.container}>
@@ -84,7 +54,26 @@ const BubbleChart = ({ height, width, data }: BubbleChartProps) => {
             <Stop offset="100%" stopColor="#A8D7E0" />
           </RadialGradient>
         </Defs>
-        {positionedLeaves}
+        {leaves.map((leaf, index) => (
+          <React.Fragment key={index}>
+            <Circle
+              cx={newXs[index]}
+              cy={newYs[index]}
+              r={leaf.r - 10}
+              fill={colors[index % colors.length]}
+            />
+            {index < 2 && (
+              <Text
+                style={[
+                  styles.bubbleFontStyle,
+                  { position: 'absolute', left: newXs[index] - leaf.r / 2, top: newYs[index] - 10 },
+                ]}
+              >
+                {leaf.data.name}
+              </Text>
+            )}
+          </React.Fragment>
+        ))}
       </Svg>
     </View>
   );
@@ -97,6 +86,13 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  bubbleFontStyle: {
+    color: theme.color.white,
+    fontFamily: fontFamily.pretendard.bold,
+    fontStyle: 'normal',
+    fontWeight: '600',
+    textAlign: 'center',
   },
 });
 
