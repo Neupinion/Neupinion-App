@@ -5,7 +5,7 @@ import Svg, { Circle } from 'react-native-svg';
 import fontFamily from '../../../shared/styles/fontFamily';
 import theme from '../../../shared/styles/theme';
 import GradientBubble from './GradientBubble';
-import { bubbleColors, bubbleGradientColors } from '../constants/bubbleColor';
+import { getFillForBubble } from '../constants/bubbleColor';
 import { getBubbleNameSize, getBubbleValueSize } from '../functions/getBubbleFontSize';
 import { BUBBLE_DISTANCE, BUBBLE_SIZE_RATIO } from '../constants/bubbleConstants';
 import { VoteData } from '../types/bubbleChartData';
@@ -24,7 +24,7 @@ const BubbleChart = ({ height, width, data }: BubbleChartProps) => {
     );
   const root = pack(sortedData);
 
-  const bubbles = root.leaves();
+  const bubbles = root.leaves().filter((leaf) => leaf.data.votePercentage > 0);
   const rotationAngle = Math.PI / 4;
 
   const bubbleX: number[] = [];
@@ -40,18 +40,14 @@ const BubbleChart = ({ height, width, data }: BubbleChartProps) => {
   return (
     <View style={styles.container}>
       <Svg width={width} height={height}>
-        <GradientBubble />
+        <GradientBubble data={data} />
         {bubbles.map((leaf, index) => (
           <React.Fragment key={index}>
             <Circle
               cx={bubbleX[index]}
               cy={bubbleY[index]}
               r={leaf.r * BUBBLE_SIZE_RATIO - BUBBLE_DISTANCE}
-              fill={
-                index < 2
-                  ? bubbleGradientColors[index % bubbleGradientColors.length]
-                  : bubbleColors[index % bubbleColors.length]
-              }
+              fill={getFillForBubble(index, leaf.data.status)}
             />
             {index < 2 && (
               <View
