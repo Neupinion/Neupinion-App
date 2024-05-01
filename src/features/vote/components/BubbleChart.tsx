@@ -37,6 +37,12 @@ const BubbleChart = ({ height, width, data }: BubbleChartProps) => {
     bubbleY.push(height / 2 + Math.sin(angle) * distance);
   });
 
+  const calculateAdjustedRadius = (votePercentage: number) => {
+    const maxRadius = 125;
+    const minRadius = 30;
+    return minRadius + (maxRadius - minRadius) * (votePercentage / 100);
+  };
+
   return (
     <View style={styles.container}>
       <Svg width={width} height={height}>
@@ -46,7 +52,7 @@ const BubbleChart = ({ height, width, data }: BubbleChartProps) => {
             <Circle
               cx={bubbleX[index]}
               cy={bubbleY[index]}
-              r={leaf.r * BUBBLE_SIZE_RATIO - BUBBLE_DISTANCE}
+              r={calculateAdjustedRadius(leaf.data.votePercentage)}
               fill={getFillForBubble(index, leaf.data.status)}
             />
             {index < 2 && (

@@ -25,7 +25,6 @@ import fontFamily from '../shared/styles/fontFamily';
 import useFetch from '../shared/hooks/useFetch';
 import { getReprocessedIssueVote } from '../features/vote/remotes/reprocessedIssueVote';
 import GlobalTextStyles from '../shared/styles/GlobalTextStyles';
-import { VotedDataDummy } from "../dummy/VotedDataDummy";
 
 const VoteResultPage = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
@@ -82,7 +81,7 @@ const VoteResultPage = () => {
         }
       />
       <ScrollView style={styles.scrollViewStyle}>
-        <VoteChartContainer data={VotedDataDummy} />
+        <VoteChartContainer data={voteData} />
         <View style={styles.underChartContainer}>
           <TouchableOpacity style={styles.totalVotedButton} onPress={() => {}}>
             <Text style={styles.totalVotedButtonText}>통합 투표 결과 보기</Text>
