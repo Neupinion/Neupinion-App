@@ -35,7 +35,7 @@ const ReliabilityEvaluation = ({ navigation, issueId }: ReliabilityEvaluation) =
 
   const onClickVoteResult = () => {
     void submitVoteResult(issueId, selectedButton, reliabilityText);
-    navigation.navigate('VoteResultPage');
+    navigation.navigate('VoteResultPage', { id: issueId });
   };
 
   return (

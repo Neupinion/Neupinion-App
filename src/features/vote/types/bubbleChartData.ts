@@ -1,13 +1,12 @@
 export interface BubbleChartDataSet {
-  id: number;
-  mostVoted: string;
-  mostVotedNumber: number;
-  totalVoted: number;
+  totalVoteCount: number;
+  mostVotedCount: number;
+  mostVotedStatus: string;
   secondVote: string;
-  data: BubbleChartData[];
+  voteRankings: VoteData[];
 }
 
-export interface BubbleChartData {
-  id: string;
-  percent: number;
+export interface VoteData {
+  status: string;
+  votePercentage: number;
 }

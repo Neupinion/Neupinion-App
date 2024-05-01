@@ -5,5 +5,5 @@ export type RootStackParamList = {
   OpinionPin: undefined;
   Main: undefined;
   ReprocessedIssueDetailPage: { id: number };
-  VoteResultPage: undefined;
+  VoteResultPage: { id: number };
 };

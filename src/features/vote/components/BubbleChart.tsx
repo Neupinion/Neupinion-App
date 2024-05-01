@@ -5,7 +5,7 @@ import Svg, { Circle } from 'react-native-svg';
 import fontFamily from '../../../shared/styles/fontFamily';
 import theme from '../../../shared/styles/theme';
 import GradientBubble from './GradientBubble';
-import { bubbleColors } from '../constants/bubbleColor';
+import { bubbleColors, bubbleGradientColors } from '../constants/bubbleColor';
 import { getBubbleNameSize, getBubbleValueSize } from '../functions/getBubbleFontSize';
 import { BUBBLE_DISTANCE, BUBBLE_SIZE_RATIO } from '../constants/bubbleConstants';
 import { DataTypeDummy } from '../types/bubbleGradient';
@@ -47,7 +47,11 @@ const BubbleChart = ({ height, width, data }: BubbleChartProps) => {
               cx={bubbleX[index]}
               cy={bubbleY[index]}
               r={leaf.r * BUBBLE_SIZE_RATIO - BUBBLE_DISTANCE}
-              fill={bubbleColors[index % bubbleColors.length]}
+              fill={
+                index < 2
+                  ? bubbleGradientColors[index % bubbleGradientColors.length]
+                  : bubbleColors[index % bubbleColors.length]
+              }
             />
             {index < 2 && (
               <View

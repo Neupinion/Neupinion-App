@@ -24,6 +24,9 @@ const Navigation = () => {
             <Stack.Screen name="MainPage" component={MainPage} />
           </Stack.Group>
           <Stack.Group>
+            <Stack.Screen name="VoteResultPage" component={VoteResultPage} />
+          </Stack.Group>
+          <Stack.Group>
             <Stack.Screen
               name="ReprocessedIssueDetailPage"
               component={ReprocessedIssueDetailPage}
@@ -32,9 +35,6 @@ const Navigation = () => {
           <Stack.Group>
             <Stack.Screen name="OpinionPost" component={OpinionPostPage} />
             <Stack.Screen name="OpinionPin" component={OpinionPinPage} />
-          </Stack.Group>
-          <Stack.Group>
-            <Stack.Screen name="VoteResultPage" component={VoteResultPage} />
           </Stack.Group>
         </Stack.Navigator>
       </NavigationContainer>
