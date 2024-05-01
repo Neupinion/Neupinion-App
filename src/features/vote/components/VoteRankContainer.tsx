@@ -7,25 +7,33 @@ import LittleDoubtVoteSvg from '../../../assets/icon/littledoubtvote.svg';
 import { WithLocalSvg } from 'react-native-svg';
 import theme from '../../../shared/styles/theme';
 import fontFamily from '../../../shared/styles/fontFamily';
+import { TrustVoteData } from "../types/bubbleChartData";
+import { getRankColor, getRankIcon } from "../constants/rankConstants";
 
-const VoteRankContainer = () => {
-  const data_dummy = [
-    { name: '완전 의심', value: 56, icon: FullDoubtVoteSvg },
-    { name: '조금 신뢰', value: 26, icon: LittleTrustVoteSvg },
-    { name: '조금 의심', value: 10, icon: LittleDoubtVoteSvg },
-    { name: '완전 신뢰', value: 9, icon: FullTrustVoteSvg },
-  ];
+interface VoteRankContainerProps {
+  data: TrustVoteData;
+}
 
+const VoteRankContainer = ({ data }: VoteRankContainerProps) => {
   return (
     <View style={styles.container}>
-      {data_dummy.map((item, index) => (
+      {data.voteRankings.map((item, index) => (
         <View key={index} style={styles.item}>
           <View style={styles.leftContainer}>
             <Text style={styles.rank}>{index + 1}</Text>
-            <WithLocalSvg width={36} height={36} asset={item.icon as ImageSourcePropType} />
-            <Text style={styles.name}>{item.name}</Text>
+            <WithLocalSvg
+              width={36}
+              height={36}
+              asset={getRankIcon(index, item.status) as ImageSourcePropType}
+            />
+            <Text style={styles.name}>{item.status}</Text>
           </View>
-          <Text style={styles.value}>{item.value}%</Text>
+          <View style={styles.valueContainer}>
+            <View
+              style={[styles.colorBox, { backgroundColor: getRankColor(index, item.status) }]}
+            />
+            <Text style={styles.value}>{item.votePercentage}%</Text>
+          </View>
         </View>
       ))}
     </View>
@@ -83,6 +91,18 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     lineHeight: 24,
     letterSpacing: -0.48,
+  },
+  colorBox: {
+    width: 8,
+    height: 8,
+    justifyContent: 'center',
+  },
+  valueContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    gap: 8,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 
