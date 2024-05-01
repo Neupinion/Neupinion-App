@@ -2,35 +2,27 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import theme from '../../../shared/styles/theme';
 import fontFamily from '../../../shared/styles/fontFamily';
-import { BubbleChartDataSet } from '../types/bubbleChartData';
+import { TrustVoteData } from '../types/bubbleChartData';
 import BubbleChart from './BubbleChart';
 import { WINDOW_WIDTH } from '../../../shared/constants/display';
 
 interface VoteBubbleChartProps {
-  data: BubbleChartDataSet;
+  data: TrustVoteData;
 }
-
-const data_dummy = [
-  { name: '완전 의심', value: 56 },
-  { name: '조금 신뢰', value: 26 },
-  { name: '조금 의심', value: 10 },
-  { name: '완전 신뢰', value: 9 },
-];
-
 const VoteChartContainer = ({ data }: VoteBubbleChartProps) => {
   return (
     <View style={styles.container}>
       <View style={styles.topContainer}>
         <Text style={styles.voteResultText}>투표 결과</Text>
         <Text style={styles.mostVotedText}>
-          {data.mostVoted} {data.mostVotedNumber.toLocaleString('ko-KR')}표
+          {data.mostVotedStatus} {data.mostVotedCount.toLocaleString('ko-KR')}표
         </Text>
         <Text style={styles.totalVotedText}>
-          총 투표 수: {data.totalVoted.toLocaleString('ko-KR')}표
+          총 투표 수: {data.totalVoteCount.toLocaleString('ko-KR')}표
         </Text>
       </View>
       <View style={styles.chartContainer}>
-        <BubbleChart height={340} width={WINDOW_WIDTH - 52} data={data_dummy} />
+        <BubbleChart height={340} width={WINDOW_WIDTH - 52} data={data.voteRankings} />
       </View>
     </View>
   );

@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
+  ActivityIndicator,
   Dimensions,
   ImageSourcePropType,
   ScrollView,
@@ -18,16 +19,46 @@ import MainArrowLeftSvg from '../assets/icon/mainarrowLeft.svg';
 import BookMarkSvg from '../assets/icon/bookmark.svg';
 import ShareSvg from '../assets/icon/share.svg';
 import VoteChartContainer from '../features/vote/components/VoteChartContainer';
-import { VotedDataDummy } from '../dummy/VotedDataDummy';
 import { WINDOW_WIDTH } from '../shared/constants/display';
 import VoteRankContainer from '../features/vote/components/VoteRankContainer';
 import fontFamily from '../shared/styles/fontFamily';
+import useFetch from '../shared/hooks/useFetch';
+import { getReprocessedIssueVote } from '../features/vote/remotes/reprocessedIssueVote';
+import GlobalTextStyles from '../shared/styles/GlobalTextStyles';
 
 const VoteResultPage = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   type ScreenRouteProp = RouteProp<RootStackParamList, 'VoteResultPage'>;
   const route = useRoute<ScreenRouteProp>();
   const id: number = route.params.id;
+
+  const fetchReprocessedIssueVote = () => getReprocessedIssueVote(id);
+  const {
+    data: voteData,
+    isLoading,
+    error,
+    fetchData,
+  } = useFetch(fetchReprocessedIssueVote, false);
+
+  useEffect(() => {
+    void fetchData();
+  }, []);
+
+  if (isLoading) {
+    return (
+      <View style={styles.container}>
+        <ActivityIndicator size="large" style={styles.activityIndicator} />
+      </View>
+    );
+  }
+
+  if (error || !voteData) {
+    return (
+      <View style={styles.container}>
+        <Text style={GlobalTextStyles.NormalText17}>ERROR</Text>
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>
@@ -50,7 +81,7 @@ const VoteResultPage = () => {
         }
       />
       <ScrollView style={styles.scrollViewStyle}>
-        <VoteChartContainer data={VotedDataDummy} />
+        <VoteChartContainer data={voteData} />
         <View style={styles.underChartContainer}>
           <TouchableOpacity style={styles.totalVotedButton} onPress={() => {}}>
             <Text style={styles.totalVotedButtonText}>통합 투표 결과 보기</Text>
@@ -136,6 +167,10 @@ const styles = StyleSheet.create({
     lineHeight: 25.5,
     letterSpacing: -0.51,
     color: theme.color.white,
+  },
+  activityIndicator: {
+    flex: 1,
+    alignSelf: 'center',
   },
 });
 

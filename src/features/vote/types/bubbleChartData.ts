@@ -1,12 +1,12 @@
-export interface BubbleChartDataSet {
+export interface TrustVoteData {
   totalVoteCount: number;
   mostVotedCount: number;
   mostVotedStatus: string;
-  secondVote: string;
   voteRankings: VoteData[];
 }
 
 export interface VoteData {
   status: string;
   votePercentage: number;
+  children?: VoteData[];
 }

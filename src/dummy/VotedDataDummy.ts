@@ -1,27 +1,25 @@
-import { BubbleChartData, BubbleChartDataSet } from "../features/vote/types/bubbleChartData";
+import { TrustVoteData } from '../features/vote/types/bubbleChartData';
 
-export const VotedDataDummy: BubbleChartDataSet = {
-  id: 1,
-  mostVoted: '완전 의심',
-  totalVoted: 7000,
-  mostVotedNumber: 5342,
-  secondVote: '조금 신뢰',
-  data: [
+export const VotedDataDummy: TrustVoteData = {
+  totalVoteCount: 100,
+  mostVotedStatus: '매우 의심',
+  mostVotedCount: 30,
+  voteRankings: [
     {
-      id: '완전 의심',
-      percent: 56,
+      status: '매우 의심',
+      votePercentage: 30,
     },
     {
-      id: '조금 신뢰',
-      percent: 26,
+      status: '약간 의심',
+      votePercentage: 25,
     },
     {
-      id: '조금 의심',
-      percent: 10,
+      status: '약간 신뢰',
+      votePercentage: 25,
     },
     {
-      id: '완전 신뢰',
-      percent: 9,
+      status: '매우 신뢰',
+      votePercentage: 20,
     },
   ],
 };

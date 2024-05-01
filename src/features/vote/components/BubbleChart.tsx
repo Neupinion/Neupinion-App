@@ -8,19 +8,19 @@ import GradientBubble from './GradientBubble';
 import { bubbleColors, bubbleGradientColors } from '../constants/bubbleColor';
 import { getBubbleNameSize, getBubbleValueSize } from '../functions/getBubbleFontSize';
 import { BUBBLE_DISTANCE, BUBBLE_SIZE_RATIO } from '../constants/bubbleConstants';
-import { DataTypeDummy } from '../types/bubbleGradient';
+import { VoteData } from '../types/bubbleChartData';
 
 interface BubbleChartProps {
   height: number;
   width: number;
-  data: DataTypeDummy[];
+  data: VoteData[];
 }
 
 const BubbleChart = ({ height, width, data }: BubbleChartProps) => {
-  const sortedData = [...data].sort((a, b) => b.value - a.value);
-  const pack = (data: DataTypeDummy[]) =>
-    d3.pack<DataTypeDummy>().size([width, height]).padding(0)(
-      d3.hierarchy<DataTypeDummy>({ children: data } as DataTypeDummy).sum((d) => d.value),
+  const sortedData = [...data].sort((a, b) => b.votePercentage - a.votePercentage);
+  const pack = (data: VoteData[]) =>
+    d3.pack<VoteData>().size([width, height]).padding(0)(
+      d3.hierarchy<VoteData>({ children: data } as VoteData).sum((d) => d.votePercentage),
     );
   const root = pack(sortedData);
 
@@ -30,7 +30,7 @@ const BubbleChart = ({ height, width, data }: BubbleChartProps) => {
   const bubbleX: number[] = [];
   const bubbleY: number[] = [];
 
-  bubbles.forEach((leaf: d3.HierarchyCircularNode<DataTypeDummy>) => {
+  bubbles.forEach((leaf: d3.HierarchyCircularNode<VoteData>) => {
     const angle = Math.atan2(leaf.y - height / 2, leaf.x - width / 2) + rotationAngle;
     const distance = Math.sqrt((leaf.x - width / 2) ** 2 + (leaf.y - height / 2) ** 2);
     bubbleX.push(width / 2 + Math.cos(angle) * distance);
@@ -66,17 +66,20 @@ const BubbleChart = ({ height, width, data }: BubbleChartProps) => {
                 ]}
               >
                 <Text
-                  style={[styles.bubbleFontStyle, { fontSize: getBubbleNameSize(leaf.data.value) }]}
+                  style={[
+                    styles.bubbleFontStyle,
+                    { fontSize: getBubbleNameSize(leaf.data.votePercentage) },
+                  ]}
                 >
-                  {leaf.data.name}
+                  {leaf.data.status}
                 </Text>
                 <Text
                   style={[
                     styles.bubbleFontStyle,
-                    { fontSize: getBubbleValueSize(leaf.data.value) },
+                    { fontSize: getBubbleValueSize(leaf.data.votePercentage) },
                   ]}
                 >
-                  {leaf.data.value + '%'}
+                  {leaf.data.votePercentage + '%'}
                 </Text>
               </View>
             )}
