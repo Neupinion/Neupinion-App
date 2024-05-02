@@ -5,7 +5,7 @@ import fontFamily from '../../../shared/styles/fontFamily';
 import { TrustVoteData } from '../types/bubbleChartData';
 import BubbleChart from './BubbleChart';
 import { BUBBLE_CHART_HEIGHT, BUBBLE_CHART_WIDTH } from '../constants/bubbleChartSize';
-import { formatNumber } from "../../../shared/utils/formatNumber";
+import { formatNumber } from '../../../shared/utils/formatNumber';
 
 interface VoteBubbleChartProps {
   data: TrustVoteData;
