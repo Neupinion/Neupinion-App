@@ -7,7 +7,6 @@ import theme from '../../../shared/styles/theme';
 import GradientBubble from './GradientBubble';
 import { getFillForBubble } from '../constants/bubbleColor';
 import { getBubbleNameSize, getBubbleValueSize } from '../functions/getBubbleFontSize';
-import { BUBBLE_DISTANCE, BUBBLE_SIZE_RATIO } from '../constants/bubbleConstants';
 import { VoteData } from '../types/bubbleChartData';
 
 interface BubbleChartProps {

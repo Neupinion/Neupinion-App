@@ -4,7 +4,7 @@ import theme from '../../../shared/styles/theme';
 import fontFamily from '../../../shared/styles/fontFamily';
 import { TrustVoteData } from '../types/bubbleChartData';
 import BubbleChart from './BubbleChart';
-import { WINDOW_WIDTH } from '../../../shared/constants/display';
+import { BUBBLE_CHART_HEIGHT, BUBBLE_CHART_WIDTH } from '../constants/bubbleChartSize';
 
 interface VoteBubbleChartProps {
   data: TrustVoteData;
@@ -22,7 +22,11 @@ const VoteChartContainer = ({ data }: VoteBubbleChartProps) => {
         </Text>
       </View>
       <View style={styles.chartContainer}>
-        <BubbleChart height={340} width={WINDOW_WIDTH - 52} data={data.voteRankings} />
+        <BubbleChart
+          height={BUBBLE_CHART_HEIGHT}
+          width={BUBBLE_CHART_WIDTH}
+          data={data.voteRankings}
+        />
       </View>
     </View>
   );
