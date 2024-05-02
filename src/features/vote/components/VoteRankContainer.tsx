@@ -1,14 +1,10 @@
 import React from 'react';
 import { StyleSheet, View, Text, ImageSourcePropType } from 'react-native';
-import FullTrustVoteSvg from '../../../assets/icon/fulltrustvote.svg';
-import FullDoubtVoteSvg from '../../../assets/icon/fulldoubtvote.svg';
-import LittleTrustVoteSvg from '../../../assets/icon/littletrustvote.svg';
-import LittleDoubtVoteSvg from '../../../assets/icon/littledoubtvote.svg';
 import { WithLocalSvg } from 'react-native-svg';
 import theme from '../../../shared/styles/theme';
 import fontFamily from '../../../shared/styles/fontFamily';
-import { TrustVoteData } from "../types/bubbleChartData";
-import { getRankColor, getRankIcon } from "../constants/rankConstants";
+import { TrustVoteData } from '../types/bubbleChartData';
+import { getRankColor, getRankIcon } from '../constants/rankConstants';
 
 interface VoteRankContainerProps {
   data: TrustVoteData;

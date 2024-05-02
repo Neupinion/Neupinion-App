@@ -25,6 +25,7 @@ import fontFamily from '../shared/styles/fontFamily';
 import useFetch from '../shared/hooks/useFetch';
 import { getReprocessedIssueVote } from '../features/vote/remotes/reprocessedIssueVote';
 import GlobalTextStyles from '../shared/styles/GlobalTextStyles';
+import TopOpinionSlider from "../features/vote/components/TopOpinionSlider";
 
 const VoteResultPage = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
@@ -91,7 +92,8 @@ const VoteResultPage = () => {
           </View>
           <VoteRankContainer data={voteData} />
         </View>
-        <View style={styles.divideLine}></View>
+        <View style={styles.divideLine} />
+        <TopOpinionSlider id={id} />
       </ScrollView>
     </View>
   );
