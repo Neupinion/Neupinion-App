@@ -15,7 +15,7 @@ export const TopOpinionDummy: Opinion[] = [
     isLiked: true,
   },
   {
-    id: 1,
+    id: 2,
     memberId: 2,
     nickname: '김철수',
     profileImageUrl: 'https://www.neupinion.com/profile/1',
@@ -28,7 +28,7 @@ export const TopOpinionDummy: Opinion[] = [
     isLiked: true,
   },
   {
-    id: 1,
+    id: 3,
     memberId: 3,
     nickname: '김철수',
     profileImageUrl: 'https://www.neupinion.com/profile/1',
@@ -41,7 +41,7 @@ export const TopOpinionDummy: Opinion[] = [
     isLiked: true,
   },
   {
-    id: 1,
+    id: 4,
     memberId: 4,
     nickname: '김철수',
     profileImageUrl: 'https://www.neupinion.com/profile/1',
@@ -54,7 +54,7 @@ export const TopOpinionDummy: Opinion[] = [
     isLiked: true,
   },
   {
-    id: 1,
+    id: 5,
     memberId: 5,
     nickname: '김철수',
     profileImageUrl: 'https://www.neupinion.com/profile/1',
