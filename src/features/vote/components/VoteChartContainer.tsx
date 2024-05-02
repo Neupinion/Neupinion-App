@@ -5,6 +5,7 @@ import fontFamily from '../../../shared/styles/fontFamily';
 import { TrustVoteData } from '../types/bubbleChartData';
 import BubbleChart from './BubbleChart';
 import { BUBBLE_CHART_HEIGHT, BUBBLE_CHART_WIDTH } from '../constants/bubbleChartSize';
+import { formatNumber } from "../../../shared/utils/formatNumber";
 
 interface VoteBubbleChartProps {
   data: TrustVoteData;
@@ -15,11 +16,9 @@ const VoteChartContainer = ({ data }: VoteBubbleChartProps) => {
       <View style={styles.topContainer}>
         <Text style={styles.voteResultText}>투표 결과</Text>
         <Text style={styles.mostVotedText}>
-          {data.mostVotedStatus} {data.mostVotedCount.toLocaleString('ko-KR')}표
+          {data.mostVotedStatus} {formatNumber(data.mostVotedCount)}표
         </Text>
-        <Text style={styles.totalVotedText}>
-          총 투표 수: {data.totalVoteCount.toLocaleString('ko-KR')}표
-        </Text>
+        <Text style={styles.totalVotedText}>총 투표 수: {formatNumber(data.totalVoteCount)}표</Text>
       </View>
       <View style={styles.chartContainer}>
         <BubbleChart
