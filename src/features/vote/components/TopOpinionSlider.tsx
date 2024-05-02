@@ -30,10 +30,18 @@ const TopOpinionSlider = ({ id }: TopOpinionSliderProps) => {
     );
   }
 
-  if (error || !TopOpinions) {
+  if (error) {
     return (
       <View style={styles.container}>
         <Text style={GlobalTextStyles.NormalText17}>ERROR</Text>
+      </View>
+    );
+  }
+
+  if (!TopOpinions) {
+    return (
+      <View style={styles.container}>
+        <Text style={GlobalTextStyles.NormalText17}>No Data</Text>
       </View>
     );
   }

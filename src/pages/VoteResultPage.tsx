@@ -25,7 +25,7 @@ import fontFamily from '../shared/styles/fontFamily';
 import useFetch from '../shared/hooks/useFetch';
 import { getReprocessedIssueVote } from '../features/vote/remotes/reprocessedIssueVote';
 import GlobalTextStyles from '../shared/styles/GlobalTextStyles';
-import TopOpinionSlider from "../features/vote/components/TopOpinionSlider";
+import TopOpinionSlider from '../features/vote/components/TopOpinionSlider';
 
 const VoteResultPage = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
@@ -53,10 +53,18 @@ const VoteResultPage = () => {
     );
   }
 
-  if (error || !voteData) {
+  if (error) {
     return (
       <View style={styles.container}>
         <Text style={GlobalTextStyles.NormalText17}>ERROR</Text>
+      </View>
+    );
+  }
+
+  if (!voteData) {
+    return (
+      <View style={styles.container}>
+        <Text style={GlobalTextStyles.NormalText17}>No Data</Text>
       </View>
     );
   }
