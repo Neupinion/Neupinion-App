@@ -1,12 +1,5 @@
 import React, { useEffect } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  Dimensions,
-  TouchableOpacity,
-  ImageSourcePropType,
-} from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ImageSourcePropType } from 'react-native';
 import GlobalTextStyles from '../../../shared/styles/GlobalTextStyles';
 import theme from '../../../shared/styles/theme';
 import { WithLocalSvg } from 'react-native-svg';
@@ -14,6 +7,7 @@ import MainArrowSvg from '../../../assets/icon/mainarrow.svg';
 import CategoryLatestNewsItem from './CategoryLatestNewsItem';
 import { getSameCategoryReprocessedIssues } from '../remotes/sameCategoryReprocessedIssue';
 import useFetch from '../../../shared/hooks/useFetch';
+import { WINDOW_WIDTH } from '../../../shared/constants/display';
 interface CategoryLatestNewsProps {
   current: number;
   category: string;
@@ -49,7 +43,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   titleContainer: {
-    width: Dimensions.get('window').width,
+    width: WINDOW_WIDTH,
     marginTop: 20,
     marginBottom: 16,
     flexDirection: 'row',
@@ -71,7 +65,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   flatListStyle: {
-    width: Dimensions.get('window').width,
+    width: WINDOW_WIDTH,
     marginBottom: 50,
   },
 });

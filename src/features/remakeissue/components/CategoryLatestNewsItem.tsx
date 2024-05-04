@@ -1,8 +1,9 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Dimensions, Image } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import theme from '../../../shared/styles/theme';
 import { SameCategoryReprocessedIssue } from '../../../shared/types/news';
 import { formatDate } from '../constants/formatDate';
+import { WINDOW_WIDTH } from '../../../shared/constants/display';
 
 interface CategoryLatestNewsSliderItemProps {
   item: SameCategoryReprocessedIssue;
@@ -30,13 +31,13 @@ const CategoryLatestNewsItem = ({ item, category }: CategoryLatestNewsSliderItem
 
 const styles = StyleSheet.create({
   container: {
-    width: Dimensions.get('window').width,
+    width: WINDOW_WIDTH,
     justifyContent: 'center',
     alignItems: 'flex-start',
     marginLeft: 26,
   },
   card: {
-    width: Dimensions.get('window').width - 52,
+    width: WINDOW_WIDTH - 52,
     height: 93,
     flexDirection: 'row',
     justifyContent: 'space-between',
