@@ -1,7 +1,8 @@
 import React from 'react';
-import { Dimensions, Image, StyleSheet, Text, View } from 'react-native';
+import { Image, StyleSheet, Text, View } from 'react-native';
 import { ReprocessedIssueId } from '../../../shared/types/news';
 import { formatDate } from '../../remakeissue/constants/formatDate';
+import { WINDOW_WIDTH } from '../../../shared/constants/display';
 
 interface OpinionPinIssueProps {
   reprocessedIssue: ReprocessedIssueId;
@@ -30,7 +31,7 @@ const OpinionPinIssue = ({ reprocessedIssue }: OpinionPinIssueProps) => {
 const styles = StyleSheet.create({
   issueContainer: {
     marginTop: 24,
-    width: Dimensions.get('window').width,
+    width: WINDOW_WIDTH,
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',

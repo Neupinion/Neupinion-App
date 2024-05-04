@@ -1,12 +1,5 @@
 import React, { useState } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  Dimensions,
-  ImageSourcePropType,
-  TouchableOpacity,
-} from 'react-native';
+import { View, Text, StyleSheet, ImageSourcePropType, TouchableOpacity } from 'react-native';
 import GlobalTextStyles from '../../../shared/styles/GlobalTextStyles';
 import ReliabiltyBackGroundSvg from '../../../assets/icon/reliabiltybackground2.svg';
 import { WithLocalSvg } from 'react-native-svg';
@@ -17,7 +10,16 @@ import Moon3Svg from '../../../assets/icon/moon3.svg';
 import Moon4Svg from '../../../assets/icon/moon4.svg';
 import { reliabilityText } from '../constants/reliabilty';
 import submitVoteResult from '../remotes/submitVoteResult';
-const ReliabilityEvaluation = ({ issueId }: { issueId: number }) => {
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from '../../../rootStackParamList';
+import { WINDOW_WIDTH } from '../../../shared/constants/display';
+
+interface ReliabilityEvaluation {
+  navigation: StackNavigationProp<RootStackParamList>;
+  issueId: number;
+}
+
+const ReliabilityEvaluation = ({ navigation, issueId }: ReliabilityEvaluation) => {
   const moons = [
     { id: 1, SvgComponent: Moon1Svg },
     { id: 2, SvgComponent: Moon2Svg },
@@ -29,6 +31,11 @@ const ReliabilityEvaluation = ({ issueId }: { issueId: number }) => {
   const MOON_SVG_HEIGHT = 66.94156;
   const handleButtonPress = (buttonNumber: number) => {
     setSelectedButton(buttonNumber);
+  };
+
+  const onClickVoteResult = () => {
+    void submitVoteResult(issueId, selectedButton, reliabilityText);
+    navigation.navigate('VoteResultPage', { id: issueId });
   };
 
   return (
@@ -66,10 +73,7 @@ const ReliabilityEvaluation = ({ issueId }: { issueId: number }) => {
           </Text>
         ))}
       </View>
-      <TouchableOpacity
-        style={styles.submitButton}
-        onPress={() => submitVoteResult(issueId, selectedButton, reliabilityText)}
-      >
+      <TouchableOpacity style={styles.submitButton} onPress={onClickVoteResult}>
         <Text style={styles.buttonText}>투표하고 결과보기</Text>
       </TouchableOpacity>
     </View>
@@ -83,13 +87,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   titleContainer: {
-    width: Dimensions.get('window').width,
+    width: WINDOW_WIDTH,
     marginTop: 30,
     flexDirection: 'row',
     alignItems: 'flex-start',
   },
   ReliabiltyBackGroundSvg: {
-    width: Dimensions.get('window').width - 52,
+    width: WINDOW_WIDTH - 52,
     marginTop: 30,
     alignItems: 'center',
     opacity: 1,

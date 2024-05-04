@@ -1,11 +1,12 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { Animated, Dimensions, StyleSheet, Text, View } from 'react-native';
+import { Animated, StyleSheet, Text, View } from 'react-native';
 import { ReProcessedIssue } from '../../../shared/types/news';
 import FakeIssueItem from './FakeIssueItem';
 import { ITEM_SIZE } from '../constants/cardAniSize';
 import Indicator from './Indicator';
 import FakeIssueIcon from './FakeIssueIcon';
 import { invisibleLeftCardData, invisibleRightCardData } from '../constants/invisibleCardData';
+import { WINDOW_WIDTH } from '../../../shared/constants/display';
 
 interface FakeIssueProps {
   fakeNews: ReProcessedIssue[] | null;
@@ -76,7 +77,7 @@ const FakeIssueSlider = ({ fakeNews, onClickIssue }: FakeIssueProps) => {
 
 const styles = StyleSheet.create({
   container: {
-    width: Dimensions.get('window').width,
+    width: WINDOW_WIDTH,
     marginTop: 20,
     height: 340,
     flexDirection: 'column',
@@ -87,7 +88,7 @@ const styles = StyleSheet.create({
     height: 280,
   },
   emptyContainer: {
-    width: Dimensions.get('window').width,
+    width: WINDOW_WIDTH,
     height: 340,
     flexDirection: 'column',
     alignItems: 'center',

@@ -7,7 +7,6 @@ import {
 } from '../functions/getSubCategoryName';
 import {
   ActivityIndicator,
-  Dimensions,
   ScrollView,
   StyleSheet,
   Text,
@@ -19,6 +18,7 @@ import useFetch from '../../../shared/hooks/useFetch';
 import { getFollowUpIssues } from '../remotes/followupissue';
 import FollowUpIssueSlider from './FollowUpIssueSlider';
 import { useDate } from '../../date/provider/DateProvider';
+import { WINDOW_WIDTH } from '../../../shared/constants/display';
 
 const FollowUpIssueContainer = () => {
   // 첫 번째 MainCategory 값을 찾아서 초기 상태로 설정
@@ -153,11 +153,11 @@ const FollowUpIssueContainer = () => {
 
 const styles = StyleSheet.create({
   container: {
-    width: Dimensions.get('window').width,
+    width: WINDOW_WIDTH,
     marginTop: 16,
   },
   sliderContainer: {
-    width: Dimensions.get('window').width,
+    width: WINDOW_WIDTH,
     height: 350,
   },
   mainCategoryContainer: {
@@ -182,7 +182,7 @@ const styles = StyleSheet.create({
     letterSpacing: -0.48,
   },
   mainUnderLine: {
-    width: Dimensions.get('window').width,
+    width: WINDOW_WIDTH,
     height: 1,
     backgroundColor: 'rgba(226, 226, 226, 0.1)',
   },
@@ -254,7 +254,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
   },
   emptyContainer: {
-    width: Dimensions.get('window').width,
+    width: WINDOW_WIDTH,
     height: 340,
     flexDirection: 'column',
     alignItems: 'center',

@@ -1,16 +1,10 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  Dimensions,
-  ImageSourcePropType,
-} from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ImageSourcePropType } from 'react-native';
 import theme from '../../../shared/styles/theme';
 import { FollowUpIssue } from '../../../shared/types/news';
 import RightArrowSvg from '../../../assets/icon/rightarrow.svg';
 import { WithLocalSvg } from 'react-native-svg';
+import { WINDOW_WIDTH } from '../../../shared/constants/display';
 
 interface AfterIssueItemProps {
   item: FollowUpIssue;
@@ -42,7 +36,7 @@ const AfterIssueItem = ({ item }: AfterIssueItemProps) => {
 
 const styles = StyleSheet.create({
   container: {
-    width: Dimensions.get('window').width,
+    width: WINDOW_WIDTH,
     height: 80,
     justifyContent: 'center',
     alignItems: 'center',

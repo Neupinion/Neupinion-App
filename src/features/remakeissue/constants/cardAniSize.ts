@@ -1,4 +1,4 @@
-import { Dimensions } from 'react-native';
+import { WINDOW_WIDTH } from '../../../shared/constants/display';
 
-export const ITEM_SIZE = Dimensions.get('window').width * 0.76;
-export const SPACER_ITEM_SIZE = (Dimensions.get('window').width - ITEM_SIZE) / 2;
+export const ITEM_SIZE = WINDOW_WIDTH * 0.76;
+export const SPACER_ITEM_SIZE = (WINDOW_WIDTH - ITEM_SIZE) / 2;

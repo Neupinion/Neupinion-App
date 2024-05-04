@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from 'react';
 import {
-  Dimensions,
   View,
   Text,
   StyleSheet,
@@ -26,6 +25,7 @@ import { OpinionWrite } from '../../../shared/types/news';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../../../rootStackParamList';
 import useFetch from '../../../shared/hooks/useFetch';
+import { WINDOW_HEIGHT, WINDOW_WIDTH } from '../../../shared/constants/display';
 
 interface OpinionWriteBottomSheetProps {
   navigation: StackNavigationProp<RootStackParamList>;
@@ -42,7 +42,7 @@ const OpinionWriteBottomSheet = ({
 }: OpinionWriteBottomSheetProps) => {
   const { openModal, closeModal } = useModal();
 
-  const panY = useRef(new Animated.Value(Dimensions.get('screen').height)).current;
+  const panY = useRef(new Animated.Value(WINDOW_HEIGHT)).current;
 
   const openBottomSheet = () => createOpenBottomSheetAnimation(panY).start();
 
@@ -209,7 +209,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 25,
   },
   modifyButton: {
-    width: Dimensions.get('window').width - 50,
+    width: WINDOW_WIDTH - 50,
     backgroundColor: theme.color.main,
     justifyContent: 'center',
     alignItems: 'center',
@@ -228,7 +228,7 @@ const styles = StyleSheet.create({
     letterSpacing: -0.51,
   },
   deleteButton: {
-    width: Dimensions.get('window').width - 50,
+    width: WINDOW_WIDTH - 50,
     backgroundColor: '#212A3C',
     justifyContent: 'center',
     alignItems: 'center',

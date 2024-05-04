@@ -1,17 +1,18 @@
 import { FollowUpIssue } from '../../../shared/types/news';
-import { Dimensions, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
 import theme from '../../../shared/styles/theme';
 import { formatDate } from '../../remakeissue/constants/formatDate';
 import { LinearGradient } from 'expo-linear-gradient';
+import { WINDOW_WIDTH } from '../../../shared/constants/display';
 
 interface FollowUpIssueItemProps {
   item: FollowUpIssue;
   index: number;
 }
 
-const CARD_ITEM_SIZE = Dimensions.get('window').width * 0.915;
-const CARD_SPACER_ITEM_SIZE = (Dimensions.get('window').width - CARD_ITEM_SIZE) / 2;
+const CARD_ITEM_SIZE = WINDOW_WIDTH * 0.915;
+const CARD_SPACER_ITEM_SIZE = (WINDOW_WIDTH - CARD_ITEM_SIZE) / 2;
 const FollowUpIssueItem = ({ item, index }: FollowUpIssueItemProps) => {
   if (!item.title) {
     return <View style={{ width: CARD_SPACER_ITEM_SIZE }}></View>;
