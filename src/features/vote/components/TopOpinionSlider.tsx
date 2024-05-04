@@ -1,10 +1,12 @@
 import React, { useEffect } from 'react';
-import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, FlatList, StyleSheet, Text, View } from "react-native";
 import theme from '../../../shared/styles/theme';
 import fontFamily from '../../../shared/styles/fontFamily';
 import useFetch from '../../../shared/hooks/useFetch';
 import { getReprocessedIssueTopOpinion } from '../remotes/topOpinion';
 import GlobalTextStyles from '../../../shared/styles/GlobalTextStyles';
+import { TopOpinionDummy } from "../../../dummy/TopOpinionDummy";
+import OpinionPaper from "../../../shared/components/Opinion/OpinionPaper";
 
 interface TopOpinionSliderProps {
   id: number;
@@ -49,6 +51,11 @@ const TopOpinionSlider = ({ id }: TopOpinionSliderProps) => {
   return (
     <View style={styles.container}>
       <Text style={styles.titleText}>통합 베스트 Top 5 의견</Text>
+      <FlatList
+        horizontal
+        data={TopOpinionDummy}
+        renderItem={({ item }) => <OpinionPaper opinion={item} />}
+      ></FlatList>
     </View>
   );
 };

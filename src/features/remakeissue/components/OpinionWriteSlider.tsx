@@ -161,7 +161,7 @@ const styles = StyleSheet.create({
   card: {
     alignItems: 'flex-start',
     justifyContent: 'flex-start',
-    backgroundColor: theme.color.gray7,
+    backgroundColor: theme.color.gray2,
     width: 160,
     height: 165,
     paddingVertical: 18,
@@ -221,7 +221,7 @@ const styles = StyleSheet.create({
     borderLeftWidth: 18,
     borderBottomWidth: 18,
     borderLeftColor: 'transparent',
-    borderBottomColor: '#11111A',
+    borderBottomColor: theme.color.BG,
     position: 'absolute',
     right: 0,
     bottom: 0,

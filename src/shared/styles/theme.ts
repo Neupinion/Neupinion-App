@@ -1,5 +1,6 @@
 interface ColorPalette {
   main: string;
+  BG: string;
   sub: string;
   black: string;
   gray: string;
@@ -26,11 +27,12 @@ interface Theme {
 const theme: Theme = {
   color: {
     main: '#7E58E9',
+    BG: '#11111A',
     sub: '#FF5730',
     black: '#0A0A0A',
     gray: '#191926',
     gray1: '#191926',
-    gray2: '#7E7D7A',
+    gray2: '#212A3C',
     gray3: '#394358',
     gray4: '#4E5867',
     gray5: '#394358',

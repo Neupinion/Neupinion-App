@@ -184,7 +184,7 @@ const OpinionPostPage = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: theme.color.black,
+    backgroundColor: theme.color.BG,
     flexDirection: 'column',
     alignItems: 'center',
   },
