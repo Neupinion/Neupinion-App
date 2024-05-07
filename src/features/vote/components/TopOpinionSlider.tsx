@@ -53,6 +53,7 @@ const TopOpinionSlider = ({ id }: TopOpinionSliderProps) => {
       <Text style={styles.titleText}>통합 베스트 Top 5 의견</Text>
       <FlatList
         horizontal
+        showsHorizontalScrollIndicator={false}
         contentContainerStyle={styles.cardContainer}
         data={TopOpinionDummy}
         renderItem={({ item }) => <OpinionPaper opinion={item} />}
@@ -63,7 +64,7 @@ const TopOpinionSlider = ({ id }: TopOpinionSliderProps) => {
 
 const styles = StyleSheet.create({
   container: {
-    height: 400,
+    display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     marginBottom: 20,

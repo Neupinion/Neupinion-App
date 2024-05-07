@@ -26,6 +26,7 @@ import useFetch from '../shared/hooks/useFetch';
 import { getReprocessedIssueVote } from '../features/vote/remotes/reprocessedIssueVote';
 import GlobalTextStyles from '../shared/styles/GlobalTextStyles';
 import TopOpinionSlider from '../features/vote/components/TopOpinionSlider';
+import FollowUpIssueSlider from "../features/vote/components/FollowUpIssueSlider";
 
 const VoteResultPage = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
@@ -102,6 +103,11 @@ const VoteResultPage = () => {
         </View>
         <View style={styles.divideLine} />
         <TopOpinionSlider id={id} />
+        <TouchableOpacity style={styles.opinionPageButton} onPress={() => {}}>
+          <Text style={styles.totalVotedButtonText}>의견 보기</Text>
+        </TouchableOpacity>
+        <View style={styles.divideLine} />
+        <FollowUpIssueSlider />
       </ScrollView>
     </View>
   );
@@ -181,6 +187,23 @@ const styles = StyleSheet.create({
   activityIndicator: {
     flex: 1,
     alignSelf: 'center',
+  },
+  topFiveOpinionContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  opinionPageButton: {
+    display: 'flex',
+    borderRadius: 10,
+    width: 160,
+    height: 50,
+    justifyContent: 'center',
+    alignSelf: 'center',
+    alignItems: 'center',
+    flexShrink: 0,
+    backgroundColor: theme.color.gray3,
+    marginTop: 28,
+    marginBottom: 20,
   },
 });
 
