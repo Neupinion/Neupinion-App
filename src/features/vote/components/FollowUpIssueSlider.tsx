@@ -1,11 +1,60 @@
-import React from 'react';
-import { FlatList, StyleSheet, Text, View } from 'react-native';
+import React, { useEffect } from 'react';
+import { ActivityIndicator, FlatList, StyleSheet, Text, View } from 'react-native';
 import fontFamily from '../../../shared/styles/fontFamily';
 import theme from '../../../shared/styles/theme';
-import followUpIssueDummy from '../../../dummy/FollowUpIssueDummy';
 import FollowUpIssueCardGradient from '../../../shared/components/FollowUpIssue/FollowUpIssueCardGradient';
+import { getFollowUpIssueByIdVotePage } from '../remotes/getFollowUpIssue';
+import useFetch from '../../../shared/hooks/useFetch';
+import GlobalTextStyles from '../../../shared/styles/GlobalTextStyles';
+import followUpIssueDummy from '../../../dummy/FollowUpIssueDummy';
 
-const FollowUpIssueSlider = () => {
+interface FollowUpIssueSliderProps {
+  id: number;
+}
+const FollowUpIssueSlider = ({ id }: FollowUpIssueSliderProps) => {
+  const fetchFollowUpIssue = () => getFollowUpIssueByIdVotePage(id);
+  const {
+    data: followUpIssuesVotePageItem,
+    isLoading,
+    error,
+    fetchData,
+  } = useFetch(fetchFollowUpIssue, false);
+
+  useEffect(() => {
+    void fetchData();
+  }, []);
+
+  if (isLoading) {
+    return (
+      <View style={styles.container}>
+        <ActivityIndicator size="large" style={styles.activityIndicator} />
+      </View>
+    );
+  }
+
+  if (error) {
+    return (
+      <View style={styles.container}>
+        <Text style={GlobalTextStyles.NormalText17}>ERROR</Text>
+      </View>
+    );
+  }
+
+  if (!followUpIssuesVotePageItem || followUpIssuesVotePageItem.followUpIssues.length === 0) {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.titleText}>후속 이슈</Text>
+        <FlatList
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={styles.cardContainer}
+          data={followUpIssueDummy}
+          renderItem={({ item }) => <FollowUpIssueCardGradient item={item} />}
+        ></FlatList>
+      </View>
+    );
+  }
+
   return (
     <View style={styles.container}>
       <Text style={styles.titleText}>후속 이슈</Text>
@@ -13,7 +62,7 @@ const FollowUpIssueSlider = () => {
         horizontal
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={styles.cardContainer}
-        data={followUpIssueDummy}
+        data={followUpIssuesVotePageItem.followUpIssues}
         renderItem={({ item }) => <FollowUpIssueCardGradient item={item} />}
       ></FlatList>
     </View>

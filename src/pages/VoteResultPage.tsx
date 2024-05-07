@@ -108,7 +108,7 @@ const VoteResultPage = () => {
           <Text style={styles.totalVotedButtonText}>의견 보기</Text>
         </TouchableOpacity>
         <View style={styles.divideLine} />
-        <FollowUpIssueSlider />
+        <FollowUpIssueSlider id={id} />
         <View style={styles.divideLine} />
         <RecommendIssues />
       </ScrollView>

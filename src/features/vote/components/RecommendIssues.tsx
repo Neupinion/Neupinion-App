@@ -1,12 +1,10 @@
 import React from 'react';
-import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import fontFamily from '../../../shared/styles/fontFamily';
 import theme from '../../../shared/styles/theme';
 import followUpIssueDummy from '../../../dummy/FollowUpIssueDummy';
-import FollowUpIssueCardGradient from '../../../shared/components/FollowUpIssue/FollowUpIssueCardGradient';
-import CategoryLatestNewsItem from "../../remakeissue/components/CategoryLatestNewsItem";
-import { formatDate } from "../../remakeissue/constants/formatDate";
-import { WINDOW_WIDTH } from "../../../shared/constants/display";
+import { formatDate } from '../../remakeissue/constants/formatDate';
+import { WINDOW_WIDTH } from '../../../shared/constants/display';
 
 const RecommendIssues = () => {
   return (
