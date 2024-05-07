@@ -27,6 +27,7 @@ import { getReprocessedIssueVote } from '../features/vote/remotes/reprocessedIss
 import GlobalTextStyles from '../shared/styles/GlobalTextStyles';
 import TopOpinionSlider from '../features/vote/components/TopOpinionSlider';
 import FollowUpIssueSlider from "../features/vote/components/FollowUpIssueSlider";
+import RecommendIssues from "../features/vote/components/RecommendIssues";
 
 const VoteResultPage = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
@@ -108,6 +109,8 @@ const VoteResultPage = () => {
         </TouchableOpacity>
         <View style={styles.divideLine} />
         <FollowUpIssueSlider />
+        <View style={styles.divideLine} />
+        <RecommendIssues />
       </ScrollView>
     </View>
   );
