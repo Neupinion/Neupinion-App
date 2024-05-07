@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
-import { ActivityIndicator, FlatList, StyleSheet, Text, View } from "react-native";
+import { ActivityIndicator, FlatList, StyleSheet, Text, View } from 'react-native';
 import theme from '../../../shared/styles/theme';
 import fontFamily from '../../../shared/styles/fontFamily';
 import useFetch from '../../../shared/hooks/useFetch';
 import { getReprocessedIssueTopOpinion } from '../remotes/topOpinion';
 import GlobalTextStyles from '../../../shared/styles/GlobalTextStyles';
-import { TopOpinionDummy } from "../../../dummy/TopOpinionDummy";
-import OpinionPaper from "../../../shared/components/Opinion/OpinionPaper";
+import { TopOpinionDummy } from '../../../dummy/TopOpinionDummy';
+import OpinionPaper from '../../../shared/components/Opinion/OpinionPaper';
 
 interface TopOpinionSliderProps {
   id: number;
@@ -53,6 +53,7 @@ const TopOpinionSlider = ({ id }: TopOpinionSliderProps) => {
       <Text style={styles.titleText}>통합 베스트 Top 5 의견</Text>
       <FlatList
         horizontal
+        contentContainerStyle={styles.cardContainer}
         data={TopOpinionDummy}
         renderItem={({ item }) => <OpinionPaper opinion={item} />}
       ></FlatList>
@@ -62,13 +63,13 @@ const TopOpinionSlider = ({ id }: TopOpinionSliderProps) => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 26,
     height: 400,
     flexDirection: 'column',
     alignItems: 'center',
     marginBottom: 20,
   },
   titleText: {
+    paddingHorizontal: 26,
     fontFamily: fontFamily.pretendard.bold,
     fontSize: 17,
     fontStyle: 'normal',
@@ -77,6 +78,11 @@ const styles = StyleSheet.create({
     letterSpacing: -0.51,
     color: theme.color.white,
     width: '100%',
+  },
+  cardContainer: {
+    paddingHorizontal: 26,
+    marginTop: 16,
+    gap: 16,
   },
   opinionContainer: {
     height: 206,
