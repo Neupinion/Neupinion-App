@@ -1,4 +1,4 @@
-import { ImageSourcePropType, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { ImageSourcePropType, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
 import theme from '../../styles/theme';
 import { WithLocalSvg } from 'react-native-svg';
@@ -28,8 +28,17 @@ const OpinionPaper = ({ opinion }: OpinionPaperProps) => {
         </View>
         <View style={styles.dotLine} />
         <View style={styles.cardBottom}>
-          <View style={styles.tagContainer}>
-            <Text style={styles.tagText}>의심</Text>
+          <View
+            style={[
+              styles.tagContainer,
+              {
+                backgroundColor: opinion.isReliable
+                  ? theme.trustColor.fullyTrust
+                  : theme.trustColor.fullyDoubt,
+              },
+            ]}
+          >
+            <Text style={styles.tagText}>{opinion.isReliable ? '신뢰' : '의심'}</Text>
           </View>
           <Text style={styles.opinionText} numberOfLines={3}>
             {opinion.content}

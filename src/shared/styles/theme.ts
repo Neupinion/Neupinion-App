@@ -14,6 +14,12 @@ interface ColorPalette {
   white: string;
 }
 
+interface TrustPalette {
+  fullyTrust: string;
+  fullyDoubt: string;
+  littleTrust: string;
+  littleDoubt: string;
+}
 interface GradientPalette {
   gradient1: string[];
   gradient2: string[];
@@ -22,6 +28,7 @@ interface GradientPalette {
 interface Theme {
   color: ColorPalette;
   gradient: GradientPalette;
+  trustColor: TrustPalette;
 }
 
 const theme: Theme = {
@@ -43,6 +50,12 @@ const theme: Theme = {
   gradient: {
     gradient1: ['#1D1E27', '#7A7B86'],
     gradient2: ['#22222E', '#12121E'],
+  },
+  trustColor: {
+    fullyTrust: '#1C64ED',
+    fullyDoubt: '#FF75AB',
+    littleTrust: '#1CD9D3',
+    littleDoubt: '#9682A3',
   },
 };
 
