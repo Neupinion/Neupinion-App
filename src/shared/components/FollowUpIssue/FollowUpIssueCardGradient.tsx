@@ -5,10 +5,10 @@ import theme from '../../../shared/styles/theme';
 import { LinearGradient } from 'expo-linear-gradient';
 import { formatDate } from '../../../features/remakeissue/constants/formatDate';
 import fontFamily from '../../styles/fontFamily';
-import { FollowUpIssueVotePageItem } from "../../../features/vote/types/followUpIssueVotePage";
+import { FollowUpIssueVotePageItem } from '../../../features/vote/types/followUpIssueVotePage';
 
 interface FollowUpIssueCardGradientProps {
-  item: FollowUpIssueVotePageItem;
+  item: FollowUpIssueVotePageItem | FollowUpIssue;
 }
 
 const FollowUpIssueCardGradient = ({ item }: FollowUpIssueCardGradientProps) => {
