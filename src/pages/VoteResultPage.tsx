@@ -27,7 +27,7 @@ import { getReprocessedIssueVote } from '../features/vote/remotes/reprocessedIss
 import GlobalTextStyles from '../shared/styles/GlobalTextStyles';
 import TopOpinionSlider from '../features/vote/components/TopOpinionSlider';
 import FollowUpIssueSlider from "../features/vote/components/FollowUpIssueSlider";
-import RecommendIssues from "../features/vote/components/RecommendIssues";
+import RelatedIssues from "../features/vote/components/RelatedIssues";
 
 const VoteResultPage = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
@@ -110,7 +110,7 @@ const VoteResultPage = () => {
         <View style={styles.divideLine} />
         <FollowUpIssueSlider id={id} />
         <View style={styles.divideLine} />
-        <RecommendIssues />
+        <RelatedIssues id={id} />
       </ScrollView>
     </View>
   );

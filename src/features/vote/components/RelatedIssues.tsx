@@ -1,16 +1,74 @@
-import React from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import React, { useEffect } from 'react';
+import { ActivityIndicator, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import fontFamily from '../../../shared/styles/fontFamily';
 import theme from '../../../shared/styles/theme';
 import followUpIssueDummy from '../../../dummy/FollowUpIssueDummy';
 import { formatDate } from '../../remakeissue/constants/formatDate';
 import { WINDOW_WIDTH } from '../../../shared/constants/display';
+import { getRelatedIssuesById } from '../remotes/getRecommendIssuesByCategory';
+import useFetch from '../../../shared/hooks/useFetch';
+import GlobalTextStyles from '../../../shared/styles/GlobalTextStyles';
 
-const RecommendIssues = () => {
+interface RecommendIssuesProps {
+  id: number;
+}
+
+const RelatedIssues = ({ id }: RecommendIssuesProps) => {
+  const fetchRecommendIssueByCategory = () => getRelatedIssuesById(id);
+  const {
+    data: followUpIssues,
+    isLoading,
+    error,
+    fetchData,
+  } = useFetch(fetchRecommendIssueByCategory, false);
+
+  useEffect(() => {
+    void fetchData();
+  }, []);
+
+  if (isLoading) {
+    return (
+      <View style={styles.container}>
+        <ActivityIndicator size="large" style={styles.activityIndicator} />
+      </View>
+    );
+  }
+
+  if (error) {
+    console.log(error.message);
+    return (
+      <View style={styles.container}>
+        <Text style={GlobalTextStyles.NormalText17}>ERROR</Text>
+      </View>
+    );
+  }
+
+  if (!followUpIssues || followUpIssues.length === 0) {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.titleText}>이 뉴스도 한번 봐보세요</Text>
+        {followUpIssueDummy.map((item, index) => (
+          <TouchableOpacity key={index} style={styles.card} onPress={() => {}}>
+            <View style={styles.leftContainer}>
+              <Text style={styles.cardTitleText}>{item.title}</Text>
+              <View style={styles.titleUnderContainer}>
+                <View style={styles.tagBox}>
+                  <Text style={styles.tagText}>국제</Text>
+                </View>
+                <Text style={styles.dateText}>{formatDate(item.createdAt)}</Text>
+              </View>
+            </View>
+            <View style={styles.cardImage} />
+          </TouchableOpacity>
+        ))}
+      </View>
+    );
+  }
+
   return (
     <View style={styles.container}>
       <Text style={styles.titleText}>이 뉴스도 한번 봐보세요</Text>
-      {followUpIssueDummy.map((item, index) => (
+      {followUpIssues.map((item, index) => (
         <TouchableOpacity key={index} style={styles.card} onPress={() => {}}>
           <View style={styles.leftContainer}>
             <Text style={styles.cardTitleText}>{item.title}</Text>
@@ -112,5 +170,9 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     backgroundColor: theme.color.white,
   },
+  activityIndicator: {
+    flex: 1,
+    alignSelf: 'center',
+  },
 });
-export default RecommendIssues;
+export default RelatedIssues;
