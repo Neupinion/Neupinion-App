@@ -4,7 +4,7 @@ import { FollowUpIssue } from '../../types/news';
 import theme from '../../../shared/styles/theme';
 import { LinearGradient } from 'expo-linear-gradient';
 import { formatDate } from '../../../features/remakeissue/constants/formatDate';
-import fontFamily from "../../styles/fontFamily";
+import fontFamily from '../../styles/fontFamily';
 
 interface FollowUpIssueCardGradientProps {
   item: FollowUpIssue;

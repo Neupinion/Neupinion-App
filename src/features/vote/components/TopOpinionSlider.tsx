@@ -7,6 +7,7 @@ import { getReprocessedIssueTopOpinion } from '../remotes/topOpinion';
 import GlobalTextStyles from '../../../shared/styles/GlobalTextStyles';
 import { TopOpinionDummy } from '../../../dummy/TopOpinionDummy';
 import OpinionPaper from '../../../shared/components/Opinion/OpinionPaper';
+import EmptyOpinionScreen from "../../../shared/components/Opinion/EmptyOpinionScreen";
 
 interface TopOpinionSliderProps {
   id: number;
@@ -40,10 +41,12 @@ const TopOpinionSlider = ({ id }: TopOpinionSliderProps) => {
     );
   }
 
-  if (!TopOpinions) {
+  if (!TopOpinions || TopOpinions.length === 0) {
     return (
       <View style={styles.container}>
-        <Text style={GlobalTextStyles.NormalText17}>No Data</Text>
+        <Text style={styles.titleText}>통합 베스트 Top 5 의견</Text>
+        <View style={{ marginTop: 60 }}></View>
+        <EmptyOpinionScreen />
       </View>
     );
   }
@@ -55,7 +58,7 @@ const TopOpinionSlider = ({ id }: TopOpinionSliderProps) => {
         horizontal
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={styles.cardContainer}
-        data={TopOpinionDummy}
+        data={TopOpinions}
         renderItem={({ item }) => <OpinionPaper opinion={item} />}
       ></FlatList>
     </View>
