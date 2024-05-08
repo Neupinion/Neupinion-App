@@ -38,7 +38,7 @@ const TotalOpinionBigCard = () => {
       </View>
       <View style={{ flexDirection: 'row', marginTop: 16 }}>
         <TouchableOpacity style={{ marginRight: 4 }} onPress={() => UpdateFavorite()}>
-          {/*<WithLocalSvg width={18} height={18} asset={FavoriteSvg as ImageSourcePropType} />*/}
+          <WithLocalSvg width={18} height={18} asset={FavoriteSvg as ImageSourcePropType} />
         </TouchableOpacity>
         <Text style={styles.sentenceText}>2,000</Text>
       </View>
