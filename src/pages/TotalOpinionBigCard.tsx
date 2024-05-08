@@ -1,5 +1,12 @@
 import React from 'react';
-import { Dimensions, ImageSourcePropType, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import {
+  Dimensions,
+  ImageSourcePropType,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import theme from '../shared/styles/theme';
 import { WithLocalSvg } from 'react-native-svg';
 import BookMarkSvg from '../assets/icon/bookmark.svg';
@@ -18,12 +25,14 @@ const TotalOpinionBigCard = () => {
           <Text style={styles.dateText}>2024년 3월 5일 21:00</Text>
         </View>
       </View>
-      <View style={styles.positionIndicator}>
-        <Text style={styles.positionText}>신뢰</Text>
+      <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10, marginVertical: 20,}}>
+        <View style={styles.positionIndicator}>
+          <Text style={styles.positionText}>신뢰</Text>
+        </View>
+        <Text style={styles.userOpinionText}>
+          최초로 게시된 곳이 공신력 있는 매체가 아니고 트위터라서 신뢰도가 떨어지는 듯.
+        </Text>
       </View>
-      <Text style={styles.userOpinionText}>
-        최초로 게시된 곳이 공신력 있는 매체가 아니고 트위터라서 신뢰도가 떨어지는 듯.
-      </Text>
       <View style={styles.pinSentenceContainer}>
         <View style={styles.pinContainer}>
           <WithLocalSvg width={20} height={20} asset={OpinionPin as ImageSourcePropType} />
@@ -36,7 +45,7 @@ const TotalOpinionBigCard = () => {
           </Text>
         </View>
       </View>
-      <View style={{ flexDirection: 'row', marginTop: 16 }}>
+      <View style={{ flexDirection: 'row', marginTop: 21 }}>
         <TouchableOpacity style={{ marginRight: 4 }} onPress={() => UpdateFavorite()}>
           <WithLocalSvg width={18} height={18} asset={FavoriteSvg as ImageSourcePropType} />
         </TouchableOpacity>
@@ -77,7 +86,7 @@ const styles = StyleSheet.create({
     width: 40,
     height: 22,
     borderRadius: 85,
-    backgroundColor: '#224A24',
+    backgroundColor: '#FF75AB', // #1C64ED = 신뢰일 떄
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: 10,
@@ -109,7 +118,6 @@ const styles = StyleSheet.create({
     paddingLeft: 12,
     paddingRight: 20,
     alignItems: 'flex-start',
-    marginTop: 4,
     backgroundColor: '#212A3C',
     borderRadius: 10,
   },
