@@ -19,11 +19,11 @@ import BookMarkSvg from '../assets/icon/bookmark.svg';
 import ShareSvg from '../assets/icon/share.svg';
 import { WINDOW_WIDTH } from '../shared/constants/display';
 import fontFamily from '../shared/styles/fontFamily';
-import { TotalVotedDataDummy } from "../dummy/TotalVotedDataDummy";
-import TotalVoteChartContainer from "../features/totalvote/components/TotalVoteChartContainer";
-import VoteRankContainer from "../features/vote/components/VoteRankContainer";
-import { VotedDataDummy } from "../dummy/VotedDataDummy";
-import RelatedIssues from "../features/vote/components/RelatedIssues";
+import { TotalVotedDataDummy } from '../dummy/TotalVotedDataDummy';
+import TotalVoteChartContainer from '../features/totalvote/components/TotalVoteChartContainer';
+import VoteRankContainer from '../features/vote/components/VoteRankContainer';
+import { VotedDataDummy } from '../dummy/VotedDataDummy';
+import RelatedIssues from '../features/vote/components/RelatedIssues';
 const TotalVoteResultPage = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   type ScreenRouteProp = RouteProp<RootStackParamList, 'TotalVoteResultPage'>;
@@ -53,15 +53,15 @@ const TotalVoteResultPage = () => {
       <ScrollView style={styles.scrollViewStyle}>
         <TotalVoteChartContainer data={TotalVotedDataDummy} />
         <View style={styles.underChartContainer}>
-          <TouchableOpacity style={styles.totalVotedButton} onPress={() => {}}>
-            <Text style={styles.totalVotedButtonText}>통합 투표 결과 보기</Text>
-          </TouchableOpacity>
           <View style={styles.rankContainer}>
             <Text style={styles.rankTitleText}>전체 투표 순위</Text>
           </View>
           <VoteRankContainer data={VotedDataDummy} />
         </View>
         <View style={styles.divideLine} />
+        <View style={styles.timeLineContainer}>
+          <Text style={styles.rankTitleText}>타임라인 살펴보기</Text>
+        </View>
         {/*<TopOpinionSlider id={id} />*/}
         <View style={styles.divideLine} />
         <RelatedIssues id={id} />
@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#21202F',
   },
   rankContainer: {
-    marginTop: 32,
+    marginTop: 52,
     width: '100%',
     flexDirection: 'column',
     alignItems: 'flex-start',
@@ -161,6 +161,12 @@ const styles = StyleSheet.create({
     backgroundColor: theme.color.gray3,
     marginTop: 28,
     marginBottom: 20,
+  },
+  timeLineContainer: {
+    paddingHorizontal: 26,
+    marginBottom: 20,
+    flexDirection: 'column',
+    alignItems: 'flex-start',
   },
 });
 
