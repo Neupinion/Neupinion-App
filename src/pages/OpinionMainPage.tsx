@@ -4,6 +4,7 @@ import theme from '../shared/styles/theme';
 import TotalOpinionPage from './TotalOpinionPage';
 import fontFamily from '../shared/styles/fontFamily';
 import ParagraphOpinionPage from './ParagraphOpinionPage';
+import OpinionPageCategory from './OpinionPageCategory';
 
 const OpinionMainPage = () => {
   const mainOpinionCategories = ['전체', '문단별 보기'];
@@ -28,7 +29,7 @@ const OpinionMainPage = () => {
           </TouchableOpacity>
         ))}
       </View>
-      {/*<OpinionPageCategory />*/}
+      <OpinionPageCategory />
       {activeButton === '전체' ? <TotalOpinionPage /> : <ParagraphOpinionPage />}
     </View>
   );
