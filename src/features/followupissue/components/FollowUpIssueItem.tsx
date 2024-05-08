@@ -5,6 +5,7 @@ import theme from '../../../shared/styles/theme';
 import { formatDate } from '../../remakeissue/constants/formatDate';
 import { LinearGradient } from 'expo-linear-gradient';
 import { WINDOW_WIDTH } from '../../../shared/constants/display';
+import fontFamily from "../../../shared/styles/fontFamily";
 
 interface FollowUpIssueItemProps {
   item: FollowUpIssue;
@@ -80,6 +81,7 @@ const styles = StyleSheet.create({
   },
   titleText: {
     color: theme.color.white,
+    fontFamily: fontFamily.pretendard.bold,
     fontSize: 16,
     fontStyle: 'normal',
     fontWeight: '700',
@@ -96,6 +98,7 @@ const styles = StyleSheet.create({
   },
   dateText: {
     color: 'rgba(255, 255, 255, 0.5)',
+    fontFamily: fontFamily.pretendard.medium,
     fontSize: 12,
     fontStyle: 'normal',
     fontWeight: 'normal',
@@ -117,6 +120,7 @@ const styles = StyleSheet.create({
   },
   firstTitle: {
     color: theme.color.white,
+    fontFamily: fontFamily.pretendard.medium,
     fontSize: 16,
     fontStyle: 'normal',
     fontWeight: '700',
@@ -125,6 +129,7 @@ const styles = StyleSheet.create({
   },
   firstContext: {
     color: theme.color.white,
+    fontFamily: fontFamily.pretendard.medium,
     fontStyle: 'normal',
     fontSize: 14,
     fontWeight: '500',
@@ -154,6 +159,7 @@ const styles = StyleSheet.create({
   },
   tagText: {
     color: theme.color.white,
+    fontFamily: fontFamily.pretendard.medium,
     fontStyle: 'normal',
     fontSize: 12,
     fontWeight: '500',
