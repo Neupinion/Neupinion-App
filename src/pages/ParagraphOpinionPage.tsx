@@ -1,11 +1,11 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import TotalOpinionBigCard from './TotalOpinionBigCard';
+import ParagraphOpinionBigCard from './ParagraphOpinionBigCard';
 
-const TotalOpinionPage = () => {
+const ParagraphOpinionPage = () => {
   return (
     <View style={styles.container}>
-      <TotalOpinionBigCard />
+      <ParagraphOpinionBigCard />
     </View>
   );
 };
@@ -17,4 +17,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default TotalOpinionPage;
+export default ParagraphOpinionPage;
