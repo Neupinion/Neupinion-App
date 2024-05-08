@@ -19,6 +19,8 @@ import BookMarkSvg from '../assets/icon/bookmark.svg';
 import ShareSvg from '../assets/icon/share.svg';
 import { WINDOW_WIDTH } from '../shared/constants/display';
 import fontFamily from '../shared/styles/fontFamily';
+import { TotalVotedDataDummy } from "../dummy/TotalVotedDataDummy";
+import TotalVoteChartContainer from "../features/totalvote/components/TotalVoteChartContainer";
 const TotalVoteResultPage = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   type ScreenRouteProp = RouteProp<RootStackParamList, 'TotalVoteResultPage'>;
@@ -45,27 +47,27 @@ const TotalVoteResultPage = () => {
           </>
         }
       />
-      {/*<ScrollView style={styles.scrollViewStyle}>*/}
-      {/*  <VoteChartContainer data={voteData} />*/}
-      {/*  <View style={styles.underChartContainer}>*/}
-      {/*    <TouchableOpacity style={styles.totalVotedButton} onPress={() => {}}>*/}
-      {/*      <Text style={styles.totalVotedButtonText}>통합 투표 결과 보기</Text>*/}
-      {/*    </TouchableOpacity>*/}
-      {/*    <View style={styles.rankContainer}>*/}
-      {/*      <Text style={styles.rankTitleText}>전체 투표 순위</Text>*/}
-      {/*    </View>*/}
-      {/*    <VoteRankContainer data={voteData} />*/}
-      {/*  </View>*/}
-      {/*  <View style={styles.divideLine} />*/}
-      {/*  <TopOpinionSlider id={id} />*/}
-      {/*  <TouchableOpacity style={styles.opinionPageButton} onPress={() => {}}>*/}
-      {/*    <Text style={styles.totalVotedButtonText}>의견 보기</Text>*/}
-      {/*  </TouchableOpacity>*/}
-      {/*  <View style={styles.divideLine} />*/}
-      {/*  <FollowUpIssueSlider id={id} />*/}
-      {/*  <View style={styles.divideLine} />*/}
-      {/*  <RelatedIssues id={id} />*/}
-      {/*</ScrollView>*/}
+      <ScrollView style={styles.scrollViewStyle}>
+        <TotalVoteChartContainer data={TotalVotedDataDummy} />
+        <View style={styles.underChartContainer}>
+          <TouchableOpacity style={styles.totalVotedButton} onPress={() => {}}>
+            <Text style={styles.totalVotedButtonText}>통합 투표 결과 보기</Text>
+          </TouchableOpacity>
+          <View style={styles.rankContainer}>
+            <Text style={styles.rankTitleText}>전체 투표 순위</Text>
+          </View>
+          {/*<VoteRankContainer data={TotalVotedDataDummy} />*/}
+        </View>
+        <View style={styles.divideLine} />
+        {/*<TopOpinionSlider id={id} />*/}
+        <TouchableOpacity style={styles.opinionPageButton} onPress={() => {}}>
+          <Text style={styles.totalVotedButtonText}>의견 보기</Text>
+        </TouchableOpacity>
+        <View style={styles.divideLine} />
+        {/*<FollowUpIssueSlider id={id} />*/}
+        <View style={styles.divideLine} />
+        {/*<RelatedIssues id={id} />*/}
+      </ScrollView>
     </View>
   );
 };
