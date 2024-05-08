@@ -1,8 +1,9 @@
 import React from 'react';
-import { View, StyleSheet, Text, ImageBackground } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity, Image } from 'react-native';
 import { ReProcessedIssue } from '../../../shared/types/news';
-import Theme from '../../../shared/styles/theme';
 import { formatDate } from '../constants/formatDate';
+import theme from '../../../shared/styles/theme';
+import fontFamily from '../../../shared/styles/fontFamily';
 
 interface CategoryItemProps {
   item: ReProcessedIssue;
@@ -10,59 +11,97 @@ interface CategoryItemProps {
 
 const CategoryItem = ({ item }: CategoryItemProps) => {
   return (
-    <View style={styles.cardContainer}>
-      <ImageBackground source={{ uri: item.imageUrl }} style={styles.cardImage} />
+    <TouchableOpacity style={styles.card}>
+      <Image source={{ uri: item.imageUrl }} style={styles.cardImage} />
       <View style={styles.cardUnderContainer}>
-        <Text style={styles.firstText} numberOfLines={1} ellipsizeMode="tail">
+        <Text style={styles.titleText} numberOfLines={1} ellipsizeMode="tail">
           {item.title}
         </Text>
-        <View style={{ flexDirection: 'row', marginTop: 12 }}>
+        <View style={styles.titleUnderContainer}>
           <View style={styles.tagBox}>
             <Text style={styles.tagText}>{item.category}</Text>
           </View>
           <Text style={styles.dateText}> {formatDate(item.createdAt)} </Text>
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
-  cardContainer: {
+  card: {
     width: 240,
     height: 249,
-    backgroundColor: Theme.color.gray,
-    marginLeft: 20,
+    backgroundColor: theme.color.gray1,
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    gap: 0,
     justifyContent: 'center',
-    borderRadius: 15,
-    overflow: 'hidden',
-  },
-  firstText: {
-    fontSize: 16,
-    fontWeight: '700',
-    color: Theme.color.white,
+    borderRadius: 10,
   },
   cardImage: {
-    width: 240,
-    height: 160,
+    width: '100%',
+    height: 163,
+    backgroundColor: 'white',
     resizeMode: 'cover',
+    alignSelf: 'center',
+    borderTopRightRadius: 10,
+    borderTopLeftRadius: 10,
   },
   cardUnderContainer: {
-    marginHorizontal: 22,
-    marginVertical: 16,
+    display: 'flex',
+    height: 86,
+    paddingHorizontal: 22,
+    gap: 12,
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    justifyContent: 'center',
   },
-  tagText: {
-    fontSize: 12,
-    color: Theme.color.white,
+  titleText: {
+    width: 196,
+    color: theme.color.white,
+    fontFamily: fontFamily.pretendard.bold,
+    fontSize: 16,
+    fontStyle: 'normal',
+    fontWeight: '700',
+    lineHeight: 24,
+    letterSpacing: -0.48,
+  },
+  titleUnderContainer: {
+    width: 222,
+    flexDirection: 'row',
+    alignItems: 'flex-start',
   },
   tagBox: {
-    padding: 3,
-    backgroundColor: Theme.color.gray1,
-    borderRadius: 5,
+    display: 'flex',
+    height: 22,
+    paddingVertical: 2,
+    paddingHorizontal: 6,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 4,
+    backgroundColor: theme.color.gray3,
     marginRight: 5,
+    marginBottom: 5,
+  },
+  tagText: {
+    color: theme.color.white,
+    fontFamily: fontFamily.pretendard.medium,
+    fontSize: 12,
+    fontStyle: 'normal',
+    fontWeight: '500',
+    lineHeight: 18,
+    letterSpacing: -0.5,
   },
   dateText: {
-    color: Theme.color.gray2,
+    color: theme.color.gray5,
+    fontFamily: fontFamily.pretendard.medium,
+    fontStyle: 'normal',
+    fontSize: 12,
+    fontWeight: '500',
+    lineHeight: 18,
+    letterSpacing: -0.5,
+    marginTop: 2,
   },
 });
 export default CategoryItem;

@@ -44,8 +44,9 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   flatListContainer: {
-    paddingVertical: 20,
-    paddingRight: 20,
+    paddingHorizontal: 26,
+    marginVertical: 20,
+    gap: 16,
   },
   emptyContainer: {
     width: WINDOW_WIDTH,
