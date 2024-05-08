@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, ImageSourcePropType } from 'react-native';
 import theme from '../shared/styles/theme';
 import TotalOpinionPage from './TotalOpinionPage';
 import fontFamily from '../shared/styles/fontFamily';
 import ParagraphOpinionPage from './ParagraphOpinionPage';
 import OpinionPageCategory from './OpinionPageCategory';
+import PageHeader from '../shared/components/PageHeader';
+import { WithLocalSvg } from 'react-native-svg';
+import MainArrowLeftSvg from '../assets/icon/mainarrowLeft.svg';
+import { WINDOW_WIDTH } from '../shared/constants/display';
 
 const OpinionMainPage = () => {
   const mainOpinionCategories = ['전체', '문단별 보기'];
@@ -15,7 +19,16 @@ const OpinionMainPage = () => {
 
   return (
     <View style={styles.container}>
-      <View style={{ height: 40, backgroundColor: theme.color.main }}></View>
+      <PageHeader
+        leftIcons={
+          <TouchableOpacity>
+            <WithLocalSvg height={25} asset={MainArrowLeftSvg as ImageSourcePropType} />
+          </TouchableOpacity>
+        }
+        centerText={'의견보기'}
+        RightIcons={null}
+      />
+      <View style={styles.headerUnderLine} />
       <View style={styles.topMainOpinionPage}>
         {mainOpinionCategories.map((category, index) => (
           <TouchableOpacity
@@ -45,6 +58,7 @@ const styles = StyleSheet.create({
     height: 24,
     marginBottom: 12,
     marginLeft: 26,
+    marginTop: 18,
     // backgroundColor: theme.color.gray5,
   },
   mainCategory: {
@@ -67,6 +81,11 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     lineHeight: 24,
     letterSpacing: -0.48,
+  },
+  headerUnderLine: {
+    width: WINDOW_WIDTH,
+    height: 1,
+    backgroundColor: 'rgba(226, 226, 226, 0.1)',
   },
 });
 
