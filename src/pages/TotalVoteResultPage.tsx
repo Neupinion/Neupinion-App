@@ -30,13 +30,7 @@ const TotalVoteResultPage = () => {
       <PageHeader
         leftIcons={
           <TouchableOpacity style={styles.iconButton} onPress={() => navigation.goBack()}>
-            <View style={{ flex: 1 }}>
-              <WithLocalSvg
-                height={25}
-                asset={MainArrowLeftSvg as ImageSourcePropType}
-                pointerEvents="none"
-              />
-            </View>
+            <WithLocalSvg width={25} height={25} asset={MainArrowLeftSvg as ImageSourcePropType} />
           </TouchableOpacity>
         }
         centerText={'통합 투표 결과보기'}

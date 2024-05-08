@@ -68,7 +68,7 @@ const ReprocessedIssueDetailPage: React.FC = () => {
       <PageHeader
         leftIcons={
           <TouchableOpacity style={styles.svgStyle} onPress={navigation.goBack}>
-            <WithLocalSvg height={25} asset={MainArrowLeftSvg as ImageSourcePropType} />
+            <WithLocalSvg width={25} height={25} asset={MainArrowLeftSvg as ImageSourcePropType} />
           </TouchableOpacity>
         }
         centerText={'진짜일까, 가짜일까?'}
