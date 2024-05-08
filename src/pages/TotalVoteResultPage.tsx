@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import {
-  ActivityIndicator,
   Dimensions,
   ImageSourcePropType,
   ScrollView,
@@ -18,106 +17,61 @@ import { WithLocalSvg } from 'react-native-svg';
 import MainArrowLeftSvg from '../assets/icon/mainarrowLeft.svg';
 import BookMarkSvg from '../assets/icon/bookmark.svg';
 import ShareSvg from '../assets/icon/share.svg';
-import VoteChartContainer from '../features/vote/components/VoteChartContainer';
 import { WINDOW_WIDTH } from '../shared/constants/display';
-import VoteRankContainer from '../features/vote/components/VoteRankContainer';
 import fontFamily from '../shared/styles/fontFamily';
-import useFetch from '../shared/hooks/useFetch';
-import { getReprocessedIssueVote } from '../features/vote/remotes/reprocessedIssueVote';
-import GlobalTextStyles from '../shared/styles/GlobalTextStyles';
-import TopOpinionSlider from '../features/vote/components/TopOpinionSlider';
-import FollowUpIssueSlider from '../features/vote/components/FollowUpIssueSlider';
-import RelatedIssues from '../features/vote/components/RelatedIssues';
-import submitVoteResult from "../features/remakeissue/remotes/submitVoteResult";
-import { reliabilityText } from "../features/remakeissue/constants/reliabilty";
-
-const VoteResultPage = () => {
+const TotalVoteResultPage = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
-  type ScreenRouteProp = RouteProp<RootStackParamList, 'VoteResultPage'>;
+  type ScreenRouteProp = RouteProp<RootStackParamList, 'TotalVoteResultPage'>;
   const route = useRoute<ScreenRouteProp>();
   const id: number = route.params.id;
-
-  const fetchReprocessedIssueVote = () => getReprocessedIssueVote(id);
-  const {
-    data: voteData,
-    isLoading,
-    error,
-    fetchData,
-  } = useFetch(fetchReprocessedIssueVote, false);
-
-  useEffect(() => {
-    void fetchData();
-  }, []);
-
-  const onClickViewTotalVoteButton = () => {
-    navigation.navigate('TotalVoteResultPage', { id: id });
-  };
-
-  if (isLoading) {
-    return (
-      <View style={styles.container}>
-        <ActivityIndicator size="large" style={styles.activityIndicator} />
-      </View>
-    );
-  }
-
-  if (error) {
-    return (
-      <View style={styles.container}>
-        <Text style={GlobalTextStyles.NormalText17}>ERROR</Text>
-      </View>
-    );
-  }
-
-  if (!voteData) {
-    return (
-      <View style={styles.container}>
-        <Text style={GlobalTextStyles.NormalText17}>No Data</Text>
-      </View>
-    );
-  }
 
   return (
     <View style={styles.container}>
       <PageHeader
         leftIcons={
-          <TouchableOpacity style={styles.svgStyle} onPress={navigation.goBack}>
-            <WithLocalSvg height={25} asset={MainArrowLeftSvg as ImageSourcePropType} />
+          <TouchableOpacity style={styles.iconButton} onPress={() => navigation.goBack()}>
+            <View style={{ flex: 1 }}>
+              <WithLocalSvg
+                height={25}
+                asset={MainArrowLeftSvg as ImageSourcePropType}
+                pointerEvents="none"
+              />
+            </View>
           </TouchableOpacity>
         }
-        centerText={'진짜일까,가짜일까?'}
+        centerText={'통합 투표 결과보기'}
         RightIcons={
           <>
-            <TouchableOpacity style={styles.svgStyle} onPress={() => {}}>
+            <TouchableOpacity style={styles.iconButton} onPress={() => {}}>
               <WithLocalSvg width={23} height={23} asset={BookMarkSvg as ImageSourcePropType} />
             </TouchableOpacity>
-            <TouchableOpacity style={styles.svgStyle} onPress={() => {}}>
+            <TouchableOpacity style={styles.iconButton} onPress={() => {}}>
               <WithLocalSvg width={24} height={23} asset={ShareSvg as ImageSourcePropType} />
             </TouchableOpacity>
           </>
         }
       />
-      <ScrollView style={styles.scrollViewStyle}>
-        <VoteChartContainer data={voteData} />
-        <View style={styles.underChartContainer}>
-          <TouchableOpacity style={styles.totalVotedButton} onPress={onClickViewTotalVoteButton}>
-            <Text style={styles.totalVotedButtonText}>통합 투표 결과 보기</Text>
-          </TouchableOpacity>
-          <View style={styles.rankContainer}>
-            <Text style={styles.rankTitleText}>전체 투표 순위</Text>
-          </View>
-          <VoteRankContainer data={voteData} />
-        </View>
-        <View style={styles.divideLine} />
-        <TopOpinionSlider id={id} />
-        <TouchableOpacity style={styles.opinionPageButton} onPress={() => {}}>
-          <Text style={styles.totalVotedButtonText}>의견 보기</Text>
-        </TouchableOpacity>
-        <View style={styles.divideLine} />
-        <FollowUpIssueSlider id={id} />
-        <View style={styles.divideLine} />
-        <RelatedIssues id={id} />
-      </ScrollView>
+      {/*<ScrollView style={styles.scrollViewStyle}>*/}
+      {/*  <VoteChartContainer data={voteData} />*/}
+      {/*  <View style={styles.underChartContainer}>*/}
+      {/*    <TouchableOpacity style={styles.totalVotedButton} onPress={() => {}}>*/}
+      {/*      <Text style={styles.totalVotedButtonText}>통합 투표 결과 보기</Text>*/}
+      {/*    </TouchableOpacity>*/}
+      {/*    <View style={styles.rankContainer}>*/}
+      {/*      <Text style={styles.rankTitleText}>전체 투표 순위</Text>*/}
+      {/*    </View>*/}
+      {/*    <VoteRankContainer data={voteData} />*/}
+      {/*  </View>*/}
+      {/*  <View style={styles.divideLine} />*/}
+      {/*  <TopOpinionSlider id={id} />*/}
+      {/*  <TouchableOpacity style={styles.opinionPageButton} onPress={() => {}}>*/}
+      {/*    <Text style={styles.totalVotedButtonText}>의견 보기</Text>*/}
+      {/*  </TouchableOpacity>*/}
+      {/*  <View style={styles.divideLine} />*/}
+      {/*  <FollowUpIssueSlider id={id} />*/}
+      {/*  <View style={styles.divideLine} />*/}
+      {/*  <RelatedIssues id={id} />*/}
+      {/*</ScrollView>*/}
     </View>
   );
 };
@@ -129,7 +83,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     justifyContent: 'center',
   },
-  svgStyle: {
+  iconButton: {
     height: 30,
     width: 30,
     padding: 5,
@@ -216,4 +170,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default VoteResultPage;
+export default TotalVoteResultPage;

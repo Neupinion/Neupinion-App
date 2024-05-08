@@ -5,7 +5,7 @@ import theme from '../../../shared/styles/theme';
 import { formatDate } from '../../remakeissue/constants/formatDate';
 import { LinearGradient } from 'expo-linear-gradient';
 import { WINDOW_WIDTH } from '../../../shared/constants/display';
-import fontFamily from "../../../shared/styles/fontFamily";
+import fontFamily from '../../../shared/styles/fontFamily';
 
 interface FollowUpIssueItemProps {
   item: FollowUpIssue;
