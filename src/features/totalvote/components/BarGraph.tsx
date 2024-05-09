@@ -59,10 +59,10 @@ const BarGraph = ({ data }: BarGraphProps) => {
                 x={
                   xOffset - spaceBetweenBars / 2 + (index + 1) * spaceBetweenBars + index * barWidth
                 }
-                y={chartHeight - trustHeight - 10 - yOffset}
+                y={chartHeight - doubtHeight - 10 - yOffset}
                 width={barWidth}
-                height={trustHeight}
-                fill={theme.trustColor.fullyTrust}
+                height={doubtHeight}
+                fill={theme.trustColor.fullyDoubt}
               />
               <Rect
                 x={
@@ -70,8 +70,8 @@ const BarGraph = ({ data }: BarGraphProps) => {
                 }
                 y={chartHeight - barHeight - 10 - yOffset}
                 width={barWidth}
-                height={doubtHeight}
-                fill={theme.trustColor.fullyDoubt}
+                height={trustHeight}
+                fill={theme.trustColor.fullyTrust}
               />
               <SvgText
                 x={

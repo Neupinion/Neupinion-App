@@ -24,6 +24,7 @@ import TotalVoteChartContainer from '../features/totalvote/components/TotalVoteC
 import VoteRankContainer from '../features/vote/components/VoteRankContainer';
 import { VotedDataDummy } from '../dummy/VotedDataDummy';
 import RelatedIssues from '../features/vote/components/RelatedIssues';
+import TimeLine from '../features/totalvote/components/TimeLine';
 const TotalVoteResultPage = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   type ScreenRouteProp = RouteProp<RootStackParamList, 'TotalVoteResultPage'>;
@@ -62,7 +63,7 @@ const TotalVoteResultPage = () => {
         <View style={styles.timeLineContainer}>
           <Text style={styles.rankTitleText}>타임라인 살펴보기</Text>
         </View>
-        {/*<TopOpinionSlider id={id} />*/}
+        <TimeLine id={id} />
         <View style={styles.divideLine} />
         <RelatedIssues id={id} />
       </ScrollView>
