@@ -35,10 +35,26 @@ const RelatedIssues = ({ id }: RecommendIssuesProps) => {
   }
 
   if (error) {
-    console.log(error.message);
     return (
+      // <View style={styles.container}>
+      //   <Text style={GlobalTextStyles.NormalText17}>ERROR</Text>
+      // </View>
       <View style={styles.container}>
-        <Text style={GlobalTextStyles.NormalText17}>ERROR</Text>
+        <Text style={styles.titleText}>이 뉴스도 한번 봐보세요</Text>
+        {followUpIssueDummy.map((item, index) => (
+          <TouchableOpacity key={index} style={styles.card} onPress={() => {}}>
+            <View style={styles.leftContainer}>
+              <Text style={styles.cardTitleText}>{item.title}</Text>
+              <View style={styles.titleUnderContainer}>
+                <View style={styles.tagBox}>
+                  <Text style={styles.tagText}>국제</Text>
+                </View>
+                <Text style={styles.dateText}>{formatDate(item.createdAt)}</Text>
+              </View>
+            </View>
+            <View style={styles.cardImage} />
+          </TouchableOpacity>
+        ))}
       </View>
     );
   }
@@ -122,7 +138,7 @@ const styles = StyleSheet.create({
   },
   cardTitleText: {
     fontSize: 16,
-    fontFamily: fontFamily.pretendard.medium,
+    fontFamily: fontFamily.pretendard.bold,
     color: theme.color.white,
     fontStyle: 'normal',
     fontWeight: '600',
