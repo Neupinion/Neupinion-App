@@ -5,9 +5,12 @@ import { WithLocalSvg } from 'react-native-svg';
 import OpinionPin from '../assets/icon/opinionpin.svg';
 import fontFamily from '../shared/styles/fontFamily';
 
-const PinSentenceCard = () => {
+interface PinSentenceCardProps {
+  color: string;
+}
+const PinSentenceCard = ({ color }: PinSentenceCardProps) => {
   return (
-    <View style={styles.pinSentenceCard}>
+    <View style={[styles.pinSentenceCard, { backgroundColor: color }]}>
       <View style={styles.pinContainer}>
         <WithLocalSvg width={20} height={20} asset={OpinionPin as ImageSourcePropType} />
       </View>
@@ -26,7 +29,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     padding: 12,
     alignItems: 'flex-start',
-    backgroundColor: '#212A3C',
     borderRadius: 10,
   },
   pinContainer: {

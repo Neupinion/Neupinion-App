@@ -33,7 +33,7 @@ const TotalOpinionBigCard = () => {
           최초로 게시된 곳이 공신력 있는 매체가 아니고 트위터라서 신뢰도가 떨어지는 듯.
         </Text>
       </View>
-      <PinSentenceCard />
+      <PinSentenceCard color="#212A3C" />
       <View style={{ flexDirection: 'row', marginVertical: 21 }}>
         <TouchableOpacity style={{ marginRight: 4 }} onPress={() => UpdateFavorite()}>
           <WithLocalSvg width={18} height={18} asset={FavoriteSvg as ImageSourcePropType} />
