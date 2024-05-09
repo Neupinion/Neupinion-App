@@ -43,15 +43,13 @@ const OpinionPageCategory = () => {
           setItems={setItems}
           style={{
             width: 100,
-            //height: 22,
-            // backgroundColor: theme.color.black,
-            backgroundColor: theme.color.main,
+            backgroundColor: theme.color.black,
           }}
           textStyle={styles.listText}
           arrowIconStyle={{
             width: 24,
             height: 24,
-            tintColor: '71788F',
+            tintColor: theme.color.white,
           }}
           dropDownContainerStyle={{
             backgroundColor: theme.color.black,

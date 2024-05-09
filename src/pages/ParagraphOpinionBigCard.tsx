@@ -16,7 +16,7 @@ import PinSentenceCard from './PinSentenceCard';
 const ParagraphOpinionBigCard = () => {
   return (
     <View style={styles.container}>
-      <PinSentenceCard />
+      <PinSentenceCard color="#191926" />
       <View style={{ flexDirection: 'row', marginLeft: 42, marginTop: 10, marginBottom: 30 }}>
         <Text style={styles.opinionCountText}>의견 3개</Text>
         <TouchableOpacity>
