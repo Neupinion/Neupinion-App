@@ -88,22 +88,29 @@ const OpinionPinPage = () => {
         </View>
         <OpinionPinIssue reprocessedIssue={reprocessedIssue} />
         <View style={styles.pinSentenceContainer}>
-          {reprocessedIssue?.content.map((item: ReprocessedIssueContent) => (
-            <TouchableOpacity
-              key={item.id}
-              style={[styles.pinSentence, { opacity: selectedPinIndex === item.id ? 1 : 0.3 }]}
-              onPress={() => onSelectPin(item.id)}
-            >
-              <View style={styles.pinContainer}>
-                <View style={styles.pin}>
-                  <WithLocalSvg width={20} height={20} asset={OpinionPin as ImageSourcePropType} />
-                </View>
-              </View>
-              <View style={styles.sentenceContainer}>
-                <Text style={styles.sentenceText}>{item.paragraph}</Text>
-              </View>
-            </TouchableOpacity>
-          ))}
+          {reprocessedIssue?.content.map(
+            (item: ReprocessedIssueContent, index: number) =>
+              item.selected && (
+                <TouchableOpacity
+                  key={index}
+                  style={[styles.pinSentence, { opacity: selectedPinIndex === index ? 1 : 0.3 }]}
+                  onPress={() => onSelectPin(index)}
+                >
+                  <View style={styles.pinContainer}>
+                    <View style={styles.pin}>
+                      <WithLocalSvg
+                        width={20}
+                        height={20}
+                        asset={OpinionPin as ImageSourcePropType}
+                      />
+                    </View>
+                  </View>
+                  <View style={styles.sentenceContainer}>
+                    <Text style={styles.sentenceText}>{item.paragraph}</Text>
+                  </View>
+                </TouchableOpacity>
+              ),
+          )}
         </View>
       </ScrollView>
     </View>
