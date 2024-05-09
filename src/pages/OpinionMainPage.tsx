@@ -18,9 +18,9 @@ import MainArrowLeftSvg from '../assets/icon/mainarrowLeft.svg';
 import { WINDOW_WIDTH } from '../shared/constants/display';
 
 const OpinionMainPage = () => {
-  const mainOpinionCategories = ['전체', '문단별 보기'];
+  const mainCategories = ['전체', '문단별 보기'];
   const [activeButton, setActiveButton] = useState('전체');
-  const handleButtonPress = (category: string) => {
+  const SelectMainCategory = (category: string) => {
     setActiveButton(category);
   };
 
@@ -37,12 +37,12 @@ const OpinionMainPage = () => {
       />
       <View style={styles.divideLine}></View>
 
-      <View style={styles.topMainOpinionPage}>
-        {mainOpinionCategories.map((category, index) => (
+      <View style={styles.MainCategoryTop}>
+        {mainCategories.map((category, index) => (
           <TouchableOpacity
             key={index.toString()}
             style={styles.mainCategory}
-            onPress={() => handleButtonPress(category)}
+            onPress={() => SelectMainCategory(category)}
           >
             <Text style={[styles.baseText, activeButton === category && styles.activeText]}>
               {category}
@@ -52,10 +52,11 @@ const OpinionMainPage = () => {
       </View>
       <View>
         <View style={styles.headerUnderLine} />
-        <View style={styles.selectedUnderline} />
+        {activeButton == mainCategories[0] && <View style={styles.selectedAll} />}
+        {activeButton == mainCategories[1] && <View style={styles.selectedParagraph} />}
       </View>
       <OpinionPageCategory />
-      {activeButton === '전체' ? <TotalOpinionPage /> : <ParagraphOpinionPage />}
+      {activeButton === mainCategories[0] ? <TotalOpinionPage /> : <ParagraphOpinionPage />}
     </View>
   );
 };
@@ -65,13 +66,12 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: theme.color.black,
   },
-  topMainOpinionPage: {
+  MainCategoryTop: {
     flexDirection: 'row',
     height: 36,
     marginBottom: 12,
     marginLeft: 26,
     marginTop: 18,
-    // backgroundColor: theme.color.gray5,
   },
   mainCategory: {
     marginRight: 18,
@@ -106,14 +106,24 @@ const styles = StyleSheet.create({
     height: 1,
     backgroundColor: 'rgba(226, 226, 226, 0.1)',
   },
-  selectedUnderline: {
+  buttonWrapper: {
+    position: 'relative',
+  },
+  selectedAll: {
     position: 'absolute',
     bottom: 1,
-    left: 72,
-    // left: 26,
+    left: 26,
     right: 0,
-    // width: 28,
-    width: 71,
+    width: 30,
+    height: 4,
+    backgroundColor: theme.color.white,
+  },
+  selectedParagraph: {
+    position: 'absolute',
+    bottom: 1,
+    left: 75,
+    right: 0,
+    width: 79,
     height: 4,
     backgroundColor: theme.color.white,
   },
