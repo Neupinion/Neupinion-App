@@ -6,7 +6,7 @@ import { WithLocalSvg } from 'react-native-svg';
 import MessageIcon from '../../../assets/icon/message.svg';
 import UserIcon from '../../../assets/icon/user.svg';
 import { WINDOW_WIDTH } from '../../../shared/constants/display';
-import fontFamily from "../../../shared/styles/fontFamily";
+import fontFamily from '../../../shared/styles/fontFamily';
 interface FakeIssueIconProps {
   data: ReProcessedIssue[] | null;
   slideIndex: number;

@@ -16,7 +16,6 @@ import PageHeader from '../shared/components/PageHeader';
 import { WithLocalSvg } from 'react-native-svg';
 import MainArrowLeftSvg from '../assets/icon/mainarrowLeft.svg';
 import BookMarkSvg from '../assets/icon/bookmark.svg';
-import ShareSvg from '../assets/icon/share.svg';
 import { WINDOW_WIDTH } from '../shared/constants/display';
 import fontFamily from '../shared/styles/fontFamily';
 import { TotalVotedDataDummy } from '../dummy/TotalVotedDataDummy';

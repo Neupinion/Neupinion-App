@@ -5,4 +5,4 @@ export interface RelatedIssue {
   imageUrl: string;
   category: string;
   createdAt: string;
-};
+}

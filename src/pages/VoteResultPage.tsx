@@ -17,7 +17,6 @@ import PageHeader from '../shared/components/PageHeader';
 import { WithLocalSvg } from 'react-native-svg';
 import MainArrowLeftSvg from '../assets/icon/mainarrowLeft.svg';
 import BookMarkSvg from '../assets/icon/bookmark.svg';
-import ShareSvg from '../assets/icon/share.svg';
 import VoteChartContainer from '../features/vote/components/VoteChartContainer';
 import { WINDOW_WIDTH } from '../shared/constants/display';
 import VoteRankContainer from '../features/vote/components/VoteRankContainer';
@@ -28,8 +27,6 @@ import GlobalTextStyles from '../shared/styles/GlobalTextStyles';
 import TopOpinionSlider from '../features/vote/components/TopOpinionSlider';
 import FollowUpIssueSlider from '../features/vote/components/FollowUpIssueSlider';
 import RelatedIssues from '../features/vote/components/RelatedIssues';
-import submitVoteResult from "../features/remakeissue/remotes/submitVoteResult";
-import { reliabilityText } from "../features/remakeissue/constants/reliabilty";
 
 const VoteResultPage = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();

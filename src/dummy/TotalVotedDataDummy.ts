@@ -1,5 +1,3 @@
-import { TrustVoteData } from '../features/vote/types/bubbleChartData';
-
 export interface TotalTrustVoteData {
   totalVoteCount: number;
   mostVotedCount: number;

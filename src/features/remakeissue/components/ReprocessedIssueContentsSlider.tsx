@@ -7,7 +7,7 @@ import { formatDate } from '../constants/formatDate';
 import { ReprocessedIssueId } from '../../../shared/types/news';
 import Markdown from 'react-native-markdown-display';
 import { WINDOW_WIDTH } from '../../../shared/constants/display';
-import fontFamily from "../../../shared/styles/fontFamily";
+import fontFamily from '../../../shared/styles/fontFamily';
 
 interface ReprocessedIssueContentsProps {
   reprocessedIssue: ReprocessedIssueId | null;

@@ -19,8 +19,8 @@ import { getFollowUpIssues } from '../remotes/followupissue';
 import FollowUpIssueSlider from './FollowUpIssueSlider';
 import { useDate } from '../../date/provider/DateProvider';
 import { WINDOW_WIDTH } from '../../../shared/constants/display';
-import fontFamily from "../../../shared/styles/fontFamily";
-import EmptyScreen from "../../../shared/components/Opinion/EmptyScreen";
+import fontFamily from '../../../shared/styles/fontFamily';
+import EmptyScreen from '../../../shared/components/Opinion/EmptyScreen';
 
 const FollowUpIssueContainer = () => {
   const firstMainCategory: string | MainCategory =

@@ -7,7 +7,7 @@ import MainPage from './pages/MainPage';
 import ModalContainer from './shared/components/ModalContainer';
 import ReprocessedIssueDetailPage from './pages/ReprocessedIssueDetailPage';
 import VoteResultPage from './pages/VoteResultPage';
-import TotalVoteResultPage from "./pages/TotalVoteResultPage";
+import TotalVoteResultPage from './pages/TotalVoteResultPage';
 
 const Stack = createNativeStackNavigator();
 
