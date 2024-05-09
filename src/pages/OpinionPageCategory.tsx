@@ -49,7 +49,6 @@ const OpinionPageCategory = () => {
           arrowIconStyle={{
             width: 24,
             height: 24,
-            tintColor: theme.color.white,
           }}
           dropDownContainerStyle={{
             backgroundColor: theme.color.black,
