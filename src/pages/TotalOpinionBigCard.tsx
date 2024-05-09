@@ -13,6 +13,7 @@ import BookMarkSvg from '../assets/icon/bookmark.svg';
 import OpinionPin from '../assets/icon/opinionpin.svg';
 import FavoriteSvg from '../assets/icon/favorite.svg';
 import fontFamily from '../shared/styles/fontFamily';
+import { WINDOW_WIDTH } from "../shared/constants/display";
 
 const TotalOpinionBigCard = () => {
   const UpdateFavorite = () => {};
@@ -45,7 +46,7 @@ const TotalOpinionBigCard = () => {
           </Text>
         </View>
       </View>
-      <View style={{ flexDirection: 'row', marginTop: 21 }}>
+      <View style={{ flexDirection: 'row', marginVertical: 21}}>
         <TouchableOpacity style={{ marginRight: 4 }} onPress={() => UpdateFavorite()}>
           <WithLocalSvg width={18} height={18} asset={FavoriteSvg as ImageSourcePropType} />
         </TouchableOpacity>

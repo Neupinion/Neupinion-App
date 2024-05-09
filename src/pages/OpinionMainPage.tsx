@@ -1,5 +1,12 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, ImageSourcePropType } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  ImageSourcePropType,
+  Dimensions,
+} from 'react-native';
 import theme from '../shared/styles/theme';
 import TotalOpinionPage from './TotalOpinionPage';
 import fontFamily from '../shared/styles/fontFamily';
@@ -28,7 +35,8 @@ const OpinionMainPage = () => {
         centerText={'의견보기'}
         RightIcons={null}
       />
-      <View style={styles.headerUnderLine} />
+      <View style={styles.divideLine}></View>
+
       <View style={styles.topMainOpinionPage}>
         {mainOpinionCategories.map((category, index) => (
           <TouchableOpacity
@@ -41,6 +49,10 @@ const OpinionMainPage = () => {
             </Text>
           </TouchableOpacity>
         ))}
+      </View>
+      <View>
+        <View style={styles.headerUnderLine} />
+        <View style={styles.selectedUnderline} />
       </View>
       <OpinionPageCategory />
       {activeButton === '전체' ? <TotalOpinionPage /> : <ParagraphOpinionPage />}
@@ -55,7 +67,7 @@ const styles = StyleSheet.create({
   },
   topMainOpinionPage: {
     flexDirection: 'row',
-    height: 24,
+    height: 36,
     marginBottom: 12,
     marginLeft: 26,
     marginTop: 18,
@@ -82,10 +94,28 @@ const styles = StyleSheet.create({
     lineHeight: 24,
     letterSpacing: -0.48,
   },
+  divideLine: {
+    width: Dimensions.get('window').width,
+    height: 10,
+    marginVertical: 12,
+    flexShrink: 0,
+    backgroundColor: '#21202F',
+  },
   headerUnderLine: {
     width: WINDOW_WIDTH,
     height: 1,
     backgroundColor: 'rgba(226, 226, 226, 0.1)',
+  },
+  selectedUnderline: {
+    position: 'absolute',
+    bottom: 1,
+    left: 72,
+    // left: 26,
+    right: 0,
+    // width: 28,
+    width: 71,
+    height: 4,
+    backgroundColor: theme.color.white,
   },
 });
 
