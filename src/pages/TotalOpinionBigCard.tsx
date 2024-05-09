@@ -10,10 +10,9 @@ import {
 import theme from '../shared/styles/theme';
 import { WithLocalSvg } from 'react-native-svg';
 import BookMarkSvg from '../assets/icon/bookmark.svg';
-import OpinionPin from '../assets/icon/opinionpin.svg';
 import FavoriteSvg from '../assets/icon/favorite.svg';
 import fontFamily from '../shared/styles/fontFamily';
-import { WINDOW_WIDTH } from "../shared/constants/display";
+import PinSentenceCard from './PinSentenceCard';
 
 const TotalOpinionBigCard = () => {
   const UpdateFavorite = () => {};
@@ -26,7 +25,7 @@ const TotalOpinionBigCard = () => {
           <Text style={styles.dateText}>2024년 3월 5일 21:00</Text>
         </View>
       </View>
-      <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10, marginVertical: 20,}}>
+      <View style={styles.bigOpinionCardMiddle}>
         <View style={styles.positionIndicator}>
           <Text style={styles.positionText}>신뢰</Text>
         </View>
@@ -34,23 +33,12 @@ const TotalOpinionBigCard = () => {
           최초로 게시된 곳이 공신력 있는 매체가 아니고 트위터라서 신뢰도가 떨어지는 듯.
         </Text>
       </View>
-      <View style={styles.pinSentenceContainer}>
-        <View style={styles.pinContainer}>
-          <WithLocalSvg width={20} height={20} asset={OpinionPin as ImageSourcePropType} />
-        </View>
-        <View style={styles.sentenceContainer}>
-          <Text style={styles.sentenceText}>
-            블룸버그통신 등에 따르면 22일(현지 시간) 오전 9시를 전후 로 미 워싱턴DC에 있는
-            펜타곤으로 보이는 건물에서 검은 연기가 피어오르는 사진이 트위터를 통해 국내외로 빠르게
-            확산했다.
-          </Text>
-        </View>
-      </View>
-      <View style={{ flexDirection: 'row', marginVertical: 21}}>
+      <PinSentenceCard />
+      <View style={{ flexDirection: 'row', marginVertical: 21 }}>
         <TouchableOpacity style={{ marginRight: 4 }} onPress={() => UpdateFavorite()}>
           <WithLocalSvg width={18} height={18} asset={FavoriteSvg as ImageSourcePropType} />
         </TouchableOpacity>
-        <Text style={styles.sentenceText}>2,000</Text>
+        <Text style={styles.favoriteText}>2,000</Text>
       </View>
     </View>
   );
@@ -58,7 +46,6 @@ const TotalOpinionBigCard = () => {
 
 const styles = StyleSheet.create({
   container: {
-    // backgroundColor: theme.color.gray4,
     width: Dimensions.get('window').width - 52,
   },
   bigOpinionCardTop: {
@@ -77,23 +64,24 @@ const styles = StyleSheet.create({
   dateText: {
     fontSize: 12,
     fontFamily: fontFamily.pretendard.bold,
-    color: theme.color.gray6,
+    color: '#71788F',
     fontStyle: 'normal',
     fontWeight: '500',
     lineHeight: 18,
     letterSpacing: -0.5,
   },
+  bigOpinionCardMiddle: {
+    flexDirection: 'row',
+    gap: 10,
+    marginVertical: 20,
+  },
   positionIndicator: {
     width: 40,
     height: 22,
     borderRadius: 85,
-    backgroundColor: '#FF75AB', // #1C64ED = 신뢰일 떄
+    backgroundColor: '#1C64ED', // #FF75AB = 의심일 떄
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 10,
-    marginBottom: 13,
-    //paddingVertical: 1,
-    //paddingHorizontal: 9,
   },
   positionText: {
     fontFamily: fontFamily.pretendard.bold,
@@ -112,26 +100,11 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     lineHeight: 21,
     letterSpacing: -0.42,
+    flexShrink: 1,
   },
-  pinSentenceContainer: {
-    flexDirection: 'row',
-    paddingVertical: 12,
-    paddingLeft: 12,
-    paddingRight: 20,
-    alignItems: 'flex-start',
-    backgroundColor: '#212A3C',
-    borderRadius: 10,
-  },
-  pinContainer: {
-    marginRight: 6,
-  },
-  sentenceContainer: {
-    width: Dimensions.get('window').width - 110,
-    // display: 'flex',
-  },
-  sentenceText: {
+  favoriteText: {
     fontFamily: fontFamily.pretendard.bold,
-    color: theme.color.white,
+    color: theme.color.gray6,
     textAlign: 'justify',
     fontSize: 12,
     fontStyle: 'normal',

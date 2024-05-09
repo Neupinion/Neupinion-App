@@ -22,10 +22,10 @@ const OpinionPageCategory = () => {
         {categories.map((category, index) => (
           <TouchableOpacity
             key={index.toString()}
-            style={[styles.positionButton, activeButton === category && styles.activeButton]}
+            style={activeButton === category ? styles.activeButton : styles.positionButton}
             onPress={() => handleButtonPress(category)}
           >
-            <Text style={[styles.positionText, activeButton === category && styles.activeText]}>
+            <Text style={activeButton === category ? styles.activeText : styles.positionText}>
               {category}
             </Text>
           </TouchableOpacity>
@@ -51,7 +51,7 @@ const OpinionPageCategory = () => {
           arrowIconStyle={{
             width: 24,
             height: 24,
-            tintColor: theme.color.white,
+            tintColor: '71788F',
           }}
           dropDownContainerStyle={{
             backgroundColor: theme.color.black,
@@ -65,26 +65,25 @@ const OpinionPageCategory = () => {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    marginHorizontal: 26,
     justifyContent: 'space-between',
     alignItems: 'center',
+    marginHorizontal: 26,
     marginBottom: 30,
     marginTop: 20,
   },
   positionButton: {
     height: 30,
     borderRadius: 30,
-    borderColor: theme.color.gray5,
+    borderColor: theme.color.gray3,
     borderWidth: 0.8,
     alignItems: 'center',
     justifyContent: 'center',
-    // paddingVertical: 10,
     paddingHorizontal: 14,
-    marginRight: 10, //왜 gap이 안되는가
+    marginRight: 10,
   },
   positionText: {
     fontFamily: fontFamily.pretendard.bold,
-    color: theme.color.gray5,
+    color: theme.color.gray3,
     fontSize: 14,
     fontStyle: 'normal',
     fontWeight: '500',
@@ -94,12 +93,11 @@ const styles = StyleSheet.create({
   activeButton: {
     height: 30,
     borderRadius: 30,
-    backgroundColor: theme.color.gray4,
+    backgroundColor: '#212A3C',
     alignItems: 'center',
     justifyContent: 'center',
-    // paddingVertical: 10,
     paddingHorizontal: 14,
-    marginRight: 10, //왜 gap이 안되는가
+    marginRight: 10,
   },
   activeText: {
     fontFamily: fontFamily.pretendard.bold,
