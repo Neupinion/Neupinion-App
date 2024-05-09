@@ -20,6 +20,7 @@ import FollowUpIssueSlider from './FollowUpIssueSlider';
 import { useDate } from '../../date/provider/DateProvider';
 import { WINDOW_WIDTH } from '../../../shared/constants/display';
 import fontFamily from "../../../shared/styles/fontFamily";
+import EmptyScreen from "../../../shared/components/Opinion/EmptyScreen";
 
 const FollowUpIssueContainer = () => {
   const firstMainCategory: string | MainCategory =
@@ -133,7 +134,7 @@ const FollowUpIssueContainer = () => {
         {!followUpIssues ||
           (followUpIssues.length === 0 && (
             <View style={styles.emptyContainer}>
-              <Text style={styles.emptyText}>No Data</Text>
+              <EmptyScreen text={'등록된 후속 이슈가 없습니다.'} />
             </View>
           ))}
         {!isLoading && !error && <FollowUpIssueSlider followUpIssue={followUpIssues} />}

@@ -4,11 +4,15 @@ import EmptyOpinion from '../../../assets/icon/emptyopinionui.svg';
 import { WithLocalSvg } from 'react-native-svg';
 import theme from '../../styles/theme';
 import fontFamily from '../../styles/fontFamily';
-const EmptyOpinionScreen = () => {
+
+interface EmptyScreenProps {
+  text: string;
+}
+const EmptyScreen = ({ text }: EmptyScreenProps) => {
   return (
     <View style={styles.svgContainer}>
       <WithLocalSvg width={52} height={52} asset={EmptyOpinion as ImageSourcePropType} />
-      <Text style={styles.emptyOpinionText}>등록된 의견이 없습니다.</Text>
+      <Text style={styles.emptyOpinionText}>{text}</Text>
     </View>
   );
 };
@@ -32,4 +36,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default EmptyOpinionScreen;
+export default EmptyScreen;

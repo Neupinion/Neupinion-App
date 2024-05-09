@@ -5,9 +5,8 @@ import fontFamily from '../../../shared/styles/fontFamily';
 import useFetch from '../../../shared/hooks/useFetch';
 import { getReprocessedIssueTopOpinion } from '../remotes/topOpinion';
 import GlobalTextStyles from '../../../shared/styles/GlobalTextStyles';
-import { TopOpinionDummy } from '../../../dummy/TopOpinionDummy';
 import OpinionPaper from '../../../shared/components/Opinion/OpinionPaper';
-import EmptyOpinionScreen from "../../../shared/components/Opinion/EmptyOpinionScreen";
+import EmptyScreen from '../../../shared/components/Opinion/EmptyScreen';
 
 interface TopOpinionSliderProps {
   id: number;
@@ -46,7 +45,7 @@ const TopOpinionSlider = ({ id }: TopOpinionSliderProps) => {
       <View style={styles.container}>
         <Text style={styles.titleText}>통합 베스트 Top 5 의견</Text>
         <View style={{ marginTop: 60 }}></View>
-        <EmptyOpinionScreen />
+        <EmptyScreen text={'등록된 의견이 없습니다.'} />
       </View>
     );
   }

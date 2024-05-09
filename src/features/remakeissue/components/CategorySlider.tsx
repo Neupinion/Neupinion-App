@@ -3,6 +3,7 @@ import { View, StyleSheet, FlatList, Text } from 'react-native';
 import { ReProcessedIssue } from '../../../shared/types/news';
 import CategoryItem from './CategoryItem';
 import { WINDOW_WIDTH } from '../../../shared/constants/display';
+import EmptyScreen from "../../../shared/components/Opinion/EmptyScreen";
 
 interface CategorySliderProps {
   categoryIssues: ReProcessedIssue[] | null;
@@ -18,7 +19,7 @@ const CategorySlider = ({ categoryIssues }: CategorySliderProps) => {
     <View style={styles.categoryContainer}>
       {(!categoryIssues || categoryIssues.length === 0) && (
         <View style={styles.emptyContainer}>
-          <Text style={styles.emptyText}>No Data</Text>
+          <EmptyScreen text={'등록된 이슈가 없습니다.'} />
         </View>
       )}
       {categoryIssues && (

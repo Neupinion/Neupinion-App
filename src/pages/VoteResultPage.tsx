@@ -91,9 +91,6 @@ const VoteResultPage = () => {
             <TouchableOpacity style={styles.svgStyle} onPress={() => {}}>
               <WithLocalSvg width={23} height={23} asset={BookMarkSvg as ImageSourcePropType} />
             </TouchableOpacity>
-            <TouchableOpacity style={styles.svgStyle} onPress={() => {}}>
-              <WithLocalSvg width={24} height={23} asset={ShareSvg as ImageSourcePropType} />
-            </TouchableOpacity>
           </>
         }
       />

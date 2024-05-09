@@ -7,7 +7,6 @@ import { formatDate } from '../../remakeissue/constants/formatDate';
 import { WINDOW_WIDTH } from '../../../shared/constants/display';
 import { getRelatedIssuesById } from '../remotes/getRecommendIssuesByCategory';
 import useFetch from '../../../shared/hooks/useFetch';
-import GlobalTextStyles from '../../../shared/styles/GlobalTextStyles';
 
 interface RecommendIssuesProps {
   id: number;
