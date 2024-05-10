@@ -55,7 +55,7 @@ const SentenceBox = ({ sentenceNumber }: SentenceBoxProps) => {
       </View>
       <View style={styles.sentenceContainerSmall}>
         <Text style={styles.sentenceText}>
-          {reprocessedIssue.content[sentenceNumber].paragraph}
+          {reprocessedIssue.content[sentenceNumber - 1].paragraph}
         </Text>
       </View>
     </View>
