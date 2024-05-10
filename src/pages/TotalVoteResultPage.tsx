@@ -70,7 +70,7 @@ const TotalVoteResultPage = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: theme.color.BG,
+    backgroundColor: theme.color.background,
     alignItems: 'flex-start',
     justifyContent: 'center',
   },

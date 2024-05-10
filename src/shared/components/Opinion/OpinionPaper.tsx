@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
     borderLeftWidth: 18,
     borderBottomWidth: 18,
     borderLeftColor: 'transparent',
-    borderBottomColor: theme.color.BG,
+    borderBottomColor: theme.color.background,
     position: 'absolute',
     right: 0,
     bottom: 0,
