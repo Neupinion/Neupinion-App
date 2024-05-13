@@ -13,7 +13,7 @@ import theme from '../../../shared/styles/theme';
 import fontFamily from '../../../shared/styles/fontFamily';
 import GlobalTextStyles from '../../../shared/styles/GlobalTextStyles';
 import { LinearGradient } from 'expo-linear-gradient';
-import { WithLocalSvg } from 'react-native-svg';
+import { WithLocalSvg } from 'react-native-svg/css';
 import SeeOriginalSvg from '../../../assets/icon/seeOriginal.svg';
 
 interface TimeLineProps {

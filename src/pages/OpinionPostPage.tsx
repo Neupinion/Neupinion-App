@@ -9,7 +9,7 @@ import {
   View,
 } from 'react-native';
 import theme from '../shared/styles/theme';
-import { WithLocalSvg } from 'react-native-svg';
+import { WithLocalSvg } from 'react-native-svg/css';
 import MainArrowLeft from '../assets/icon/mainarrowLeft.svg';
 import OpinionCheckButton from '../assets/icon/opinionpurplecheck.svg';
 import PinButton from '../features/opinion/components/PinButton';

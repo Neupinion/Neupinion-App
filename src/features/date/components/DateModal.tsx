@@ -11,7 +11,7 @@ import { Calendar, DateData, LocaleConfig } from 'react-native-calendars';
 import { koreaLocales } from '../constants/locales';
 import { cvtParamDate } from '../constants/cvtParamDate';
 import { useDate } from '../provider/DateProvider';
-import { WithLocalSvg } from 'react-native-svg';
+import { WithLocalSvg } from 'react-native-svg/css';
 import DateModalClose from '../../../assets/icon/datemodalclose.svg';
 import {
   dateModalInitialOpacity,

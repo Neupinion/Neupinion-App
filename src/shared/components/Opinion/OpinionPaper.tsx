@@ -1,7 +1,7 @@
 import { ImageSourcePropType, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
 import theme from '../../styles/theme';
-import { WithLocalSvg } from 'react-native-svg';
+import { WithLocalSvg } from 'react-native-svg/css';
 import Pin from '../../../assets/icon/pin.svg';
 import fontFamily from '../../styles/fontFamily';
 import { Opinion } from '../../../features/vote/types/opinion';

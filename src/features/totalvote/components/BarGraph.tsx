@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import Svg, { Rect, Line, Text as SvgText } from 'react-native-svg';
+import Svg from 'react-native-svg';
+import { Rect, Line, Text as SvgText } from 'react-native-svg';
 import { TotalTrustVoteData } from '../../../dummy/TotalVotedDataDummy';
 import fontFamily from '../../../shared/styles/fontFamily';
 import { WINDOW_WIDTH } from '../../../shared/constants/display';

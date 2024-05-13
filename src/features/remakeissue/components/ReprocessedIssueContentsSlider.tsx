@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, ImageSourcePropType, TouchableOpacity, Image } from 'react-native';
 import theme from '../../../shared/styles/theme';
-import { WithLocalSvg } from 'react-native-svg';
+import { WithLocalSvg } from 'react-native-svg/css';
 import SeeOriginalSvg from '../../../assets/icon/seeOriginal.svg';
 import { formatDate } from '../constants/formatDate';
 import { ReprocessedIssueId } from '../../../shared/types/news';

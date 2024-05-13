@@ -10,7 +10,7 @@ import {
 import GlobalTextStyles from '../../../shared/styles/GlobalTextStyles';
 import theme from '../../../shared/styles/theme';
 import OpinionWriterSvg from '../../../assets/icon/opinionwrite.svg';
-import { WithLocalSvg } from 'react-native-svg';
+import { WithLocalSvg } from 'react-native-svg/css';
 import Pin from '../../../assets/icon/pin.svg';
 import fontFamily from '../../../shared/styles/fontFamily';
 import useFetch from '../../../shared/hooks/useFetch';

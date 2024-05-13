@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, ImageSourcePropType, TouchableOpacity } from 'react-native';
 import GlobalTextStyles from '../../../shared/styles/GlobalTextStyles';
 import ReliabiltyBackGroundSvg from '../../../assets/icon/reliabiltybackground2.svg';
-import { WithLocalSvg } from 'react-native-svg';
+import { WithLocalSvg } from 'react-native-svg/css';
 import theme from '../../../shared/styles/theme';
 import Moon1Svg from '../../../assets/icon/moon1.svg';
 import Moon2Svg from '../../../assets/icon/moon2.svg';

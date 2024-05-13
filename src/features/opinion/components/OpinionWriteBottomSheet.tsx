@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import theme from '../../../shared/styles/theme';
 import fontFamily from '../../../shared/styles/fontFamily';
-import { WithLocalSvg } from 'react-native-svg';
+import { WithLocalSvg } from 'react-native-svg/css';
 import OpinionPin from '../../../assets/icon/opinionpin.svg';
 import { useModal } from '../../../shared/hooks/useModal';
 import {

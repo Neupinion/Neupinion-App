@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity, ImageSourcePropType } from 'r
 import theme from '../../../shared/styles/theme';
 import { FollowUpIssue } from '../../../shared/types/news';
 import RightArrowSvg from '../../../assets/icon/rightarrow.svg';
-import { WithLocalSvg } from 'react-native-svg';
+import { WithLocalSvg } from 'react-native-svg/css';
 import { WINDOW_WIDTH } from '../../../shared/constants/display';
 
 interface AfterIssueItemProps {

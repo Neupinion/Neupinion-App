@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, Text, ImageSourcePropType } from 'react-native';
-import { WithLocalSvg } from 'react-native-svg';
+import { WithLocalSvg } from 'react-native-svg/css';
 import theme from '../../../shared/styles/theme';
 import fontFamily from '../../../shared/styles/fontFamily';
 import { TrustVoteData } from '../types/bubbleChartData';

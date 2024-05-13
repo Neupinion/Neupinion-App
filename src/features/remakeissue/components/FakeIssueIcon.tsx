@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, ImageSourcePropType } from 'react-native';
 import theme from '../../../shared/styles/theme';
 import { ReProcessedIssue } from '../../../shared/types/news';
-import { WithLocalSvg } from 'react-native-svg';
+import { WithLocalSvg } from 'react-native-svg/css';
 import MessageIcon from '../../../assets/icon/message.svg';
 import UserIcon from '../../../assets/icon/user.svg';
 import { WINDOW_WIDTH } from '../../../shared/constants/display';

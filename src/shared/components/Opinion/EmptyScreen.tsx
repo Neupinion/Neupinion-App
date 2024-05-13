@@ -1,7 +1,7 @@
 import React from 'react';
 import { ImageSourcePropType, StyleSheet, Text, View } from 'react-native';
 import EmptyOpinion from '../../../assets/icon/emptyopinionui.svg';
-import { WithLocalSvg } from 'react-native-svg';
+import { WithLocalSvg } from 'react-native-svg/css';
 import theme from '../../styles/theme';
 import fontFamily from '../../styles/fontFamily';
 
