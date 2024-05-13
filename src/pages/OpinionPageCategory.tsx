@@ -41,18 +41,10 @@ const OpinionPageCategory = () => {
           setOpen={setOpen}
           setValue={setValue}
           setItems={setItems}
-          style={{
-            width: 100,
-            backgroundColor: theme.color.black,
-          }}
+          style={styles.dropDownMainStyle}
           textStyle={styles.listText}
-          arrowIconStyle={{
-            width: 24,
-            height: 24,
-          }}
-          dropDownContainerStyle={{
-            backgroundColor: theme.color.black,
-          }}
+          arrowIconStyle={styles.arrowStyle}
+          dropDownContainerStyle={styles.dropDownMainStyle}
         />
       </View>
     </View>
@@ -113,6 +105,18 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     lineHeight: 21,
     letterSpacing: -0.42,
+  },
+  dropDownMainStyle:{
+    width: 100,
+    backgroundColor: theme.color.black,
+  },
+  arrowStyle: {
+    width: 24,
+    height: 24,
+    tintColor: theme.color.white,
+  },
+  dropDownContainerStyle: {
+    backgroundColor: theme.color.black,
   },
 });
 

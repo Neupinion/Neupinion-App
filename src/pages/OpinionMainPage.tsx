@@ -8,9 +8,9 @@ import {
   Dimensions,
 } from 'react-native';
 import theme from '../shared/styles/theme';
-import TotalOpinionPage from './TotalOpinionPage';
+import TotalOpinionCategory from './TotalOpinionCategory';
 import fontFamily from '../shared/styles/fontFamily';
-import ParagraphOpinionPage from './ParagraphOpinionPage';
+import ParagraphOpinionCategory from './ParagraphOpinionCategory';
 import OpinionPageCategory from './OpinionPageCategory';
 import PageHeader from '../shared/components/PageHeader';
 import { WithLocalSvg } from 'react-native-svg';
@@ -56,7 +56,7 @@ const OpinionMainPage = () => {
         {activeButton == mainCategories[1] && <View style={styles.selectedParagraph} />}
       </View>
       <OpinionPageCategory />
-      {activeButton === mainCategories[0] ? <TotalOpinionPage /> : <ParagraphOpinionPage />}
+      {activeButton === mainCategories[0] ? <TotalOpinionCategory /> : <ParagraphOpinionCategory />}
     </View>
   );
 };

@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import ParagraphOpinionBigCard from './ParagraphOpinionBigCard';
 
-const ParagraphOpinionPage = () => {
+const ParagraphOpinionCategory = () => {
   return (
     <View style={styles.container}>
       <ParagraphOpinionBigCard />
@@ -17,4 +17,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ParagraphOpinionPage;
+export default ParagraphOpinionCategory;
