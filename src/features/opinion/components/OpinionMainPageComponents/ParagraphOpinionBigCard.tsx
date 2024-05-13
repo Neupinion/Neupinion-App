@@ -7,10 +7,10 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import theme from '../shared/styles/theme';
+import theme from '../../../../shared/styles/theme';
 import { WithLocalSvg } from 'react-native-svg';
-import next from '../assets/icon/next.svg';
-import fontFamily from '../shared/styles/fontFamily';
+import next from '../../../../assets/icon/next.svg';
+import fontFamily from '../../../../shared/styles/fontFamily';
 import PinSentenceCard from './PinSentenceCard';
 
 const ParagraphOpinionBigCard = () => {

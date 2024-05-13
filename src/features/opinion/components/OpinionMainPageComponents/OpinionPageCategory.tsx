@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import theme from '../shared/styles/theme';
-import fontFamily from '../shared/styles/fontFamily';
+import theme from '../../../../shared/styles/theme';
+import fontFamily from '../../../../shared/styles/fontFamily';
 import DropDownPicker from 'react-native-dropdown-picker';
 
 const OpinionPageCategory = () => {

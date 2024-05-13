@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import TotalOpinionBigCard from './TotalOpinionBigCard';
-import { WINDOW_WIDTH } from "../shared/constants/display";
+import { WINDOW_WIDTH } from "../../../../shared/constants/display";
 
 const TotalOpinionCategory = () => {
   return (
