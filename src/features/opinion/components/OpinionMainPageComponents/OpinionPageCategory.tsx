@@ -3,9 +3,8 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import theme from '../../../../shared/styles/theme';
 import fontFamily from '../../../../shared/styles/fontFamily';
 import DropDownPicker from 'react-native-dropdown-picker';
-
+import { subCategories } from '../../../../shared/constants/opinionCategory';
 const OpinionPageCategory = () => {
-  const categories = ['전체', '신뢰', '의심'];
   const [activeButton, setActiveButton] = useState('전체');
   const handleButtonPress = (category: string) => {
     setActiveButton(category);
@@ -19,7 +18,7 @@ const OpinionPageCategory = () => {
   return (
     <View style={styles.container}>
       <View style={{ flexDirection: 'row' }}>
-        {categories.map((category, index) => (
+        {subCategories.map((category, index) => (
           <TouchableOpacity
             key={index.toString()}
             style={activeButton === category ? styles.activeButton : styles.positionButton}
@@ -106,7 +105,7 @@ const styles = StyleSheet.create({
     lineHeight: 21,
     letterSpacing: -0.42,
   },
-  dropDownMainStyle:{
+  dropDownMainStyle: {
     width: 100,
     backgroundColor: theme.color.black,
   },

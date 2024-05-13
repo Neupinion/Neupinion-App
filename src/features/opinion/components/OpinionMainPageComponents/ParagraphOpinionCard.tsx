@@ -13,11 +13,11 @@ import next from '../../../../assets/icon/next.svg';
 import fontFamily from '../../../../shared/styles/fontFamily';
 import PinSentenceCard from './PinSentenceCard';
 
-const ParagraphOpinionBigCard = () => {
+const ParagraphOpinionCard = () => {
   return (
     <View style={styles.container}>
       <PinSentenceCard color="#191926" />
-      <View style={{ flexDirection: 'row', marginLeft: 42, marginTop: 10, marginBottom: 30 }}>
+      <View style={styles.cardBottom}>
         <Text style={styles.opinionCountText}>의견 3개</Text>
         <TouchableOpacity>
           <WithLocalSvg width={24} height={24} asset={next as ImageSourcePropType} />
@@ -29,7 +29,6 @@ const ParagraphOpinionBigCard = () => {
 
 const styles = StyleSheet.create({
   container: {
-    // backgroundColor: theme.color.gray4,
     width: Dimensions.get('window').width - 52,
   },
   pinSentenceContainer: {
@@ -46,7 +45,6 @@ const styles = StyleSheet.create({
   },
   sentenceContainer: {
     width: Dimensions.get('window').width - 110,
-    // display: 'flex',
   },
   sentenceText: {
     fontFamily: fontFamily.pretendard.bold,
@@ -67,6 +65,13 @@ const styles = StyleSheet.create({
     lineHeight: 21,
     letterSpacing: -0.42,
   },
+  cardBottom: {
+    flexDirection: 'row',
+    marginLeft: 42,
+    marginTop: 10,
+    marginBottom: 30,
+    alignItems: 'center',
+  },
 });
 
-export default ParagraphOpinionBigCard;
+export default ParagraphOpinionCard;

@@ -14,7 +14,7 @@ import FavoriteSvg from '../../../../assets/icon/favorite.svg';
 import fontFamily from '../../../../shared/styles/fontFamily';
 import PinSentenceCard from './PinSentenceCard';
 
-const TotalOpinionBigCard = () => {
+const TotalOpinionCard = () => {
   const UpdateFavorite = () => {};
   return (
     <View style={styles.container}>
@@ -114,4 +114,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default TotalOpinionBigCard;
+export default TotalOpinionCard;
