@@ -37,7 +37,7 @@ const OpinionMainPage = () => {
       />
       <View style={styles.divideLine}></View>
 
-      <View style={styles.MainCategoryTop}>
+      <View style={styles.mainCategoryTop}>
         {mainCategories.map((category, index) => (
           <TouchableOpacity
             key={index.toString()}
@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: theme.color.black,
   },
-  MainCategoryTop: {
+  mainCategoryTop: {
     flexDirection: 'row',
     height: 36,
     marginBottom: 12,
@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
   },
   activeText: {
     fontSize: 16,
-    fontFamily: fontFamily.pretendard.bold,
+    fontFamily: fontFamily.pretendard.medium,
     color: theme.color.white,
     fontStyle: 'normal',
     fontWeight: '600',
