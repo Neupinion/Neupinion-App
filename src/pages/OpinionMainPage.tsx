@@ -5,8 +5,8 @@ import {
   View,
   TouchableOpacity,
   ImageSourcePropType,
-  Dimensions,
-} from 'react-native';
+  Dimensions, ScrollView
+} from "react-native";
 import theme from '../shared/styles/theme';
 import TotalOpinionCategory from '../features/opinion/components/OpinionMainPageComponents/TotalOpinionCategory';
 import fontFamily from '../shared/styles/fontFamily';
@@ -36,7 +36,6 @@ const OpinionMainPage = () => {
         RightIcons={null}
       />
       <View style={styles.divideLine}></View>
-
       <View style={styles.mainCategoryTop}>
         {mainCategories.map((category, index) => (
           <TouchableOpacity
@@ -56,7 +55,9 @@ const OpinionMainPage = () => {
         {activeButton == mainCategories[1] && <View style={styles.selectedParagraph} />}
       </View>
       <OpinionPageCategory />
-      {activeButton === mainCategories[0] ? <TotalOpinionCategory /> : <ParagraphOpinionCategory />}
+      <ScrollView>
+        {activeButton === mainCategories[0] ? <TotalOpinionCategory /> : <ParagraphOpinionCategory />}
+      </ScrollView>
     </View>
   );
 };
