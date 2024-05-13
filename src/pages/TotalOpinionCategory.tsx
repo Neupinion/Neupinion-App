@@ -3,7 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import TotalOpinionBigCard from './TotalOpinionBigCard';
 import { WINDOW_WIDTH } from "../shared/constants/display";
 
-const TotalOpinionPage = () => {
+const TotalOpinionCategory = () => {
   return (
     <View style={styles.container}>
       <TotalOpinionBigCard />
@@ -24,4 +24,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default TotalOpinionPage;
+export default TotalOpinionCategory;
