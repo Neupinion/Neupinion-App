@@ -5,8 +5,9 @@ import {
   View,
   TouchableOpacity,
   ImageSourcePropType,
-  Dimensions, ScrollView
-} from "react-native";
+  Dimensions,
+  ScrollView,
+} from 'react-native';
 import theme from '../shared/styles/theme';
 import TotalOpinionCategory from '../features/opinion/components/OpinionMainPageComponents/TotalOpinionCategory';
 import fontFamily from '../shared/styles/fontFamily';
@@ -16,9 +17,9 @@ import PageHeader from '../shared/components/PageHeader';
 import { WithLocalSvg } from 'react-native-svg';
 import MainArrowLeftSvg from '../assets/icon/mainarrowLeft.svg';
 import { WINDOW_WIDTH } from '../shared/constants/display';
+import { mainCategories } from '../shared/constants/opinionCategory';
 
 const OpinionMainPage = () => {
-  const mainCategories = ['전체', '문단별 보기'];
   const [activeButton, setActiveButton] = useState('전체');
   const SelectMainCategory = (category: string) => {
     setActiveButton(category);
@@ -56,7 +57,11 @@ const OpinionMainPage = () => {
       </View>
       <OpinionPageCategory />
       <ScrollView>
-        {activeButton === mainCategories[0] ? <TotalOpinionCategory /> : <ParagraphOpinionCategory />}
+        {activeButton === mainCategories[0] ? (
+          <TotalOpinionCategory />
+        ) : (
+          <ParagraphOpinionCategory />
+        )}
       </ScrollView>
     </View>
   );

@@ -1,11 +1,11 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import ParagraphOpinionBigCard from './ParagraphOpinionBigCard';
+import ParagraphOpinionCard from './ParagraphOpinionCard';
 
 const ParagraphOpinionCategory = () => {
   return (
     <View style={styles.container}>
-      <ParagraphOpinionBigCard />
+      <ParagraphOpinionCard />
     </View>
   );
 };

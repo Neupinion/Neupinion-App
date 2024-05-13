@@ -1,12 +1,12 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import TotalOpinionBigCard from './TotalOpinionBigCard';
+import TotalOpinionCard from './TotalOpinionCard';
 import { WINDOW_WIDTH } from "../../../../shared/constants/display";
 
 const TotalOpinionCategory = () => {
   return (
     <View style={styles.container}>
-      <TotalOpinionBigCard />
+      <TotalOpinionCard />
       <View style={styles.headerUnderLine} />
     </View>
   );
