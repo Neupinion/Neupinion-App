@@ -8,10 +8,10 @@ import {
   Dimensions,
 } from 'react-native';
 import theme from '../shared/styles/theme';
-import TotalOpinionCategory from './TotalOpinionCategory';
+import TotalOpinionCategory from '../features/opinion/components/OpinionMainPageComponents/TotalOpinionCategory';
 import fontFamily from '../shared/styles/fontFamily';
-import ParagraphOpinionCategory from './ParagraphOpinionCategory';
-import OpinionPageCategory from './OpinionPageCategory';
+import ParagraphOpinionCategory from '../features/opinion/components/OpinionMainPageComponents/ParagraphOpinionCategory';
+import OpinionPageCategory from '../features/opinion/components/OpinionMainPageComponents/OpinionPageCategory';
 import PageHeader from '../shared/components/PageHeader';
 import { WithLocalSvg } from 'react-native-svg';
 import MainArrowLeftSvg from '../assets/icon/mainarrowLeft.svg';

@@ -1,9 +1,9 @@
 import React from 'react';
 import { Dimensions, ImageSourcePropType, StyleSheet, Text, View } from 'react-native';
-import theme from '../shared/styles/theme';
+import theme from '../../../../shared/styles/theme';
 import { WithLocalSvg } from 'react-native-svg';
-import OpinionPin from '../assets/icon/opinionpin.svg';
-import fontFamily from '../shared/styles/fontFamily';
+import OpinionPin from '../../../../assets/icon/opinionpin.svg';
+import fontFamily from '../../../../shared/styles/fontFamily';
 
 interface PinSentenceCardProps {
   color: string;
