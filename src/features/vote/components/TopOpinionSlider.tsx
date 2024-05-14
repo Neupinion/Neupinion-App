@@ -1,10 +1,12 @@
 import React, { useEffect } from 'react';
-import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, FlatList, StyleSheet, Text, View } from 'react-native';
 import theme from '../../../shared/styles/theme';
 import fontFamily from '../../../shared/styles/fontFamily';
 import useFetch from '../../../shared/hooks/useFetch';
 import { getReprocessedIssueTopOpinion } from '../remotes/topOpinion';
 import GlobalTextStyles from '../../../shared/styles/GlobalTextStyles';
+import OpinionPaper from '../../../shared/components/Opinion/OpinionPaper';
+import EmptyScreen from '../../../shared/components/Opinion/EmptyScreen';
 
 interface TopOpinionSliderProps {
   id: number;
@@ -38,10 +40,12 @@ const TopOpinionSlider = ({ id }: TopOpinionSliderProps) => {
     );
   }
 
-  if (!TopOpinions) {
+  if (!TopOpinions || TopOpinions.length === 0) {
     return (
       <View style={styles.container}>
-        <Text style={GlobalTextStyles.NormalText17}>No Data</Text>
+        <Text style={styles.titleText}>통합 베스트 Top 5 의견</Text>
+        <View style={{ marginTop: 60 }}></View>
+        <EmptyScreen text={'등록된 의견이 없습니다.'} />
       </View>
     );
   }
@@ -49,19 +53,26 @@ const TopOpinionSlider = ({ id }: TopOpinionSliderProps) => {
   return (
     <View style={styles.container}>
       <Text style={styles.titleText}>통합 베스트 Top 5 의견</Text>
+      <FlatList
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={styles.cardContainer}
+        data={TopOpinions}
+        renderItem={({ item }) => <OpinionPaper opinion={item} />}
+      ></FlatList>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 26,
-    height: 400,
+    display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     marginBottom: 20,
   },
   titleText: {
+    paddingHorizontal: 26,
     fontFamily: fontFamily.pretendard.bold,
     fontSize: 17,
     fontStyle: 'normal',
@@ -70,6 +81,11 @@ const styles = StyleSheet.create({
     letterSpacing: -0.51,
     color: theme.color.white,
     width: '100%',
+  },
+  cardContainer: {
+    paddingHorizontal: 26,
+    marginTop: 16,
+    gap: 16,
   },
   opinionContainer: {
     height: 206,

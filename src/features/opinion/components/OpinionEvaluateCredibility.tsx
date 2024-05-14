@@ -1,7 +1,7 @@
 import React from 'react';
 import { ImageSourcePropType, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import theme from '../../../shared/styles/theme';
-import { WithLocalSvg } from 'react-native-svg';
+import { WithLocalSvg } from 'react-native-svg/css';
 import OpinionInfoIcon from '../../../assets/icon/opinioninfoicon.svg';
 
 interface OpinionEvaluateReliabilityProps {

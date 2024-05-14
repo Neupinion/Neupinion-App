@@ -11,7 +11,7 @@ import {
 import theme from '../shared/styles/theme';
 import FakeIssueSlider from '../features/remakeissue/components/FakeIssueSlider';
 import GlobalTextStyles from '../shared/styles/GlobalTextStyles';
-import { WithLocalSvg } from 'react-native-svg';
+import { WithLocalSvg } from 'react-native-svg/css';
 import MainArrowSvg from '../assets/icon/mainarrow.svg';
 import MainUser from '../assets/icon/mainuser.svg';
 import MainSearch from '../assets/icon/mainsearch.svg';
@@ -121,7 +121,7 @@ const MainPage = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: theme.color.black,
+    backgroundColor: theme.color.background,
     alignItems: 'flex-start',
     justifyContent: 'center',
   },

@@ -7,6 +7,7 @@ import MainPage from './pages/MainPage';
 import ModalContainer from './shared/components/ModalContainer';
 import ReprocessedIssueDetailPage from './pages/ReprocessedIssueDetailPage';
 import VoteResultPage from './pages/VoteResultPage';
+import TotalVoteResultPage from './pages/TotalVoteResultPage';
 
 const Stack = createNativeStackNavigator();
 
@@ -25,6 +26,7 @@ const Navigation = () => {
           </Stack.Group>
           <Stack.Group>
             <Stack.Screen name="VoteResultPage" component={VoteResultPage} />
+            <Stack.Screen name="TotalVoteResultPage" component={TotalVoteResultPage} />
           </Stack.Group>
           <Stack.Group>
             <Stack.Screen

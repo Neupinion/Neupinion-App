@@ -19,15 +19,15 @@ import { getFollowUpIssues } from '../remotes/followupissue';
 import FollowUpIssueSlider from './FollowUpIssueSlider';
 import { useDate } from '../../date/provider/DateProvider';
 import { WINDOW_WIDTH } from '../../../shared/constants/display';
+import fontFamily from '../../../shared/styles/fontFamily';
+import EmptyScreen from '../../../shared/components/Opinion/EmptyScreen';
 
 const FollowUpIssueContainer = () => {
-  // 첫 번째 MainCategory 값을 찾아서 초기 상태로 설정
   const firstMainCategory: string | MainCategory =
     Object.keys(MainCategory).find(
       (key) => !isNaN(Number(MainCategory[key as keyof typeof MainCategory])),
     ) || MainCategory.All;
 
-  // 첫 번째 SubCategory 값을 찾아서 초기 상태로 설정
   const firstSubCategory: string | SubCategory =
     Object.keys(SubCategory).find(
       (key) => !isNaN(Number(SubCategory[key as keyof typeof SubCategory])),
@@ -58,23 +58,15 @@ const FollowUpIssueContainer = () => {
   } = useFetch(fetchFollowUpIssues, false);
 
   useEffect(() => {
-    fetchData()
-      .then(() => {
-        console.log('데이터를 성공적으로 가져왔습니다.');
-      })
-      .catch((error) => {
-        console.error('데이터 가져오기 실패:', error);
-      });
+    void fetchData();
   }, [selectedMainCategory, selectedSubCategory, date, viewMode]);
 
   const changeMainCategory = (newTab: MainCategory) => {
-    console.log('메인 카테고리 변경:', MainCategory[newTab]);
     setSelectedMainCategory(newTab);
     setViewMode(MainCategory[newTab] ? 'VOTED' : 'ALL');
   };
 
   const changeSubCategory = (newSubTab: SubCategory) => {
-    console.log('부 카테고리 변경:', SubCategory[newSubTab]);
     setSelectedSubCategory(newSubTab);
   };
 
@@ -142,7 +134,7 @@ const FollowUpIssueContainer = () => {
         {!followUpIssues ||
           (followUpIssues.length === 0 && (
             <View style={styles.emptyContainer}>
-              <Text style={styles.emptyText}>No Data</Text>
+              <EmptyScreen text={'등록된 후속 이슈가 없습니다.'} />
             </View>
           ))}
         {!isLoading && !error && <FollowUpIssueSlider followUpIssue={followUpIssues} />}
@@ -175,6 +167,7 @@ const styles = StyleSheet.create({
   },
   mainCategoryText: {
     color: 'white',
+    fontFamily: fontFamily.pretendard.medium,
     fontSize: 16,
     fontStyle: 'normal',
     fontWeight: '600',
@@ -219,12 +212,14 @@ const styles = StyleSheet.create({
     borderColor: 'rgba(189, 189, 189, 0.5)',
   },
   subCategoryTextOn: {
+    fontFamily: fontFamily.pretendard.medium,
     fontSize: 14,
     fontStyle: 'normal',
     fontWeight: '500',
     color: '#BDBDBD',
   },
   subCategoryTextOff: {
+    fontFamily: fontFamily.pretendard.medium,
     fontSize: 14,
     fontStyle: 'normal',
     fontWeight: '500',
@@ -243,6 +238,7 @@ const styles = StyleSheet.create({
   },
   loadingText: {
     color: 'white',
+    fontFamily: fontFamily.pretendard.bold,
     fontSize: 18,
     fontWeight: '600',
   },
@@ -262,6 +258,7 @@ const styles = StyleSheet.create({
   },
   emptyText: {
     color: 'white',
+    fontFamily: fontFamily.pretendard.bold,
     fontSize: 18,
     fontWeight: '600',
   },

@@ -9,7 +9,7 @@ import {
   View,
 } from 'react-native';
 import theme from '../shared/styles/theme';
-import { WithLocalSvg } from 'react-native-svg';
+import { WithLocalSvg } from 'react-native-svg/css';
 import MainArrowLeftSvg from '../assets/icon/mainarrowLeft.svg';
 import BookMarkSvg from '../assets/icon/bookmark.svg';
 import AnotherBookMarkSvg from '../assets/icon/anotherbookmark.svg';
@@ -68,7 +68,7 @@ const ReprocessedIssueDetailPage: React.FC = () => {
       <PageHeader
         leftIcons={
           <TouchableOpacity style={styles.svgStyle} onPress={navigation.goBack}>
-            <WithLocalSvg height={25} asset={MainArrowLeftSvg as ImageSourcePropType} />
+            <WithLocalSvg width={25} height={25} asset={MainArrowLeftSvg as ImageSourcePropType} />
           </TouchableOpacity>
         }
         centerText={'진짜일까, 가짜일까?'}
@@ -113,7 +113,7 @@ const ReprocessedIssueDetailPage: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: theme.color.black,
+    backgroundColor: theme.color.background,
     alignItems: 'flex-start',
     justifyContent: 'center',
   },

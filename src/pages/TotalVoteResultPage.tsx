@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import {
-  ActivityIndicator,
   Dimensions,
   ImageSourcePropType,
   ScrollView,
@@ -17,98 +16,50 @@ import PageHeader from '../shared/components/PageHeader';
 import { WithLocalSvg } from 'react-native-svg/css';
 import MainArrowLeftSvg from '../assets/icon/mainarrowLeft.svg';
 import BookMarkSvg from '../assets/icon/bookmark.svg';
-import VoteChartContainer from '../features/vote/components/VoteChartContainer';
 import { WINDOW_WIDTH } from '../shared/constants/display';
-import VoteRankContainer from '../features/vote/components/VoteRankContainer';
 import fontFamily from '../shared/styles/fontFamily';
-import useFetch from '../shared/hooks/useFetch';
-import { getReprocessedIssueVote } from '../features/vote/remotes/reprocessedIssueVote';
-import GlobalTextStyles from '../shared/styles/GlobalTextStyles';
-import TopOpinionSlider from '../features/vote/components/TopOpinionSlider';
-import FollowUpIssueSlider from '../features/vote/components/FollowUpIssueSlider';
+import { TotalVotedDataDummy } from '../dummy/TotalVotedDataDummy';
+import TotalVoteChartContainer from '../features/totalvote/components/TotalVoteChartContainer';
+import VoteRankContainer from '../features/vote/components/VoteRankContainer';
+import { VotedDataDummy } from '../dummy/VotedDataDummy';
 import RelatedIssues from '../features/vote/components/RelatedIssues';
-
-const VoteResultPage = () => {
+import TimeLine from '../features/totalvote/components/TimeLine';
+const TotalVoteResultPage = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
-  type ScreenRouteProp = RouteProp<RootStackParamList, 'VoteResultPage'>;
+  type ScreenRouteProp = RouteProp<RootStackParamList, 'TotalVoteResultPage'>;
   const route = useRoute<ScreenRouteProp>();
   const id: number = route.params.id;
-
-  const fetchReprocessedIssueVote = () => getReprocessedIssueVote(id);
-  const {
-    data: voteData,
-    isLoading,
-    error,
-    fetchData,
-  } = useFetch(fetchReprocessedIssueVote, false);
-
-  useEffect(() => {
-    void fetchData();
-  }, []);
-
-  const onClickViewTotalVoteButton = () => {
-    navigation.navigate('TotalVoteResultPage', { id: id });
-  };
-
-  if (isLoading) {
-    return (
-      <View style={styles.container}>
-        <ActivityIndicator size="large" style={styles.activityIndicator} />
-      </View>
-    );
-  }
-
-  if (error) {
-    return (
-      <View style={styles.container}>
-        <Text style={GlobalTextStyles.NormalText17}>ERROR</Text>
-      </View>
-    );
-  }
-
-  if (!voteData) {
-    return (
-      <View style={styles.container}>
-        <Text style={GlobalTextStyles.NormalText17}>No Data</Text>
-      </View>
-    );
-  }
 
   return (
     <View style={styles.container}>
       <PageHeader
         leftIcons={
-          <TouchableOpacity style={styles.svgStyle} onPress={navigation.goBack}>
+          <TouchableOpacity style={styles.iconButton} onPress={() => navigation.goBack()}>
             <WithLocalSvg width={25} height={25} asset={MainArrowLeftSvg as ImageSourcePropType} />
           </TouchableOpacity>
         }
-        centerText={'진짜일까,가짜일까?'}
+        centerText={'통합 투표 결과보기'}
         RightIcons={
           <>
-            <TouchableOpacity style={styles.svgStyle} onPress={() => {}}>
+            <TouchableOpacity style={styles.iconButton} onPress={() => {}}>
               <WithLocalSvg width={23} height={23} asset={BookMarkSvg as ImageSourcePropType} />
             </TouchableOpacity>
           </>
         }
       />
       <ScrollView style={styles.scrollViewStyle}>
-        <VoteChartContainer data={voteData} />
+        <TotalVoteChartContainer data={TotalVotedDataDummy} />
         <View style={styles.underChartContainer}>
-          <TouchableOpacity style={styles.totalVotedButton} onPress={onClickViewTotalVoteButton}>
-            <Text style={styles.totalVotedButtonText}>통합 투표 결과 보기</Text>
-          </TouchableOpacity>
           <View style={styles.rankContainer}>
             <Text style={styles.rankTitleText}>전체 투표 순위</Text>
           </View>
-          <VoteRankContainer data={voteData} />
+          <VoteRankContainer data={VotedDataDummy} />
         </View>
         <View style={styles.divideLine} />
-        <TopOpinionSlider id={id} />
-        <TouchableOpacity style={styles.opinionPageButton} onPress={() => {}}>
-          <Text style={styles.totalVotedButtonText}>의견 보기</Text>
-        </TouchableOpacity>
-        <View style={styles.divideLine} />
-        <FollowUpIssueSlider id={id} />
+        <View style={styles.timeLineContainer}>
+          <Text style={styles.rankTitleText}>타임라인 살펴보기</Text>
+        </View>
+        <TimeLine id={id} />
         <View style={styles.divideLine} />
         <RelatedIssues id={id} />
       </ScrollView>
@@ -123,7 +74,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     justifyContent: 'center',
   },
-  svgStyle: {
+  iconButton: {
     height: 30,
     width: 30,
     padding: 5,
@@ -152,7 +103,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#21202F',
   },
   rankContainer: {
-    marginTop: 32,
+    marginTop: 52,
     width: '100%',
     flexDirection: 'column',
     alignItems: 'flex-start',
@@ -208,6 +159,12 @@ const styles = StyleSheet.create({
     marginTop: 28,
     marginBottom: 20,
   },
+  timeLineContainer: {
+    paddingHorizontal: 26,
+    marginBottom: 20,
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+  },
 });
 
-export default VoteResultPage;
+export default TotalVoteResultPage;

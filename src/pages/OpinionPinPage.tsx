@@ -9,7 +9,7 @@ import {
   View,
 } from 'react-native';
 import theme from '../shared/styles/theme';
-import { WithLocalSvg } from 'react-native-svg';
+import { WithLocalSvg } from 'react-native-svg/css';
 import MainArrowLeft from '../assets/icon/mainarrowLeft.svg';
 import OpinionCheckButton from '../assets/icon/opinionpurplecheck.svg';
 import OpinionPinIssue from '../features/opinion/components/OpinionPinIssue';
@@ -113,7 +113,7 @@ const OpinionPinPage = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: theme.color.black,
+    backgroundColor: theme.color.background,
     flexDirection: 'column',
     alignItems: 'center',
   },

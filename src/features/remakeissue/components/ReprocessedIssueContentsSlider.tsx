@@ -1,12 +1,13 @@
 import React from 'react';
 import { View, Text, StyleSheet, ImageSourcePropType, TouchableOpacity, Image } from 'react-native';
 import theme from '../../../shared/styles/theme';
-import { WithLocalSvg } from 'react-native-svg';
+import { WithLocalSvg } from 'react-native-svg/css';
 import SeeOriginalSvg from '../../../assets/icon/seeOriginal.svg';
 import { formatDate } from '../constants/formatDate';
 import { ReprocessedIssueId } from '../../../shared/types/news';
 import Markdown from 'react-native-markdown-display';
 import { WINDOW_WIDTH } from '../../../shared/constants/display';
+import fontFamily from '../../../shared/styles/fontFamily';
 
 interface ReprocessedIssueContentsProps {
   reprocessedIssue: ReprocessedIssueId | null;
@@ -42,10 +43,12 @@ const ReprocessedIssueContentsSlider = ({ reprocessedIssue }: ReprocessedIssueCo
     </View>
   );
 };
+
 const markdownStyles = StyleSheet.create({
   body: {
     textAlign: 'justify',
     color: theme.color.white,
+    fontFamily: fontFamily.pretendard.medium,
     fontStyle: 'normal',
     fontSize: 14,
     fontWeight: '700',
@@ -54,6 +57,7 @@ const markdownStyles = StyleSheet.create({
   },
   heading2: {
     fontSize: 17,
+    fontFamily: fontFamily.pretendard.bold,
     marginTop: 15,
   },
   blockquote: {
@@ -61,8 +65,9 @@ const markdownStyles = StyleSheet.create({
     borderColor: '#CCC',
     borderLeftWidth: 3,
     marginLeft: 3,
-    paddingHorizontal: 5,
+    paddingHorizontal: 14,
     marginTop: 15,
+    textAlign: 'left',
   },
 });
 
@@ -109,7 +114,7 @@ const styles = StyleSheet.create({
     letterSpacing: -0.42,
   },
   dateText: {
-    color: theme.color.gray2,
+    color: theme.color.gray5,
     fontStyle: 'normal',
     fontSize: 12,
     fontWeight: '500',

@@ -8,7 +8,7 @@ describe('가짜뉴스 카드뉴스 : 재가공 이슈 컨텐츠', () => {
   it('정상적인 데이터가 들어왔을때의 ui를 테스트한다..', () => {
     const reprocessedIssue = reProcessedIssueDummy;
 
-    render(<FakeIssueSlider fakeNews={reprocessedIssue} />);
+    render(<FakeIssueSlider onClickIssue={() => {}} fakeNews={reprocessedIssue} />);
 
     //슬라이더가 정상적으로 렌더링 되는지
     expect(screen.getByTestId('FlatList')).toBeTruthy();
@@ -25,7 +25,7 @@ describe('가짜뉴스 카드뉴스 : 재가공 이슈 컨텐츠', () => {
   it('데이터가 들어오지 않았을때의 ui를 테스트한다..', () => {
     const reprocessedIssue: ReProcessedIssue[] = [];
 
-    render(<FakeIssueSlider fakeNews={reprocessedIssue} />);
+    render(<FakeIssueSlider onClickIssue={() => {}} fakeNews={reprocessedIssue} />);
 
     //데이터가 없다는 ui가 정상적으로 렌더링 되는지
     expect(screen.getByTestId('EmptyData')).toBeTruthy();

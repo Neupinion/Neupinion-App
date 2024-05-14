@@ -2,10 +2,11 @@ import React from 'react';
 import { View, Text, StyleSheet, ImageSourcePropType } from 'react-native';
 import theme from '../../../shared/styles/theme';
 import { ReProcessedIssue } from '../../../shared/types/news';
-import { WithLocalSvg } from 'react-native-svg';
+import { WithLocalSvg } from 'react-native-svg/css';
 import MessageIcon from '../../../assets/icon/message.svg';
 import UserIcon from '../../../assets/icon/user.svg';
 import { WINDOW_WIDTH } from '../../../shared/constants/display';
+import fontFamily from '../../../shared/styles/fontFamily';
 interface FakeIssueIconProps {
   data: ReProcessedIssue[] | null;
   slideIndex: number;
@@ -40,9 +41,10 @@ const styles = StyleSheet.create({
   },
   iconText: {
     marginLeft: 6,
+    fontFamily: fontFamily.pretendard.medium,
     fontStyle: 'normal',
     fontSize: 14,
-    color: theme.color.gray2,
+    color: theme.color.gray5,
     fontWeight: '500',
     lineHeight: 21,
     letterSpacing: -0.5,

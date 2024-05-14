@@ -3,7 +3,7 @@ import React from 'react';
 import theme from '../styles/theme';
 import fontFamily from '../styles/fontFamily';
 import Exclamation from '../../assets/icon/warningpopupexclamation.svg';
-import { WithLocalSvg } from 'react-native-svg';
+import { WithLocalSvg } from 'react-native-svg/css';
 
 interface WarningModalProps {
   title: string;

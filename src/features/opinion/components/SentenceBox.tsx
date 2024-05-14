@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { WithLocalSvg } from 'react-native-svg';
+import { WithLocalSvg } from 'react-native-svg/css';
 import OpinionPin from '../../../assets/icon/opinionpin.svg';
 import theme from '../../../shared/styles/theme';
 import { getReprocessedIssueById } from '../../remakeissue/remotes/reprocessedissue';
