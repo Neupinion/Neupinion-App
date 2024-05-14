@@ -1,8 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import * as d3 from 'd3';
-import Svg from 'react-native-svg';
-import { Circle } from 'react-native-svg';
+import Svg, { Circle } from 'react-native-svg';
 import fontFamily from '../../../shared/styles/fontFamily';
 import theme from '../../../shared/styles/theme';
 import GradientBubble from './GradientBubble';
