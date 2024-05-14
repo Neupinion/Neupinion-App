@@ -14,7 +14,7 @@ import fontFamily from '../shared/styles/fontFamily';
 import ParagraphOpinionCategory from '../features/opinion/components/OpinionMainPageComponents/ParagraphOpinionCategory';
 import OpinionPageCategory from '../features/opinion/components/OpinionMainPageComponents/OpinionPageCategory';
 import PageHeader from '../shared/components/PageHeader';
-import { WithLocalSvg } from 'react-native-svg';
+import { WithLocalSvg } from 'react-native-svg/css';
 import MainArrowLeftSvg from '../assets/icon/mainarrowLeft.svg';
 import { WINDOW_WIDTH } from '../shared/constants/display';
 import { mainCategories } from '../shared/constants/opinionCategory';

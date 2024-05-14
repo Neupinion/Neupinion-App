@@ -8,7 +8,7 @@ import {
   View,
 } from 'react-native';
 import theme from '../../../../shared/styles/theme';
-import { WithLocalSvg } from 'react-native-svg';
+import { WithLocalSvg } from 'react-native-svg/css';
 import BookMarkSvg from '../../../../assets/icon/bookmark.svg';
 import FavoriteSvg from '../../../../assets/icon/favorite.svg';
 import fontFamily from '../../../../shared/styles/fontFamily';

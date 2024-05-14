@@ -8,7 +8,7 @@ import {
   View,
 } from 'react-native';
 import theme from '../../../../shared/styles/theme';
-import { WithLocalSvg } from 'react-native-svg';
+import { WithLocalSvg } from 'react-native-svg/css';
 import next from '../../../../assets/icon/next.svg';
 import fontFamily from '../../../../shared/styles/fontFamily';
 import PinSentenceCard from './PinSentenceCard';
