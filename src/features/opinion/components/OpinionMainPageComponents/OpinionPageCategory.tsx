@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
   },
   dropDownMainStyle: {
     width: 100,
-    backgroundColor: theme.color.black,
+    backgroundColor: theme.color.background,
   },
   arrowStyle: {
     width: 24,
@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
     tintColor: theme.color.white,
   },
   dropDownContainerStyle: {
-    backgroundColor: theme.color.black,
+    backgroundColor: theme.color.background,
   },
 });
 
