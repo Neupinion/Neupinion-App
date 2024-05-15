@@ -3,17 +3,17 @@ import { StyleSheet, View, Text, ImageSourcePropType } from 'react-native';
 import { WithLocalSvg } from 'react-native-svg/css';
 import theme from '../../../shared/styles/theme';
 import fontFamily from '../../../shared/styles/fontFamily';
-import { TrustVoteData } from '../types/bubbleChartData';
+import { VoteData } from '../types/bubbleChartData';
 import { getRankColor, getRankIcon } from '../constants/rankConstants';
 
 interface VoteRankContainerProps {
-  data: TrustVoteData;
+  data: VoteData[];
 }
 
 const VoteRankContainer = ({ data }: VoteRankContainerProps) => {
   return (
     <View style={styles.container}>
-      {data.voteRankings.map((item, index) => (
+      {data.map((item, index) => (
         <View key={index} style={styles.item}>
           <View style={styles.leftContainer}>
             <Text style={styles.rank}>{index + 1}</Text>

@@ -1,4 +1,4 @@
-import { VoteData } from "../../vote/types/bubbleChartData";
+import { VoteData } from '../../vote/types/bubbleChartData';
 
 export interface IntegratedResult {
   mostVoted: string;
