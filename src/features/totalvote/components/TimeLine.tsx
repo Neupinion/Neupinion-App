@@ -15,8 +15,8 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { WithLocalSvg } from 'react-native-svg/css';
 import SeeOriginalSvg from '../../../assets/icon/seeOriginal.svg';
 import { getTimeLineIssues } from '../remotes/getTimeLineIssues';
-import { formatDate, formatMMDD, formatMonthDay } from "../../remakeissue/constants/formatDate";
-import { getNewsReportOrdinalInKorean } from "../../../shared/functions/getNewsReportOrdinalInKorean";
+import { formatMMDD } from '../../remakeissue/constants/formatDate';
+import { getNewsReportOrdinalInKorean } from '../../../shared/functions/getNewsReportOrdinalInKorean';
 
 interface TimeLineProps {
   id: number;
