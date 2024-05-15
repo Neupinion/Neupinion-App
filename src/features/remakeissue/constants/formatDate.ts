@@ -10,3 +10,11 @@ export const formatDate = (dateString: string) => {
   // \s*는 0개 이상의 공백 문자를 의미함
   return formattedDate.replace(/(\d{4})년\s*(\d{2})월\s*(\d{2})일/, '$1.$2.$3');
 };
+
+export const formatMMDD = (dateString: string) => {
+  const date = new Date(dateString);
+  const month = (date.getMonth() + 1).toString().padStart(2, '0');
+  const day = date.getDate().toString().padStart(2, '0');
+
+  return month + '.' + day;
+};

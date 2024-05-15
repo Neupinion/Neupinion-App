@@ -19,16 +19,14 @@ import MainArrowLeftSvg from '../assets/icon/mainarrowLeft.svg';
 import BookMarkSvg from '../assets/icon/bookmark.svg';
 import { WINDOW_WIDTH } from '../shared/constants/display';
 import fontFamily from '../shared/styles/fontFamily';
-import { TotalVotedDataDummy } from '../dummy/TotalVotedDataDummy';
 import TotalVoteChartContainer from '../features/totalvote/components/TotalVoteChartContainer';
 import VoteRankContainer from '../features/vote/components/VoteRankContainer';
-import { VotedDataDummy } from '../dummy/VotedDataDummy';
 import RelatedIssues from '../features/vote/components/RelatedIssues';
 import TimeLine from '../features/totalvote/components/TimeLine';
 import useFetch from '../shared/hooks/useFetch';
 import { getIntegratedResult } from '../features/totalvote/remotes/getIntegratedResult';
 import GlobalTextStyles from '../shared/styles/GlobalTextStyles';
-import EmptyScreen from "../shared/components/Opinion/EmptyScreen";
+import EmptyScreen from '../shared/components/Opinion/EmptyScreen';
 const TotalVoteResultPage = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   type ScreenRouteProp = RouteProp<RootStackParamList, 'TotalVoteResultPage'>;
@@ -45,7 +43,6 @@ const TotalVoteResultPage = () => {
 
   useEffect(() => {
     void fetchData();
-    console.log(integratedVoteData);
   }, []);
 
   if (isLoading) {
