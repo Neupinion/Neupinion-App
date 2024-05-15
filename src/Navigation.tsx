@@ -21,6 +21,8 @@ const Navigation = () => {
             headerShown: false,
           }}
         >
+
+
           <Stack.Group>
             <Stack.Screen name="MainPage" component={MainPage} />
           </Stack.Group>

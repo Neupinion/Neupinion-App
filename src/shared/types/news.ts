@@ -71,6 +71,6 @@ export interface Opinions {
   isLiked: boolean;
 }
 
-export interface OneOpinionParagraphId{
+export interface OneOpinionParagraph {
 
 }

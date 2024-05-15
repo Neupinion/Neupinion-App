@@ -13,20 +13,23 @@ import next from '../../../../assets/icon/next.svg';
 import fontFamily from '../../../../shared/styles/fontFamily';
 import PinSentenceCard from './PinSentenceCard';
 import { OpinionParagraphId } from '../../../../shared/types/news';
+import OpinionParagraphPage from "../../../../pages/OpinionParagraphPage";
 
 interface ParagraphOpinionCategoryProps {
   item: OpinionParagraphId;
 }
 const ParagraphOpinionCard = ({ item }: ParagraphOpinionCategoryProps) => {
+  const goOpinionParagraphPage = () => {};
   return (
     <View style={styles.container}>
       <PinSentenceCard color="#212A3C" paragraphContent={item.content} />
       <View style={styles.cardBottom}>
         <Text style={styles.opinionCountText}>의견 {item.opinions.length}개</Text>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={goOpinionParagraphPage}>
           <WithLocalSvg width={24} height={24} asset={next as ImageSourcePropType} />
         </TouchableOpacity>
       </View>
+      <OpinionParagraphPage item={item} />
     </View>
   );
 };

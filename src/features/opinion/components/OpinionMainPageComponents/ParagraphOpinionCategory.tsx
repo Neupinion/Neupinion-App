@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import ParagraphOpinionCard from './ParagraphOpinionCard';
 import { OpinionParagraphId } from '../../../../shared/types/news';
+import OpinionParagraphPage from "../../../../pages/OpinionParagraphPage";
 
 interface ParagraphOpinionCategoryProps {
   opinionParagraph: OpinionParagraphId[];

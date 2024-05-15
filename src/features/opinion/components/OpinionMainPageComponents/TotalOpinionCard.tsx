@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
   },
   userOpinionText: {
     fontSize: 14,
-    fontFamily: fontFamily.pretendard.bold,
+    fontFamily: fontFamily.pretendard.medium,
     color: theme.color.white,
     fontStyle: 'normal',
     fontWeight: '500',

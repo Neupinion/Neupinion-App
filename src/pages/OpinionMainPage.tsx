@@ -74,6 +74,7 @@ const OpinionMainPage = () => {
         centerText={'의견보기'}
         RightIcons={null}
       />
+      <View style={styles.headerUnderLine} />
       <View style={styles.divideLine}></View>
       <View style={styles.mainCategoryTop}>
         {mainCategories.map((category, index) => (
@@ -98,7 +99,7 @@ const OpinionMainPage = () => {
         {activeButton === mainCategories[0] ? (
           <TotalOpinionCategory opinionParagraph={opinionParagraph} />
         ) : (
-          <ParagraphOpinionCategory opinionParagraph={opinionParagraph}/>
+          <ParagraphOpinionCategory opinionParagraph={opinionParagraph} />
         )}
       </ScrollView>
     </View>
