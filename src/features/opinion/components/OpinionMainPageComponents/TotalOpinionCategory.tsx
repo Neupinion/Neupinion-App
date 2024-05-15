@@ -11,7 +11,10 @@ interface TotalOpinionCategoryProps {
 const TotalOpinionCategory = ({ opinionParagraph }: TotalOpinionCategoryProps) => {
   return (
     <View style={styles.container}>
-      <TotalOpinionCard opinionParagraph={opinionParagraph} />
+      {opinionParagraph &&
+        opinionParagraph.map((item) => (
+          <TotalOpinionCard key={item.id} item={item} />
+        ))}
       <View style={styles.headerUnderLine} />
     </View>
   );

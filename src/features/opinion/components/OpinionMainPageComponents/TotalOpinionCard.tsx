@@ -17,42 +17,32 @@ import { OpinionParagraphId } from '../../../../shared/types/news';
 import { formatDate } from '../../../remakeissue/constants/formatDate';
 
 interface TotalOpinionCardProps {
-  opinionParagraph: OpinionParagraphId[];
+  item: OpinionParagraphId;
 }
-const TotalOpinionCard = ({ opinionParagraph }: TotalOpinionCardProps) => {
+const TotalOpinionCard = ({ item }: TotalOpinionCardProps) => {
   // console.log('opinionParagraph:', opinionParagraph.opinions[0].nickname);
   const UpdateFavorite = () => {};
   return (
     <View style={styles.container}>
       <View style={styles.bigOpinionCardTop}>
-        <Image
-          source={{ uri: opinionParagraph[0].opinions[0].profileImageUrl }}
-          style={styles.cardImage}
-        />
+        <Image source={{ uri: item.opinions[0].profileImageUrl }} style={styles.cardImage} />
         <View style={{ flexDirection: 'column', marginLeft: 10, gap: 4 }}>
-          <Text style={styles.userNameText}>{opinionParagraph[0].opinions[0].nickname}</Text>
-          <Text style={styles.dateText}>
-            {formatDate(opinionParagraph[0].opinions[0].createdAt)}
-          </Text>
+          <Text style={styles.userNameText}>{item.opinions[0].nickname}</Text>
+          <Text style={styles.dateText}>{formatDate(item.opinions[0].createdAt)}</Text>
         </View>
       </View>
       <View style={styles.bigOpinionCardMiddle}>
         <View style={styles.positionIndicator}>
-          <Text style={styles.positionText}>
-            {opinionParagraph[0].opinions[0].isReliable ? '신뢰' : '의심'}
-          </Text>
+          <Text style={styles.positionText}>{item.opinions[0].isReliable ? '신뢰' : '의심'}</Text>
         </View>
-        <Text style={styles.userOpinionText}>{opinionParagraph[0].opinions[0].content}</Text>
+        <Text style={styles.userOpinionText}>{item.opinions[0].content}</Text>
       </View>
-      <PinSentenceCard
-        color="#212A3C"
-        paragraphContent={opinionParagraph[0].opinions[0].paragraphContent}
-      />
+      <PinSentenceCard color="#212A3C" paragraphContent={item.opinions[0].paragraphContent} />
       <View style={{ flexDirection: 'row', marginVertical: 21 }}>
         <TouchableOpacity style={{ marginRight: 4 }} onPress={() => UpdateFavorite()}>
           <WithLocalSvg width={18} height={18} asset={FavoriteSvg as ImageSourcePropType} />
         </TouchableOpacity>
-        <Text style={styles.favoriteText}>{opinionParagraph[0].opinions[0].likeCount}</Text>
+        <Text style={styles.favoriteText}>{item.opinions[0].likeCount}</Text>
       </View>
     </View>
   );
