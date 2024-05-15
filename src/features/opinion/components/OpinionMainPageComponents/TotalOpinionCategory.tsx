@@ -5,7 +5,7 @@ import { WINDOW_WIDTH } from '../../../../shared/constants/display';
 import { OpinionParagraphId } from '../../../../shared/types/news';
 
 interface TotalOpinionCategoryProps {
-  opinionParagraph: OpinionParagraphId;
+  opinionParagraph: OpinionParagraphId[];
 }
 
 const TotalOpinionCategory = ({ opinionParagraph }: TotalOpinionCategoryProps) => {

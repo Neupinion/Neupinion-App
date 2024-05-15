@@ -60,6 +60,10 @@ const OpinionMainPage = () => {
     );
   }
 
+  if (!opinionParagraph) {
+    return null;
+  }
+
   return (
     <View style={styles.container}>
       <PageHeader

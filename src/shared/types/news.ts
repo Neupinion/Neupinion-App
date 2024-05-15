@@ -52,19 +52,21 @@ export interface OpinionWrite {
 }
 
 export interface OpinionParagraphId {
-  id: number | string;
+  id: number;
   content: string;
-  opinions: {
-    id: number;
-    memberId: number;
-    nickname: string;
-    profileImageUrl: string;
-    createdAt: string;
-    isReliable: boolean;
-    paragraphId: number;
-    paragraphContent: string;
-    content: string;
-    likeCount: number;
-    isLiked: boolean;
-  }[];
+  opinions: Opinions[];
+}
+
+export interface Opinions {
+  id: number;
+  memberId: number;
+  nickname: string;
+  profileImageUrl: string;
+  createdAt: string;
+  isReliable: boolean;
+  paragraphId: number;
+  paragraphContent: string;
+  content: string;
+  likeCount: number;
+  isLiked: boolean;
 }
