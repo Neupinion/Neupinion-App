@@ -2,13 +2,13 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import Svg from 'react-native-svg';
 import { Rect, Line, Text as SvgText } from 'react-native-svg';
-import { TotalTrustVoteData } from '../../../dummy/TotalVotedDataDummy';
 import fontFamily from '../../../shared/styles/fontFamily';
 import { WINDOW_WIDTH } from '../../../shared/constants/display';
 import theme from '../../../shared/styles/theme';
+import { IntegratedResult } from '../types/integratedResult';
 
 interface BarGraphProps {
-  data: TotalTrustVoteData;
+  data: IntegratedResult;
 }
 
 const BarGraph = ({ data }: BarGraphProps) => {
@@ -50,9 +50,9 @@ const BarGraph = ({ data }: BarGraphProps) => {
             </SvgText>
           </React.Fragment>
         ))}
-        {data.voteRankings.map((item, index) => {
-          const trustHeight = (item.trust / 100) * barHeight;
-          const doubtHeight = (item.doubt / 100) * barHeight;
+        {data.voteResults.map((item, index) => {
+          const trustHeight = (item.trustRate / 100) * barHeight;
+          const doubtHeight = (item.doubtRate / 100) * barHeight;
 
           return (
             <React.Fragment key={index}>
@@ -90,7 +90,7 @@ const BarGraph = ({ data }: BarGraphProps) => {
                 fill={theme.color.gray6}
                 textAnchor="middle"
               >
-                {item.issueOrder}
+                첫 번째 보도
               </SvgText>
             </React.Fragment>
           );
