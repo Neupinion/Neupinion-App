@@ -1,12 +1,17 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import TotalOpinionCard from './TotalOpinionCard';
-import { WINDOW_WIDTH } from "../../../../shared/constants/display";
+import { WINDOW_WIDTH } from '../../../../shared/constants/display';
+import { OpinionParagraphId } from '../../../../shared/types/news';
 
-const TotalOpinionCategory = () => {
+interface TotalOpinionCategoryProps {
+  opinionParagraph: OpinionParagraphId | null;
+}
+
+const TotalOpinionCategory = ({ opinionParagraph }: TotalOpinionCategoryProps) => {
   return (
     <View style={styles.container}>
-      <TotalOpinionCard />
+      <TotalOpinionCard opinionParagraph={opinionParagraph} />
       <View style={styles.headerUnderLine} />
     </View>
   );

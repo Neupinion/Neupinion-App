@@ -13,15 +13,22 @@ import BookMarkSvg from '../../../../assets/icon/bookmark.svg';
 import FavoriteSvg from '../../../../assets/icon/favorite.svg';
 import fontFamily from '../../../../shared/styles/fontFamily';
 import PinSentenceCard from './PinSentenceCard';
+import { OpinionParagraphId } from '../../../../shared/types/news';
 
-const TotalOpinionCard = () => {
+interface TotalOpinionCardProps {
+  opinionParagraph: OpinionParagraphId | null;
+}
+const TotalOpinionCard = ({ opinionParagraph }: TotalOpinionCardProps) => {
+  // console.log('opinionParagraph:', opinionParagraph.opinions[0].nickname);
   const UpdateFavorite = () => {};
   return (
     <View style={styles.container}>
       <View style={styles.bigOpinionCardTop}>
         <WithLocalSvg width={44} height={44} asset={BookMarkSvg as ImageSourcePropType} />
         <View style={{ flexDirection: 'column', marginLeft: 10, gap: 4 }}>
-          <Text style={styles.userNameText}>미니앤슈</Text>
+          <Text style={styles.userNameText}>
+            ㅇㄹ
+          </Text>
           <Text style={styles.dateText}>2024년 3월 5일 21:00</Text>
         </View>
       </View>

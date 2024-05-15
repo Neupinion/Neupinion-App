@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
+  ActivityIndicator,
   StyleSheet,
   Text,
   View,
@@ -18,12 +19,46 @@ import { WithLocalSvg } from 'react-native-svg/css';
 import MainArrowLeftSvg from '../assets/icon/mainarrowLeft.svg';
 import { WINDOW_WIDTH } from '../shared/constants/display';
 import { mainCategories } from '../shared/constants/opinionCategory';
+import { getOpinionParagraph } from '../features/opinion/remotes/individualVote';
+import useFetch from '../shared/hooks/useFetch';
+import GlobalTextStyles from '../shared/styles/GlobalTextStyles';
 
 const OpinionMainPage = () => {
   const [activeButton, setActiveButton] = useState('전체');
   const SelectMainCategory = (category: string) => {
     setActiveButton(category);
   };
+
+  const fetchOpinionParagraph = () => getOpinionParagraph(1, 'ALL');
+  const {
+    data: opinionParagraph,
+    isLoading,
+    error,
+    fetchData,
+  } = useFetch(fetchOpinionParagraph, false);
+
+  useEffect(() => {
+    void fetchData();
+  }, []);
+
+  // console.log('opinionParagraph:', opinionParagraph.data[0].opinions[0].nickname);
+  console.log('opinionParagraph:', opinionParagraph);
+
+  if (isLoading) {
+    return (
+      <View style={styles.container}>
+        <ActivityIndicator size="large" style={styles.activityIndicator} />
+      </View>
+    );
+  }
+
+  if (error) {
+    return (
+      <View style={styles.container}>
+        <Text style={GlobalTextStyles.NormalText17}>ERROR</Text>
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>
@@ -58,7 +93,7 @@ const OpinionMainPage = () => {
       <OpinionPageCategory />
       <ScrollView>
         {activeButton === mainCategories[0] ? (
-          <TotalOpinionCategory />
+          <TotalOpinionCategory opinionParagraph={opinionParagraph} />
         ) : (
           <ParagraphOpinionCategory />
         )}
@@ -132,6 +167,10 @@ const styles = StyleSheet.create({
     width: 79,
     height: 4,
     backgroundColor: theme.color.white,
+  },
+  activityIndicator: {
+    flex: 1,
+    alignSelf: 'center',
   },
 });
 

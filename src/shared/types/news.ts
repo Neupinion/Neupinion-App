@@ -50,3 +50,21 @@ export interface OpinionWrite {
   content: string;
   isReliable: boolean;
 }
+
+export interface OpinionParagraphId {
+  id: number | string;
+  content: string;
+  opinions: {
+    id: number;
+    memberId: number;
+    nickname: string;
+    profileImageUrl: string;
+    createdAt: string;
+    isReliable: boolean;
+    paragraphId: number;
+    paragraphContent: string;
+    content: string;
+    likeCount: number;
+    isLiked: boolean;
+  }[];
+}
