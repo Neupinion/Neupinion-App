@@ -16,7 +16,7 @@ import PinSentenceCard from './PinSentenceCard';
 import { OpinionParagraphId } from '../../../../shared/types/news';
 
 interface TotalOpinionCardProps {
-  opinionParagraph: OpinionParagraphId | null;
+  opinionParagraph: OpinionParagraphId;
 }
 const TotalOpinionCard = ({ opinionParagraph }: TotalOpinionCardProps) => {
   // console.log('opinionParagraph:', opinionParagraph.opinions[0].nickname);
