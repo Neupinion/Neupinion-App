@@ -15,14 +15,14 @@ import PinSentenceCard from './PinSentenceCard';
 import { OpinionParagraphId } from '../../../../shared/types/news';
 
 interface ParagraphOpinionCategoryProps {
-  opinionParagraph: OpinionParagraphId[];
+  item: OpinionParagraphId;
 }
-const ParagraphOpinionCard = ({ opinionParagraph }: ParagraphOpinionCategoryProps) => {
+const ParagraphOpinionCard = ({ item }: ParagraphOpinionCategoryProps) => {
   return (
     <View style={styles.container}>
-      <PinSentenceCard color="#212A3C" paragraphContent={opinionParagraph[0].content} />
+      <PinSentenceCard color="#212A3C" paragraphContent={item.content} />
       <View style={styles.cardBottom}>
-        <Text style={styles.opinionCountText}>의견 {opinionParagraph[0].opinions.length}개</Text>
+        <Text style={styles.opinionCountText}>의견 {item.opinions.length}개</Text>
         <TouchableOpacity>
           <WithLocalSvg width={24} height={24} asset={next as ImageSourcePropType} />
         </TouchableOpacity>

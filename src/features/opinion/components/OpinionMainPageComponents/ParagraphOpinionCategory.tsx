@@ -10,7 +10,8 @@ interface ParagraphOpinionCategoryProps {
 const ParagraphOpinionCategory = ({ opinionParagraph }: ParagraphOpinionCategoryProps) => {
   return (
     <View style={styles.container}>
-      <ParagraphOpinionCard opinionParagraph={opinionParagraph} />
+      {opinionParagraph &&
+        opinionParagraph.map((item) => <ParagraphOpinionCard key={item.id} item={item} />)}
     </View>
   );
 };
