@@ -26,9 +26,7 @@ const TotalOpinionCard = ({ opinionParagraph }: TotalOpinionCardProps) => {
       <View style={styles.bigOpinionCardTop}>
         <WithLocalSvg width={44} height={44} asset={BookMarkSvg as ImageSourcePropType} />
         <View style={{ flexDirection: 'column', marginLeft: 10, gap: 4 }}>
-          <Text style={styles.userNameText}>
-            ㅇㄹ
-          </Text>
+          <Text style={styles.userNameText}>{opinionParagraph.opinions[0].nickname}</Text>
           <Text style={styles.dateText}>2024년 3월 5일 21:00</Text>
         </View>
       </View>
