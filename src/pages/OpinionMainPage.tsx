@@ -41,7 +41,6 @@ const OpinionMainPage = () => {
     void fetchData();
   }, []);
 
-  // console.log('opinionParagraph:', opinionParagraph.data[0].opinions[0].nickname);
   console.log('opinionParagraph:', opinionParagraph);
 
   if (isLoading) {
@@ -99,7 +98,7 @@ const OpinionMainPage = () => {
         {activeButton === mainCategories[0] ? (
           <TotalOpinionCategory opinionParagraph={opinionParagraph} />
         ) : (
-          <ParagraphOpinionCategory />
+          <ParagraphOpinionCategory opinionParagraph={opinionParagraph}/>
         )}
       </ScrollView>
     </View>

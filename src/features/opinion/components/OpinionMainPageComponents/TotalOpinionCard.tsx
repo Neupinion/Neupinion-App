@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   Dimensions,
+  Image,
   ImageSourcePropType,
   StyleSheet,
   Text,
@@ -9,11 +10,11 @@ import {
 } from 'react-native';
 import theme from '../../../../shared/styles/theme';
 import { WithLocalSvg } from 'react-native-svg/css';
-import BookMarkSvg from '../../../../assets/icon/bookmark.svg';
 import FavoriteSvg from '../../../../assets/icon/favorite.svg';
 import fontFamily from '../../../../shared/styles/fontFamily';
 import PinSentenceCard from './PinSentenceCard';
 import { OpinionParagraphId } from '../../../../shared/types/news';
+import { formatDate } from '../../../remakeissue/constants/formatDate';
 
 interface TotalOpinionCardProps {
   opinionParagraph: OpinionParagraphId[];
@@ -24,26 +25,34 @@ const TotalOpinionCard = ({ opinionParagraph }: TotalOpinionCardProps) => {
   return (
     <View style={styles.container}>
       <View style={styles.bigOpinionCardTop}>
-        <WithLocalSvg width={44} height={44} asset={BookMarkSvg as ImageSourcePropType} />
+        <Image
+          source={{ uri: opinionParagraph[0].opinions[0].profileImageUrl }}
+          style={styles.cardImage}
+        />
         <View style={{ flexDirection: 'column', marginLeft: 10, gap: 4 }}>
           <Text style={styles.userNameText}>{opinionParagraph[0].opinions[0].nickname}</Text>
-          <Text style={styles.dateText}>2024년 3월 5일 21:00</Text>
+          <Text style={styles.dateText}>
+            {formatDate(opinionParagraph[0].opinions[0].createdAt)}
+          </Text>
         </View>
       </View>
       <View style={styles.bigOpinionCardMiddle}>
         <View style={styles.positionIndicator}>
-          <Text style={styles.positionText}>신뢰</Text>
+          <Text style={styles.positionText}>
+            {opinionParagraph[0].opinions[0].isReliable ? '신뢰' : '의심'}
+          </Text>
         </View>
-        <Text style={styles.userOpinionText}>
-          최초로 게시된 곳이 공신력 있는 매체가 아니고 트위터라서 신뢰도가 떨어지는 듯.
-        </Text>
+        <Text style={styles.userOpinionText}>{opinionParagraph[0].opinions[0].content}</Text>
       </View>
-      <PinSentenceCard color="#212A3C" />
+      <PinSentenceCard
+        color="#212A3C"
+        paragraphContent={opinionParagraph[0].opinions[0].paragraphContent}
+      />
       <View style={{ flexDirection: 'row', marginVertical: 21 }}>
         <TouchableOpacity style={{ marginRight: 4 }} onPress={() => UpdateFavorite()}>
           <WithLocalSvg width={18} height={18} asset={FavoriteSvg as ImageSourcePropType} />
         </TouchableOpacity>
-        <Text style={styles.favoriteText}>2,000</Text>
+        <Text style={styles.favoriteText}>{opinionParagraph[0].opinions[0].likeCount}</Text>
       </View>
     </View>
   );
@@ -116,6 +125,11 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     lineHeight: 18,
     letterSpacing: -0.5,
+  },
+  cardImage: {
+    width: 44,
+    height: 44,
+    borderRadius: 50,
   },
 });
 

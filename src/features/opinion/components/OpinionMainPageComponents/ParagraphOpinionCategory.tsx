@@ -1,11 +1,16 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import ParagraphOpinionCard from './ParagraphOpinionCard';
+import { OpinionParagraphId } from '../../../../shared/types/news';
 
-const ParagraphOpinionCategory = () => {
+interface ParagraphOpinionCategoryProps {
+  opinionParagraph: OpinionParagraphId[];
+}
+
+const ParagraphOpinionCategory = ({ opinionParagraph }: ParagraphOpinionCategoryProps) => {
   return (
     <View style={styles.container}>
-      <ParagraphOpinionCard />
+      <ParagraphOpinionCard opinionParagraph={opinionParagraph} />
     </View>
   );
 };

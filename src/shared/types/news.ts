@@ -70,3 +70,7 @@ export interface Opinions {
   likeCount: number;
   isLiked: boolean;
 }
+
+export interface OneOpinionParagraphId{
+
+}

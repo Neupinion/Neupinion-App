@@ -7,18 +7,16 @@ import fontFamily from '../../../../shared/styles/fontFamily';
 
 interface PinSentenceCardProps {
   color: string;
+  paragraphContent: string;
 }
-const PinSentenceCard = ({ color }: PinSentenceCardProps) => {
+const PinSentenceCard = ({ color, paragraphContent }: PinSentenceCardProps) => {
   return (
     <View style={[styles.pinSentenceCard, { backgroundColor: color }]}>
       <View style={styles.pinContainer}>
         <WithLocalSvg width={20} height={20} asset={OpinionPin as ImageSourcePropType} />
       </View>
       <View style={styles.sentenceContainer}>
-        <Text style={styles.sentenceText}>
-          블룸버그통신 등에 따르면 22일(현지 시간) 오전 9시를 전후 로 미 워싱턴DC에 있는 펜타곤으로
-          보이는 건물에서 검은 연기가 피어오르는 사진이 트위터를 통해 국내외로 빠르게 확산했다.
-        </Text>
+        <Text style={styles.sentenceText}>{paragraphContent}</Text>
       </View>
     </View>
   );
