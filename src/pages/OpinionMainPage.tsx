@@ -113,7 +113,6 @@ const OpinionMainPage = () => {
           <TotalOpinionCategory
             opinionParagraph={opinionParagraph}
             leftMainCategory={leftMainCategory}
-            rightMainCategory={rightMainCategory}
           />
         ) : (
           <ParagraphOpinionCategory opinionParagraph={opinionParagraph} />
@@ -161,7 +160,7 @@ const styles = StyleSheet.create({
     height: 10,
     marginVertical: 12,
     flexShrink: 0,
-    backgroundColor: '#21202F',
+    backgroundColor: theme.color.gray2,
   },
   headerUnderLine: {
     width: WINDOW_WIDTH,

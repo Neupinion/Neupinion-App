@@ -19,7 +19,6 @@ import { formatDate } from '../../../remakeissue/constants/formatDate';
 interface TotalOpinionCardProps {
   item: OpinionParagraphId;
   leftMainCategory: string;
-  rightMainCategory: string;
 }
 interface Opinion {
   profileImageUrl: string;
@@ -30,7 +29,7 @@ interface Opinion {
   paragraphContent: string;
   likeCount: number;
 }
-const TotalOpinionCard = ({ item, leftMainCategory,rightMainCategory }: TotalOpinionCardProps) => {
+const TotalOpinionCard = ({ item, leftMainCategory }: TotalOpinionCardProps) => {
   const UpdateFavorite = () => {};
   const renderOpinions = () => {
     switch (leftMainCategory) {
@@ -77,7 +76,7 @@ const TotalOpinionCard = ({ item, leftMainCategory,rightMainCategory }: TotalOpi
           </View>
           <Text style={styles.userOpinionText}>{opinion.content}</Text>
         </View>
-        <PinSentenceCard color="#212A3C" paragraphContent={opinion.paragraphContent} />
+        <PinSentenceCard color={theme.color.gray2} paragraphContent={opinion.paragraphContent} />
         <View style={{ flexDirection: 'row', marginVertical: 21 }}>
           <TouchableOpacity style={{ marginRight: 4 }} onPress={() => UpdateFavorite()}>
             <WithLocalSvg width={18} height={18} asset={FavoriteSvg as ImageSourcePropType} />

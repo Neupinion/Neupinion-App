@@ -9,12 +9,11 @@ export default function App(): JSX.Element | null {
 
   if (isLoaded) {
     return (
-      <OpinionMainPage/>
-      // <RecoilRoot>
-      //   <DateProvider>
-      //     <Navigation />
-      //   </DateProvider>
-      // </RecoilRoot>
+      <RecoilRoot>
+        <DateProvider>
+          <Navigation />
+        </DateProvider>
+      </RecoilRoot>
     );
   } else {
     return null;
