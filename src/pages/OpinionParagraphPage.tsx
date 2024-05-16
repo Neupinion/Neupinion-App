@@ -10,22 +10,30 @@ import PinSentenceCard from '../features/opinion/components/OpinionMainPageCompo
 import { OpinionParagraphId } from '../shared/types/news';
 import { forSlideLeft } from '@react-navigation/stack/lib/typescript/src/TransitionConfigs/HeaderStyleInterpolators';
 import fontFamily from '../shared/styles/fontFamily';
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from '../rootStackParamList';
 
 interface OpinionParagraphProps {
   item: OpinionParagraphId;
 }
 const OpinionParagraphPage = ({ item }: OpinionParagraphProps) => {
+  // const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
+  // type ScreenRouteProp = RouteProp<RootStackParamList, 'OpinionParagraphPage'>;
+  // const route = useRoute<ScreenRouteProp>();
+  // const { item } = route.params;
+  const gotoOpinionMainPage = () => {};
   return (
     <View style={styles.container}>
-      {/*<PageHeader*/}
-      {/*  leftIcons={*/}
-      {/*    <TouchableOpacity>*/}
-      {/*      <WithLocalSvg height={25} asset={MainArrowLeftSvg as ImageSourcePropType} />*/}
-      {/*    </TouchableOpacity>*/}
-      {/*  }*/}
-      {/*  centerText={'의견보기'}*/}
-      {/*  RightIcons={null}*/}
-      {/*/>*/}
+      <PageHeader
+        leftIcons={
+          <TouchableOpacity onPress={gotoOpinionMainPage}>
+            <WithLocalSvg height={25} asset={MainArrowLeftSvg as ImageSourcePropType} />
+          </TouchableOpacity>
+        }
+        centerText={'의견보기'}
+        RightIcons={null}
+      />
       {/*<View style={styles.headerUnderLine} />*/}
       <PinSentenceCard color="#212A3C" paragraphContent={item.content} />
       {item.opinions.map((opinion, index) => (

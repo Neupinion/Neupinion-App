@@ -13,12 +13,17 @@ import next from '../../../../assets/icon/next.svg';
 import fontFamily from '../../../../shared/styles/fontFamily';
 import PinSentenceCard from './PinSentenceCard';
 import { OpinionParagraphId } from '../../../../shared/types/news';
-import OpinionParagraphPage from "../../../../pages/OpinionParagraphPage";
+import OpinionParagraphPage from '../../../../pages/OpinionParagraphPage';
+import { useNavigation } from '@react-navigation/native';
+// import { StackNavigationProp } from '@react-navigation/stack';
+// import { RootStackParamList } from '../rootStackParamList';
 
 interface ParagraphOpinionCategoryProps {
   item: OpinionParagraphId;
 }
 const ParagraphOpinionCard = ({ item }: ParagraphOpinionCategoryProps) => {
+  // const navigation = useNavigation();
+  // const goOpinionParagraphPage = () => {navigation.navigate('OpinionParagraphPage', { item:item });
   const goOpinionParagraphPage = () => {};
   return (
     <View style={styles.container}>

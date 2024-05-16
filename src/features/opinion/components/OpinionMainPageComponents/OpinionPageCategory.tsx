@@ -4,13 +4,27 @@ import theme from '../../../../shared/styles/theme';
 import fontFamily from '../../../../shared/styles/fontFamily';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { subCategories } from '../../../../shared/constants/opinionCategory';
-const OpinionPageCategory = () => {
-  const [activeButton, setActiveButton] = useState('전체');
+
+interface OpinionPageCategoryProps {
+  changeLeftCategory: (newData: string) => void;
+  changeRightCategory: (newData: string) => void;
+}
+
+const OpinionPageCategory = ({
+  changeLeftCategory,
+  changeRightCategory,
+}: OpinionPageCategoryProps) => {
+  const [activeSubCategory, setActiveSubCategory] = useState('전체');
   const handleButtonPress = (category: string) => {
-    setActiveButton(category);
+    setActiveSubCategory(category);
+    changeLeftCategory(category);
+  };
+  const handleDropDownChange = (value: string) => {
+    setValue(value);
+    changeRightCategory(value);
   };
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(null);
+  const [value, setValue] = useState('최신순');
   const [items, setItems] = useState([
     { label: '최신순', value: '최신순' },
     { label: '인기순', value: '인기순' },
@@ -21,10 +35,10 @@ const OpinionPageCategory = () => {
         {subCategories.map((category, index) => (
           <TouchableOpacity
             key={index.toString()}
-            style={activeButton === category ? styles.activeButton : styles.positionButton}
+            style={activeSubCategory === category ? styles.activeButton : styles.positionButton}
             onPress={() => handleButtonPress(category)}
           >
-            <Text style={activeButton === category ? styles.activeText : styles.positionText}>
+            <Text style={activeSubCategory === category ? styles.activeText : styles.positionText}>
               {category}
             </Text>
           </TouchableOpacity>
@@ -38,7 +52,7 @@ const OpinionPageCategory = () => {
           value={value}
           items={items}
           setOpen={setOpen}
-          setValue={setValue}
+          setValue={handleDropDownChange}
           setItems={setItems}
           style={styles.dropDownMainStyle}
           textStyle={styles.listText}

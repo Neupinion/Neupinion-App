@@ -18,34 +18,76 @@ import { formatDate } from '../../../remakeissue/constants/formatDate';
 
 interface TotalOpinionCardProps {
   item: OpinionParagraphId;
+  leftMainCategory: string;
+  rightMainCategory: string;
 }
-const TotalOpinionCard = ({ item }: TotalOpinionCardProps) => {
-  // console.log('opinionParagraph:', opinionParagraph.opinions[0].nickname);
+interface Opinion {
+  profileImageUrl: string;
+  nickname: string;
+  createdAt: string;
+  isReliable: boolean;
+  content: string;
+  paragraphContent: string;
+  likeCount: number;
+}
+const TotalOpinionCard = ({ item, leftMainCategory,rightMainCategory }: TotalOpinionCardProps) => {
   const UpdateFavorite = () => {};
-  return (
-    <View style={styles.container}>
-      <View style={styles.bigOpinionCardTop}>
-        <Image source={{ uri: item.opinions[0].profileImageUrl }} style={styles.cardImage} />
-        <View style={{ flexDirection: 'column', marginLeft: 10, gap: 4 }}>
-          <Text style={styles.userNameText}>{item.opinions[0].nickname}</Text>
-          <Text style={styles.dateText}>{formatDate(item.opinions[0].createdAt)}</Text>
+  const renderOpinions = () => {
+    switch (leftMainCategory) {
+      case '전체':
+        return renderAllOpinions();
+      case '신뢰':
+        return renderReliableOpinions();
+      case '의심':
+        return renderDoubtfulOpinions();
+      default:
+        return null;
+    }
+  };
+
+  const renderAllOpinions = () => {
+    return item.opinions.map((opinion, index) => renderOpinion(opinion, index));
+  };
+
+  const renderReliableOpinions = () => {
+    return item.opinions
+      .filter((opinion) => opinion.isReliable)
+      .map((opinion, index) => renderOpinion(opinion, index));
+  };
+
+  const renderDoubtfulOpinions = () => {
+    return item.opinions
+      .filter((opinion) => !opinion.isReliable)
+      .map((opinion, index) => renderOpinion(opinion, index));
+  };
+
+  const renderOpinion = (opinion: Opinion, index: number) => {
+    return (
+      <View key={index}>
+        <View style={styles.bigOpinionCardTop}>
+          <Image source={{ uri: opinion.profileImageUrl }} style={styles.cardImage} />
+          <View style={{ flexDirection: 'column', marginLeft: 10, gap: 4 }}>
+            <Text style={styles.userNameText}>{opinion.nickname}</Text>
+            <Text style={styles.dateText}>{formatDate(opinion.createdAt)}</Text>
+          </View>
+        </View>
+        <View style={styles.bigOpinionCardMiddle}>
+          <View style={styles.positionIndicator}>
+            <Text style={styles.positionText}>{opinion.isReliable ? '신뢰' : '의심'}</Text>
+          </View>
+          <Text style={styles.userOpinionText}>{opinion.content}</Text>
+        </View>
+        <PinSentenceCard color="#212A3C" paragraphContent={opinion.paragraphContent} />
+        <View style={{ flexDirection: 'row', marginVertical: 21 }}>
+          <TouchableOpacity style={{ marginRight: 4 }} onPress={() => UpdateFavorite()}>
+            <WithLocalSvg width={18} height={18} asset={FavoriteSvg as ImageSourcePropType} />
+          </TouchableOpacity>
+          <Text style={styles.favoriteText}>{opinion.likeCount}</Text>
         </View>
       </View>
-      <View style={styles.bigOpinionCardMiddle}>
-        <View style={styles.positionIndicator}>
-          <Text style={styles.positionText}>{item.opinions[0].isReliable ? '신뢰' : '의심'}</Text>
-        </View>
-        <Text style={styles.userOpinionText}>{item.opinions[0].content}</Text>
-      </View>
-      <PinSentenceCard color="#212A3C" paragraphContent={item.opinions[0].paragraphContent} />
-      <View style={{ flexDirection: 'row', marginVertical: 21 }}>
-        <TouchableOpacity style={{ marginRight: 4 }} onPress={() => UpdateFavorite()}>
-          <WithLocalSvg width={18} height={18} asset={FavoriteSvg as ImageSourcePropType} />
-        </TouchableOpacity>
-        <Text style={styles.favoriteText}>{item.opinions[0].likeCount}</Text>
-      </View>
-    </View>
-  );
+    );
+  };
+  return <View style={styles.container}>{renderOpinions()}</View>;
 };
 
 const styles = StyleSheet.create({

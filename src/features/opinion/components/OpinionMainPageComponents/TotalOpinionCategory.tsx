@@ -6,14 +6,24 @@ import { OpinionParagraphId } from '../../../../shared/types/news';
 
 interface TotalOpinionCategoryProps {
   opinionParagraph: OpinionParagraphId[];
+  leftMainCategory: string;
+  rightMainCategory: string;
 }
 
-const TotalOpinionCategory = ({ opinionParagraph }: TotalOpinionCategoryProps) => {
+const TotalOpinionCategory = ({
+  opinionParagraph,
+  leftMainCategory,
+  rightMainCategory,
+}: TotalOpinionCategoryProps) => {
   return (
     <View style={styles.container}>
       {opinionParagraph &&
         opinionParagraph.map((item) => (
-          <TotalOpinionCard key={item.id} item={item} />
+          <TotalOpinionCard
+            key={item.id}
+            item={item}
+            leftMainCategory={leftMainCategory}
+          />
         ))}
       <View style={styles.headerUnderLine} />
     </View>

@@ -8,7 +8,8 @@ import ModalContainer from './shared/components/ModalContainer';
 import ReprocessedIssueDetailPage from './pages/ReprocessedIssueDetailPage';
 import VoteResultPage from './pages/VoteResultPage';
 import TotalVoteResultPage from './pages/TotalVoteResultPage';
-
+import OpinionMainPage from './pages/OpinionMainPage';
+import OpinionParagraphPage from './pages/OpinionParagraphPage';
 const Stack = createNativeStackNavigator();
 
 const Navigation = () => {
@@ -21,8 +22,10 @@ const Navigation = () => {
             headerShown: false,
           }}
         >
-
-
+          <Stack.Group>
+            <Stack.Screen name="OpinionMainPage" component={OpinionMainPage} />
+            <Stack.Screen name="OpinionParagraphPage" component={OpinionParagraphPage} />
+          </Stack.Group>
           <Stack.Group>
             <Stack.Screen name="MainPage" component={MainPage} />
           </Stack.Group>

@@ -24,10 +24,20 @@ import useFetch from '../shared/hooks/useFetch';
 import GlobalTextStyles from '../shared/styles/GlobalTextStyles';
 
 const OpinionMainPage = () => {
-  const [activeButton, setActiveButton] = useState('전체');
+  const [activeMainCategory, setActiveMainCategory] = useState('전체');
   const SelectMainCategory = (category: string) => {
-    setActiveButton(category);
+    setActiveMainCategory(category);
   };
+  const [leftMainCategory, setLeftMainCategory] = useState('전체');
+  const [rightMainCategory, setRightMainCategory] = useState('최신순');
+  const changeLeftCategory = (leftCategory: string) => {
+    setLeftMainCategory(leftCategory);
+  };
+  const changeRightCategory = (rightCategory: string) => {
+    setRightMainCategory(rightCategory);
+  };
+  console.log(leftMainCategory);
+  console.log(rightMainCategory);
 
   const fetchOpinionParagraph = () => getOpinionParagraph(1, 'ALL');
   const {
@@ -83,7 +93,7 @@ const OpinionMainPage = () => {
             style={styles.mainCategory}
             onPress={() => SelectMainCategory(category)}
           >
-            <Text style={[styles.baseText, activeButton === category && styles.activeText]}>
+            <Text style={[styles.baseText, activeMainCategory === category && styles.activeText]}>
               {category}
             </Text>
           </TouchableOpacity>
@@ -91,13 +101,20 @@ const OpinionMainPage = () => {
       </View>
       <View>
         <View style={styles.headerUnderLine} />
-        {activeButton == mainCategories[0] && <View style={styles.selectedAll} />}
-        {activeButton == mainCategories[1] && <View style={styles.selectedParagraph} />}
+        {activeMainCategory == mainCategories[0] && <View style={styles.selectedAll} />}
+        {activeMainCategory == mainCategories[1] && <View style={styles.selectedParagraph} />}
       </View>
-      <OpinionPageCategory />
+      <OpinionPageCategory
+        changeLeftCategory={changeLeftCategory}
+        changeRightCategory={changeRightCategory}
+      />
       <ScrollView>
-        {activeButton === mainCategories[0] ? (
-          <TotalOpinionCategory opinionParagraph={opinionParagraph} />
+        {activeMainCategory === mainCategories[0] ? (
+          <TotalOpinionCategory
+            opinionParagraph={opinionParagraph}
+            leftMainCategory={leftMainCategory}
+            rightMainCategory={rightMainCategory}
+          />
         ) : (
           <ParagraphOpinionCategory opinionParagraph={opinionParagraph} />
         )}
