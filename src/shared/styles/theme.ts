@@ -2,6 +2,8 @@ interface ColorPalette {
   main: string;
   background: string;
   sub: string;
+  reliable: string;
+  unReliable: string;
   black: string;
   gray: string;
   gray1: string;
@@ -36,6 +38,8 @@ const theme: Theme = {
     main: '#7E58E9',
     background: '#11111A',
     sub: '#FF5730',
+    reliable: '#1C64ED',
+    unReliable: '#FF75AB',
     black: '#0A0A0A',
     gray: '#191926',
     gray1: '#191926',

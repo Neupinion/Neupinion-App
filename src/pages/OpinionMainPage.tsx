@@ -13,7 +13,7 @@ import theme from '../shared/styles/theme';
 import TotalOpinionCategory from '../features/opinion/components/OpinionMainPageComponents/TotalOpinionCategory';
 import fontFamily from '../shared/styles/fontFamily';
 import ParagraphOpinionCategory from '../features/opinion/components/OpinionMainPageComponents/ParagraphOpinionCategory';
-import OpinionPageCategory from '../features/opinion/components/OpinionMainPageComponents/OpinionPageCategory';
+import OpinionSubCategory from '../features/opinion/components/OpinionMainPageComponents/OpinionSubCategory';
 import PageHeader from '../shared/components/PageHeader';
 import { WithLocalSvg } from 'react-native-svg/css';
 import MainArrowLeftSvg from '../assets/icon/mainarrowLeft.svg';
@@ -104,7 +104,7 @@ const OpinionMainPage = () => {
         {activeMainCategory == mainCategories[0] && <View style={styles.selectedAll} />}
         {activeMainCategory == mainCategories[1] && <View style={styles.selectedParagraph} />}
       </View>
-      <OpinionPageCategory
+      <OpinionSubCategory
         changeLeftCategory={changeLeftCategory}
         changeRightCategory={changeRightCategory}
       />

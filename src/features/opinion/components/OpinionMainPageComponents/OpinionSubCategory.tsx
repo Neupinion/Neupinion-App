@@ -10,7 +10,7 @@ interface OpinionPageCategoryProps {
   changeRightCategory: (newData: string) => void;
 }
 
-const OpinionPageCategory = ({
+const OpinionSubCategory = ({
   changeLeftCategory,
   changeRightCategory,
 }: OpinionPageCategoryProps) => {
@@ -133,4 +133,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default OpinionPageCategory;
+export default OpinionSubCategory;

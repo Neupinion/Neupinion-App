@@ -71,9 +71,16 @@ const TotalOpinionCard = ({ item, leftMainCategory }: TotalOpinionCardProps) => 
           </View>
         </View>
         <View style={styles.bigOpinionCardMiddle}>
-          <View style={styles.positionIndicator}>
-            <Text style={styles.positionText}>{opinion.isReliable ? '신뢰' : '의심'}</Text>
-          </View>
+          {opinion.isReliable ? (
+            <View style={styles.positivePosition}>
+              <Text style={styles.positionText}>신뢰</Text>
+            </View>
+          ) : (
+            <View style={styles.negativePosition}>
+              <Text style={styles.positionText}>의심</Text>
+            </View>
+          )}
+
           <Text style={styles.userOpinionText}>{opinion.content}</Text>
         </View>
         <PinSentenceCard color={theme.color.gray2} paragraphContent={opinion.paragraphContent} />
@@ -120,11 +127,19 @@ const styles = StyleSheet.create({
     gap: 10,
     marginVertical: 20,
   },
-  positionIndicator: {
+  positivePosition: {
     width: 40,
     height: 22,
     borderRadius: 85,
-    backgroundColor: '#1C64ED', // #FF75AB = 의심일 떄
+    backgroundColor: theme.color.reliable,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  negativePosition: {
+    width: 40,
+    height: 22,
+    borderRadius: 85,
+    backgroundColor: theme.color.unReliable,
     alignItems: 'center',
     justifyContent: 'center',
   },

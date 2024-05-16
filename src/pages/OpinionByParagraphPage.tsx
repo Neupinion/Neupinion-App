@@ -20,14 +20,13 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../rootStackParamList';
 import { formatYMD } from '../features/date/functions/formatDate';
 
-const OpinionParagraphPage = () => {
+const OpinionByParagraphPage = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   type ScreenRouteProp = RouteProp<RootStackParamList, 'OpinionParagraphPage'>;
   const route = useRoute<ScreenRouteProp>();
   const { item } = route.params;
   const gotoOpinionMainPage = () => {
     navigation.navigate('OpinionMainPage');
-    console.log('ffffff');
   };
   return (
     <View style={styles.container}>
@@ -118,4 +117,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default OpinionParagraphPage;
+export default OpinionByParagraphPage;
