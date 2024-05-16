@@ -15,7 +15,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { WithLocalSvg } from 'react-native-svg/css';
 import SeeOriginalSvg from '../../../assets/icon/seeOriginal.svg';
 import { getTimeLineIssues } from '../remotes/getTimeLineIssues';
-import { formatMMDD } from '../../remakeissue/constants/formatDate';
+import { formatDateMMDD } from '../../remakeissue/constants/formatDate';
 import { getNewsReportOrdinalInKorean } from '../../../shared/functions/getNewsReportOrdinalInKorean';
 
 interface TimeLineProps {
@@ -54,7 +54,7 @@ const TimeLine = ({ id }: TimeLineProps) => {
       {timeLineIssues.map((issue) => (
         <View key={issue.id} style={styles.issueContainer}>
           <View style={styles.timeContainer}>
-            <Text style={styles.dateText}>{formatMMDD(issue.createdAt)}</Text>
+            <Text style={styles.dateText}>{formatDateMMDD(issue.createdAt)}</Text>
             <View style={styles.dotLine}></View>
           </View>
           <LinearGradient
