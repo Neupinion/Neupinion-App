@@ -7,21 +7,16 @@ import { WithLocalSvg } from 'react-native-svg/css';
 import MainArrowLeftSvg from '../assets/icon/mainarrowLeft.svg';
 import { WINDOW_WIDTH } from '../shared/constants/display';
 import PinSentenceCard from '../features/opinion/components/OpinionMainPageComponents/PinSentenceCard';
-import { OpinionParagraphId } from '../shared/types/news';
-import { forSlideLeft } from '@react-navigation/stack/lib/typescript/src/TransitionConfigs/HeaderStyleInterpolators';
 import fontFamily from '../shared/styles/fontFamily';
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../rootStackParamList';
 
-interface OpinionParagraphProps {
-  item: OpinionParagraphId;
-}
-const OpinionParagraphPage = ({ item }: OpinionParagraphProps) => {
-  // const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
-  // type ScreenRouteProp = RouteProp<RootStackParamList, 'OpinionParagraphPage'>;
-  // const route = useRoute<ScreenRouteProp>();
-  // const { item } = route.params;
+const OpinionParagraphPage = () => {
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
+  type ScreenRouteProp = RouteProp<RootStackParamList, 'OpinionParagraphPage'>;
+  const route = useRoute<ScreenRouteProp>();
+  const { item } = route.params;
   const gotoOpinionMainPage = () => {};
   return (
     <View style={styles.container}>

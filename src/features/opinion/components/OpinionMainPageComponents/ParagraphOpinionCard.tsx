@@ -15,16 +15,17 @@ import PinSentenceCard from './PinSentenceCard';
 import { OpinionParagraphId } from '../../../../shared/types/news';
 import OpinionParagraphPage from '../../../../pages/OpinionParagraphPage';
 import { useNavigation } from '@react-navigation/native';
-// import { StackNavigationProp } from '@react-navigation/stack';
-// import { RootStackParamList } from '../rootStackParamList';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from '../../../../rootStackParamList';
 
 interface ParagraphOpinionCategoryProps {
   item: OpinionParagraphId;
 }
 const ParagraphOpinionCard = ({ item }: ParagraphOpinionCategoryProps) => {
-  // const navigation = useNavigation();
-  // const goOpinionParagraphPage = () => {navigation.navigate('OpinionParagraphPage', { item:item });
-  const goOpinionParagraphPage = () => {};
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
+  const goOpinionParagraphPage = () => {
+    navigation.navigate('OpinionParagraphPage', { item: item });
+  };
   return (
     <View style={styles.container}>
       <PinSentenceCard color="#212A3C" paragraphContent={item.content} />
@@ -34,7 +35,7 @@ const ParagraphOpinionCard = ({ item }: ParagraphOpinionCategoryProps) => {
           <WithLocalSvg width={24} height={24} asset={next as ImageSourcePropType} />
         </TouchableOpacity>
       </View>
-      <OpinionParagraphPage item={item} />
+      <OpinionParagraphPage />
     </View>
   );
 };
