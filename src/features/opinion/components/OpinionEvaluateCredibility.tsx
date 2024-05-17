@@ -37,14 +37,14 @@ const OpinionEvaluateReliability = ({
     <View style={styles.container}>
       <View style={styles.buttonContainer}>
         <TouchableOpacity
-          disabled={!isActivated || isReliable}
+          disabled={!isActivated}
           onPress={() => onClickButton(true)}
           style={getButtonStyle(true)}
         >
           <Text style={getButtonTextStyle(true)}>믿을 수 있어요</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          disabled={!isActivated || !isReliable}
+          disabled={!isActivated}
           onPress={() => onClickButton(false)}
           style={getButtonStyle(false)}
         >
