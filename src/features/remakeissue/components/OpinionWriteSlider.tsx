@@ -151,7 +151,7 @@ const styles = StyleSheet.create({
     letterSpacing: -0.51,
   },
   pin: {
-    marginTop: 4,
+    marginTop: 2,
   },
   cardContainer: {
     width: WINDOW_WIDTH,
@@ -173,7 +173,9 @@ const styles = StyleSheet.create({
   },
   titleText: {
     color: theme.color.white,
-    fontFamily: fontFamily.pretendard.bold,
+    width: 116,
+    fontFamily: fontFamily.pretendard.medium,
+    alignSelf: 'center',
     fontSize: 15,
     fontStyle: 'normal',
     fontWeight: '600',
@@ -182,12 +184,13 @@ const styles = StyleSheet.create({
   },
   dotLine: {
     width: 128,
+    height: 0,
     marginHorizontal: 16,
     marginTop: 11,
     marginBottom: 14,
     flexShrink: 0,
     backgroundColor: '#D1D3D8',
-    borderWidth: 0.6,
+    borderWidth: 0.4,
     borderStyle: 'dashed',
   },
   opinionText: {
