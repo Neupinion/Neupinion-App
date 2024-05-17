@@ -1,4 +1,3 @@
-import { getFollowUpIssueByIdVotePage } from '../../vote/remotes/getFollowUpIssue';
 import useFetch from '../../../shared/hooks/useFetch';
 import React, { useEffect } from 'react';
 import {
@@ -15,18 +14,16 @@ import GlobalTextStyles from '../../../shared/styles/GlobalTextStyles';
 import { LinearGradient } from 'expo-linear-gradient';
 import { WithLocalSvg } from 'react-native-svg/css';
 import SeeOriginalSvg from '../../../assets/icon/seeOriginal.svg';
+import { getTimeLineIssues } from '../remotes/getTimeLineIssues';
+import { formatDateMMDD } from '../../remakeissue/constants/formatDate';
+import { getNewsReportOrdinalInKorean } from '../../../shared/functions/getNewsReportOrdinalInKorean';
 
 interface TimeLineProps {
   id: number;
 }
 const TimeLine = ({ id }: TimeLineProps) => {
-  const fetchFollowUpIssueTotalPage = () => getFollowUpIssueByIdVotePage(id);
-  const {
-    data: followUpIssuesTotalVotePage,
-    isLoading,
-    error,
-    fetchData,
-  } = useFetch(fetchFollowUpIssueTotalPage, false);
+  const fetchIssueTimeLine = () => getTimeLineIssues(id);
+  const { data: timeLineIssues, isLoading, error, fetchData } = useFetch(fetchIssueTimeLine, false);
 
   useEffect(() => {
     void fetchData();
@@ -48,134 +45,54 @@ const TimeLine = ({ id }: TimeLineProps) => {
     );
   }
 
-  if (!followUpIssuesTotalVotePage || followUpIssuesTotalVotePage.followUpIssues.length === 0) {
-    return (
-      <View style={styles.container}>
-        <View style={styles.issueContainer}>
-          <View style={styles.timeContainer}>
-            <Text style={styles.dateText}>10.25</Text>
-            <View style={styles.dotLine}></View>
-          </View>
-          <LinearGradient
-            start={{ x: 1, y: 1 }}
-            end={{ x: 0, y: 0 }}
-            colors={theme.gradient.gradient1}
-            style={styles.boxLine}
-          >
-            <LinearGradient
-              start={{ x: 0, y: 1 }}
-              end={{ x: 1, y: 1 }}
-              colors={theme.gradient.gradient2}
-              style={styles.issueBox}
-            >
-              <View style={styles.issueContextContainer}>
-                <View style={styles.tagContainer}>
-                  <View style={styles.tag}>
-                    <Text style={styles.tagText}>첫 보도</Text>
-                  </View>
-                  <TouchableOpacity onPress={() => {}}>
-                    <WithLocalSvg
-                      width={79}
-                      height={30}
-                      asset={SeeOriginalSvg as ImageSourcePropType}
-                    />
-                  </TouchableOpacity>
-                </View>
-                <View style={styles.textContainer}>
-                  <Text style={styles.boxTitle}>빅뱅 지드래곤도 마약 혐의로 입건</Text>
-                  <Text style={styles.boxContext}>
-                    25일 법조계와 경찰에 따르면 인천경찰청 마약범죄...
-                  </Text>
-                </View>
-              </View>
-            </LinearGradient>
-          </LinearGradient>
-        </View>
-        <View style={styles.issueContainer}>
-          <View style={styles.timeContainer}>
-            <Text style={styles.dateText}>10.25</Text>
-            <View style={styles.dotLine}></View>
-          </View>
-          <LinearGradient
-            start={{ x: 1, y: 1 }}
-            end={{ x: 0, y: 0 }}
-            colors={theme.gradient.gradient1}
-            style={styles.boxLine}
-          >
-            <LinearGradient
-              start={{ x: 0, y: 1 }}
-              end={{ x: 1, y: 1 }}
-              colors={theme.gradient.gradient2}
-              style={styles.issueBox}
-            >
-              <View style={styles.issueContextContainer}>
-                <View style={styles.tagContainer}>
-                  <View style={styles.tag}>
-                    <Text style={styles.tagText}>두 번째 보도</Text>
-                  </View>
-                  <TouchableOpacity onPress={() => {}}>
-                    <WithLocalSvg
-                      width={79}
-                      height={30}
-                      asset={SeeOriginalSvg as ImageSourcePropType}
-                    />
-                  </TouchableOpacity>
-                </View>
-                <View style={styles.textContainer}>
-                  <Text style={styles.boxTitle}>빅뱅 지드래곤도 마약 혐의로 입건</Text>
-                  <Text style={styles.boxContext}>
-                    25일 법조계와 경찰에 따르면 인천경찰청 마약범죄...
-                  </Text>
-                </View>
-              </View>
-            </LinearGradient>
-          </LinearGradient>
-        </View>
-        <View style={styles.issueContainer}>
-          <View style={styles.timeContainer}>
-            <Text style={styles.dateText}>10.25</Text>
-            <View style={styles.dotLine}></View>
-          </View>
-          <LinearGradient
-            start={{ x: 1, y: 1 }}
-            end={{ x: 0, y: 0 }}
-            colors={theme.gradient.gradient1}
-            style={styles.boxLine}
-          >
-            <LinearGradient
-              start={{ x: 0, y: 1 }}
-              end={{ x: 1, y: 1 }}
-              colors={theme.gradient.gradient2}
-              style={styles.issueBox}
-            >
-              <View style={styles.issueContextContainer}>
-                <View style={styles.tagContainer}>
-                  <View style={styles.tag}>
-                    <Text style={styles.tagText}>세 번째 보도</Text>
-                  </View>
-                  <TouchableOpacity onPress={() => {}}>
-                    <WithLocalSvg
-                      width={79}
-                      height={30}
-                      asset={SeeOriginalSvg as ImageSourcePropType}
-                    />
-                  </TouchableOpacity>
-                </View>
-                <View style={styles.textContainer}>
-                  <Text style={styles.boxTitle}>빅뱅 지드래곤도 마약 혐의로 입건</Text>
-                  <Text style={styles.boxContext}>
-                    25일 법조계와 경찰에 따르면 인천경찰청 마약범죄...
-                  </Text>
-                </View>
-              </View>
-            </LinearGradient>
-          </LinearGradient>
-        </View>
-      </View>
-    );
+  if (!timeLineIssues) {
+    return <View style={styles.container} />;
   }
 
-  return <View style={styles.container} />;
+  return (
+    <View style={styles.container}>
+      {timeLineIssues.map((issue) => (
+        <View key={issue.id} style={styles.issueContainer}>
+          <View style={styles.timeContainer}>
+            <Text style={styles.dateText}>{formatDateMMDD(issue.createdAt)}</Text>
+            <View style={styles.dotLine}></View>
+          </View>
+          <LinearGradient
+            start={{ x: 1, y: 1 }}
+            end={{ x: 0, y: 0 }}
+            colors={theme.gradient.gradient1}
+            style={styles.boxLine}
+          >
+            <LinearGradient
+              start={{ x: 0, y: 1 }}
+              end={{ x: 1, y: 1 }}
+              colors={theme.gradient.gradient2}
+              style={styles.issueBox}
+            >
+              <View style={styles.issueContextContainer}>
+                <View style={styles.tagContainer}>
+                  <View style={styles.tag}>
+                    <Text style={styles.tagText}>{getNewsReportOrdinalInKorean(issue.id)}</Text>
+                  </View>
+                  <TouchableOpacity onPress={() => {}}>
+                    <WithLocalSvg
+                      width={79}
+                      height={30}
+                      asset={SeeOriginalSvg as ImageSourcePropType}
+                    />
+                  </TouchableOpacity>
+                </View>
+                <View style={styles.textContainer}>
+                  <Text style={styles.boxTitle}>{issue.title}</Text>
+                  <Text style={styles.boxContext}>작업이 필요합니다.</Text>
+                </View>
+              </View>
+            </LinearGradient>
+          </LinearGradient>
+        </View>
+      ))}
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({

@@ -3,11 +3,11 @@ import { StyleSheet, Text, View } from 'react-native';
 import theme from '../../../shared/styles/theme';
 import fontFamily from '../../../shared/styles/fontFamily';
 import { formatNumber } from '../../../shared/utils/formatNumber';
-import { TotalTrustVoteData } from '../../../dummy/TotalVotedDataDummy';
 import BarGraph from './BarGraph';
+import { IntegratedResult } from '../types/integratedResult';
 
 interface VoteBubbleChartProps {
-  data: TotalTrustVoteData;
+  data: IntegratedResult;
 }
 const TotalVoteChartContainer = ({ data }: VoteBubbleChartProps) => {
   return (
@@ -15,7 +15,7 @@ const TotalVoteChartContainer = ({ data }: VoteBubbleChartProps) => {
       <View style={styles.topContainer}>
         <Text style={styles.voteResultText}>최종 투표 결과</Text>
         <Text style={styles.mostVotedText}>
-          {data.mostVotedStatus} {formatNumber(data.mostVotedCount)}표
+          {data.mostVoted} {formatNumber(data.mostVotedCount)}표
         </Text>
         <Text style={styles.totalVotedText}>총 투표 수: {formatNumber(data.totalVoteCount)}표</Text>
       </View>

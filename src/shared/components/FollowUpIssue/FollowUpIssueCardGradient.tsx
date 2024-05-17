@@ -1,14 +1,14 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { FollowUpIssue } from '../../types/news';
 import theme from '../../../shared/styles/theme';
 import { LinearGradient } from 'expo-linear-gradient';
 import { formatDate } from '../../../features/remakeissue/constants/formatDate';
 import fontFamily from '../../styles/fontFamily';
 import { FollowUpIssueVotePageItem } from '../../../features/vote/types/followUpIssueVotePage';
+import { getNewsReportOrdinalInKorean } from '../../functions/getNewsReportOrdinalInKorean';
 
 interface FollowUpIssueCardGradientProps {
-  item: FollowUpIssueVotePageItem | FollowUpIssue;
+  item: FollowUpIssueVotePageItem;
 }
 
 const FollowUpIssueCardGradient = ({ item }: FollowUpIssueCardGradientProps) => {
@@ -33,7 +33,7 @@ const FollowUpIssueCardGradient = ({ item }: FollowUpIssueCardGradientProps) => 
             </Text>
             <View style={styles.titleUnderContainer}>
               <View style={styles.tagBox}>
-                <Text style={styles.tagText}>첫 보도</Text>
+                <Text style={styles.tagText}>{getNewsReportOrdinalInKorean(item.id)}</Text>
               </View>
               <Text style={styles.dateText}>{formatDate(item.createdAt)}</Text>
             </View>

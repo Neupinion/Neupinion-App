@@ -1,45 +1,31 @@
-export interface TotalTrustVoteData {
-  totalVoteCount: number;
-  mostVotedCount: number;
-  mostVotedStatus: string;
-  voteRankings: TotalVoteData[];
-}
+import { IntegratedResult } from '../features/totalvote/types/integratedResult';
 
-export interface TotalVoteData {
-  issueId: number;
-  issueOrder: string;
-  trust: number;
-  doubt: number;
-}
-
-export const TotalVotedDataDummy: TotalTrustVoteData = {
+export const TotalVotedDataDummy: IntegratedResult = {
+  mostVoted: '완전 신뢰',
   totalVoteCount: 7000,
-  mostVotedStatus: '완전 신뢰',
   mostVotedCount: 5342,
+  voteResults: [
+    {
+      trustRate: 0,
+      doubtRate: 100,
+    },
+  ],
   voteRankings: [
     {
-      issueId: 1,
-      issueOrder: '최초 보도',
-      trust: 30,
-      doubt: 70,
+      status: '매우 의심',
+      votePercentage: 100,
     },
     {
-      issueId: 2,
-      issueOrder: '두 번째 보도',
-      trust: 40,
-      doubt: 60,
+      status: '매우 신뢰',
+      votePercentage: 0,
     },
     {
-      issueId: 3,
-      issueOrder: '세 번째 보도',
-      trust: 50,
-      doubt: 50,
+      status: '약간 신뢰',
+      votePercentage: 0,
     },
     {
-      issueId: 4,
-      issueOrder: '네 번째 보도',
-      trust: 10,
-      doubt: 90,
+      status: '약간 의심',
+      votePercentage: 0,
     },
   ],
 };

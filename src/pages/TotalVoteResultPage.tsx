@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
+  ActivityIndicator,
   Dimensions,
   ImageSourcePropType,
   ScrollView,
@@ -18,17 +19,55 @@ import MainArrowLeftSvg from '../assets/icon/mainarrowLeft.svg';
 import BookMarkSvg from '../assets/icon/bookmark.svg';
 import { WINDOW_WIDTH } from '../shared/constants/display';
 import fontFamily from '../shared/styles/fontFamily';
-import { TotalVotedDataDummy } from '../dummy/TotalVotedDataDummy';
 import TotalVoteChartContainer from '../features/totalvote/components/TotalVoteChartContainer';
 import VoteRankContainer from '../features/vote/components/VoteRankContainer';
-import { VotedDataDummy } from '../dummy/VotedDataDummy';
 import RelatedIssues from '../features/vote/components/RelatedIssues';
 import TimeLine from '../features/totalvote/components/TimeLine';
+import useFetch from '../shared/hooks/useFetch';
+import { getIntegratedResult } from '../features/totalvote/remotes/getIntegratedResult';
+import GlobalTextStyles from '../shared/styles/GlobalTextStyles';
+import EmptyScreen from '../shared/components/Opinion/EmptyScreen';
 const TotalVoteResultPage = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   type ScreenRouteProp = RouteProp<RootStackParamList, 'TotalVoteResultPage'>;
   const route = useRoute<ScreenRouteProp>();
   const id: number = route.params.id;
+
+  const fetchReprocessedIssueIntegratedVote = () => getIntegratedResult(id);
+  const {
+    data: integratedVoteData,
+    isLoading,
+    error,
+    fetchData,
+  } = useFetch(fetchReprocessedIssueIntegratedVote, false);
+
+  useEffect(() => {
+    void fetchData();
+  }, []);
+
+  if (isLoading) {
+    return (
+      <View style={styles.container}>
+        <ActivityIndicator size="large" style={styles.activityIndicator} />
+      </View>
+    );
+  }
+
+  if (error) {
+    return (
+      <View style={styles.container}>
+        <Text style={GlobalTextStyles.NormalText17}>ERROR</Text>
+      </View>
+    );
+  }
+
+  if (!integratedVoteData) {
+    return (
+      <View style={styles.container}>
+        <EmptyScreen text={'통합 투표 화면이 없습니다.'} />
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>
@@ -48,12 +87,12 @@ const TotalVoteResultPage = () => {
         }
       />
       <ScrollView style={styles.scrollViewStyle}>
-        <TotalVoteChartContainer data={TotalVotedDataDummy} />
+        <TotalVoteChartContainer data={integratedVoteData} />
         <View style={styles.underChartContainer}>
           <View style={styles.rankContainer}>
             <Text style={styles.rankTitleText}>전체 투표 순위</Text>
           </View>
-          <VoteRankContainer data={VotedDataDummy} />
+          <VoteRankContainer data={integratedVoteData.voteRankings} />
         </View>
         <View style={styles.divideLine} />
         <View style={styles.timeLineContainer}>
