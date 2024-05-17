@@ -8,6 +8,7 @@ import CategoryLatestNewsItem from './CategoryLatestNewsItem';
 import { getSameCategoryReprocessedIssues } from '../remotes/sameCategoryReprocessedIssue';
 import useFetch from '../../../shared/hooks/useFetch';
 import { WINDOW_WIDTH } from '../../../shared/constants/display';
+import EmptyScreen from "../../../shared/components/Opinion/EmptyScreen";
 interface CategoryLatestNewsProps {
   current: number;
   category: string;
@@ -28,10 +29,15 @@ const CategoryLatestNews = ({ current, category }: CategoryLatestNewsProps) => {
           <WithLocalSvg width={14} height={14} asset={MainArrowSvg as ImageSourcePropType} />
         </TouchableOpacity>
       </View>
-      {reprocessedIssue &&
+      {reprocessedIssue && reprocessedIssue.length > 0 ? (
         reprocessedIssue.map((item) => (
           <CategoryLatestNewsItem key={item.id} item={item} category={category} />
-        ))}
+        ))
+      ) : (
+        <View style={styles.emptyContainer}>
+          <EmptyScreen text={'관련 카테고리 추천 이슈가 없습니다.'} />
+        </View>
+      )}
     </View>
   );
 };
@@ -67,6 +73,10 @@ const styles = StyleSheet.create({
   flatListStyle: {
     width: WINDOW_WIDTH,
     marginBottom: 50,
+  },
+  emptyContainer: {
+    marginTop: 30,
+    marginBottom: 60,
   },
 });
 
