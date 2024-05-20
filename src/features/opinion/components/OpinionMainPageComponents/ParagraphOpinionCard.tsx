@@ -19,11 +19,17 @@ import { RootStackParamList } from '../../../../rootStackParamList';
 
 interface ParagraphOpinionCategoryProps {
   item: OpinionParagraphId;
+  id: number;
+  leftMainCategory: string;
 }
-const ParagraphOpinionCard = ({ item }: ParagraphOpinionCategoryProps) => {
+const ParagraphOpinionCard = ({ item, id, leftMainCategory }: ParagraphOpinionCategoryProps) => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   const goOpinionParagraphPage = () => {
-    navigation.navigate('OpinionParagraphPage', { item: item });
+    navigation.navigate('OpinionParagraphPage', {
+      item: item,
+      id: id,
+      leftMainCategory: leftMainCategory,
+    });
   };
   console.log(item);
   return (

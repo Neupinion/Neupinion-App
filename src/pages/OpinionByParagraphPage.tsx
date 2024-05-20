@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
+  ActivityIndicator,
   Dimensions,
   Image,
   ImageSourcePropType,
@@ -19,15 +20,76 @@ import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../rootStackParamList';
 import { formatYMD } from '../features/date/functions/formatDate';
+import DropDownPicker from 'react-native-dropdown-picker';
+import { getOpinionParagraph } from '../features/opinion/remotes/individualVote';
+import useFetch from '../shared/hooks/useFetch';
+import GlobalTextStyles from '../shared/styles/GlobalTextStyles';
 
 const OpinionByParagraphPage = () => {
+  const [value, setValue] = useState('최신순');
+  const [open, setOpen] = useState(false);
+  const [items, setItems] = useState([
+    { label: '최신순', value: '최신순' },
+    { label: '인기순', value: '인기순' },
+  ]);
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   type ScreenRouteProp = RouteProp<RootStackParamList, 'OpinionParagraphPage'>;
   const route = useRoute<ScreenRouteProp>();
-  const { item } = route.params;
+  const { item, id, leftMainCategory } = route.params;
   const gotoOpinionMainPage = () => {
     navigation.navigate('OpinionMainPage');
   };
+  const fetchOpinionParagraph = () =>
+    getOpinionParagraph(id, leftMainCategory, getCategoryType(value), 0);
+  const {
+    data: opinionParagraph,
+    isLoading,
+    error,
+    fetchData,
+  } = useFetch(fetchOpinionParagraph, false);
+
+  useEffect(() => {
+    void fetchData();
+  }, []);
+
+  const getCategoryType = (category: string) => {
+    switch (category) {
+      case '전체':
+        return 'ALL';
+      case '신뢰':
+        return 'TRUST';
+      case '의심':
+        return 'DOUBT';
+      default:
+        return 'ALL';
+    }
+  };
+  const getSortType = (category: string) => {
+    switch (category) {
+      case '인기순':
+        return 'POPULAR';
+      case '최신순':
+        return 'RECENT';
+      default:
+        return 'RECENT';
+    }
+  };
+  if (isLoading) {
+    return (
+      <View style={styles.container}>
+        <ActivityIndicator size="large" style={styles.activityIndicator} />
+      </View>
+    );
+  }
+
+  if (error) {
+    return (
+      <View style={styles.container}>
+        <Text style={GlobalTextStyles.NormalText17}>ERROR</Text>
+      </View>
+    );
+  }
+
   return (
     <View style={styles.container}>
       <PageHeader
@@ -40,7 +102,20 @@ const OpinionByParagraphPage = () => {
         RightIcons={null}
       />
       <View style={styles.headerUnderLine} />
-
+      <DropDownPicker
+        placeholder="최신순"
+        zIndex={1}
+        open={open}
+        value={value}
+        items={items}
+        setOpen={setOpen}
+        setValue={setValue}
+        setItems={setItems}
+        style={styles.dropDownMainStyle}
+        textStyle={styles.listText}
+        arrowIconStyle={styles.arrowStyle}
+        dropDownContainerStyle={styles.dropDownMainStyle}
+      />
       <View style={styles.pinSentenceContainer}>
         <PinSentenceCard color={theme.color.gray2} paragraphContent={item.content} />
       </View>
@@ -115,6 +190,31 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 8,
     marginBottom: 12,
+  },
+  dropDownMainStyle: {
+    width: 100,
+    backgroundColor: theme.color.background,
+  },
+  arrowStyle: {
+    width: 24,
+    height: 24,
+    tintColor: theme.color.white,
+  },
+  dropDownContainerStyle: {
+    backgroundColor: theme.color.background,
+  },
+  listText: {
+    fontFamily: fontFamily.pretendard.bold,
+    color: theme.color.white,
+    fontSize: 14,
+    fontStyle: 'normal',
+    fontWeight: '500',
+    lineHeight: 21,
+    letterSpacing: -0.42,
+  },
+  activityIndicator: {
+    flex: 1,
+    alignSelf: 'center',
   },
 });
 
