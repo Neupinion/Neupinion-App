@@ -25,6 +25,7 @@ const ParagraphOpinionCard = ({ item }: ParagraphOpinionCategoryProps) => {
   const goOpinionParagraphPage = () => {
     navigation.navigate('OpinionParagraphPage', { item: item });
   };
+  console.log(item);
   return (
     <View style={styles.container}>
       <PinSentenceCard color={theme.color.gray2} paragraphContent={item.content} />

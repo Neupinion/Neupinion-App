@@ -40,6 +40,7 @@ const OpinionByParagraphPage = () => {
         RightIcons={null}
       />
       <View style={styles.headerUnderLine} />
+
       <View style={styles.pinSentenceContainer}>
         <PinSentenceCard color={theme.color.gray2} paragraphContent={item.content} />
       </View>

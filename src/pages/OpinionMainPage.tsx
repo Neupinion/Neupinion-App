@@ -18,6 +18,7 @@ import { WithLocalSvg } from 'react-native-svg/css';
 import MainArrowLeftSvg from '../assets/icon/mainarrowLeft.svg';
 import { WINDOW_WIDTH } from '../shared/constants/display';
 import { mainCategories } from '../shared/constants/opinionCategory';
+
 const OpinionMainPage = () => {
   const [activeMainCategory, setActiveMainCategory] = useState('전체');
   const SelectMainCategory = (category: string) => {
