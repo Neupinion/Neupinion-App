@@ -13,65 +13,27 @@ import { WithLocalSvg } from 'react-native-svg/css';
 import FavoriteSvg from '../../../../assets/icon/favorite.svg';
 import fontFamily from '../../../../shared/styles/fontFamily';
 import PinSentenceCard from './PinSentenceCard';
-import { OpinionParagraphId } from '../../../../shared/types/news';
 import { formatDate } from '../../../remakeissue/constants/formatDate';
+import { OpinionTotalId } from '../../../../shared/types/news';
+import { WINDOW_WIDTH } from '../../../../shared/constants/display';
 
 interface TotalOpinionCardProps {
-  item: OpinionParagraphId;
-  leftMainCategory: string;
+  item: OpinionTotalId;
 }
-interface Opinion {
-  profileImageUrl: string;
-  nickname: string;
-  createdAt: string;
-  isReliable: boolean;
-  content: string;
-  paragraphContent: string;
-  likeCount: number;
-}
-const TotalOpinionCard = ({ item, leftMainCategory }: TotalOpinionCardProps) => {
+const TotalOpinionCard = ({ item }: TotalOpinionCardProps) => {
   const UpdateFavorite = () => {};
-  const renderOpinions = () => {
-    switch (leftMainCategory) {
-      case '전체':
-        return renderAllOpinions();
-      case '신뢰':
-        return renderReliableOpinions();
-      case '의심':
-        return renderDoubtfulOpinions();
-      default:
-        return null;
-    }
-  };
-
-  const renderAllOpinions = () => {
-    return item.opinions.map((opinion, index) => renderOpinion(opinion, index));
-  };
-
-  const renderReliableOpinions = () => {
-    return item.opinions
-      .filter((opinion) => opinion.isReliable)
-      .map((opinion, index) => renderOpinion(opinion, index));
-  };
-
-  const renderDoubtfulOpinions = () => {
-    return item.opinions
-      .filter((opinion) => !opinion.isReliable)
-      .map((opinion, index) => renderOpinion(opinion, index));
-  };
-
-  const renderOpinion = (opinion: Opinion, index: number) => {
-    return (
-      <View key={index}>
+  return (
+    <View style={styles.container}>
+      <View style={styles.bigOpinionCard}>
         <View style={styles.bigOpinionCardTop}>
-          <Image source={{ uri: opinion.profileImageUrl }} style={styles.cardImage} />
+          <Image source={{ uri: item.profileImageUrl }} style={styles.cardImage} />
           <View style={{ flexDirection: 'column', marginLeft: 10, gap: 4 }}>
-            <Text style={styles.userNameText}>{opinion.nickname}</Text>
-            <Text style={styles.dateText}>{formatDate(opinion.createdAt)}</Text>
+            <Text style={styles.userNameText}>{item.nickname}</Text>
+            <Text style={styles.dateText}>{formatDate(item.createdAt)}</Text>
           </View>
         </View>
         <View style={styles.bigOpinionCardMiddle}>
-          {opinion.isReliable ? (
+          {item.isReliable ? (
             <View style={styles.positivePosition}>
               <Text style={styles.positionText}>신뢰</Text>
             </View>
@@ -81,23 +43,27 @@ const TotalOpinionCard = ({ item, leftMainCategory }: TotalOpinionCardProps) => 
             </View>
           )}
 
-          <Text style={styles.userOpinionText}>{opinion.content}</Text>
+          <Text style={styles.userOpinionText}>{item.content}</Text>
         </View>
-        <PinSentenceCard color={theme.color.gray2} paragraphContent={opinion.paragraphContent} />
-        <View style={{ flexDirection: 'row', marginVertical: 21 }}>
+        <PinSentenceCard color={theme.color.gray2} paragraphContent={item.paragraphContent} />
+        <View style={styles.bigOpinionCardBottom}>
           <TouchableOpacity style={{ marginRight: 4 }} onPress={() => UpdateFavorite()}>
             <WithLocalSvg width={18} height={18} asset={FavoriteSvg as ImageSourcePropType} />
           </TouchableOpacity>
-          <Text style={styles.favoriteText}>{opinion.likeCount}</Text>
+          <Text style={styles.favoriteText}>{item.likeCount}</Text>
         </View>
       </View>
-    );
-  };
-  return <View style={styles.container}>{renderOpinions()}</View>;
+      <View style={styles.headerUnderLine} />
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
   container: {
+    alignItems: 'center',
+    marginTop: 24,
+  },
+  bigOpinionCard: {
     width: Dimensions.get('window').width - 52,
   },
   bigOpinionCardTop: {
@@ -176,6 +142,16 @@ const styles = StyleSheet.create({
     width: 44,
     height: 44,
     borderRadius: 50,
+  },
+  bigOpinionCardBottom: {
+    flexDirection: 'row',
+    marginTop: 20,
+    marginBottom: 24,
+  },
+  headerUnderLine: {
+    width: WINDOW_WIDTH,
+    height: 1,
+    backgroundColor: 'rgba(226, 226, 226, 0.1)',
   },
 });
 

@@ -3,16 +3,18 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import theme from '../../../../shared/styles/theme';
 import fontFamily from '../../../../shared/styles/fontFamily';
 import DropDownPicker from 'react-native-dropdown-picker';
-import { subCategories } from '../../../../shared/constants/opinionCategory';
+import { mainCategories, subCategories } from '../../../../shared/constants/opinionCategory';
 
 interface OpinionPageCategoryProps {
   changeLeftCategory: (newData: string) => void;
   changeRightCategory: (newData: string) => void;
+  activeMainCategory: string;
 }
 
 const OpinionSubCategory = ({
   changeLeftCategory,
   changeRightCategory,
+  activeMainCategory,
 }: OpinionPageCategoryProps) => {
   const [activeSubCategory, setActiveSubCategory] = useState('전체');
   const handleButtonPress = (category: string) => {
@@ -45,20 +47,22 @@ const OpinionSubCategory = ({
         ))}
       </View>
       <View>
-        <DropDownPicker
-          placeholder="최신순"
-          zIndex={1}
-          open={open}
-          value={value}
-          items={items}
-          setOpen={setOpen}
-          setValue={setValue}
-          setItems={setItems}
-          style={styles.dropDownMainStyle}
-          textStyle={styles.listText}
-          arrowIconStyle={styles.arrowStyle}
-          dropDownContainerStyle={styles.dropDownMainStyle}
-        />
+        {activeMainCategory == mainCategories[0] && (
+          <DropDownPicker
+            placeholder="최신순"
+            zIndex={1}
+            open={open}
+            value={value}
+            items={items}
+            setOpen={setOpen}
+            setValue={setValue}
+            setItems={setItems}
+            style={styles.dropDownMainStyle}
+            textStyle={styles.listText}
+            arrowIconStyle={styles.arrowStyle}
+            dropDownContainerStyle={styles.dropDownMainStyle}
+          />
+        )}
       </View>
     </View>
   );
@@ -70,7 +74,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginHorizontal: 26,
-    marginBottom: 30,
+    marginBottom: 6,
     marginTop: 20,
   },
   positionButton: {
