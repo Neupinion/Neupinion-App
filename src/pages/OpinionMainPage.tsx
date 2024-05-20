@@ -22,6 +22,7 @@ import { mainCategories } from '../shared/constants/opinionCategory';
 import { getOpinionParagraph } from '../features/opinion/remotes/individualVote';
 import useFetch from '../shared/hooks/useFetch';
 import GlobalTextStyles from '../shared/styles/GlobalTextStyles';
+import opinionPinPage from './OpinionPinPage';
 
 const OpinionMainPage = () => {
   const [activeMainCategory, setActiveMainCategory] = useState('전체');
@@ -39,40 +40,59 @@ const OpinionMainPage = () => {
   console.log(leftMainCategory);
   console.log(rightMainCategory);
 
-  const fetchOpinionParagraph = () => getOpinionParagraph(1, 'ALL');
-  const {
-    data: opinionParagraph,
-    isLoading,
-    error,
-    fetchData,
-  } = useFetch(fetchOpinionParagraph, false);
+  // const fetchOpinionParagraph = () => getOpinionParagraph(1, 'ALL', 'RECENT', 0);
+  // const {
+  //   data: opinionParagraph,
+  //   isLoading,
+  //   error,
+  //   fetchData,
+  // } = useFetch(fetchOpinionParagraph, false);
 
-  useEffect(() => {
-    void fetchData();
-  }, []);
+  // useEffect(() => {
+  //   void fetchData();
+  // }, []);
+  // if (isLoading) {
+  //   return (
+  //     <View style={styles.container}>
+  //       <ActivityIndicator size="large" style={styles.activityIndicator} />
+  //     </View>
+  //   );
+  // }
+  //
+  // if (error) {
+  //   return (
+  //     <View style={styles.container}>
+  //       <Text style={GlobalTextStyles.NormalText17}>ERROR</Text>
+  //     </View>
+  //   );
+  // }
+  //
+  // if (!opinionParagraph) {
+  //   return null;
+  // }
 
-  console.log('opinionParagraph:', opinionParagraph);
-
-  if (isLoading) {
-    return (
-      <View style={styles.container}>
-        <ActivityIndicator size="large" style={styles.activityIndicator} />
-      </View>
-    );
-  }
-
-  if (error) {
-    return (
-      <View style={styles.container}>
-        <Text style={GlobalTextStyles.NormalText17}>ERROR</Text>
-      </View>
-    );
-  }
-
-  if (!opinionParagraph) {
-    return null;
-  }
-
+  const opinionParagraph = [
+    {
+      id: 1,
+      content: '펜타곤이 폭발한 사진이 트위터에서 활발하게 공유되었습니다.',
+      opinions: [
+        {
+          id: 1,
+          memberId: 1,
+          nickname: '김철수',
+          profileImageUrl: 'https://www.neupinion.com/profile/1',
+          createdAt: '2024-05-20T05:15:09.625Z',
+          isReliable: true,
+          paragraphId: 20,
+          paragraphContent: '이 부분이 문제가 되는 이유는...',
+          content: '이런 부분은 문제가 있어요!',
+          likeCount: 10,
+          isLiked: true,
+        },
+      ],
+    },
+  ];
+  console.log(opinionParagraph);
   return (
     <View style={styles.container}>
       <PageHeader
