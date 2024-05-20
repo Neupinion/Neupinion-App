@@ -40,7 +40,7 @@ const OpinionByParagraphPage = () => {
     navigation.navigate('OpinionMainPage');
   };
   const fetchOpinionParagraph = () =>
-    getOpinionParagraph(id, leftMainCategory, getCategoryType(value), 0);
+    getOpinionParagraph(id, getSortType(leftMainCategory), getCategoryType(value), 0);
   const {
     data: opinionParagraph,
     isLoading,
@@ -119,16 +119,21 @@ const OpinionByParagraphPage = () => {
       <View style={styles.pinSentenceContainer}>
         <PinSentenceCard color={theme.color.gray2} paragraphContent={item.content} />
       </View>
-      {item.opinions.map((opinion, index) => (
-        <View key={index} style={styles.opinionContainer}>
-          <View style={styles.opinionTopContainer}>
-            <Image source={{ uri: opinion.profileImageUrl }} style={styles.cardImage} />
-            <Text style={styles.nicknameText}>{opinion.nickname}</Text>
-            <Text style={styles.dateText}>{formatYMD(opinion.createdAt)}</Text>
-          </View>
-          <Text style={styles.userOpinionText}>{opinion.content}</Text>
-        </View>
-      ))}
+      {opinionParagraph &&
+        opinionParagraph.map(
+          (paragraph) =>
+            paragraph.id === item.id &&
+            paragraph.opinions.map((opinion) => (
+              <View key={opinion.id} style={styles.opinionContainer}>
+                <View style={styles.opinionTopContainer}>
+                  <Image source={{ uri: opinion.profileImageUrl }} style={styles.cardImage} />
+                  <Text style={styles.nicknameText}>{opinion.nickname}</Text>
+                  <Text style={styles.dateText}>{formatYMD(opinion.createdAt)}</Text>
+                </View>
+                <Text style={styles.userOpinionText}>{opinion.content}</Text>
+              </View>
+            )),
+        )}
     </View>
   );
 };
