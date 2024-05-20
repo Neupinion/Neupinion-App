@@ -17,6 +17,12 @@ const OpinionSubCategory = ({
   activeMainCategory,
 }: OpinionPageCategoryProps) => {
   const [activeSubCategory, setActiveSubCategory] = useState('전체');
+  const [value, setValue] = useState('최신순');
+  const [open, setOpen] = useState(false);
+  const [items, setItems] = useState([
+    { label: '최신순', value: '최신순' },
+    { label: '인기순', value: '인기순' },
+  ]);
   const handleButtonPress = (category: string) => {
     setActiveSubCategory(category);
     changeLeftCategory(category);
@@ -25,12 +31,6 @@ const OpinionSubCategory = ({
     setValue(value);
     changeRightCategory(value);
   };
-  const [open, setOpen] = useState(false);
-  const [value, setValue] = useState('최신순');
-  const [items, setItems] = useState([
-    { label: '최신순', value: '최신순' },
-    { label: '인기순', value: '인기순' },
-  ]);
   return (
     <View style={styles.container}>
       <View style={{ flexDirection: 'row' }}>
@@ -55,7 +55,7 @@ const OpinionSubCategory = ({
             value={value}
             items={items}
             setOpen={setOpen}
-            setValue={setValue}
+            setValue={handleDropDownChange}
             setItems={setItems}
             style={styles.dropDownMainStyle}
             textStyle={styles.listText}

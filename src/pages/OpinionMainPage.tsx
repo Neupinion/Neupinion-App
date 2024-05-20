@@ -34,7 +34,7 @@ const OpinionMainPage = () => {
   console.log(leftMainCategory);
   console.log(rightMainCategory);
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <PageHeader
         leftIcons={
           <TouchableOpacity>
@@ -64,7 +64,6 @@ const OpinionMainPage = () => {
         {activeMainCategory == mainCategories[0] && <View style={styles.selectedAll} />}
         {activeMainCategory == mainCategories[1] && <View style={styles.selectedParagraph} />}
       </View>
-      <ScrollView>
         <OpinionSubCategory
           changeLeftCategory={changeLeftCategory}
           changeRightCategory={changeRightCategory}
@@ -76,8 +75,8 @@ const OpinionMainPage = () => {
         ) : (
           <ParagraphOpinionCategory id={1} />
         )}
-      </ScrollView>
-    </View>
+
+    </ScrollView>
   );
 };
 
