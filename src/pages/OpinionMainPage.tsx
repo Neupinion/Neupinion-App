@@ -64,18 +64,21 @@ const OpinionMainPage = () => {
         {activeMainCategory == mainCategories[0] && <View style={styles.selectedAll} />}
         {activeMainCategory == mainCategories[1] && <View style={styles.selectedParagraph} />}
       </View>
-        <OpinionSubCategory
-          changeLeftCategory={changeLeftCategory}
-          changeRightCategory={changeRightCategory}
-          activeMainCategory={activeMainCategory}
+      <OpinionSubCategory
+        changeLeftCategory={changeLeftCategory}
+        changeRightCategory={changeRightCategory}
+        activeMainCategory={activeMainCategory}
+      />
+
+      {activeMainCategory === mainCategories[0] ? (
+        <TotalOpinionCategory
+          id={1}
+          leftMainCategory={leftMainCategory}
+          rightMainCategory={rightMainCategory}
         />
-
-        {activeMainCategory === mainCategories[0] ? (
-          <TotalOpinionCategory id={1} leftMainCategory={leftMainCategory} />
-        ) : (
-          <ParagraphOpinionCategory id={1} />
-        )}
-
+      ) : (
+        <ParagraphOpinionCategory id={1} leftMainCategory={leftMainCategory} />
+      )}
     </ScrollView>
   );
 };

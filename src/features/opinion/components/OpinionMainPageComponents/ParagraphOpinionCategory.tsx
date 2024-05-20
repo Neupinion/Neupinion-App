@@ -7,10 +7,12 @@ import GlobalTextStyles from '../../../../shared/styles/GlobalTextStyles';
 
 interface ParagraphOpinionCategoryProps {
   id: number;
+  leftMainCategory: string;
 }
 
-const ParagraphOpinionCategory = ({ id }: ParagraphOpinionCategoryProps) => {
-  const fetchOpinionParagraph = () => getOpinionParagraph(id, 'ALL', 'RECENT', 0);
+const ParagraphOpinionCategory = ({ id, leftMainCategory }: ParagraphOpinionCategoryProps) => {
+  const fetchOpinionParagraph = () =>
+    getOpinionParagraph(id, getCategoryType(leftMainCategory), 'RECENT', 0);
   const {
     data: opinionParagraph,
     isLoading,
@@ -21,6 +23,19 @@ const ParagraphOpinionCategory = ({ id }: ParagraphOpinionCategoryProps) => {
   useEffect(() => {
     void fetchData();
   }, []);
+
+  const getCategoryType = (category: string) => {
+    switch (category) {
+      case '전체':
+        return 'ALL';
+      case '신뢰':
+        return 'TRUST';
+      case '의심':
+        return 'DOUBT';
+      default:
+        return 'ALL';
+    }
+  };
   if (isLoading) {
     return (
       <View style={styles.container}>
