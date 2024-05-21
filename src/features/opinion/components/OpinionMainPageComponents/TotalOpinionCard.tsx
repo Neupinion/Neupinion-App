@@ -103,12 +103,12 @@ const styles = StyleSheet.create({
   },
   positionText: {
     fontFamily: fontFamily.pretendard.bold,
-    color: '#E0FFE5',
+    color: theme.color.green1,
     fontSize: 12,
     fontStyle: 'normal',
-    fontWeight: '600',
+    fontWeight: '500',
     lineHeight: 18,
-    letterSpacing: -0.36,
+    letterSpacing: -0.5,
   },
   userOpinionText: {
     fontSize: 14,
@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
   headerUnderLine: {
     width: WINDOW_WIDTH,
     height: 1,
-    backgroundColor: 'rgba(226, 226, 226, 0.1)',
+    backgroundColor: theme.color.gray6,
   },
 });
 

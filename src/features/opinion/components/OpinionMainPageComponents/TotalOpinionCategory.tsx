@@ -5,7 +5,7 @@ import { getOpinionTotal } from '../../remotes/individualVote';
 import useFetch from '../../../../shared/hooks/useFetch';
 import GlobalTextStyles from '../../../../shared/styles/GlobalTextStyles';
 import OpinionSubCategory from './OpinionSubCategory';
-
+import { getSortType, getCategoryType } from '../../../../shared/constants/opinionCategory';
 interface TotalOpinionCategoryProps {
   id: number;
 }
@@ -26,30 +26,6 @@ const TotalOpinionCategory = ({ id }: TotalOpinionCategoryProps) => {
   useEffect(() => {
     void fetchData();
   }, []);
-
-  const getCategoryType = (category: string) => {
-    switch (category) {
-      case '전체':
-        return 'ALL';
-      case '신뢰':
-        return 'TRUST';
-      case '의심':
-        return 'DOUBT';
-      default:
-        return 'ALL';
-    }
-  };
-
-  const getSortType = (category: string) => {
-    switch (category) {
-      case '인기순':
-        return 'POPULAR';
-      case '최신순':
-        return 'RECENT';
-      default:
-        return 'RECENT';
-    }
-  };
 
   if (isLoading) {
     return (

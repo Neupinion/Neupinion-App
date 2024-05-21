@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
   headerUnderLine: {
     width: WINDOW_WIDTH,
     height: 1,
-    backgroundColor: 'rgba(226, 226, 226, 0.1)',
+    backgroundColor: theme.color.gray6,
   },
   cardImage: {
     width: 26,

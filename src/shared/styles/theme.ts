@@ -14,6 +14,7 @@ interface ColorPalette {
   gray6: string;
   gray7: string;
   white: string;
+  green1: string;
 }
 
 interface TrustPalette {
@@ -50,6 +51,7 @@ const theme: Theme = {
     gray6: '#D1D3D8',
     gray7: '#EBECF1',
     white: '#FFFFFF',
+    green1: '#E0FFE5',
   },
   gradient: {
     gradient1: ['#1D1E27', '#7A7B86'],
