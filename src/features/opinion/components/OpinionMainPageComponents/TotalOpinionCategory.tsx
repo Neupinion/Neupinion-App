@@ -1,23 +1,26 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 import TotalOpinionCard from './TotalOpinionCard';
 import { getOpinionTotal } from '../../remotes/individualVote';
 import useFetch from '../../../../shared/hooks/useFetch';
 import GlobalTextStyles from '../../../../shared/styles/GlobalTextStyles';
+import OpinionSubCategory from './OpinionSubCategory';
 
 interface TotalOpinionCategoryProps {
   id: number;
-  leftMainCategory: string;
-  rightMainCategory: string;
 }
 
-const TotalOpinionCategory = ({
-  id,
-  leftMainCategory,
-  rightMainCategory,
-}: TotalOpinionCategoryProps) => {
+const TotalOpinionCategory = ({ id }: TotalOpinionCategoryProps) => {
+  const [leftSubCategory, setLeftSubCategory] = useState('전체');
+  const [rightSubCategory, setRightSubCategory] = useState('최신순');
+  const changeLeftCategory = (leftCategory: string) => {
+    setLeftSubCategory(leftCategory);
+  };
+  const changeRightCategory = (rightCategory: string) => {
+    setRightSubCategory(rightCategory);
+  };
   const fetchOpinionTotal = () =>
-    getOpinionTotal(id, getCategoryType(leftMainCategory), getSortType(rightMainCategory), 0);
+    getOpinionTotal(id, getCategoryType(leftSubCategory), getSortType(rightSubCategory), 0);
   const { data: opinionTotal, isLoading, error, fetchData } = useFetch(fetchOpinionTotal, false);
 
   useEffect(() => {
@@ -65,6 +68,10 @@ const TotalOpinionCategory = ({
   }
   return (
     <View style={styles.container}>
+      <OpinionSubCategory
+        changeLeftCategory={changeLeftCategory}
+        changeRightCategory={changeRightCategory}
+      />
       {opinionTotal &&
         opinionTotal.map((item) => <TotalOpinionCard key={item.opinionId} item={item} />)}
     </View>
@@ -74,7 +81,7 @@ const TotalOpinionCategory = ({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
+    // alignItems: 'center',
   },
   activityIndicator: {
     flex: 1,

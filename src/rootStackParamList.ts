@@ -7,6 +7,6 @@ export type RootStackParamList = {
   ReprocessedIssueDetailPage: { id: number };
   VoteResultPage: { id: number };
   TotalVoteResultPage: { id: number };
-  OpinionParagraphPage: { item: OpinionParagraphId; id: number; leftMainCategory: string };
+  OpinionParagraphPage: { item: OpinionParagraphId; id: number };
   OpinionMainPage: undefined;
 };

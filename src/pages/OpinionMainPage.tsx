@@ -24,16 +24,8 @@ const OpinionMainPage = () => {
   const SelectMainCategory = (category: string) => {
     setActiveMainCategory(category);
   };
-  const [leftMainCategory, setLeftMainCategory] = useState('전체');
-  const [rightMainCategory, setRightMainCategory] = useState('최신순');
-  const changeLeftCategory = (leftCategory: string) => {
-    setLeftMainCategory(leftCategory);
-  };
-  const changeRightCategory = (rightCategory: string) => {
-    setRightMainCategory(rightCategory);
-  };
-  console.log(leftMainCategory);
-  console.log(rightMainCategory);
+
+
   return (
     <ScrollView style={styles.container}>
       <PageHeader
@@ -65,20 +57,11 @@ const OpinionMainPage = () => {
         {activeMainCategory == mainCategories[0] && <View style={styles.selectedAll} />}
         {activeMainCategory == mainCategories[1] && <View style={styles.selectedParagraph} />}
       </View>
-      <OpinionSubCategory
-        changeLeftCategory={changeLeftCategory}
-        changeRightCategory={changeRightCategory}
-        activeMainCategory={activeMainCategory}
-      />
 
       {activeMainCategory === mainCategories[0] ? (
-        <TotalOpinionCategory
-          id={1}
-          leftMainCategory={leftMainCategory}
-          rightMainCategory={rightMainCategory}
-        />
+        <TotalOpinionCategory id={1} />
       ) : (
-        <ParagraphOpinionCategory id={1} leftMainCategory={leftMainCategory} />
+        <ParagraphOpinionCategory id={1} />
       )}
     </ScrollView>
   );

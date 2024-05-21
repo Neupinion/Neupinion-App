@@ -3,18 +3,16 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import theme from '../../../../shared/styles/theme';
 import fontFamily from '../../../../shared/styles/fontFamily';
 import DropDownPicker from 'react-native-dropdown-picker';
-import { mainCategories, subCategories } from '../../../../shared/constants/opinionCategory';
+import { subCategories } from '../../../../shared/constants/opinionCategory';
 
 interface OpinionPageCategoryProps {
   changeLeftCategory: (newData: string) => void;
   changeRightCategory: (newData: string) => void;
-  activeMainCategory: string;
 }
 
 const OpinionSubCategory = ({
   changeLeftCategory,
   changeRightCategory,
-  activeMainCategory,
 }: OpinionPageCategoryProps) => {
   const [activeSubCategory, setActiveSubCategory] = useState('전체');
   const [value, setValue] = useState('최신순');
@@ -47,22 +45,20 @@ const OpinionSubCategory = ({
         ))}
       </View>
       <View>
-        {activeMainCategory == mainCategories[0] && (
-          <DropDownPicker
-            placeholder="최신순"
-            zIndex={1}
-            open={open}
-            value={value}
-            items={items}
-            setOpen={setOpen}
-            setValue={handleDropDownChange}
-            setItems={setItems}
-            style={styles.dropDownMainStyle}
-            textStyle={styles.listText}
-            arrowIconStyle={styles.arrowStyle}
-            dropDownContainerStyle={styles.dropDownMainStyle}
-          />
-        )}
+        <DropDownPicker
+          placeholder="최신순"
+          zIndex={1}
+          open={open}
+          value={value}
+          items={items}
+          setOpen={setOpen}
+          setValue={handleDropDownChange}
+          setItems={setItems}
+          style={styles.dropDownMainStyle}
+          textStyle={styles.listText}
+          arrowIconStyle={styles.arrowStyle}
+          dropDownContainerStyle={styles.dropDownMainStyle}
+        />
       </View>
     </View>
   );

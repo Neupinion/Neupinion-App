@@ -20,27 +20,30 @@ import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../rootStackParamList';
 import { formatYMD } from '../features/date/functions/formatDate';
-import DropDownPicker from 'react-native-dropdown-picker';
 import { getOpinionParagraph } from '../features/opinion/remotes/individualVote';
 import useFetch from '../shared/hooks/useFetch';
 import GlobalTextStyles from '../shared/styles/GlobalTextStyles';
+import OpinionSubCategory from '../features/opinion/components/OpinionMainPageComponents/OpinionSubCategory';
 
 const OpinionByParagraphPage = () => {
-  const [value, setValue] = useState('최신순');
-  const [open, setOpen] = useState(false);
-  const [items, setItems] = useState([
-    { label: '최신순', value: '최신순' },
-    { label: '인기순', value: '인기순' },
-  ]);
+  const [leftSubCategory, setLeftSubCategory] = useState('전체');
+  const [rightSubCategory, setRightSubCategory] = useState('최신순');
+  const changeLeftCategory = (leftCategory: string) => {
+    setLeftSubCategory(leftCategory);
+  };
+  const changeRightCategory = (rightCategory: string) => {
+    setRightSubCategory(rightCategory);
+  };
+
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   type ScreenRouteProp = RouteProp<RootStackParamList, 'OpinionParagraphPage'>;
   const route = useRoute<ScreenRouteProp>();
-  const { item, id, leftMainCategory } = route.params;
+  const { item, id } = route.params;
   const gotoOpinionMainPage = () => {
     navigation.navigate('OpinionMainPage');
   };
   const fetchOpinionParagraph = () =>
-    getOpinionParagraph(id, getSortType(leftMainCategory), getCategoryType(value), 0);
+    getOpinionParagraph(id, getSortType(leftSubCategory), getCategoryType(rightSubCategory), 0);
   const {
     data: opinionParagraph,
     isLoading,
@@ -102,19 +105,9 @@ const OpinionByParagraphPage = () => {
         RightIcons={null}
       />
       <View style={styles.headerUnderLine} />
-      <DropDownPicker
-        placeholder="최신순"
-        zIndex={1}
-        open={open}
-        value={value}
-        items={items}
-        setOpen={setOpen}
-        setValue={setValue}
-        setItems={setItems}
-        style={styles.dropDownMainStyle}
-        textStyle={styles.listText}
-        arrowIconStyle={styles.arrowStyle}
-        dropDownContainerStyle={styles.dropDownMainStyle}
+      <OpinionSubCategory
+        changeLeftCategory={changeLeftCategory}
+        changeRightCategory={changeRightCategory}
       />
       <View style={styles.pinSentenceContainer}>
         <PinSentenceCard color={theme.color.gray2} paragraphContent={item.content} />
