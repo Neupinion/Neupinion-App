@@ -2,9 +2,8 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import theme from '../../../../shared/styles/theme';
 import fontFamily from '../../../../shared/styles/fontFamily';
-import DropDownPicker from 'react-native-dropdown-picker';
 import { subCategories } from '../../../../shared/constants/opinionCategory';
-
+import { Dropdown } from 'react-native-element-dropdown';
 interface OpinionPageCategoryProps {
   changeLeftCategory: (newData: string) => void;
   changeRightCategory: (newData: string) => void;
@@ -15,12 +14,6 @@ const OpinionSubCategory = ({
   changeRightCategory,
 }: OpinionPageCategoryProps) => {
   const [activeSubCategory, setActiveSubCategory] = useState('전체');
-  const [value, setValue] = useState('최신순');
-  const [open, setOpen] = useState(false);
-  const [items, setItems] = useState([
-    { label: '최신순', value: '최신순' },
-    { label: '인기순', value: '인기순' },
-  ]);
   const handleButtonPress = (category: string) => {
     setActiveSubCategory(category);
     changeLeftCategory(category);
@@ -29,6 +22,12 @@ const OpinionSubCategory = ({
     setValue(value);
     changeRightCategory(value);
   };
+  const data = [
+    { label: '최신순', value: '최신순' },
+    { label: '인기순', value: '인기순' },
+  ];
+  const [value, setValue] = useState('최신순');
+
   return (
     <View style={styles.container}>
       <View style={{ flexDirection: 'row' }}>
@@ -45,19 +44,22 @@ const OpinionSubCategory = ({
         ))}
       </View>
       <View>
-        <DropDownPicker
+        <Dropdown
+          style={styles.dropdown}
+          containerStyle={styles.dropdownList}
+          placeholderStyle={styles.placeholderStyle}
+          selectedTextStyle={styles.selectedTextStyle}
+          itemTextStyle={styles.selectedTextStyle}
+          activeColor="black"
+          data={data}
+          maxHeight={300}
+          labelField="label"
+          valueField="value"
           placeholder="최신순"
-          zIndex={1}
-          open={open}
           value={value}
-          items={items}
-          setOpen={setOpen}
-          setValue={handleDropDownChange}
-          setItems={setItems}
-          style={styles.dropDownMainStyle}
-          textStyle={styles.listText}
-          arrowIconStyle={styles.arrowStyle}
-          dropDownContainerStyle={styles.dropDownMainStyle}
+          onChange={(item) => {
+            handleDropDownChange(item.value);
+          }}
         />
       </View>
     </View>
@@ -72,6 +74,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 26,
     marginBottom: 6,
     marginTop: 20,
+    //backgroundColor: 'white',
   },
   positionButton: {
     height: 30,
@@ -110,7 +113,19 @@ const styles = StyleSheet.create({
     lineHeight: 21,
     letterSpacing: -0.42,
   },
-  listText: {
+  dropdown: {
+    width: 90,
+    height: 40,
+  },
+  dropdownList: {
+    backgroundColor: theme.color.black,
+    borderColor: theme.color.black,
+    marginRight: 40,
+  },
+  icon: {
+    marginRight: 5,
+  },
+  placeholderStyle: {
     fontFamily: fontFamily.pretendard.bold,
     color: theme.color.white,
     fontSize: 14,
@@ -119,17 +134,18 @@ const styles = StyleSheet.create({
     lineHeight: 21,
     letterSpacing: -0.42,
   },
-  dropDownMainStyle: {
-    width: 100,
-    backgroundColor: theme.color.background,
+  selectedTextStyle: {
+    fontFamily: fontFamily.pretendard.bold,
+    color: theme.color.white,
+    fontSize: 14,
+    fontStyle: 'normal',
+    fontWeight: '500',
+    lineHeight: 21,
+    letterSpacing: -0.42,
   },
-  arrowStyle: {
-    width: 24,
-    height: 24,
-    tintColor: theme.color.white,
-  },
-  dropDownContainerStyle: {
-    backgroundColor: theme.color.background,
+  iconStyle: {
+    width: 20,
+    height: 20,
   },
 });
 

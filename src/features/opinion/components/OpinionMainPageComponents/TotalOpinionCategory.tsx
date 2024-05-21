@@ -44,6 +44,7 @@ const TotalOpinionCategory = ({ id }: TotalOpinionCategoryProps) => {
       </View>
     );
   }
+  console.log(rightSubCategory);
   return (
     <View style={styles.container}>
       <OpinionSubCategory

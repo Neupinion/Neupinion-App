@@ -22,7 +22,6 @@ const OpinionMainPage = () => {
   const SelectMainCategory = (category: string) => {
     setActiveMainCategory(category);
   };
-
   return (
     <ScrollView style={styles.container}>
       <PageHeader
