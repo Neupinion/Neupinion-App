@@ -74,7 +74,6 @@ const styles = StyleSheet.create({
     marginHorizontal: 26,
     marginBottom: 6,
     marginTop: 20,
-    //backgroundColor: 'white',
   },
   positionButton: {
     height: 30,
@@ -122,9 +121,6 @@ const styles = StyleSheet.create({
     borderColor: theme.color.black,
     marginRight: 40,
   },
-  icon: {
-    marginRight: 5,
-  },
   placeholderStyle: {
     fontFamily: fontFamily.pretendard.bold,
     color: theme.color.white,
@@ -142,10 +138,6 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     lineHeight: 21,
     letterSpacing: -0.42,
-  },
-  iconStyle: {
-    width: 20,
-    height: 20,
   },
 });
 
