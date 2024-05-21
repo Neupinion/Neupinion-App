@@ -144,6 +144,7 @@ const styles = StyleSheet.create({
     width: WINDOW_WIDTH,
     height: 1,
     backgroundColor: theme.color.gray6,
+    opacity: 0.1,
   },
 });
 

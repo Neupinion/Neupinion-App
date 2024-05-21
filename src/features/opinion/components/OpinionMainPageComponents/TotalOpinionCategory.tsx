@@ -6,6 +6,8 @@ import useFetch from '../../../../shared/hooks/useFetch';
 import GlobalTextStyles from '../../../../shared/styles/GlobalTextStyles';
 import OpinionSubCategory from './OpinionSubCategory';
 import { getSortType, getCategoryType } from '../../../../shared/constants/opinionCategory';
+import EmptyScreen from '../../../../shared/components/Opinion/EmptyScreen';
+import { WINDOW_WIDTH } from '../../../../shared/constants/display';
 interface TotalOpinionCategoryProps {
   id: number;
 }
@@ -48,6 +50,12 @@ const TotalOpinionCategory = ({ id }: TotalOpinionCategoryProps) => {
         changeLeftCategory={changeLeftCategory}
         changeRightCategory={changeRightCategory}
       />
+      {!opinionTotal ||
+        (opinionTotal.length === 0 && (
+          <View style={styles.emptyContainer}>
+            <EmptyScreen text={'등록된 의견이 없습니다.'} />
+          </View>
+        ))}
       {opinionTotal &&
         opinionTotal.map((item) => <TotalOpinionCard key={item.opinionId} item={item} />)}
     </View>
@@ -57,11 +65,17 @@ const TotalOpinionCategory = ({ id }: TotalOpinionCategoryProps) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // alignItems: 'center',
   },
   activityIndicator: {
     flex: 1,
     alignSelf: 'center',
+  },
+  emptyContainer: {
+    width: WINDOW_WIDTH,
+    height: 340,
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 

@@ -23,7 +23,7 @@ import { getOpinionParagraph } from '../features/opinion/remotes/individualVote'
 import useFetch from '../shared/hooks/useFetch';
 import GlobalTextStyles from '../shared/styles/GlobalTextStyles';
 import OpinionSubCategory from '../features/opinion/components/OpinionMainPageComponents/OpinionSubCategory';
-
+import { getSortType, getCategoryType } from '../shared/constants/opinionCategory';
 const OpinionByParagraphPage = () => {
   const [leftSubCategory, setLeftSubCategory] = useState('전체');
   const [rightSubCategory, setRightSubCategory] = useState('최신순');
@@ -53,29 +53,6 @@ const OpinionByParagraphPage = () => {
   useEffect(() => {
     void fetchData();
   }, []);
-
-  const getCategoryType = (category: string) => {
-    switch (category) {
-      case '전체':
-        return 'ALL';
-      case '신뢰':
-        return 'TRUST';
-      case '의심':
-        return 'DOUBT';
-      default:
-        return 'ALL';
-    }
-  };
-  const getSortType = (category: string) => {
-    switch (category) {
-      case '인기순':
-        return 'POPULAR';
-      case '최신순':
-        return 'RECENT';
-      default:
-        return 'RECENT';
-    }
-  };
   if (isLoading) {
     return (
       <View style={styles.container}>
@@ -138,6 +115,7 @@ const styles = StyleSheet.create({
     width: WINDOW_WIDTH,
     height: 1,
     backgroundColor: theme.color.gray6,
+    opacity: 0.1,
   },
   cardImage: {
     width: 26,

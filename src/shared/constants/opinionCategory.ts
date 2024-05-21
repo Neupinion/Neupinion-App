@@ -12,7 +12,6 @@ export const getSortType = (category: string) => {
   }
 };
 
-
 export const getCategoryType = (category: string) => {
   switch (category) {
     case '전체':

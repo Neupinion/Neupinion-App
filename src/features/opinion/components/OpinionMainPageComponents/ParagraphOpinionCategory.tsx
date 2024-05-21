@@ -4,90 +4,54 @@ import ParagraphOpinionCard from './ParagraphOpinionCard';
 import { getOpinionParagraph } from '../../remotes/individualVote';
 import useFetch from '../../../../shared/hooks/useFetch';
 import GlobalTextStyles from '../../../../shared/styles/GlobalTextStyles';
+import EmptyScreen from '../../../../shared/components/Opinion/EmptyScreen';
+import { WINDOW_WIDTH } from '../../../../shared/constants/display';
 
 interface ParagraphOpinionCategoryProps {
   id: number;
 }
 
 const ParagraphOpinionCategory = ({ id }: ParagraphOpinionCategoryProps) => {
-  // const fetchOpinionParagraph = () => getOpinionParagraph(id, 'ALL', 'RECENT', 0);
-  // const {
-  //   data: opinionParagraph,
-  //   isLoading,
-  //   error,
-  //   fetchData,
-  // } = useFetch(fetchOpinionParagraph, false);
-  //
-  // useEffect(() => {
-  //   void fetchData();
-  // }, []);
-  //
-  // const getCategoryType = (category: string) => {
-  //   switch (category) {
-  //     case '전체':
-  //       return 'ALL';
-  //     case '신뢰':
-  //       return 'TRUST';
-  //     case '의심':
-  //       return 'DOUBT';
-  //     default:
-  //       return 'ALL';
-  //   }
-  // };
-  // if (isLoading) {
-  //   return (
-  //     <View style={styles.container}>
-  //       <ActivityIndicator size="large" style={styles.activityIndicator} />
-  //     </View>
-  //   );
-  // }
-  //
-  // if (error) {
-  //   return (
-  //     <View style={styles.container}>
-  //       <Text style={GlobalTextStyles.NormalText17}>ERROR</Text>
-  //     </View>
-  //   );
-  // }
+  const fetchOpinionParagraph = () => getOpinionParagraph(id, 'ALL', 'RECENT', 0);
+  const {
+    data: opinionParagraph,
+    isLoading,
+    error,
+    fetchData,
+  } = useFetch(fetchOpinionParagraph, false);
 
-  const opinionParagraph = [
-    {
-      id: 1,
-      content: '펜타곤이 폭발한 사진이 트위터에서 활발하게 공유되었습니다.',
-      opinions: [
-        {
-          id: 1,
-          memberId: 1,
-          nickname: '김철수',
-          profileImageUrl: 'https://www.neupinion.com/profile/1',
-          createdAt: '2024-05-20T05:37:59.247Z',
-          isReliable: true,
-          paragraphId: 20,
-          paragraphContent: '이 부분이 문제가 되는 이유는...',
-          content: '이런 부분은 문제가 있어요!',
-          likeCount: 10,
-          isLiked: true,
-        },
-        {
-          id: 1,
-          memberId: 1,
-          nickname: '김철수',
-          profileImageUrl: 'https://www.neupinion.com/profile/1',
-          createdAt: '2024-05-20T05:37:59.247Z',
-          isReliable: true,
-          paragraphId: 20,
-          paragraphContent: '이 부분이 문제가 되는 이유는...',
-          content: '이런 부분은 문제가 있어요!',
-          likeCount: 10,
-          isLiked: true,
-        },
-      ],
-    },
-  ];
+  useEffect(() => {
+    void fetchData();
+  }, []);
+  if (isLoading) {
+    return (
+      <View style={styles.container}>
+        <ActivityIndicator size="large" style={styles.activityIndicator} />
+      </View>
+    );
+  }
+
+  if (error) {
+    return (
+      <View style={styles.container}>
+        <Text style={GlobalTextStyles.NormalText17}>ERROR</Text>
+      </View>
+    );
+  }
   return (
     <View style={styles.container}>
-      {opinionParagraph &&
-        opinionParagraph.map((item) => <ParagraphOpinionCard key={item.id} item={item} id={id} />)}
+      <View>
+        {!opinionParagraph ||
+          (opinionParagraph.length === 0 && (
+            <View style={styles.emptyContainer}>
+              <EmptyScreen text={'등록된 의견이 없습니다.'} />
+            </View>
+          ))}
+        {opinionParagraph &&
+          opinionParagraph.map((item) => (
+            <ParagraphOpinionCard key={item.id} item={item} id={id} />
+          ))}
+      </View>
     </View>
   );
 };
@@ -95,12 +59,18 @@ const ParagraphOpinionCategory = ({ id }: ParagraphOpinionCategoryProps) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
     marginTop: 30,
   },
   activityIndicator: {
     flex: 1,
     alignSelf: 'center',
+  },
+  emptyContainer: {
+    width: WINDOW_WIDTH,
+    height: 340,
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 
