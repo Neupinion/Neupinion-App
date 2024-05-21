@@ -1,12 +1,5 @@
 import React from 'react';
-import {
-  Dimensions,
-  ImageSourcePropType,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { ImageSourcePropType, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import theme from '../../../../shared/styles/theme';
 import { WithLocalSvg } from 'react-native-svg/css';
 import next from '../../../../assets/icon/next.svg';
@@ -16,6 +9,7 @@ import { OpinionParagraphId } from '../../../../shared/types/news';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../../../../rootStackParamList';
+import { WINDOW_WIDTH } from '../../../../shared/constants/display';
 
 interface ParagraphOpinionCategoryProps {
   item: OpinionParagraphId;
@@ -44,7 +38,7 @@ const ParagraphOpinionCard = ({ item, id }: ParagraphOpinionCategoryProps) => {
 
 const styles = StyleSheet.create({
   container: {
-    width: Dimensions.get('window').width - 52,
+    width: WINDOW_WIDTH,
   },
   pinSentenceContainer: {
     flexDirection: 'row',
@@ -59,7 +53,7 @@ const styles = StyleSheet.create({
     marginRight: 6,
   },
   sentenceContainer: {
-    width: Dimensions.get('window').width - 110,
+    width: WINDOW_WIDTH - 110,
   },
   sentenceText: {
     fontFamily: fontFamily.pretendard.bold,

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
   ActivityIndicator,
-  Dimensions,
   Image,
   ImageSourcePropType,
   StyleSheet,
@@ -92,7 +91,6 @@ const OpinionByParagraphPage = () => {
       </View>
     );
   }
-
   return (
     <View style={styles.container}>
       <PageHeader
@@ -175,7 +173,7 @@ const styles = StyleSheet.create({
     flexShrink: 1,
   },
   pinSentenceContainer: {
-    width: Dimensions.get('window').width - 52,
+    width: WINDOW_WIDTH - 52,
     marginTop: 26,
     marginLeft: 26,
   },

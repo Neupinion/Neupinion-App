@@ -1,13 +1,5 @@
 import React from 'react';
-import {
-  Dimensions,
-  Image,
-  ImageSourcePropType,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { Image, ImageSourcePropType, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import theme from '../../../../shared/styles/theme';
 import { WithLocalSvg } from 'react-native-svg/css';
 import FavoriteSvg from '../../../../assets/icon/favorite.svg';
@@ -64,7 +56,7 @@ const styles = StyleSheet.create({
     marginTop: 24,
   },
   bigOpinionCard: {
-    width: Dimensions.get('window').width - 52,
+    width: WINDOW_WIDTH - 52,
   },
   bigOpinionCardTop: {
     flexDirection: 'row',

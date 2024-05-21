@@ -5,14 +5,12 @@ import {
   View,
   TouchableOpacity,
   ImageSourcePropType,
-  Dimensions,
   ScrollView,
 } from 'react-native';
 import theme from '../shared/styles/theme';
 import TotalOpinionCategory from '../features/opinion/components/OpinionMainPageComponents/TotalOpinionCategory';
 import fontFamily from '../shared/styles/fontFamily';
 import ParagraphOpinionCategory from '../features/opinion/components/OpinionMainPageComponents/ParagraphOpinionCategory';
-import OpinionSubCategory from '../features/opinion/components/OpinionMainPageComponents/OpinionSubCategory';
 import PageHeader from '../shared/components/PageHeader';
 import { WithLocalSvg } from 'react-native-svg/css';
 import MainArrowLeftSvg from '../assets/icon/mainarrowLeft.svg';
@@ -24,7 +22,6 @@ const OpinionMainPage = () => {
   const SelectMainCategory = (category: string) => {
     setActiveMainCategory(category);
   };
-
 
   return (
     <ScrollView style={styles.container}>
@@ -101,7 +98,7 @@ const styles = StyleSheet.create({
     letterSpacing: -0.48,
   },
   divideLine: {
-    width: Dimensions.get('window').width,
+    width: WINDOW_WIDTH,
     height: 10,
     marginVertical: 12,
     flexShrink: 0,

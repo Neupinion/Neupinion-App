@@ -1,9 +1,10 @@
 import React from 'react';
-import { Dimensions, ImageSourcePropType, StyleSheet, Text, View } from 'react-native';
+import { ImageSourcePropType, StyleSheet, Text, View } from 'react-native';
 import theme from '../../../../shared/styles/theme';
 import { WithLocalSvg } from 'react-native-svg/css';
 import OpinionPin from '../../../../assets/icon/opinionpin.svg';
 import fontFamily from '../../../../shared/styles/fontFamily';
+import { WINDOW_WIDTH } from '../../../../shared/constants/display';
 
 interface PinSentenceCardProps {
   color: string;
@@ -33,7 +34,7 @@ const styles = StyleSheet.create({
     marginRight: 6,
   },
   sentenceContainer: {
-    width: Dimensions.get('window').width - 110,
+    width: WINDOW_WIDTH - 110,
   },
   sentenceText: {
     fontFamily: fontFamily.pretendard.bold,
