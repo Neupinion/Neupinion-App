@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
-import { ScrollView, TouchableOpacity, View, StyleSheet } from 'react-native';
+import React, { useRef, useState } from 'react';
+import { FlatList, NativeSyntheticEvent, NativeScrollEvent, StyleSheet, View } from 'react-native';
 import Indicator from '../../remakeissue/components/Indicator';
 import theme from '../../../shared/styles/theme';
 import ReportBubbleChart from './ReportBubbleChart';
 import ReportRadarChart from './ReportRadarChart';
+import { WINDOW_WIDTH } from '../../../shared/constants/display';
+import ReportLastPage from './ReportLastPage';
 
 interface ReportContainerProps {
   id: number;
@@ -12,37 +14,36 @@ interface ReportContainerProps {
 
 const ReportContainer = ({ id, onClose }: ReportContainerProps) => {
   const [slideIndex, setSlideIndex] = useState(0);
+  const flatListRef = useRef<FlatList>(null);
 
-  // eslint-disable-next-line react/jsx-key
-  const contents: React.ReactNode[] = [<ReportBubbleChart />, <ReportRadarChart />];
+  const contents = [
+    <ReportBubbleChart key="bubbleChart" />,
+    <ReportRadarChart key="radarChart" />,
+    <ReportLastPage onClose={onClose} key="lastPage" />,
+  ];
 
-  const handleNext = () => {
-    if (slideIndex < contents.length - 1) {
-      setSlideIndex(slideIndex + 1);
-    }
-  };
-
-  const handlePrev = () => {
-    if (slideIndex > 0) {
-      setSlideIndex(slideIndex - 1);
-    }
+  const handleScrollEnd = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+    const newIndex = Math.round(event.nativeEvent.contentOffset.x / (WINDOW_WIDTH * 0.8));
+    setSlideIndex(newIndex);
   };
 
   return (
     <View style={styles.container}>
       <View style={styles.contentBox}>
-        <ScrollView horizontal pagingEnabled showsHorizontalScrollIndicator={false}>
-          {contents.map((content, index) => (
-            <View key={index} style={styles.content}>
-              {content}
-            </View>
-          ))}
-        </ScrollView>
+        <FlatList
+          ref={flatListRef}
+          data={contents}
+          renderItem={({ item }) => <View style={styles.content}>{item}</View>}
+          horizontal
+          pagingEnabled
+          showsHorizontalScrollIndicator={false}
+          keyExtractor={(_, index) => index.toString()}
+          onMomentumScrollEnd={handleScrollEnd}
+          scrollEventThrottle={16}
+        />
       </View>
       <View style={styles.footer}>
-        <TouchableOpacity onPress={handlePrev} disabled={slideIndex === 0} />
         <Indicator data={contents} slideIndex={slideIndex} />
-        <TouchableOpacity onPress={handleNext} disabled={slideIndex === contents.length - 1} />
       </View>
     </View>
   );
@@ -63,14 +64,14 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   content: {
-    width: '100%',
+    width: WINDOW_WIDTH * 0.8,
     justifyContent: 'center',
     alignItems: 'center',
   },
   footer: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     width: '80%',
     padding: 10,
   },
