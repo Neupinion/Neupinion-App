@@ -2,13 +2,19 @@ import React, { useState } from 'react';
 import { ScrollView, TouchableOpacity, View, StyleSheet } from 'react-native';
 import Indicator from '../../remakeissue/components/Indicator';
 import theme from '../../../shared/styles/theme';
+import ReportBubbleChart from './ReportBubbleChart';
+import ReportRadarChart from './ReportRadarChart';
 
 interface ReportContainerProps {
-  contents: React.ReactNode[];
+  id: number;
+  onClose: () => void;
 }
 
-const ReportContainer = ({ contents }: ReportContainerProps) => {
+const ReportContainer = ({ id, onClose }: ReportContainerProps) => {
   const [slideIndex, setSlideIndex] = useState(0);
+
+  // eslint-disable-next-line react/jsx-key
+  const contents: React.ReactNode[] = [<ReportBubbleChart />, <ReportRadarChart />];
 
   const handleNext = () => {
     if (slideIndex < contents.length - 1) {
@@ -34,13 +40,9 @@ const ReportContainer = ({ contents }: ReportContainerProps) => {
         </ScrollView>
       </View>
       <View style={styles.footer}>
-        <TouchableOpacity onPress={handlePrev} disabled={slideIndex === 0}>
-          ?
-        </TouchableOpacity>
+        <TouchableOpacity onPress={handlePrev} disabled={slideIndex === 0} />
         <Indicator data={contents} slideIndex={slideIndex} />
-        <TouchableOpacity onPress={handleNext} disabled={slideIndex === contents.length - 1}>
-          ?
-        </TouchableOpacity>
+        <TouchableOpacity onPress={handleNext} disabled={slideIndex === contents.length - 1} />
       </View>
     </View>
   );
