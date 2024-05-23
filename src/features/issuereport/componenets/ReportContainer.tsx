@@ -2,10 +2,9 @@ import React, { useRef, useState } from 'react';
 import { FlatList, NativeSyntheticEvent, NativeScrollEvent, StyleSheet, View } from 'react-native';
 import Indicator from '../../remakeissue/components/Indicator';
 import theme from '../../../shared/styles/theme';
-import ReportBubbleChart from './ReportBubbleChart';
-import ReportRadarChart from './ReportRadarChart';
 import { WINDOW_WIDTH } from '../../../shared/constants/display';
 import ReportLastPage from './ReportLastPage';
+import ReportBubbleChartContainer from './ReportBubbleChartContainer';
 
 interface ReportContainerProps {
   id: number;
@@ -17,8 +16,7 @@ const ReportContainer = ({ id, onClose }: ReportContainerProps) => {
   const flatListRef = useRef<FlatList>(null);
 
   const contents = [
-    <ReportBubbleChart key="bubbleChart" />,
-    <ReportRadarChart key="radarChart" />,
+    <ReportBubbleChartContainer key="bubbleChart" />,
     <ReportLastPage onClose={onClose} key="lastPage" />,
   ];
 
@@ -57,9 +55,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   contentBox: {
+    display: 'flex',
     width: '80%',
-    height: '70%',
-    backgroundColor: theme.color.white,
+    marginHorizontal: 34,
+    backgroundColor: theme.color.background,
     borderRadius: 10,
     overflow: 'hidden',
   },
