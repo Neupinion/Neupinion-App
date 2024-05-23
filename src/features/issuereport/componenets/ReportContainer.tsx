@@ -1,10 +1,20 @@
 import React, { useRef, useState } from 'react';
-import { FlatList, NativeSyntheticEvent, NativeScrollEvent, StyleSheet, View } from 'react-native';
+import {
+  FlatList,
+  NativeSyntheticEvent,
+  NativeScrollEvent,
+  StyleSheet,
+  View,
+  ImageSourcePropType,
+  TouchableOpacity,
+} from 'react-native';
 import Indicator from '../../remakeissue/components/Indicator';
 import theme from '../../../shared/styles/theme';
 import { WINDOW_WIDTH } from '../../../shared/constants/display';
-import ReportLastPage from './ReportLastPage';
 import ReportBubbleChartContainer from './ReportBubbleChartContainer';
+import { KeyWordDummyOne, KeyWordDummyTwo } from '../../../dummy/KeyWordDummy';
+import { WithLocalSvg } from 'react-native-svg/css';
+import PopupCloseButton from '../../../assets/icon/popupclosebutton.svg';
 
 interface ReportContainerProps {
   id: number;
@@ -16,8 +26,8 @@ const ReportContainer = ({ id, onClose }: ReportContainerProps) => {
   const flatListRef = useRef<FlatList>(null);
 
   const contents = [
-    <ReportBubbleChartContainer key="bubbleChart" />,
-    <ReportLastPage onClose={onClose} key="lastPage" />,
+    <ReportBubbleChartContainer keyword={KeyWordDummyOne} position={'하이브'} key="bubbleChart" />,
+    <ReportBubbleChartContainer keyword={KeyWordDummyTwo} position={'민희진'} key="bubbleChart" />,
   ];
 
   const handleScrollEnd = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
@@ -27,6 +37,9 @@ const ReportContainer = ({ id, onClose }: ReportContainerProps) => {
 
   return (
     <View style={styles.container}>
+      <TouchableOpacity style={styles.svg} onPress={onClose}>
+        <WithLocalSvg width={16} height={16} asset={PopupCloseButton as ImageSourcePropType} />
+      </TouchableOpacity>
       <View style={styles.contentBox}>
         <FlatList
           ref={flatListRef}
@@ -57,6 +70,7 @@ const styles = StyleSheet.create({
   contentBox: {
     display: 'flex',
     width: '80%',
+    marginTop: 30,
     marginHorizontal: 34,
     backgroundColor: theme.color.background,
     borderRadius: 10,
@@ -70,9 +84,16 @@ const styles = StyleSheet.create({
   footer: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     width: '80%',
+    height: 20,
     padding: 10,
+  },
+  svg: {
+    width: 16,
+    top: 20,
+    alignSelf: 'flex-end',
+    marginRight: 46,
   },
 });
 

@@ -4,7 +4,7 @@ import * as d3 from 'd3';
 import Svg, { Circle } from 'react-native-svg';
 import fontFamily from '../../../shared/styles/fontFamily';
 import theme from '../../../shared/styles/theme';
-import { getFillForBubble } from '../constants/bubbleColor';
+import { colorsBubble, getFillForBubble, shuffleArray } from '../constants/bubbleColor';
 import { getBubbleNameSize } from '../function/getBubbleFontSize';
 import { Keyword } from '../type/keyword';
 import ColorBubble from './ColorBubble';
@@ -43,6 +43,8 @@ const ReportBubbleChart = ({ height, width, data }: ReportBubbleChartProps) => {
     return minRadius + (maxRadius - minRadius) * (votePercentage / 100);
   };
 
+  const colors = shuffleArray(colorsBubble);
+
   return (
     <View style={styles.container}>
       <Svg width={width} height={height}>
@@ -53,7 +55,7 @@ const ReportBubbleChart = ({ height, width, data }: ReportBubbleChartProps) => {
               cx={bubbleX[index]}
               cy={bubbleY[index]}
               r={calculateAdjustedRadius(leaf.data.value)}
-              fill={getFillForBubble(index)}
+              fill={getFillForBubble(index, colors)}
             />
             <View
               style={[
