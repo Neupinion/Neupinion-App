@@ -3,6 +3,7 @@ import {
   ActivityIndicator,
   Image,
   ImageSourcePropType,
+  ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -18,12 +19,13 @@ import fontFamily from '../shared/styles/fontFamily';
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../rootStackParamList';
-import { formatYMD } from '../features/date/functions/formatDate';
 import { getOpinionParagraph } from '../features/opinion/remotes/individualVote';
 import useFetch from '../shared/hooks/useFetch';
 import GlobalTextStyles from '../shared/styles/GlobalTextStyles';
 import OpinionSubCategory from '../features/opinion/components/OpinionMainPageComponents/OpinionSubCategory';
 import { getSortType, getCategoryType } from '../shared/constants/opinionCategory';
+import { formatDate } from '../features/remakeissue/constants/formatDate';
+import FavoriteSvg from '../assets/icon/favorite.svg';
 const OpinionByParagraphPage = () => {
   const [leftSubCategory, setLeftSubCategory] = useState('전체');
   const [rightSubCategory, setRightSubCategory] = useState('최신순');
@@ -33,6 +35,7 @@ const OpinionByParagraphPage = () => {
   const changeRightCategory = (rightCategory: string) => {
     setRightSubCategory(rightCategory);
   };
+  const UpdateFavorite = () => {};
 
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   type ScreenRouteProp = RouteProp<RootStackParamList, 'OpinionParagraphPage'>;
@@ -42,7 +45,7 @@ const OpinionByParagraphPage = () => {
     navigation.navigate('OpinionMainPage');
   };
   const fetchOpinionParagraph = () =>
-    getOpinionParagraph(id, getSortType(leftSubCategory), getCategoryType(rightSubCategory), 0);
+    getOpinionParagraph(id, getCategoryType(rightSubCategory), getSortType(leftSubCategory), 0);
   const {
     data: opinionParagraph,
     isLoading,
@@ -69,7 +72,7 @@ const OpinionByParagraphPage = () => {
     );
   }
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <PageHeader
         leftIcons={
           <TouchableOpacity onPress={gotoOpinionMainPage}>
@@ -80,29 +83,62 @@ const OpinionByParagraphPage = () => {
         RightIcons={null}
       />
       <View style={styles.headerUnderLine} />
+
+      <View style={styles.pinSentenceContainer}>
+        <PinSentenceCard color={theme.color.gray2} paragraphContent={item.content} />
+      </View>
       <OpinionSubCategory
         changeLeftCategory={changeLeftCategory}
         changeRightCategory={changeRightCategory}
       />
-      <View style={styles.pinSentenceContainer}>
-        <PinSentenceCard color={theme.color.gray2} paragraphContent={item.content} />
-      </View>
       {opinionParagraph &&
         opinionParagraph.map(
           (paragraph) =>
             paragraph.id === item.id &&
             paragraph.opinions.map((opinion) => (
-              <View key={opinion.id} style={styles.opinionContainer}>
-                <View style={styles.opinionTopContainer}>
+              <View key={opinion.id} style={styles.bigOpinionCard}>
+                <View style={styles.bigOpinionCardTop}>
                   <Image source={{ uri: opinion.profileImageUrl }} style={styles.cardImage} />
-                  <Text style={styles.nicknameText}>{opinion.nickname}</Text>
-                  <Text style={styles.dateText}>{formatYMD(opinion.createdAt)}</Text>
+                  <View style={{ flexDirection: 'column', marginLeft: 10, gap: 4 }}>
+                    <Text style={styles.userNameText}>{opinion.nickname}</Text>
+                    <Text style={styles.dateText}>{formatDate(opinion.createdAt)}</Text>
+                  </View>
                 </View>
-                <Text style={styles.userOpinionText}>{opinion.content}</Text>
+                <View style={styles.bigOpinionCardMiddle}>
+                  {opinion.likeCount ? (
+                    <View style={styles.positivePosition}>
+                      <Text style={styles.positionText}>신뢰</Text>
+                    </View>
+                  ) : (
+                    <View style={styles.negativePosition}>
+                      <Text style={styles.positionText}>의심</Text>
+                    </View>
+                  )}
+
+                  <Text style={styles.userOpinionText}>{item.content}</Text>
+                </View>
+                <View style={styles.bigOpinionCardBottom}>
+                  <TouchableOpacity style={{ marginRight: 4 }} onPress={() => UpdateFavorite()}>
+                    <WithLocalSvg
+                      width={18}
+                      height={18}
+                      asset={FavoriteSvg as ImageSourcePropType}
+                    />
+                  </TouchableOpacity>
+                  <Text style={styles.favoriteText}>{opinion.likeCount}</Text>
+                </View>
               </View>
+              // <View key={opinion.id} style={styles.opinionContainer}>
+              //   <View style={styles.opinionTopContainer}>
+              //     <Image source={{ uri: opinion.profileImageUrl }} style={styles.cardImage} />
+              //     <Text style={styles.nicknameText}>{opinion.nickname}</Text>
+              //     <Text style={styles.dateText}>{formatYMD(opinion.createdAt)}</Text>
+              //   </View>
+              //   <Text style={styles.userOpinionText}>{opinion.content}</Text>
+              // </View>
             )),
         )}
-    </View>
+    </ScrollView>
   );
 };
 
@@ -111,15 +147,9 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: theme.color.black,
   },
-  headerUnderLine: {
-    width: WINDOW_WIDTH,
-    height: 1,
-    backgroundColor: theme.color.gray6,
-    opacity: 0.1,
-  },
   cardImage: {
-    width: 26,
-    height: 26,
+    width: 44,
+    height: 44,
     borderRadius: 50,
   },
   nicknameText: {
@@ -134,7 +164,7 @@ const styles = StyleSheet.create({
   dateText: {
     fontSize: 12,
     fontFamily: fontFamily.pretendard.bold,
-    color: 'theme.color.gray5',
+    color: theme.color.gray5,
     fontStyle: 'normal',
     fontWeight: '500',
     lineHeight: 18,
@@ -189,6 +219,77 @@ const styles = StyleSheet.create({
   activityIndicator: {
     flex: 1,
     alignSelf: 'center',
+  },
+  bigOpinionCard: {
+    width: WINDOW_WIDTH - 52,
+    marginLeft: 26,
+    marginBottom: 25,
+    marginTop: 24,
+    // backgroundColor: theme.color.main,
+  },
+  bigOpinionCardTop: {
+    flexDirection: 'row',
+    marginTop: 3,
+  },
+  userNameText: {
+    fontSize: 15,
+    fontFamily: fontFamily.pretendard.bold,
+    color: theme.color.white,
+    fontStyle: 'normal',
+    fontWeight: '600',
+    lineHeight: 22.5,
+    letterSpacing: -0.45,
+  },
+  bigOpinionCardMiddle: {
+    flexDirection: 'row',
+    gap: 10,
+    marginVertical: 20,
+  },
+  positivePosition: {
+    width: 40,
+    height: 22,
+    borderRadius: 85,
+    backgroundColor: theme.color.reliable,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  negativePosition: {
+    width: 40,
+    height: 22,
+    borderRadius: 85,
+    backgroundColor: theme.color.unReliable,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  positionText: {
+    fontFamily: fontFamily.pretendard.bold,
+    color: theme.color.green1,
+    fontSize: 12,
+    fontStyle: 'normal',
+    fontWeight: '500',
+    lineHeight: 18,
+    letterSpacing: -0.5,
+  },
+  favoriteText: {
+    fontFamily: fontFamily.pretendard.bold,
+    color: theme.color.gray6,
+    textAlign: 'justify',
+    fontSize: 12,
+    fontStyle: 'normal',
+    fontWeight: '500',
+    lineHeight: 18,
+    letterSpacing: -0.5,
+  },
+  bigOpinionCardBottom: {
+    flexDirection: 'row',
+    marginTop: 20,
+    marginBottom: 24,
+  },
+  headerUnderLine: {
+    width: WINDOW_WIDTH,
+    height: 1,
+    backgroundColor: theme.color.gray6,
+    opacity: 0.1,
   },
 });
 

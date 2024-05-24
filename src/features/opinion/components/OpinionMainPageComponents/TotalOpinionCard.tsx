@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
   dateText: {
     fontSize: 12,
     fontFamily: fontFamily.pretendard.bold,
-    color: '#71788F',
+    color: theme.color.gray5,
     fontStyle: 'normal',
     fontWeight: '500',
     lineHeight: 18,

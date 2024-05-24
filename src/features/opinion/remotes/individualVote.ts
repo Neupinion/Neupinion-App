@@ -18,12 +18,12 @@ export const getOpinionParagraph = async (
 
 export const getOpinionTotal = async (
   issueId: number,
-  viewMode: string,
   orderMode: string,
+  viewMode: string,
   page: number,
 ) => {
   const { data } = await client.get<OpinionTotalId[]>(`/reprocessed-issue/${issueId}/opinion`, {
-    params: { viewMode: viewMode, orderMode: orderMode, page: page },
+    params: { orderMode: orderMode, viewMode: viewMode, page: page },
   });
   return data;
 };

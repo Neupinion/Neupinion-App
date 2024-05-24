@@ -13,8 +13,8 @@ interface TotalOpinionCategoryProps {
 }
 
 const TotalOpinionCategory = ({ id }: TotalOpinionCategoryProps) => {
-  const [leftSubCategory, setLeftSubCategory] = useState('전체');
-  const [rightSubCategory, setRightSubCategory] = useState('최신순');
+  const [leftSubCategory, setLeftSubCategory] = useState('');
+  const [rightSubCategory, setRightSubCategory] = useState('');
   const changeLeftCategory = (leftCategory: string) => {
     setLeftSubCategory(leftCategory);
   };
@@ -22,7 +22,12 @@ const TotalOpinionCategory = ({ id }: TotalOpinionCategoryProps) => {
     setRightSubCategory(rightCategory);
   };
   const fetchOpinionTotal = () =>
-    getOpinionTotal(id, getCategoryType(leftSubCategory), getSortType(rightSubCategory), 0);
+    getOpinionTotal(
+      id,
+      getSortType(rightSubCategory),
+      getCategoryType(leftSubCategory).toString(),
+      0,
+    );
   const { data: opinionTotal, isLoading, error, fetchData } = useFetch(fetchOpinionTotal, false);
 
   useEffect(() => {
@@ -44,7 +49,9 @@ const TotalOpinionCategory = ({ id }: TotalOpinionCategoryProps) => {
       </View>
     );
   }
+  console.log(getCategoryType(leftSubCategory));
   console.log(rightSubCategory);
+  console.log('zzzzz', opinionTotal);
   return (
     <View style={styles.container}>
       <OpinionSubCategory
