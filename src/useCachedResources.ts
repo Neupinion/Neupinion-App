@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import * as Font from 'expo-font';
+import * as SplashScreen from 'expo-splash-screen';
 
 export function useCachedResources() {
   const [isLoadingComplete, setIsLoadingComplete] = useState(false);
@@ -7,6 +8,7 @@ export function useCachedResources() {
   useEffect(() => {
     async function loadResourcesAndDataAsync() {
       try {
+        await SplashScreen.preventAutoHideAsync();
         await Font.loadAsync({
           // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
           'pretendard-bold': require('./assets/fonts/Pretendard-Bold.ttf'),
@@ -19,13 +21,24 @@ export function useCachedResources() {
           // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
           'pretendard-medium': require('./assets/fonts/Pretendard-Medium.ttf'),
         });
+        setIsLoadingComplete(true);
       } catch (e) {
         console.warn(e);
-      } finally {
-        setIsLoadingComplete(true);
       }
     }
+
     void loadResourcesAndDataAsync();
+  }, []);
+
+  useEffect(() => {
+    async function hideSplashScreen() {
+      if (isLoadingComplete) {
+        await new Promise((resolve) => setTimeout(resolve, 2000));
+        await SplashScreen.hideAsync();
+      }
+    }
+
+    void hideSplashScreen();
   }, [isLoadingComplete]);
 
   return isLoadingComplete;
