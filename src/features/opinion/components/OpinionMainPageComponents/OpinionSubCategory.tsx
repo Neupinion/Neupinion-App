@@ -13,7 +13,7 @@ const OpinionSubCategory = ({
   changeLeftCategory,
   changeRightCategory,
 }: OpinionPageCategoryProps) => {
-  const [activeSubCategory, setActiveSubCategory] = useState('전체');
+  const [activeSubCategory, setActiveSubCategory] = useState('');
   const handleButtonPress = (category: string) => {
     setActiveSubCategory(category);
     changeLeftCategory(category);
@@ -32,17 +32,20 @@ const OpinionSubCategory = ({
     <View style={styles.container}>
       <View style={{ flexDirection: 'row' }}>
         {subCategories.map((category, index) => (
-          <TouchableOpacity
-            key={index.toString()}
-            style={activeSubCategory === category ? styles.activeButton : styles.positionButton}
-            onPress={() => handleButtonPress(category)}
-          >
-            <Text style={activeSubCategory === category ? styles.activeText : styles.positionText}>
-              {category}
-            </Text>
+          <TouchableOpacity key={index.toString()} onPress={() => handleButtonPress(category)}>
+            <View
+              style={[styles.positionButton, activeSubCategory === category && styles.activeButton]}
+            >
+              <Text
+                style={[styles.positionText, activeSubCategory === category && styles.activeText]}
+              >
+                {category}
+              </Text>
+            </View>
           </TouchableOpacity>
         ))}
       </View>
+
       <View>
         <Dropdown
           style={styles.dropdown}

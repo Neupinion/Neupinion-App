@@ -26,7 +26,6 @@ import OpinionSubCategory from '../features/opinion/components/OpinionMainPageCo
 import { getSortType, getCategoryType } from '../shared/constants/opinionCategory';
 import { formatDate } from '../features/remakeissue/constants/formatDate';
 import FavoriteSvg from '../assets/icon/favorite.svg';
-import compose = StyleSheet.compose;
 const OpinionByParagraphPage = () => {
   const [leftSubCategory, setLeftSubCategory] = useState('');
   const [rightSubCategory, setRightSubCategory] = useState('');
@@ -46,7 +45,7 @@ const OpinionByParagraphPage = () => {
     navigation.navigate('OpinionMainPage');
   };
   const fetchOpinionParagraph = () =>
-    getOpinionParagraph(id, getCategoryType(leftSubCategory), getSortType(rightSubCategory),0);
+    getOpinionParagraph(id, getCategoryType(leftSubCategory), getSortType(rightSubCategory), 0);
   const {
     data: opinionParagraph,
     isLoading,
