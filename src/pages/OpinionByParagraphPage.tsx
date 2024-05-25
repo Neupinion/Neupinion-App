@@ -26,9 +26,10 @@ import OpinionSubCategory from '../features/opinion/components/OpinionMainPageCo
 import { getSortType, getCategoryType } from '../shared/constants/opinionCategory';
 import { formatDate } from '../features/remakeissue/constants/formatDate';
 import FavoriteSvg from '../assets/icon/favorite.svg';
+import compose = StyleSheet.compose;
 const OpinionByParagraphPage = () => {
-  const [leftSubCategory, setLeftSubCategory] = useState('전체');
-  const [rightSubCategory, setRightSubCategory] = useState('최신순');
+  const [leftSubCategory, setLeftSubCategory] = useState('');
+  const [rightSubCategory, setRightSubCategory] = useState('');
   const changeLeftCategory = (leftCategory: string) => {
     setLeftSubCategory(leftCategory);
   };
@@ -45,7 +46,7 @@ const OpinionByParagraphPage = () => {
     navigation.navigate('OpinionMainPage');
   };
   const fetchOpinionParagraph = () =>
-    getOpinionParagraph(id, getCategoryType(rightSubCategory), getSortType(leftSubCategory), 0);
+    getOpinionParagraph(id, getCategoryType(leftSubCategory), getSortType(rightSubCategory),0);
   const {
     data: opinionParagraph,
     isLoading,
@@ -55,7 +56,7 @@ const OpinionByParagraphPage = () => {
 
   useEffect(() => {
     void fetchData();
-  }, []);
+  }, [leftSubCategory, rightSubCategory]);
   if (isLoading) {
     return (
       <View style={styles.container}>
@@ -71,6 +72,9 @@ const OpinionByParagraphPage = () => {
       </View>
     );
   }
+  console.log(item.id);
+  console.log(getCategoryType(leftSubCategory));
+  console.log(opinionParagraph);
   return (
     <ScrollView style={styles.container}>
       <PageHeader
@@ -96,46 +100,41 @@ const OpinionByParagraphPage = () => {
           (paragraph) =>
             paragraph.id === item.id &&
             paragraph.opinions.map((opinion) => (
-              <View key={opinion.id} style={styles.bigOpinionCard}>
-                <View style={styles.bigOpinionCardTop}>
-                  <Image source={{ uri: opinion.profileImageUrl }} style={styles.cardImage} />
-                  <View style={{ flexDirection: 'column', marginLeft: 10, gap: 4 }}>
-                    <Text style={styles.userNameText}>{opinion.nickname}</Text>
-                    <Text style={styles.dateText}>{formatDate(opinion.createdAt)}</Text>
+              <View key={opinion.id}>
+                <View style={styles.bigOpinionCard}>
+                  <View style={styles.bigOpinionCardTop}>
+                    <Image source={{ uri: opinion.profileImageUrl }} style={styles.cardImage} />
+                    <View style={{ flexDirection: 'column', marginLeft: 10, gap: 4 }}>
+                      <Text style={styles.userNameText}>{opinion.nickname}</Text>
+                      <Text style={styles.dateText}>{formatDate(opinion.createdAt)}</Text>
+                    </View>
+                  </View>
+                  <View style={styles.bigOpinionCardMiddle}>
+                    {opinion.isReliable ? (
+                      <View style={styles.positivePosition}>
+                        <Text style={styles.positionText}>신뢰</Text>
+                      </View>
+                    ) : (
+                      <View style={styles.negativePosition}>
+                        <Text style={styles.positionText}>의심</Text>
+                      </View>
+                    )}
+
+                    <Text style={styles.userOpinionText}>{opinion.content}</Text>
+                  </View>
+                  <View style={styles.bigOpinionCardBottom}>
+                    <TouchableOpacity style={{ marginRight: 4 }} onPress={() => UpdateFavorite()}>
+                      <WithLocalSvg
+                        width={18}
+                        height={18}
+                        asset={FavoriteSvg as ImageSourcePropType}
+                      />
+                    </TouchableOpacity>
+                    <Text style={styles.favoriteText}>{opinion.likeCount}</Text>
                   </View>
                 </View>
-                <View style={styles.bigOpinionCardMiddle}>
-                  {opinion.likeCount ? (
-                    <View style={styles.positivePosition}>
-                      <Text style={styles.positionText}>신뢰</Text>
-                    </View>
-                  ) : (
-                    <View style={styles.negativePosition}>
-                      <Text style={styles.positionText}>의심</Text>
-                    </View>
-                  )}
-
-                  <Text style={styles.userOpinionText}>{item.content}</Text>
-                </View>
-                <View style={styles.bigOpinionCardBottom}>
-                  <TouchableOpacity style={{ marginRight: 4 }} onPress={() => UpdateFavorite()}>
-                    <WithLocalSvg
-                      width={18}
-                      height={18}
-                      asset={FavoriteSvg as ImageSourcePropType}
-                    />
-                  </TouchableOpacity>
-                  <Text style={styles.favoriteText}>{opinion.likeCount}</Text>
-                </View>
+                <View style={styles.headerUnderLine}></View>
               </View>
-              // <View key={opinion.id} style={styles.opinionContainer}>
-              //   <View style={styles.opinionTopContainer}>
-              //     <Image source={{ uri: opinion.profileImageUrl }} style={styles.cardImage} />
-              //     <Text style={styles.nicknameText}>{opinion.nickname}</Text>
-              //     <Text style={styles.dateText}>{formatYMD(opinion.createdAt)}</Text>
-              //   </View>
-              //   <Text style={styles.userOpinionText}>{opinion.content}</Text>
-              // </View>
             )),
         )}
     </ScrollView>

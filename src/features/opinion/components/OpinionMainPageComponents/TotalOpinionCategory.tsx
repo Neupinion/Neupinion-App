@@ -32,7 +32,7 @@ const TotalOpinionCategory = ({ id }: TotalOpinionCategoryProps) => {
 
   useEffect(() => {
     void fetchData();
-  }, []);
+  }, [leftSubCategory, rightSubCategory]);
 
   if (isLoading) {
     return (
@@ -49,9 +49,8 @@ const TotalOpinionCategory = ({ id }: TotalOpinionCategoryProps) => {
       </View>
     );
   }
-  console.log(getCategoryType(leftSubCategory));
-  console.log(rightSubCategory);
-  console.log('zzzzz', opinionTotal);
+  // console.log(getCategoryType(leftSubCategory).toString());
+  // console.log(opinionTotal);
   return (
     <View style={styles.container}>
       <OpinionSubCategory

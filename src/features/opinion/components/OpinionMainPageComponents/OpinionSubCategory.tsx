@@ -26,7 +26,7 @@ const OpinionSubCategory = ({
     { label: '최신순', value: '최신순' },
     { label: '인기순', value: '인기순' },
   ];
-  const [value, setValue] = useState('최신순');
+  const [value, setValue] = useState('');
 
   return (
     <View style={styles.container}>
