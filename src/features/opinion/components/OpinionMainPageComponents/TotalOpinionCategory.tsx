@@ -20,7 +20,7 @@ interface TotalOpinionCategoryProps {
 
 const TotalOpinionCategory = ({ id }: TotalOpinionCategoryProps) => {
   const [value, setValue] = useState('');
-  const [leftSubCategory, setLeftSubCategory] = useState('');
+  const [leftSubCategory, setLeftSubCategory] = useState('전체');
   const [rightSubCategory, setRightSubCategory] = useState('');
   const data = [
     { label: '최신순', value: '최신순' },
