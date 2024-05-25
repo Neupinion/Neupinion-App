@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Image, ImageSourcePropType, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import theme from '../../../../shared/styles/theme';
 import { WithLocalSvg } from 'react-native-svg/css';
@@ -8,12 +8,21 @@ import PinSentenceCard from './PinSentenceCard';
 import { formatDate } from '../../../remakeissue/constants/formatDate';
 import { OpinionTotalId } from '../../../../shared/types/news';
 import { WINDOW_WIDTH } from '../../../../shared/constants/display';
+import updateFavorite from '../../remotes/opinion';
 
 interface TotalOpinionCardProps {
   item: OpinionTotalId;
 }
 const TotalOpinionCard = ({ item }: TotalOpinionCardProps) => {
-  const UpdateFavorite = () => {};
+  const [favoriteClicked, setFavoriteClicked] = useState(false);
+  const UpdateFavorite = async () => {
+    try {
+      await updateFavorite(1, item.opinionId, favoriteClicked, setFavoriteClicked);
+    } catch (error) {
+      console.error('좋아요 업데이트 실패:', error);
+    }
+  };
+  // console.log(item.opinionId);
   return (
     <View style={styles.container}>
       <View style={styles.bigOpinionCard}>

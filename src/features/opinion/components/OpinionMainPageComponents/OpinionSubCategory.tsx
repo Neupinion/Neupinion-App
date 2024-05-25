@@ -18,6 +18,7 @@ const OpinionSubCategory = ({
     setActiveSubCategory(category);
     changeLeftCategory(category);
   };
+  console.log(activeSubCategory);
   const handleDropDownChange = (value: string) => {
     setValue(value);
     changeRightCategory(value);
