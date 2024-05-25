@@ -1,25 +1,37 @@
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import TotalOpinionCard from './TotalOpinionCard';
 import { getOpinionTotal } from '../../remotes/individualVote';
 import useFetch from '../../../../shared/hooks/useFetch';
 import GlobalTextStyles from '../../../../shared/styles/GlobalTextStyles';
-import OpinionSubCategory from './OpinionSubCategory';
-import { getSortType, getCategoryType } from '../../../../shared/constants/opinionCategory';
+import {
+  getSortType,
+  getCategoryType,
+  subCategories,
+} from '../../../../shared/constants/opinionCategory';
 import EmptyScreen from '../../../../shared/components/Opinion/EmptyScreen';
 import { WINDOW_WIDTH } from '../../../../shared/constants/display';
+import { Dropdown } from 'react-native-element-dropdown';
+import theme from '../../../../shared/styles/theme';
+import fontFamily from '../../../../shared/styles/fontFamily';
 interface TotalOpinionCategoryProps {
   id: number;
 }
 
 const TotalOpinionCategory = ({ id }: TotalOpinionCategoryProps) => {
+  const [value, setValue] = useState('');
   const [leftSubCategory, setLeftSubCategory] = useState('');
   const [rightSubCategory, setRightSubCategory] = useState('');
-  const changeLeftCategory = (leftCategory: string) => {
-    setLeftSubCategory(leftCategory);
-  };
-  const changeRightCategory = (rightCategory: string) => {
+  const data = [
+    { label: '최신순', value: '최신순' },
+    { label: '인기순', value: '인기순' },
+  ];
+
+  const handleDropDownChange = (rightCategory: string) => {
     setRightSubCategory(rightCategory);
+  };
+  const handleButtonPress = (leftCategory: string) => {
+    setLeftSubCategory(leftCategory);
   };
   const fetchOpinionTotal = () =>
     getOpinionTotal(
@@ -53,10 +65,43 @@ const TotalOpinionCategory = ({ id }: TotalOpinionCategoryProps) => {
   // console.log(opinionTotal);
   return (
     <View style={styles.container}>
-      <OpinionSubCategory
-        changeLeftCategory={changeLeftCategory}
-        changeRightCategory={changeRightCategory}
-      />
+      <View style={styles.SubCategory}>
+        <View style={{ flexDirection: 'row' }}>
+          {subCategories.map((category, index) => (
+            <TouchableOpacity key={index.toString()} onPress={() => handleButtonPress(category)}>
+              <View
+                style={[styles.positionButton, leftSubCategory === category && styles.activeButton]}
+              >
+                <Text
+                  style={[styles.positionText, leftSubCategory === category && styles.activeText]}
+                >
+                  {category}
+                </Text>
+              </View>
+            </TouchableOpacity>
+          ))}
+        </View>
+
+        <View>
+          <Dropdown
+            style={styles.dropdown}
+            containerStyle={styles.dropdownList}
+            placeholderStyle={styles.placeholderStyle}
+            selectedTextStyle={styles.selectedTextStyle}
+            itemTextStyle={styles.selectedTextStyle}
+            activeColor="black"
+            data={data}
+            maxHeight={300}
+            labelField="label"
+            valueField="value"
+            placeholder="최신순"
+            value={value}
+            onChange={(item) => {
+              handleDropDownChange(item.value);
+            }}
+          />
+        </View>
+      </View>
       {!opinionTotal ||
         (opinionTotal.length === 0 && (
           <View style={styles.emptyContainer}>
@@ -83,6 +128,78 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  SubCategory: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginHorizontal: 26,
+    marginBottom: 6,
+    marginTop: 20,
+  },
+  positionButton: {
+    height: 30,
+    borderRadius: 30,
+    borderColor: theme.color.gray3,
+    borderWidth: 0.8,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 14,
+    marginRight: 10,
+  },
+  positionText: {
+    fontFamily: fontFamily.pretendard.bold,
+    color: theme.color.gray3,
+    fontSize: 14,
+    fontStyle: 'normal',
+    fontWeight: '500',
+    lineHeight: 21,
+    letterSpacing: -0.42,
+  },
+  activeButton: {
+    height: 30,
+    borderRadius: 30,
+    backgroundColor: '#212A3C',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 14,
+    marginRight: 10,
+  },
+  activeText: {
+    fontFamily: fontFamily.pretendard.bold,
+    color: theme.color.white,
+    fontSize: 14,
+    fontStyle: 'normal',
+    fontWeight: '500',
+    lineHeight: 21,
+    letterSpacing: -0.42,
+  },
+  dropdown: {
+    width: 90,
+    height: 40,
+  },
+  dropdownList: {
+    backgroundColor: theme.color.black,
+    borderColor: theme.color.black,
+    marginRight: 40,
+  },
+  placeholderStyle: {
+    fontFamily: fontFamily.pretendard.bold,
+    color: theme.color.white,
+    fontSize: 14,
+    fontStyle: 'normal',
+    fontWeight: '500',
+    lineHeight: 21,
+    letterSpacing: -0.42,
+  },
+  selectedTextStyle: {
+    fontFamily: fontFamily.pretendard.bold,
+    color: theme.color.white,
+    fontSize: 14,
+    fontStyle: 'normal',
+    fontWeight: '500',
+    lineHeight: 21,
+    letterSpacing: -0.42,
   },
 });
 
