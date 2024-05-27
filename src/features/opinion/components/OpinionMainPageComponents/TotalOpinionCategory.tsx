@@ -32,7 +32,7 @@ const TotalOpinionCategory = ({ issueId }: TotalOpinionCategoryProps) => {
     setReliabilityCategory(category);
   };
   const fetchOpinionTotal = () =>
-    getOpinionTotal(issueId, getSortType(sortType), getCategoryType(reliabilityCategory), 0);
+    getOpinionTotal(issueId, getCategoryType(reliabilityCategory), getSortType(sortType), 0);
   const { data: opinionTotal, isLoading, error, fetchData } = useFetch(fetchOpinionTotal, false);
 
   useEffect(() => {
@@ -54,6 +54,7 @@ const TotalOpinionCategory = ({ issueId }: TotalOpinionCategoryProps) => {
       </View>
     );
   }
+  console.log(opinionTotal);
 
   return (
     <View style={styles.container}>
@@ -110,7 +111,6 @@ const TotalOpinionCategory = ({ issueId }: TotalOpinionCategoryProps) => {
     </View>
   );
 };
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,

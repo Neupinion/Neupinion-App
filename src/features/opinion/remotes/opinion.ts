@@ -34,10 +34,10 @@ export const deleteReprocessedIssueOpinion = async (opinionId: number) => {
 const updateFavorite = async (
   reprocessedIssueId: number,
   opinionId: number,
-  favoriteClicked: boolean,
+  newLikeClicked: boolean,
 ) => {
   try {
-    const payload = { isLiked: favoriteClicked };
+    const payload = { isLiked: newLikeClicked };
     await client.put(`/reprocessed-issue/${reprocessedIssueId}/opinion/${opinionId}/like`, payload);
   } catch (error) {
     console.error('좋아요 put: 실패', error);

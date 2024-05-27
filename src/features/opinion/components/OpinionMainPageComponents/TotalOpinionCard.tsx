@@ -14,15 +14,19 @@ interface TotalOpinionCardProps {
   item: integratedOpinion;
 }
 const TotalOpinionCard = ({ item }: TotalOpinionCardProps) => {
-  const [favoriteClicked, setFavoriteClicked] = useState(false);
+  const [likeClicked, setLikeClicked] = useState(item.isLiked);
   const updateLike = async () => {
+    const newLikeClicked = !likeClicked;
+    setLikeClicked(newLikeClicked);
     try {
-      setFavoriteClicked(!favoriteClicked);
-      await updateFavorite(1, item.opinionId, favoriteClicked);
+      await updateFavorite(1, item.opinionId, newLikeClicked);
+      console.log(item.likeCount);
     } catch (error) {
+      setLikeClicked(!newLikeClicked);
       console.error('좋아요 업데이트 실패:', error);
     }
   };
+
   return (
     <View style={styles.container}>
       <View style={styles.bigOpinionCard}>
