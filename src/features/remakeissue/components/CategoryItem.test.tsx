@@ -11,7 +11,7 @@ describe('CategoryItem component', () => {
     const { queryAllByText } = render(
       <CategoryItem
         item={{
-          id: 1,
+          issueId: 1,
           title: longTitle,
           imageUrl: 'https://image.com?data=value',
           category: 'ENTERTAINMENTS',

@@ -2,7 +2,7 @@ import { ReProcessedIssue } from '../shared/types/news';
 
 const reprocessedIssue: ReProcessedIssue[] = [
   {
-    id: 1,
+    issueId: 1,
     title: '재가공 이슈 제목',
     imageUrl: 'https://image.com?data=value',
     category: 'ENTERTAINMENTS',
@@ -12,7 +12,7 @@ const reprocessedIssue: ReProcessedIssue[] = [
     createdAt: '2024-01-08T11:44:30.327959',
   },
   {
-    id: 2,
+    issueId: 2,
     title: '재가공 이슈 제목',
     imageUrl: 'https://image.com?data=value',
     category: 'ENTERTAINMENTS',
@@ -22,7 +22,7 @@ const reprocessedIssue: ReProcessedIssue[] = [
     createdAt: '2024-01-08T11:44:30.327959',
   },
   {
-    id: 3,
+    issueId: 3,
     title: '재가공 이슈 제목',
     imageUrl: 'https://image.com?data=value',
     category: 'ENTERTAINMENTS',
@@ -32,7 +32,7 @@ const reprocessedIssue: ReProcessedIssue[] = [
     createdAt: '2024-01-08T11:44:30.327959',
   },
   {
-    id: 4,
+    issueId: 4,
     title: '재가공 이슈 제목',
     imageUrl: 'https://image.com?data=value',
     category: 'ENTERTAINMENTS',
@@ -42,7 +42,7 @@ const reprocessedIssue: ReProcessedIssue[] = [
     createdAt: '2024-01-08T11:44:30.327959',
   },
   {
-    id: 5,
+    issueId: 5,
     title: '재가공 이슈 제목',
     imageUrl: 'https://image.com?data=value',
     category: 'ENTERTAINMENTS',

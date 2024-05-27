@@ -50,3 +50,38 @@ export interface OpinionWrite {
   content: string;
   isReliable: boolean;
 }
+
+export interface integratedOpinion {
+  issueType: string;
+  issueId: number;
+  opinionId: number;
+  memberId: number;
+  nickname: string;
+  profileImageUrl: string;
+  createdAt: string;
+  isReliable: boolean;
+  paragraphId: number;
+  paragraphContent: string;
+  content: string;
+  likeCount: number;
+  isLiked: boolean;
+}
+export interface ParagraphWithOpinions {
+  id: number;
+  content: string;
+  opinions: ReprocessedIssueOpinion[];
+}
+
+export interface ReprocessedIssueOpinion {
+  id: number;
+  memberId: number;
+  nickname: string;
+  profileImageUrl: string;
+  createdAt: string;
+  isReliable: boolean;
+  paragraphId: number;
+  paragraphContent: string;
+  content: string;
+  likeCount: number;
+  isLiked: boolean;
+}

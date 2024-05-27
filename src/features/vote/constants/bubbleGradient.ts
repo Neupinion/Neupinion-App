@@ -1,7 +1,7 @@
 import { BubbleGradient } from '../types/bubbleGradient';
 
 export const FullTrustBubbleGradient: BubbleGradient = {
-  id: 'FullTrust',
+  issueId: 'FullTrust',
   cx: '50%',
   cy: '0%',
   r: '100%',
@@ -16,7 +16,7 @@ export const FullTrustBubbleGradient: BubbleGradient = {
 };
 
 export const LittleTrustBubbleGradient: BubbleGradient = {
-  id: 'LittleTrust',
+  issueId: 'LittleTrust',
   cx: '50%',
   cy: '0%',
   r: '100%',
@@ -31,7 +31,7 @@ export const LittleTrustBubbleGradient: BubbleGradient = {
 };
 
 export const FullDoubtBubbleGradient: BubbleGradient = {
-  id: 'FullDoubt',
+  issueId: 'FullDoubt',
   cx: '50%',
   cy: '0%',
   r: '100%',
@@ -46,7 +46,7 @@ export const FullDoubtBubbleGradient: BubbleGradient = {
 };
 
 export const LittleDoubtBubbleGradient: BubbleGradient = {
-  id: 'LittleDoubt',
+  issueId: 'LittleDoubt',
   cx: '50%',
   cy: '0%',
   r: '100%',

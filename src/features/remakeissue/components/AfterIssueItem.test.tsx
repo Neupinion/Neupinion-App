@@ -11,7 +11,7 @@ describe('AfterIssueItem component', () => {
     const { getByText } = render(
       <AfterIssueItem
         item={{
-          id: 1,
+          issueId: 1,
           title: longTitle,
           voted: false,
           reprocessedIssueTitle: '재가공 이슈 제목',

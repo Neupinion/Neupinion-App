@@ -2,6 +2,8 @@ interface ColorPalette {
   main: string;
   background: string;
   sub: string;
+  reliable: string;
+  unReliable: string;
   black: string;
   gray: string;
   gray1: string;
@@ -12,6 +14,7 @@ interface ColorPalette {
   gray6: string;
   gray7: string;
   white: string;
+  green1: string;
 }
 
 interface TrustPalette {
@@ -36,6 +39,8 @@ const theme: Theme = {
     main: '#7E58E9',
     background: '#11111A',
     sub: '#FF5730',
+    reliable: '#1C64ED',
+    unReliable: '#FF75AB',
     black: '#0A0A0A',
     gray: '#191926',
     gray1: '#191926',
@@ -46,6 +51,7 @@ const theme: Theme = {
     gray6: '#D1D3D8',
     gray7: '#EBECF1',
     white: '#FFFFFF',
+    green1: '#E0FFE5',
   },
   gradient: {
     gradient1: ['#1D1E27', '#7A7B86'],
