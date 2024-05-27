@@ -2,7 +2,7 @@ import { Opinion } from '../features/vote/types/opinion';
 
 export const TopOpinionDummy: Opinion[] = [
   {
-    id: 1,
+    issueId: 1,
     memberId: 1,
     nickname: '김철수',
     profileImageUrl: 'https://www.neupinion.com/profile/1',
@@ -15,7 +15,7 @@ export const TopOpinionDummy: Opinion[] = [
     isLiked: true,
   },
   {
-    id: 2,
+    issueId: 2,
     memberId: 2,
     nickname: '김철수',
     profileImageUrl: 'https://www.neupinion.com/profile/1',
@@ -28,7 +28,7 @@ export const TopOpinionDummy: Opinion[] = [
     isLiked: true,
   },
   {
-    id: 3,
+    issueId: 3,
     memberId: 3,
     nickname: '김철수',
     profileImageUrl: 'https://www.neupinion.com/profile/1',
@@ -41,7 +41,7 @@ export const TopOpinionDummy: Opinion[] = [
     isLiked: true,
   },
   {
-    id: 4,
+    issueId: 4,
     memberId: 4,
     nickname: '김철수',
     profileImageUrl: 'https://www.neupinion.com/profile/1',
@@ -54,7 +54,7 @@ export const TopOpinionDummy: Opinion[] = [
     isLiked: true,
   },
   {
-    id: 5,
+    issueId: 5,
     memberId: 5,
     nickname: '김철수',
     profileImageUrl: 'https://www.neupinion.com/profile/1',
