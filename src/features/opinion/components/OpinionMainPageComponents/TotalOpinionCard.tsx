@@ -20,13 +20,11 @@ const TotalOpinionCard = ({ item }: TotalOpinionCardProps) => {
     setLikeClicked(newLikeClicked);
     try {
       await updateFavorite(1, item.opinionId, newLikeClicked);
-      console.log(item.likeCount);
     } catch (error) {
       setLikeClicked(!newLikeClicked);
       console.error('좋아요 업데이트 실패:', error);
     }
   };
-
   return (
     <View style={styles.container}>
       <View style={styles.bigOpinionCard}>
