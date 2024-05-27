@@ -8,11 +8,11 @@ import EmptyScreen from '../../../../shared/components/Opinion/EmptyScreen';
 import { WINDOW_WIDTH } from '../../../../shared/constants/display';
 
 interface ParagraphOpinionCategoryProps {
-  id: number;
+  issueId: number;
 }
 
-const ParagraphOpinionCategory = ({ id }: ParagraphOpinionCategoryProps) => {
-  const fetchOpinionParagraph = () => getOpinionParagraph(id, 'ALL', 'RECENT', 0);
+const ParagraphOpinionCategory = ({ issueId }: ParagraphOpinionCategoryProps) => {
+  const fetchOpinionParagraph = () => getOpinionParagraph(issueId, 'ALL', 'RECENT', 0);
   const {
     data: opinionParagraph,
     isLoading,
@@ -49,7 +49,7 @@ const ParagraphOpinionCategory = ({ id }: ParagraphOpinionCategoryProps) => {
           ))}
         {opinionParagraph &&
           opinionParagraph.map((item) => (
-            <ParagraphOpinionCard key={item.id} item={item} id={id} />
+            <ParagraphOpinionCard key={item.id} item={item} issueId={issueId} />
           ))}
       </View>
     </View>

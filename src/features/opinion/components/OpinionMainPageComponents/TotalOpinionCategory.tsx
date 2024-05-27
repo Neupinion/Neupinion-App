@@ -15,36 +15,31 @@ import { Dropdown } from 'react-native-element-dropdown';
 import theme from '../../../../shared/styles/theme';
 import fontFamily from '../../../../shared/styles/fontFamily';
 interface TotalOpinionCategoryProps {
-  id: number;
+  issueId: number;
 }
 
-const TotalOpinionCategory = ({ id }: TotalOpinionCategoryProps) => {
+const TotalOpinionCategory = ({ issueId }: TotalOpinionCategoryProps) => {
   const [value, setValue] = useState('');
-  const [leftSubCategory, setLeftSubCategory] = useState('전체');
-  const [rightSubCategory, setRightSubCategory] = useState('');
+  const [reliabilityCategory, setReliabilityCategory] = useState('전체');
+  const [sortType, setSortType] = useState('');
   const data = [
     { label: '최신순', value: '최신순' },
     { label: '인기순', value: '인기순' },
   ];
 
   const handleDropDownChange = (rightCategory: string) => {
-    setRightSubCategory(rightCategory);
+    setSortType(rightCategory);
   };
   const handleButtonPress = (leftCategory: string) => {
-    setLeftSubCategory(leftCategory);
+    setReliabilityCategory(leftCategory);
   };
   const fetchOpinionTotal = () =>
-    getOpinionTotal(
-      id,
-      getSortType(rightSubCategory),
-      getCategoryType(leftSubCategory).toString(),
-      0,
-    );
+    getOpinionTotal(issueId, getSortType(sortType), getCategoryType(reliabilityCategory), 0);
   const { data: opinionTotal, isLoading, error, fetchData } = useFetch(fetchOpinionTotal, false);
 
   useEffect(() => {
     void fetchData();
-  }, [leftSubCategory, rightSubCategory]);
+  }, [reliabilityCategory, sortType]);
 
   if (isLoading) {
     return (
@@ -61,19 +56,24 @@ const TotalOpinionCategory = ({ id }: TotalOpinionCategoryProps) => {
       </View>
     );
   }
-  // console.log(getCategoryType(leftSubCategory).toString());
-  // console.log(opinionTotal);
+
   return (
     <View style={styles.container}>
       <View style={styles.SubCategory}>
         <View style={{ flexDirection: 'row' }}>
-          {subCategories.map((category, index) => (
-            <TouchableOpacity key={index.toString()} onPress={() => handleButtonPress(category)}>
+          {subCategories.map((category) => (
+            <TouchableOpacity key={category.toString()} onPress={() => handleButtonPress(category)}>
               <View
-                style={[styles.positionButton, leftSubCategory === category && styles.activeButton]}
+                style={[
+                  styles.positionButton,
+                  reliabilityCategory === category && styles.activeButton,
+                ]}
               >
                 <Text
-                  style={[styles.positionText, leftSubCategory === category && styles.activeText]}
+                  style={[
+                    styles.positionText,
+                    reliabilityCategory === category && styles.activeText,
+                  ]}
                 >
                   {category}
                 </Text>

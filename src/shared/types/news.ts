@@ -51,7 +51,7 @@ export interface OpinionWrite {
   isReliable: boolean;
 }
 
-export interface OpinionTotalId {
+export interface integratedOpinion {
   issueType: string;
   issueId: number;
   opinionId: number;
@@ -66,7 +66,7 @@ export interface OpinionTotalId {
   likeCount: number;
   isLiked: boolean;
 }
-export interface OpinionParagraphId {
+export interface ParagraphWithOpinions {
   id: number;
   content: string;
   opinions: Opinions[];

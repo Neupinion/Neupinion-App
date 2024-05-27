@@ -6,13 +6,10 @@ import { subCategories } from '../../../../shared/constants/opinionCategory';
 import { Dropdown } from 'react-native-element-dropdown';
 interface OpinionPageCategoryProps {
   changeLeftCategory: (newData: string) => void;
-  changeRightCategory: (newData: string) => void;
+  changeDropDown: (newData: string) => void;
 }
 
-const OpinionSubCategory = ({
-  changeLeftCategory,
-  changeRightCategory,
-}: OpinionPageCategoryProps) => {
+const OpinionSubCategory = ({ changeLeftCategory, changeDropDown }: OpinionPageCategoryProps) => {
   const [activeSubCategory, setActiveSubCategory] = useState('');
   const handleButtonPress = (category: string) => {
     setActiveSubCategory(category);
@@ -21,7 +18,7 @@ const OpinionSubCategory = ({
   console.log(activeSubCategory);
   const handleDropDownChange = (value: string) => {
     setValue(value);
-    changeRightCategory(value);
+    changeDropDown(value);
   };
   const data = [
     { label: '최신순', value: '최신순' },

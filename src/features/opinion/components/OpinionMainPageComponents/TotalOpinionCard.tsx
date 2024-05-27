@@ -6,23 +6,22 @@ import FavoriteSvg from '../../../../assets/icon/favorite.svg';
 import fontFamily from '../../../../shared/styles/fontFamily';
 import PinSentenceCard from './PinSentenceCard';
 import { formatDate } from '../../../remakeissue/constants/formatDate';
-import { OpinionTotalId } from '../../../../shared/types/news';
+import { integratedOpinion } from '../../../../shared/types/news';
 import { WINDOW_WIDTH } from '../../../../shared/constants/display';
 import updateFavorite from '../../remotes/opinion';
 
 interface TotalOpinionCardProps {
-  item: OpinionTotalId;
+  item: integratedOpinion;
 }
 const TotalOpinionCard = ({ item }: TotalOpinionCardProps) => {
-  const [favoriteClicked, setFavoriteClicked] = useState(false);
-  const UpdateFavorite = async () => {
+  const [likeClicked, setLikeClicked] = useState(false);
+  const updateLike = async () => {
     try {
-      await updateFavorite(1, item.opinionId, favoriteClicked, setFavoriteClicked);
+      await updateFavorite(1, item.opinionId, likeClicked, setLikeClicked);
     } catch (error) {
       console.error('좋아요 업데이트 실패:', error);
     }
   };
-  // console.log(item.opinionId);
   return (
     <View style={styles.container}>
       <View style={styles.bigOpinionCard}>
@@ -48,7 +47,7 @@ const TotalOpinionCard = ({ item }: TotalOpinionCardProps) => {
         </View>
         <PinSentenceCard color={theme.color.gray2} paragraphContent={item.paragraphContent} />
         <View style={styles.bigOpinionCardBottom}>
-          <TouchableOpacity style={{ marginRight: 4 }} onPress={() => UpdateFavorite()}>
+          <TouchableOpacity style={{ marginRight: 4 }} onPress={() => updateLike()}>
             <WithLocalSvg width={18} height={18} asset={FavoriteSvg as ImageSourcePropType} />
           </TouchableOpacity>
           <Text style={styles.favoriteText}>{item.likeCount}</Text>

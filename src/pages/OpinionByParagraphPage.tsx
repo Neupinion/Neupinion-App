@@ -28,30 +28,35 @@ import FavoriteSvg from '../assets/icon/favorite.svg';
 import { Dropdown } from 'react-native-element-dropdown';
 const OpinionByParagraphPage = () => {
   const [value, setValue] = useState('');
-  const [leftSubCategory, setLeftSubCategory] = useState('전체');
-  const [rightSubCategory, setRightSubCategory] = useState('');
+  const [reliabilityCategory, setReliabilityCategory] = useState('전체');
+  const [sortType, setSortType] = useState('');
   const data = [
     { label: '최신순', value: '최신순' },
     { label: '인기순', value: '인기순' },
   ];
 
   const handleDropDownChange = (rightCategory: string) => {
-    setRightSubCategory(rightCategory);
+    setSortType(rightCategory);
   };
   const handleButtonPress = (leftCategory: string) => {
-    setLeftSubCategory(leftCategory);
+    setReliabilityCategory(leftCategory);
   };
-  const UpdateFavorite = () => {};
+  const UpdateLike = () => {};
 
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   type ScreenRouteProp = RouteProp<RootStackParamList, 'OpinionParagraphPage'>;
   const route = useRoute<ScreenRouteProp>();
-  const { item, id } = route.params;
+  const { item, issueId } = route.params;
   const gotoOpinionMainPage = () => {
     navigation.navigate('OpinionMainPage');
   };
   const fetchOpinionParagraph = () =>
-    getOpinionParagraph(id, getCategoryType(leftSubCategory), getSortType(rightSubCategory), 0);
+    getOpinionParagraph(
+      issueId,
+      getCategoryType(reliabilityCategory),
+      getSortType(sortType),
+      0,
+    );
   const {
     data: opinionParagraph,
     isLoading,
@@ -61,7 +66,7 @@ const OpinionByParagraphPage = () => {
 
   useEffect(() => {
     void fetchData();
-  }, [leftSubCategory, rightSubCategory]);
+  }, [reliabilityCategory, sortType]);
   if (isLoading) {
     return (
       <View style={styles.container}>
@@ -77,9 +82,6 @@ const OpinionByParagraphPage = () => {
       </View>
     );
   }
-  console.log(item.id);
-  console.log(getCategoryType(leftSubCategory));
-  console.log(opinionParagraph);
   return (
     <ScrollView style={styles.container}>
       <PageHeader
@@ -101,10 +103,10 @@ const OpinionByParagraphPage = () => {
           {subCategories.map((category, index) => (
             <TouchableOpacity key={index.toString()} onPress={() => handleButtonPress(category)}>
               <View
-                style={[styles.positionButton, leftSubCategory === category && styles.activeButton]}
+                style={[styles.positionButton, reliabilityCategory === category && styles.activeButton]}
               >
                 <Text
-                  style={[styles.positionText, leftSubCategory === category && styles.activeText]}
+                  style={[styles.positionText, reliabilityCategory === category && styles.activeText]}
                 >
                   {category}
                 </Text>
@@ -161,7 +163,7 @@ const OpinionByParagraphPage = () => {
                     <Text style={styles.userOpinionText}>{opinion.content}</Text>
                   </View>
                   <View style={styles.bigOpinionCardBottom}>
-                    <TouchableOpacity style={{ marginRight: 4 }} onPress={() => UpdateFavorite()}>
+                    <TouchableOpacity style={{ marginRight: 4 }} onPress={() => UpdateLike()}>
                       <WithLocalSvg
                         width={18}
                         height={18}
@@ -262,7 +264,6 @@ const styles = StyleSheet.create({
     marginLeft: 26,
     marginBottom: 25,
     marginTop: 24,
-    // backgroundColor: theme.color.main,
   },
   bigOpinionCardTop: {
     flexDirection: 'row',

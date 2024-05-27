@@ -1,5 +1,5 @@
 import { client } from '../../../shared/remotes/axios';
-import { OpinionParagraphId, OpinionTotalId } from '../../../shared/types/news';
+import { ParagraphWithOpinions, integratedOpinion } from '../../../shared/types/news';
 
 export const getOpinionParagraph = async (
   issueId: number,
@@ -7,7 +7,7 @@ export const getOpinionParagraph = async (
   orderMode: string,
   pageNumber: number,
 ) => {
-  const { data } = await client.get<OpinionParagraphId[]>(
+  const { data } = await client.get<ParagraphWithOpinions[]>(
     `/reprocessed-issue/${issueId}/opinion/paragraph`,
     {
       params: { viewMode: viewMode, orderMode: orderMode, pageNumber: pageNumber },
@@ -22,7 +22,7 @@ export const getOpinionTotal = async (
   viewMode: string,
   page: number,
 ) => {
-  const { data } = await client.get<OpinionTotalId[]>(`/reprocessed-issue/${issueId}/opinion`, {
+  const { data } = await client.get<integratedOpinion[]>(`/reprocessed-issue/${issueId}/opinion`, {
     params: { orderMode: orderMode, viewMode: viewMode, page: page },
   });
   return data;

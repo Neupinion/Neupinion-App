@@ -36,9 +36,9 @@ const OpinionMainPage = () => {
       <View style={styles.headerUnderLine} />
       <View style={styles.divideLine}></View>
       <View style={styles.mainCategoryTop}>
-        {mainCategories.map((category, index) => (
+        {mainCategories.map((category) => (
           <TouchableOpacity
-            key={index.toString()}
+            key={category}
             style={styles.mainCategory}
             onPress={() => SelectMainCategory(category)}
           >
@@ -55,9 +55,9 @@ const OpinionMainPage = () => {
       </View>
 
       {activeMainCategory === mainCategories[0] ? (
-        <TotalOpinionCategory id={1} />
+        <TotalOpinionCategory issueId={1} />
       ) : (
-        <ParagraphOpinionCategory id={1} />
+        <ParagraphOpinionCategory issueId={1} />
       )}
     </ScrollView>
   );

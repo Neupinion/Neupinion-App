@@ -5,22 +5,22 @@ import { WithLocalSvg } from 'react-native-svg/css';
 import next from '../../../../assets/icon/next.svg';
 import fontFamily from '../../../../shared/styles/fontFamily';
 import PinSentenceCard from './PinSentenceCard';
-import { OpinionParagraphId } from '../../../../shared/types/news';
+import { ParagraphWithOpinions } from '../../../../shared/types/news';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../../../../rootStackParamList';
 import { WINDOW_WIDTH } from '../../../../shared/constants/display';
 
-interface ParagraphOpinionCategoryProps {
-  item: OpinionParagraphId;
-  id: number;
+interface ParagraphOpinionCardProps {
+  item: ParagraphWithOpinions;
+  issueId: number;
 }
-const ParagraphOpinionCard = ({ item, id }: ParagraphOpinionCategoryProps) => {
+const ParagraphOpinionCard = ({ item, issueId }: ParagraphOpinionCardProps) => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   const goOpinionParagraphPage = () => {
     navigation.navigate('OpinionParagraphPage', {
       item: item,
-      id: id,
+      issueId: issueId,
     });
   };
   return (
