@@ -69,10 +69,10 @@ export interface integratedOpinion {
 export interface ParagraphWithOpinions {
   id: number;
   content: string;
-  opinions: Opinions[];
+  opinions: ReprocessedIssueOpinion[];
 }
 
-export interface Opinions {
+export interface ReprocessedIssueOpinion {
   id: number;
   memberId: number;
   nickname: string;

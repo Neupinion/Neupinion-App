@@ -27,19 +27,17 @@ import { formatDate } from '../features/remakeissue/constants/formatDate';
 import FavoriteSvg from '../assets/icon/favorite.svg';
 import { Dropdown } from 'react-native-element-dropdown';
 const OpinionByParagraphPage = () => {
-  const [value, setValue] = useState('');
   const [reliabilityCategory, setReliabilityCategory] = useState('전체');
   const [sortType, setSortType] = useState('');
   const data = [
     { label: '최신순', value: '최신순' },
     { label: '인기순', value: '인기순' },
   ];
-
-  const handleDropDownChange = (rightCategory: string) => {
-    setSortType(rightCategory);
+  const handleDropDownChange = (value: string) => {
+    setSortType(value);
   };
-  const handleButtonPress = (leftCategory: string) => {
-    setReliabilityCategory(leftCategory);
+  const handleButtonPress = (category: string) => {
+    setReliabilityCategory(category);
   };
   const UpdateLike = () => {};
 
@@ -51,12 +49,7 @@ const OpinionByParagraphPage = () => {
     navigation.navigate('OpinionMainPage');
   };
   const fetchOpinionParagraph = () =>
-    getOpinionParagraph(
-      issueId,
-      getCategoryType(reliabilityCategory),
-      getSortType(sortType),
-      0,
-    );
+    getOpinionParagraph(issueId, getCategoryType(reliabilityCategory), getSortType(sortType), 0);
   const {
     data: opinionParagraph,
     isLoading,
@@ -100,13 +93,19 @@ const OpinionByParagraphPage = () => {
       </View>
       <View style={styles.subCategory}>
         <View style={{ flexDirection: 'row' }}>
-          {subCategories.map((category, index) => (
-            <TouchableOpacity key={index.toString()} onPress={() => handleButtonPress(category)}>
+          {subCategories.map((category) => (
+            <TouchableOpacity key={category} onPress={() => handleButtonPress(category)}>
               <View
-                style={[styles.positionButton, reliabilityCategory === category && styles.activeButton]}
+                style={[
+                  styles.positionButton,
+                  reliabilityCategory === category && styles.activeButton,
+                ]}
               >
                 <Text
-                  style={[styles.positionText, reliabilityCategory === category && styles.activeText]}
+                  style={[
+                    styles.positionText,
+                    reliabilityCategory === category && styles.activeText,
+                  ]}
                 >
                   {category}
                 </Text>
@@ -128,7 +127,7 @@ const OpinionByParagraphPage = () => {
             labelField="label"
             valueField="value"
             placeholder="최신순"
-            value={value}
+            value={'최신순'}
             onChange={(item) => {
               handleDropDownChange(item.value);
             }}

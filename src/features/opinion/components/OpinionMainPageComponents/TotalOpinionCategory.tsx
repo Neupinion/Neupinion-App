@@ -19,19 +19,17 @@ interface TotalOpinionCategoryProps {
 }
 
 const TotalOpinionCategory = ({ issueId }: TotalOpinionCategoryProps) => {
-  const [value, setValue] = useState('');
   const [reliabilityCategory, setReliabilityCategory] = useState('전체');
   const [sortType, setSortType] = useState('');
   const data = [
     { label: '최신순', value: '최신순' },
     { label: '인기순', value: '인기순' },
   ];
-
-  const handleDropDownChange = (rightCategory: string) => {
-    setSortType(rightCategory);
+  const handleDropDownChange = (value: string) => {
+    setSortType(value);
   };
-  const handleButtonPress = (leftCategory: string) => {
-    setReliabilityCategory(leftCategory);
+  const handleButtonPress = (category: string) => {
+    setReliabilityCategory(category);
   };
   const fetchOpinionTotal = () =>
     getOpinionTotal(issueId, getSortType(sortType), getCategoryType(reliabilityCategory), 0);
@@ -62,7 +60,7 @@ const TotalOpinionCategory = ({ issueId }: TotalOpinionCategoryProps) => {
       <View style={styles.SubCategory}>
         <View style={{ flexDirection: 'row' }}>
           {subCategories.map((category) => (
-            <TouchableOpacity key={category.toString()} onPress={() => handleButtonPress(category)}>
+            <TouchableOpacity key={category} onPress={() => handleButtonPress(category)}>
               <View
                 style={[
                   styles.positionButton,
@@ -94,8 +92,7 @@ const TotalOpinionCategory = ({ issueId }: TotalOpinionCategoryProps) => {
             maxHeight={300}
             labelField="label"
             valueField="value"
-            placeholder="최신순"
-            value={value}
+            value={'최신순'}
             onChange={(item) => {
               handleDropDownChange(item.value);
             }}

@@ -14,10 +14,11 @@ interface TotalOpinionCardProps {
   item: integratedOpinion;
 }
 const TotalOpinionCard = ({ item }: TotalOpinionCardProps) => {
-  const [likeClicked, setLikeClicked] = useState(false);
+  const [favoriteClicked, setFavoriteClicked] = useState(false);
   const updateLike = async () => {
     try {
-      await updateFavorite(1, item.opinionId, likeClicked, setLikeClicked);
+      setFavoriteClicked(!favoriteClicked);
+      await updateFavorite(1, item.opinionId, favoriteClicked);
     } catch (error) {
       console.error('좋아요 업데이트 실패:', error);
     }

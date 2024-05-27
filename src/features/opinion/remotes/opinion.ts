@@ -35,12 +35,10 @@ const updateFavorite = async (
   reprocessedIssueId: number,
   opinionId: number,
   favoriteClicked: boolean,
-  setFavoriteClicked: (newValue: boolean) => void,
 ) => {
   try {
-    const payload = { isLiked: !favoriteClicked };
+    const payload = { isLiked: favoriteClicked };
     await client.put(`/reprocessed-issue/${reprocessedIssueId}/opinion/${opinionId}/like`, payload);
-    setFavoriteClicked(!favoriteClicked);
   } catch (error) {
     console.error('좋아요 put: 실패', error);
   }
