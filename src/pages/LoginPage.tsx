@@ -22,11 +22,11 @@ import fontFamily from '../shared/styles/fontFamily';
 import { LinearGradient } from 'expo-linear-gradient';
 import * as WebBrowser from 'expo-web-browser';
 import * as Google from 'expo-auth-session/providers/google';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { GOOGLE_CLIENT_ID } from '@env';
+import { GOOGLE_CLIENT_ID, GOOGLE_REDIRECT_URI } from "@env";
 import axios from 'axios';
 import { AccessToken } from '../features/auth/types/accessToken';
 
+// eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
 WebBrowser.maybeCompleteAuthSession();
 
 const icons = [KaKaoIcon, GoogleIcon, AppleIcon];
@@ -34,9 +34,11 @@ const icons = [KaKaoIcon, GoogleIcon, AppleIcon];
 const LoginPage: React.FC = () => {
   const [request, response, promptAsync] = Google.useAuthRequest({
     clientId: GOOGLE_CLIENT_ID,
+    iosClientId: GOOGLE_CLIENT_ID,
+    androidClientId: GOOGLE_CLIENT_ID,
     scopes: ['email'],
     responseType: 'code',
-    redirectUri: 'https://dev.neupinion.com/login/google',
+    redirectUri: GOOGLE_REDIRECT_URI,
   });
 
   const [loading, setLoading] = useState(false);
