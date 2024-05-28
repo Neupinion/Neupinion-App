@@ -21,11 +21,11 @@ const VoteChartContainer = ({ data }: VoteBubbleChartProps) => {
         <Text style={styles.totalVotedText}>총 투표 수: {formatNumber(data.totalVoteCount)}표</Text>
       </View>
       <View style={styles.chartContainer}>
-        <BubbleChart
-          height={BUBBLE_CHART_HEIGHT}
-          width={BUBBLE_CHART_WIDTH}
-          data={data.voteRankings}
-        />
+        {/*<BubbleChart*/}
+        {/*  height={BUBBLE_CHART_HEIGHT}*/}
+        {/*  width={BUBBLE_CHART_WIDTH}*/}
+        {/*  data={data.voteRankings}*/}
+        {/*/>*/}
       </View>
     </View>
   );
