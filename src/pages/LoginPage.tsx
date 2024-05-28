@@ -22,7 +22,7 @@ import fontFamily from '../shared/styles/fontFamily';
 import { LinearGradient } from 'expo-linear-gradient';
 import * as WebBrowser from 'expo-web-browser';
 import * as Google from 'expo-auth-session/providers/google';
-import { GOOGLE_CLIENT_ID, GOOGLE_REDIRECT_URI } from "@env";
+import { GOOGLE_CLIENT_ID, GOOGLE_REDIRECT_URI } from '@env';
 import axios from 'axios';
 import { AccessToken } from '../features/auth/types/accessToken';
 
@@ -34,9 +34,7 @@ const icons = [KaKaoIcon, GoogleIcon, AppleIcon];
 const LoginPage: React.FC = () => {
   const [request, response, promptAsync] = Google.useAuthRequest({
     clientId: GOOGLE_CLIENT_ID,
-    iosClientId: GOOGLE_CLIENT_ID,
-    androidClientId: GOOGLE_CLIENT_ID,
-    scopes: ['email'],
+    scopes: ['profile'],
     responseType: 'code',
     redirectUri: GOOGLE_REDIRECT_URI,
   });
