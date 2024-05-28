@@ -1,5 +1,12 @@
-import React from 'react';
-import { ImageSourcePropType, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import {
+  ImageSourcePropType,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  ActivityIndicator,
+} from 'react-native';
 import theme from '../shared/styles/theme';
 import { WINDOW_WIDTH } from '../shared/constants/display';
 import NeupTextIcon from '../assets/icon/neuplogin.svg';
@@ -13,10 +20,69 @@ import {
 } from '../features/auth/constants/appTextIconSize';
 import fontFamily from '../shared/styles/fontFamily';
 import { LinearGradient } from 'expo-linear-gradient';
+import * as WebBrowser from 'expo-web-browser';
+import * as Google from 'expo-auth-session/providers/google';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { GOOGLE_CLIENT_ID } from '@env';
+import axios from 'axios';
+import { AccessToken } from "../features/auth/types/accessToken";
+
+WebBrowser.maybeCompleteAuthSession();
+
+interface UserInfo {
+  id: string;
+  email: string;
+  name: string;
+  given_name: string;
+  family_name: string;
+  picture: string;
+  locale: string;
+}
 
 const icons = [KaKaoIcon, GoogleIcon, AppleIcon];
 
-const LoginPage = () => {
+const LoginPage: React.FC = () => {
+  const [request, response, promptAsync] = Google.useAuthRequest({
+    clientId: GOOGLE_CLIENT_ID,
+    scopes: ['email'],
+    responseType: 'code',
+    redirectUri: 'https://dev.neupinion.com/google/redirect',
+  });
+
+  const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
+  const [loading, setLoading] = useState(false);
+
+  const handleSignInWithGoogle = async () => {
+    const user = await AsyncStorage.getItem('user');
+    if (!user) {
+      if (response?.type === 'success' && response.authentication) {
+        await getUserInfo(response.authentication.accessToken);
+      }
+    }
+  };
+
+  const getUserInfo = async (token: string) => {
+    if (!token) return;
+    try {
+      const userinfo = await axios.get<AccessToken>('https://dev.neupinion.com/login/google', {
+        params: { code: response },
+      });
+      const accessToken = userinfo.data.accessToken;
+      console.log(accessToken);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  // const handleLogout = async () => {
+  //   await AsyncStorage.removeItem('user');
+  //   setUserInfo(null);
+  // };
+
+  useEffect(() => {
+    void handleSignInWithGoogle();
+  }, [response]);
+
   return (
     <View style={styles.container}>
       <View style={styles.uiContainer}>
@@ -35,7 +101,10 @@ const LoginPage = () => {
               colors={theme.gradient.gradient1}
               style={styles.gradientBorder}
             >
-              <TouchableOpacity style={styles.socialButton}>
+              <TouchableOpacity
+                onPress={() => promptAsync({ useProxy: true })}
+                style={styles.socialButton}
+              >
                 <WithLocalSvg width={21} height={21} asset={icons[index] as ImageSourcePropType} />
                 <Text style={styles.socialText}>{text}</Text>
               </TouchableOpacity>
@@ -43,6 +112,7 @@ const LoginPage = () => {
           ))}
         </View>
       </View>
+      {loading && <ActivityIndicator size="large" color="#0000ff" />}
     </View>
   );
 };
