@@ -50,6 +50,10 @@ const VoteResultPage = () => {
     navigation.navigate('TotalVoteResultPage', { id: id });
   };
 
+  const onClickShowOpinionButton= () => {
+    navigation.navigate('OpinionMainPage');
+  };
+
   if (isLoading) {
     return (
       <View style={styles.container}>
@@ -104,7 +108,7 @@ const VoteResultPage = () => {
         </View>
         <View style={styles.divideLine} />
         <TopOpinionSlider id={id} />
-        <TouchableOpacity style={styles.opinionPageButton} onPress={() => {}}>
+        <TouchableOpacity style={styles.opinionPageButton} onPress={onClickShowOpinionButton}>
           <Text style={styles.totalVotedButtonText}>의견 보기</Text>
         </TouchableOpacity>
         <View style={styles.divideLine} />
