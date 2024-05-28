@@ -1,2 +1,15 @@
+# dependencies
 node_modules
+
+# misc
+.DS_Store
 .env
+
+# WebStorm IDEA
+.idea
+
+# production
+/build
+
+# testing expo go
+dist
