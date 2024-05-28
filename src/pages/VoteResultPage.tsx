@@ -50,7 +50,7 @@ const VoteResultPage = () => {
     navigation.navigate('TotalVoteResultPage', { id: id });
   };
 
-  const onClickShowOpinionButton= () => {
+  const onClickShowOpinionButton = () => {
     navigation.navigate('OpinionMainPage');
   };
 
