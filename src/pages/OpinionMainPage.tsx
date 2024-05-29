@@ -40,7 +40,7 @@ const OpinionMainPage = () => {
     void fetchData();
   }, []);
   return (
-    <ScrollView style={styles.container}>
+    <View style={styles.container}>
       <PageHeader
         leftIcons={
           <TouchableOpacity>
@@ -51,49 +51,55 @@ const OpinionMainPage = () => {
         RightIcons={null}
       />
       <View style={styles.headerUnderLine} />
-      {reprocessedIssue && (
-        <View style={{ marginTop: 18 }}>
-          <Text style={styles.titleText}>{reprocessedIssue.title}</Text>
-          <View style={styles.titleUnderContainer}>
-            <View style={{ flexDirection: 'row' }}>
-              <View style={styles.tagBox}>
-                <Text style={styles.tagText}>{reprocessedIssue.category}</Text>
+      <ScrollView>
+        {reprocessedIssue && (
+          <View style={{ marginTop: 18 }}>
+            <Text style={styles.titleText}>{reprocessedIssue.title}</Text>
+            <View style={styles.titleUnderContainer}>
+              <View style={{ flexDirection: 'row' }}>
+                <View style={styles.tagBox}>
+                  <Text style={styles.tagText}>{reprocessedIssue.category}</Text>
+                </View>
+                <Text style={styles.dateText}>{formatDate(reprocessedIssue.createdAt)}</Text>
               </View>
-              <Text style={styles.dateText}>{formatDate(reprocessedIssue.createdAt)}</Text>
+              <TouchableOpacity style={styles.headerSvg} onPress={() => {}}>
+                <WithLocalSvg
+                  width={79}
+                  height={30}
+                  asset={SeeOriginalSvg as ImageSourcePropType}
+                />
+              </TouchableOpacity>
             </View>
-            <TouchableOpacity style={styles.headerSvg} onPress={() => {}}>
-              <WithLocalSvg width={79} height={30} asset={SeeOriginalSvg as ImageSourcePropType} />
-            </TouchableOpacity>
           </View>
+        )}
+        <TopOpinionSlider id={1} />
+        <View style={styles.divideLine}></View>
+        <View style={styles.mainCategoryTop}>
+          {mainCategories.map((category) => (
+            <TouchableOpacity
+              key={category}
+              style={styles.mainCategory}
+              onPress={() => SelectMainCategory(category)}
+            >
+              <Text style={[styles.baseText, activeMainCategory === category && styles.activeText]}>
+                {category}
+              </Text>
+            </TouchableOpacity>
+          ))}
         </View>
-      )}
-      <TopOpinionSlider id={1} />
-      <View style={styles.divideLine}></View>
-      <View style={styles.mainCategoryTop}>
-        {mainCategories.map((category) => (
-          <TouchableOpacity
-            key={category}
-            style={styles.mainCategory}
-            onPress={() => SelectMainCategory(category)}
-          >
-            <Text style={[styles.baseText, activeMainCategory === category && styles.activeText]}>
-              {category}
-            </Text>
-          </TouchableOpacity>
-        ))}
-      </View>
-      <View>
-        <View style={styles.headerUnderLine} />
-        {activeMainCategory == mainCategories[0] && <View style={styles.selectedAll} />}
-        {activeMainCategory == mainCategories[1] && <View style={styles.selectedParagraph} />}
-      </View>
+        <View>
+          <View style={styles.headerUnderLine} />
+          {activeMainCategory == mainCategories[0] && <View style={styles.selectedAll} />}
+          {activeMainCategory == mainCategories[1] && <View style={styles.selectedParagraph} />}
+        </View>
 
-      {activeMainCategory === mainCategories[0] ? (
-        <TotalOpinionCategory issueId={1} />
-      ) : (
-        <ParagraphOpinionCategory issueId={1} />
-      )}
-    </ScrollView>
+        {activeMainCategory === mainCategories[0] ? (
+          <TotalOpinionCategory issueId={1} />
+        ) : (
+          <ParagraphOpinionCategory issueId={1} />
+        )}
+      </ScrollView>
+    </View>
   );
 };
 
