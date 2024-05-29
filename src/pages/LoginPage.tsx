@@ -34,7 +34,10 @@ const LoginPage: React.FC = () => {
     if (token) {
       setWebView({ isOpen: false });
       setAuthCode({ accessToken: token });
-      navigation.navigate('MainPage');
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'MainPage' }],
+      });
     }
   };
 
