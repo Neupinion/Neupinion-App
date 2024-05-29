@@ -1,12 +1,9 @@
-import React, { useState } from 'react';
-import { ImageSourcePropType, StyleSheet, Text, TouchableOpacity, View, Modal, Platform } from 'react-native';
+import React from 'react';
+import { ImageSourcePropType, StyleSheet, Text, TouchableOpacity, View, Modal } from 'react-native';
 import { WebView, WebViewNavigation } from 'react-native-webview';
 import theme from '../shared/styles/theme';
 import { WINDOW_WIDTH } from '../shared/constants/display';
 import NeupTextIcon from '../assets/icon/neuplogin.svg';
-import GoogleIcon from '../assets/icon/googleicon.svg';
-import KaKaoIcon from '../assets/icon/kakaologo.svg';
-import AppleIcon from '../assets/icon/appleicon.svg';
 import { WithLocalSvg } from 'react-native-svg/css';
 import {
   APP_TEXT_ICON_HEIGHT,
@@ -14,26 +11,30 @@ import {
 } from '../features/auth/constants/appTextIconSize';
 import fontFamily from '../shared/styles/fontFamily';
 import { LinearGradient } from 'expo-linear-gradient';
-import { GOOGLE_CLIENT_ID, GOOGLE_REDIRECT_URI } from "@env";
-
-const icons = [KaKaoIcon, GoogleIcon, AppleIcon];
-const userAgent =
-  'Mozilla/5.0 (Linux; Android 10; Android SDK built for x86 Build/LMY48X) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/81.0.4044.117 Mobile Safari/608.2.11';
+import { userAgent } from '../features/auth/constants/userAgent';
+import { googleOAuthUri } from '../features/auth/constants/googleOAuthUri';
+import { getAccessTokenGoogle } from '../features/auth/remotes/googleLogin';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import { webViewState } from '../recoil/webViewState';
+import { userTokenState } from '../recoil/auth/userTokenState';
+import { socialAuthIcons, socialAuthTexts } from '../features/auth/constants/socialAuth';
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from '../rootStackParamList';
 
 const LoginPage: React.FC = () => {
-  const [showWebView, setShowWebView] = useState(false);
-  const [authCode, setAuthCode] = useState<string | null>(null);
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
 
-  const handleNavigationChange = (event: WebViewNavigation) => {
-    const url = event.url;
-    if (url.includes('https://dev.neupinion.com/login/google')) {
-      const code = new URL(url).searchParams.get('code');
-      if (code) {
-        setAuthCode(code);
-        setShowWebView(false);
-        console.log('Authentication code:', code);
-        // 여기서 원하는 작업을 수행할 수 있습니다.
-      }
+  const [webView, setWebView] = useRecoilState(webViewState);
+  const setAuthCode = useSetRecoilState(userTokenState);
+
+  const handleNavigationChangeGoogle = (event: WebViewNavigation) => {
+    const token = getAccessTokenGoogle(event);
+
+    if (token) {
+      setWebView({ isOpen: false });
+      setAuthCode({ accessToken: token });
+      navigation.navigate('MainPage');
     }
   };
 
@@ -47,7 +48,7 @@ const LoginPage: React.FC = () => {
         />
         <Text style={styles.normalText}>뉴피니언에 오신 것을 환영합니다.</Text>
         <View style={styles.socialButtonContainer}>
-          {['카카오톡으로 로그인', '구글로 로그인', 'Apple로 로그인'].map((text, index) => (
+          {socialAuthTexts.map((text, index) => (
             <LinearGradient
               key={index}
               start={{ x: 2, y: 1 }}
@@ -55,8 +56,15 @@ const LoginPage: React.FC = () => {
               colors={theme.gradient.gradient1}
               style={styles.gradientBorder}
             >
-              <TouchableOpacity onPress={() => setShowWebView(true)} style={styles.socialButton}>
-                <WithLocalSvg width={21} height={21} asset={icons[index] as ImageSourcePropType} />
+              <TouchableOpacity
+                onPress={() => setWebView({ isOpen: true })}
+                style={styles.socialButton}
+              >
+                <WithLocalSvg
+                  width={21}
+                  height={21}
+                  asset={socialAuthIcons[index] as ImageSourcePropType}
+                />
                 <Text style={styles.socialText}>{text}</Text>
               </TouchableOpacity>
             </LinearGradient>
@@ -64,23 +72,17 @@ const LoginPage: React.FC = () => {
         </View>
       </View>
 
-      {showWebView && (
-        <Modal visible={showWebView} animationType="slide">
+      {webView.isOpen && (
+        <Modal visible={webView.isOpen} animationType="slide">
           <WebView
             javaScriptEnabled={true}
             domStorageEnabled={true}
             cacheEnabled={false}
-            userAgent={
-              Platform.OS === 'android'
-                ? 'Chrome/18.0.1025.133 Mobile Safari/535.19'
-                : 'AppleWebKit/602.1.50 (KHTML, like Gecko) CriOS/56.0.2924.75'
-            }
+            userAgent={userAgent}
             incognito={true}
             style={{ marginTop: 30 }}
-            source={{
-              uri: `https://accounts.google.com/o/oauth2/v2/auth?scope=profile&response_type=code&redirect_uri=${GOOGLE_REDIRECT_URI}&client_id=${GOOGLE_CLIENT_ID}`,
-            }}
-            onNavigationStateChange={handleNavigationChange}
+            source={{ uri: googleOAuthUri }}
+            onNavigationStateChange={handleNavigationChangeGoogle}
           />
         </Modal>
       )}
