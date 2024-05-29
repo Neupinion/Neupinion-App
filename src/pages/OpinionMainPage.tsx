@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   StyleSheet,
   Text,
@@ -16,15 +16,29 @@ import { WithLocalSvg } from 'react-native-svg/css';
 import MainArrowLeftSvg from '../assets/icon/mainarrowLeft.svg';
 import { WINDOW_WIDTH } from '../shared/constants/display';
 import { mainCategories } from '../shared/constants/opinionCategory';
-import TopOpinionSlider from "../features/vote/components/TopOpinionSlider";
-import { formatDate } from "../features/remakeissue/constants/formatDate";
-import SeeOriginalSvg from "../assets/icon/seeOriginal.svg";
+import TopOpinionSlider from '../features/vote/components/TopOpinionSlider';
+import { formatDate } from '../features/remakeissue/constants/formatDate';
+import SeeOriginalSvg from '../assets/icon/seeOriginal.svg';
+import { RouteProp, useRoute } from '@react-navigation/native';
+import { RootStackParamList } from '../rootStackParamList';
+import useFetch from '../shared/hooks/useFetch';
+import { getReprocessedIssueContent } from '../features/remakeissue/remotes/reprocessedIssueContent';
 
 const OpinionMainPage = () => {
+  type ScreenRouteProp = RouteProp<RootStackParamList, 'OpinionMainPage'>;
+  const route = useRoute<ScreenRouteProp>();
+  const id: number = route.params.id;
+  const fetchReprocessedIssue = () => getReprocessedIssueContent(id);
+  const { data: reprocessedIssue, fetchData } = useFetch(fetchReprocessedIssue, false);
+
   const [activeMainCategory, setActiveMainCategory] = useState('전체');
   const SelectMainCategory = (category: string) => {
     setActiveMainCategory(category);
   };
+
+  useEffect(() => {
+    void fetchData();
+  }, []);
   return (
     <ScrollView style={styles.container}>
       <PageHeader
@@ -37,20 +51,22 @@ const OpinionMainPage = () => {
         RightIcons={null}
       />
       <View style={styles.headerUnderLine} />
-      <View>
-        <Text style={styles.titleText}>통합 베스트 Top 5 의견</Text>
-        <View style={styles.titleUnderContainer}>
-          <View style={{ flexDirection: 'row' }}>
-            <View style={styles.tagBox}>
-              <Text style={styles.tagText}>{reprocessedIssue.category}</Text>
+      {reprocessedIssue && (
+        <View style={{ marginTop: 18 }}>
+          <Text style={styles.titleText}>{reprocessedIssue.title}</Text>
+          <View style={styles.titleUnderContainer}>
+            <View style={{ flexDirection: 'row' }}>
+              <View style={styles.tagBox}>
+                <Text style={styles.tagText}>{reprocessedIssue.category}</Text>
+              </View>
+              <Text style={styles.dateText}>{formatDate(reprocessedIssue.createdAt)}</Text>
             </View>
-            <Text style={styles.dateText}>{formatDate(reprocessedIssue.createdAt)}</Text>
+            <TouchableOpacity style={styles.headerSvg} onPress={() => {}}>
+              <WithLocalSvg width={79} height={30} asset={SeeOriginalSvg as ImageSourcePropType} />
+            </TouchableOpacity>
           </View>
-          <TouchableOpacity style={styles.headerSvg} onPress={() => {}}>
-            <WithLocalSvg width={79} height={30} asset={SeeOriginalSvg as ImageSourcePropType} />
-          </TouchableOpacity>
         </View>
-      </View>
+      )}
       <TopOpinionSlider id={1} />
       <View style={styles.divideLine}></View>
       <View style={styles.mainCategoryTop}>
