@@ -1,12 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import {
-  ImageSourcePropType,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-  ActivityIndicator,
-} from 'react-native';
+import React, { useState } from 'react';
+import { ImageSourcePropType, StyleSheet, Text, TouchableOpacity, View, Modal, Platform } from 'react-native';
+import { WebView, WebViewNavigation } from 'react-native-webview';
 import theme from '../shared/styles/theme';
 import { WINDOW_WIDTH } from '../shared/constants/display';
 import NeupTextIcon from '../assets/icon/neuplogin.svg';
@@ -20,54 +14,28 @@ import {
 } from '../features/auth/constants/appTextIconSize';
 import fontFamily from '../shared/styles/fontFamily';
 import { LinearGradient } from 'expo-linear-gradient';
-import * as WebBrowser from 'expo-web-browser';
-import * as Google from 'expo-auth-session/providers/google';
-import { GOOGLE_CLIENT_ID, GOOGLE_REDIRECT_URI } from '@env';
-import axios from 'axios';
-import { AccessToken } from '../features/auth/types/accessToken';
-
-// eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
-WebBrowser.maybeCompleteAuthSession();
+import { GOOGLE_CLIENT_ID, GOOGLE_REDIRECT_URI } from "@env";
 
 const icons = [KaKaoIcon, GoogleIcon, AppleIcon];
+const userAgent =
+  'Mozilla/5.0 (Linux; Android 10; Android SDK built for x86 Build/LMY48X) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/81.0.4044.117 Mobile Safari/608.2.11';
 
 const LoginPage: React.FC = () => {
-  const [request, response, promptAsync] = Google.useAuthRequest({
-    clientId: GOOGLE_CLIENT_ID,
-    scopes: ['profile'],
-    responseType: 'code',
-    redirectUri: GOOGLE_REDIRECT_URI,
-  });
+  const [showWebView, setShowWebView] = useState(false);
+  const [authCode, setAuthCode] = useState<string | null>(null);
 
-  const [loading, setLoading] = useState(false);
-
-  const handleSignInWithGoogle = async () => {
-    if (response?.type === 'success' && response.authentication) {
-      await getUserInfo(response.authentication.accessToken);
+  const handleNavigationChange = (event: WebViewNavigation) => {
+    const url = event.url;
+    if (url.includes('https://dev.neupinion.com/login/google')) {
+      const code = new URL(url).searchParams.get('code');
+      if (code) {
+        setAuthCode(code);
+        setShowWebView(false);
+        console.log('Authentication code:', code);
+        // 여기서 원하는 작업을 수행할 수 있습니다.
+      }
     }
   };
-
-  const getUserInfo = async (token: string) => {
-    if (!token) return;
-    try {
-      const userinfo = await axios.get<AccessToken>('https://dev.neupinion.com/login/google', {
-        params: { code: response },
-      });
-      const accessToken = userinfo.data.accessToken;
-      console.log(accessToken);
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-  // const handleLogout = async () => {
-  //   await AsyncStorage.removeItem('user');
-  //   setUserInfo(null);
-  // };
-
-  useEffect(() => {
-    void handleSignInWithGoogle();
-  }, [response]);
 
   return (
     <View style={styles.container}>
@@ -87,10 +55,7 @@ const LoginPage: React.FC = () => {
               colors={theme.gradient.gradient1}
               style={styles.gradientBorder}
             >
-              <TouchableOpacity
-                onPress={() => promptAsync({ useProxy: true })}
-                style={styles.socialButton}
-              >
+              <TouchableOpacity onPress={() => setShowWebView(true)} style={styles.socialButton}>
                 <WithLocalSvg width={21} height={21} asset={icons[index] as ImageSourcePropType} />
                 <Text style={styles.socialText}>{text}</Text>
               </TouchableOpacity>
@@ -98,7 +63,27 @@ const LoginPage: React.FC = () => {
           ))}
         </View>
       </View>
-      {loading && <ActivityIndicator size="large" color="#0000ff" />}
+
+      {showWebView && (
+        <Modal visible={showWebView} animationType="slide">
+          <WebView
+            javaScriptEnabled={true}
+            domStorageEnabled={true}
+            cacheEnabled={false}
+            userAgent={
+              Platform.OS === 'android'
+                ? 'Chrome/18.0.1025.133 Mobile Safari/535.19'
+                : 'AppleWebKit/602.1.50 (KHTML, like Gecko) CriOS/56.0.2924.75'
+            }
+            incognito={true}
+            style={{ marginTop: 30 }}
+            source={{
+              uri: `https://accounts.google.com/o/oauth2/v2/auth?scope=profile&response_type=code&redirect_uri=${GOOGLE_REDIRECT_URI}&client_id=${GOOGLE_CLIENT_ID}`,
+            }}
+            onNavigationStateChange={handleNavigationChange}
+          />
+        </Modal>
+      )}
     </View>
   );
 };
