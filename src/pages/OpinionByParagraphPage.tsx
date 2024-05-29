@@ -46,7 +46,7 @@ const OpinionByParagraphPage = () => {
   const route = useRoute<ScreenRouteProp>();
   const { item, issueId } = route.params;
   const gotoOpinionMainPage = () => {
-    // navigation.navigate('OpinionMainPage');
+    navigation.navigate('OpinionMainPage');
   };
   const fetchOpinionParagraph = () =>
     getOpinionParagraph(issueId, getCategoryType(reliabilityCategory), getSortType(sortType), 0);
