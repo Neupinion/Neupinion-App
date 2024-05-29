@@ -3,8 +3,6 @@ import { StyleSheet, Text, View } from 'react-native';
 import theme from '../../../shared/styles/theme';
 import fontFamily from '../../../shared/styles/fontFamily';
 import { TrustVoteData } from '../types/bubbleChartData';
-import BubbleChart from './BubbleChart';
-import { BUBBLE_CHART_HEIGHT, BUBBLE_CHART_WIDTH } from '../constants/bubbleChartSize';
 import { formatNumber } from '../../../shared/utils/formatNumber';
 
 interface VoteBubbleChartProps {
@@ -21,11 +19,11 @@ const VoteChartContainer = ({ data }: VoteBubbleChartProps) => {
         <Text style={styles.totalVotedText}>총 투표 수: {formatNumber(data.totalVoteCount)}표</Text>
       </View>
       <View style={styles.chartContainer}>
-        <BubbleChart
-          height={BUBBLE_CHART_HEIGHT}
-          width={BUBBLE_CHART_WIDTH}
-          data={data.voteRankings}
-        />
+        {/*<BubbleChart*/}
+        {/*  height={BUBBLE_CHART_HEIGHT}*/}
+        {/*  width={BUBBLE_CHART_WIDTH}*/}
+        {/*  data={data.voteRankings}*/}
+        {/*/>*/}
       </View>
     </View>
   );

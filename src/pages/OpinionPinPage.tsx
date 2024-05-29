@@ -20,7 +20,6 @@ import { RootStackParamList } from '../rootStackParamList';
 import { getReprocessedIssueById } from '../features/remakeissue/remotes/reprocessedissue';
 import useFetch from '../shared/hooks/useFetch';
 import GlobalTextStyles from '../shared/styles/GlobalTextStyles';
-import { ReprocessedIssueContent } from '../shared/types/news';
 import PageHeader from '../shared/components/PageHeader';
 import { WINDOW_WIDTH } from '../shared/constants/display';
 

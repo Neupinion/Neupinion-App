@@ -23,11 +23,11 @@ const Navigation = () => {
           }}
         >
           <Stack.Group>
-            <Stack.Screen name="OpinionMainPage" component={OpinionMainPage} />
-            <Stack.Screen name="OpinionParagraphPage" component={OpinionByParagraphPage} />
+            <Stack.Screen name="MainPage" component={MainPage} />
           </Stack.Group>
           <Stack.Group>
-            <Stack.Screen name="MainPage" component={MainPage} />
+            <Stack.Screen name="OpinionMainPage" component={OpinionMainPage} />
+            <Stack.Screen name="OpinionParagraphPage" component={OpinionByParagraphPage} />
           </Stack.Group>
           <Stack.Group>
             <Stack.Screen name="VoteResultPage" component={VoteResultPage} />

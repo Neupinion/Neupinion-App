@@ -8,7 +8,7 @@ import CategoryLatestNewsItem from './CategoryLatestNewsItem';
 import { getSameCategoryReprocessedIssues } from '../remotes/sameCategoryReprocessedIssue';
 import useFetch from '../../../shared/hooks/useFetch';
 import { WINDOW_WIDTH } from '../../../shared/constants/display';
-import EmptyScreen from "../../../shared/components/Opinion/EmptyScreen";
+import EmptyScreen from '../../../shared/components/Opinion/EmptyScreen';
 interface CategoryLatestNewsProps {
   current: number;
   category: string;
