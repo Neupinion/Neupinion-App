@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
   positivePosition: {
     width: 40,
     height: 22,
-    borderRadius: 85,
+    borderRadius: 40,
     backgroundColor: theme.color.reliable,
     alignItems: 'center',
     justifyContent: 'center',

@@ -16,6 +16,9 @@ import { WithLocalSvg } from 'react-native-svg/css';
 import MainArrowLeftSvg from '../assets/icon/mainarrowLeft.svg';
 import { WINDOW_WIDTH } from '../shared/constants/display';
 import { mainCategories } from '../shared/constants/opinionCategory';
+import TopOpinionSlider from "../features/vote/components/TopOpinionSlider";
+import { formatDate } from "../features/remakeissue/constants/formatDate";
+import SeeOriginalSvg from "../assets/icon/seeOriginal.svg";
 
 const OpinionMainPage = () => {
   const [activeMainCategory, setActiveMainCategory] = useState('전체');
@@ -34,6 +37,21 @@ const OpinionMainPage = () => {
         RightIcons={null}
       />
       <View style={styles.headerUnderLine} />
+      <View>
+        <Text style={styles.titleText}>통합 베스트 Top 5 의견</Text>
+        <View style={styles.titleUnderContainer}>
+          <View style={{ flexDirection: 'row' }}>
+            <View style={styles.tagBox}>
+              <Text style={styles.tagText}>{reprocessedIssue.category}</Text>
+            </View>
+            <Text style={styles.dateText}>{formatDate(reprocessedIssue.createdAt)}</Text>
+          </View>
+          <TouchableOpacity style={styles.headerSvg} onPress={() => {}}>
+            <WithLocalSvg width={79} height={30} asset={SeeOriginalSvg as ImageSourcePropType} />
+          </TouchableOpacity>
+        </View>
+      </View>
+      <TopOpinionSlider id={1} />
       <View style={styles.divideLine}></View>
       <View style={styles.mainCategoryTop}>
         {mainCategories.map((category) => (
@@ -67,6 +85,17 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: theme.color.black,
+  },
+  titleText: {
+    paddingHorizontal: 26,
+    fontFamily: fontFamily.pretendard.bold,
+    fontSize: 20,
+    fontStyle: 'normal',
+    fontWeight: '700',
+    lineHeight: 25.5,
+    letterSpacing: -0.6,
+    color: theme.color.gray7,
+    width: '100%',
   },
   mainCategoryTop: {
     flexDirection: 'row',
@@ -133,6 +162,45 @@ const styles = StyleSheet.create({
   activityIndicator: {
     flex: 1,
     alignSelf: 'center',
+  },
+  titleUnderContainer: {
+    width: WINDOW_WIDTH,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 26,
+    marginTop: 12,
+    marginBottom: 25,
+  },
+  tagBox: {
+    display: 'flex',
+    paddingVertical: 2,
+    paddingHorizontal: 8,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 5,
+    backgroundColor: 'rgba(126, 88, 233, 0.20)',
+    marginRight: 8,
+  },
+  tagText: {
+    color: theme.color.main,
+    fontSize: 14,
+    fontStyle: 'normal',
+    fontWeight: '500',
+    lineHeight: 21,
+    letterSpacing: -0.42,
+  },
+  dateText: {
+    color: theme.color.gray5,
+    fontStyle: 'normal',
+    fontSize: 12,
+    fontWeight: '500',
+    lineHeight: 18,
+    letterSpacing: -0.5,
+    marginTop: 2,
+  },
+  headerSvg: {
+    justifyContent: 'flex-end',
   },
 });
 

@@ -136,9 +136,8 @@ const styles = StyleSheet.create({
   },
   tagContainer: {
     display: 'flex',
-    width: 37,
-    borderRadius: 30,
-    backgroundColor: '#FF75AB',
+    width: 40,
+    borderRadius: 40,
     paddingHorizontal: 8,
     paddingVertical: 2,
     justifyContent: 'center',
