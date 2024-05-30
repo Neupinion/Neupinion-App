@@ -22,10 +22,12 @@ import useFetch from '../shared/hooks/useFetch';
 import GlobalTextStyles from '../shared/styles/GlobalTextStyles';
 import PageHeader from '../shared/components/CustomHeader';
 import { WINDOW_WIDTH } from '../shared/constants/display';
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { opinionPostState } from "../recoil/opinionPostState";
 
 const OpinionPinPage = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
-  const [selectedPinIndex, setSelectedPinIndex] = useState(0);
+  const [opinionState, setOpinionPostState] = useRecoilState(opinionPostState);
 
   const fetchReprocessedIssueById = () => getReprocessedIssueById(1);
   const {
@@ -39,16 +41,15 @@ const OpinionPinPage = () => {
     void fetchData();
   }, []);
 
-  const onClickBackButton = () => {
-    navigation.goBack();
-  };
-
   const onClickCheckButton = () => {
-    navigation.navigate('OpinionPost', { issueId: 1, sentenceNumber: selectedPinIndex });
+    navigation.navigate('OpinionPost');
   };
 
   const onSelectPin = (index: number) => {
-    setSelectedPinIndex(index);
+    setOpinionPostState((prevState) => ({
+      ...prevState,
+      sentenceIndex: index,
+    }));
   };
 
   if (isLoading) {
@@ -69,18 +70,6 @@ const OpinionPinPage = () => {
 
   return (
     <View style={styles.container}>
-      {/*<PageHeader*/}
-      {/*  leftIcons={*/}
-      {/*    <TouchableOpacity style={styles.topSvgStyle} onPress={onClickBackButton}>*/}
-      {/*      <WithLocalSvg height={28} asset={MainArrowLeft as ImageSourcePropType} />*/}
-      {/*    </TouchableOpacity>*/}
-      {/*  }*/}
-      {/*  RightIcons={*/}
-      {/*    <TouchableOpacity style={styles.topSvgStyle} onPress={onClickCheckButton}>*/}
-      {/*      <WithLocalSvg height={16} asset={OpinionCheckButton as ImageSourcePropType} />*/}
-      {/*    </TouchableOpacity>*/}
-      {/*  }*/}
-      {/*/>*/}
       <ScrollView style={styles.scrollViewStyle}>
         <View style={styles.pinTextContainer}>
           <Text style={styles.pinTextTitle}>의견을 남길 부분을 선택해주세요.</Text>
@@ -92,7 +81,10 @@ const OpinionPinPage = () => {
             .map((item) => (
               <TouchableOpacity
                 key={item.id}
-                style={[styles.pinSentence, { opacity: selectedPinIndex === item.id ? 1 : 0.3 }]}
+                style={[
+                  styles.pinSentence,
+                  { opacity: opinionState.sentenceIndex === item.id ? 1 : 0.3 },
+                ]}
                 onPress={() => onSelectPin(item.id)}
               >
                 <View style={styles.pinContainer}>

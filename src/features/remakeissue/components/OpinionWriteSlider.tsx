@@ -21,6 +21,8 @@ import { useModal } from '../../../shared/hooks/useModal';
 import OpinionWriteBottomSheet from '../../opinion/components/OpinionWriteBottomSheet';
 import { OpinionWrite } from '../../../shared/types/news';
 import { WINDOW_WIDTH } from '../../../shared/constants/display';
+import { useSetRecoilState } from "recoil";
+import { opinionPostState } from "../../../recoil/opinionPostState";
 
 interface OpinionWriteSliderProps {
   navigation: StackNavigationProp<RootStackParamList>;
@@ -28,6 +30,7 @@ interface OpinionWriteSliderProps {
 }
 
 const OpinionWriteSlider = ({ navigation, issueId }: OpinionWriteSliderProps) => {
+  const setOpinionPostState = useSetRecoilState(opinionPostState);
   const { openModal, closeModal } = useModal();
 
   const onClickOpinion = (opinionData: OpinionWrite) => {
@@ -42,7 +45,15 @@ const OpinionWriteSlider = ({ navigation, issueId }: OpinionWriteSliderProps) =>
   };
 
   const onClickOpinionPost = () => {
-    navigation.navigate('OpinionPost', { issueId: issueId });
+    setOpinionPostState({
+      issueId: issueId,
+      opinionId: 0,
+      sentenceIndex: 0,
+      text: '',
+      isReliable: false,
+      editMode: false,
+    });
+    navigation.navigate('OpinionPost');
   };
 
   const fetchMyOpinionWrite = () => getMyOpinionWrite(issueId);

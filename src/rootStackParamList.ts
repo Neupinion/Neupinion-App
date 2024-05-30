@@ -1,7 +1,7 @@
-import { ParagraphWithOpinions, OpinionWrite } from './shared/types/news';
+import { ParagraphWithOpinions } from './shared/types/news';
 
 export type RootStackParamList = {
-  OpinionPost: { opinionWrite?: OpinionWrite; sentenceNumber?: number; issueId: number };
+  OpinionPost: undefined;
   OpinionPin: undefined;
   Main: undefined;
   ReprocessedIssueDetailPage: { id: number };

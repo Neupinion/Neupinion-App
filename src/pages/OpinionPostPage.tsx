@@ -35,31 +35,25 @@ import {
 import PageHeader from '../shared/components/CustomHeader';
 import { WINDOW_HEIGHT, WINDOW_WIDTH } from '../shared/constants/display';
 import { backgroundColor } from "react-native-calendars/src/style";
+import { useRecoilState } from "recoil";
+import { opinionPostState } from "../recoil/opinionPostState";
 
 const OpinionPostPage = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   type ScreenRouteProp = RouteProp<RootStackParamList, 'OpinionPost'>;
   const route = useRoute<ScreenRouteProp>();
 
-  const [isEditMode] = useState<boolean>(!!route.params.opinionWrite);
-
-  const [issueId] = useState<number>(route.params.issueId);
-  const [opinionId] = useState<number>(extractOpinionId(route));
-  const [text, setText] = useState<string>(extractText(route));
-  const [sentenceIndex, setSentenceIndex] = useState<number>(extractSentenceIndex(route));
-  const [isReliable, setIsReliable] = useState<boolean>(extractIsReliable(route));
-
-  const [sentenceNumberDefined, setSentenceNumberDefined] = useState<boolean>(isEditMode);
-  const [isReliableDefined, setIsReliableDefined] = useState<boolean>(isEditMode);
+  const [opinionState, setOpinionState] = useRecoilState(opinionPostState);
 
   useEffect(() => {
-    setSentenceIndex(extractSentenceIndex(route));
-    setSentenceNumberDefined(route.params.sentenceNumber !== undefined || isEditMode);
+    if (opinionState.editMode) {
+
+    }
   }, [route.params]);
 
   const { isLoading, error, fetchData } = useFetch(
     () =>
-      isEditMode
+      opinionState.editMode
         ? patchReprocessedIssueOpinion(opinionId, sentenceIndex, text, isReliable)
         : postReprocessedIssueOpinion(sentenceIndex, issueId, text, isReliable),
     false,
@@ -74,13 +68,7 @@ const OpinionPostPage = () => {
   };
 
   const [isTextInputFocused, setIsTextInputFocused] = useState(false);
-  const [targetY, setTargetY] = useState(0);
   const scrollViewRef = useRef<ScrollView>(null);
-
-  useEffect(() => {
-    if (isTextInputFocused) scrollViewRef.current?.scrollTo({ y: targetY, animated: true });
-    else scrollViewRef.current?.scrollTo({ y: 0, animated: true });
-  }, [isTextInputFocused]);
 
   const onClickShowNewsButton = () => {
     navigation.navigate('OpinionPin');
@@ -111,13 +99,7 @@ const OpinionPostPage = () => {
           { paddingBottom: isTextInputFocused ? 200 : 0 },
         ]}
       >
-        <View
-          onLayout={(event) => {
-            const { y } = event.nativeEvent.layout;
-            setTargetY(y + 30);
-          }}
-          style={styles.choosePinContainer}
-        >
+        <View style={styles.choosePinContainer}>
           <View style={styles.pinFirstTextContainer}>
             <PinTextNumberContainer
               circleNumber={1}
