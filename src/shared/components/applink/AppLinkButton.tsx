@@ -1,5 +1,5 @@
 import React from 'react';
-import { ImageSourcePropType, Platform, Share, StyleSheet, TouchableOpacity } from 'react-native';
+import { ImageSourcePropType, Platform, Share, TouchableOpacity } from 'react-native';
 import { WithLocalSvg } from 'react-native-svg/css';
 import ShareSvg from '../../../assets/icon/share.svg';
 
@@ -39,11 +39,5 @@ const AppShareButton: React.FC = () => {
     </TouchableOpacity>
   );
 };
-
-const styles = StyleSheet.create({
-  headerSvg: {
-    marginLeft: 14,
-  },
-});
 
 export default AppShareButton;
