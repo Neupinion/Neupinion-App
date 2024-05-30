@@ -119,12 +119,7 @@ const OpinionPostPage = () => {
             circleText={'생각쓰기'}
             isActivated={opinionActivityState.sentenceDefined}
           />
-          <OpinionWriteContainer
-            isActivated={opinionActivityState.sentenceDefined}
-            setIsTextInputFocused={setIsTextInputFocused}
-            text={opinionState.text}
-            setText={setText}
-          />
+          <OpinionWriteContainer setIsTextInputFocused={setIsTextInputFocused} />
         </View>
         <View style={styles.choosePinContainer}>
           <PinTextNumberContainer
@@ -132,13 +127,7 @@ const OpinionPostPage = () => {
             circleText={'신뢰도 평가하기'}
             isActivated={opinionActivityState.sentenceDefined}
           />
-          <OpinionEvaluateReliability
-            isActivated={opinionActivityState.sentenceDefined}
-            isReliable={isReliable}
-            isReliableDefined={isReliableDefined}
-            setIsReliable={setIsReliable}
-            setIsReliableDefined={setIsReliableDefined}
-          />
+          <OpinionEvaluateReliability />
           <TouchableOpacity onPress={onClickConfirmButton} style={styles.confirmButton}>
             <Text style={styles.confirmButtonText}>의견 제출</Text>
           </TouchableOpacity>

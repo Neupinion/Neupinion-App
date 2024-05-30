@@ -4,21 +4,7 @@ import theme from '../../../shared/styles/theme';
 import { WithLocalSvg } from 'react-native-svg/css';
 import OpinionInfoIcon from '../../../assets/icon/opinioninfoicon.svg';
 
-interface OpinionEvaluateReliabilityProps {
-  isActivated: boolean;
-  isReliable: boolean;
-  isReliableDefined: boolean;
-  setIsReliable: React.Dispatch<React.SetStateAction<boolean>>;
-  setIsReliableDefined: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-const OpinionEvaluateReliability = ({
-  isActivated,
-  isReliable,
-  isReliableDefined,
-  setIsReliable,
-  setIsReliableDefined,
-}: OpinionEvaluateReliabilityProps) => {
+const OpinionEvaluateReliability = () => {
   const onClickButton = (option: boolean) => {
     setIsReliable(option);
     setIsReliableDefined(true);

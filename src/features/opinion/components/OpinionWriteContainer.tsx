@@ -3,17 +3,11 @@ import { StyleSheet, Text, TextInput, View } from 'react-native';
 import theme from '../../../shared/styles/theme';
 
 interface OpinionWriteContainerProps {
-  isActivated: boolean;
   setIsTextInputFocused: React.Dispatch<React.SetStateAction<boolean>>;
-  text: string;
-  setText: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const OpinionWriteContainer = ({
-  isActivated,
   setIsTextInputFocused,
-  text,
-  setText,
 }: OpinionWriteContainerProps) => {
   const handleTextChange = (inputText: string) => {
     if (inputText.length <= 300) {
