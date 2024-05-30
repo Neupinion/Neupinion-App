@@ -21,8 +21,8 @@ import { useModal } from '../../../shared/hooks/useModal';
 import OpinionWriteBottomSheet from '../../opinion/components/OpinionWriteBottomSheet';
 import { OpinionWrite } from '../../../shared/types/news';
 import { WINDOW_WIDTH } from '../../../shared/constants/display';
-import { useSetRecoilState } from "recoil";
-import { opinionPostState } from "../../../recoil/opinionPostState";
+import { useSetRecoilState } from 'recoil';
+import { opinionPostState } from '../../../recoil/opinionPostState';
 
 interface OpinionWriteSliderProps {
   navigation: StackNavigationProp<RootStackParamList>;

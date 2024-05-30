@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import {
   ActivityIndicator,
   ImageSourcePropType,
@@ -10,8 +10,6 @@ import {
 } from 'react-native';
 import theme from '../shared/styles/theme';
 import { WithLocalSvg } from 'react-native-svg/css';
-import MainArrowLeft from '../assets/icon/mainarrowLeft.svg';
-import OpinionCheckButton from '../assets/icon/opinionpurplecheck.svg';
 import OpinionPinIssue from '../features/opinion/components/OpinionPinIssue';
 import OpinionPin from '../assets/icon/opinionpin.svg';
 import { useNavigation } from '@react-navigation/native';
@@ -20,10 +18,9 @@ import { RootStackParamList } from '../rootStackParamList';
 import { getReprocessedIssueById } from '../features/remakeissue/remotes/reprocessedissue';
 import useFetch from '../shared/hooks/useFetch';
 import GlobalTextStyles from '../shared/styles/GlobalTextStyles';
-import PageHeader from '../shared/components/CustomHeader';
 import { WINDOW_WIDTH } from '../shared/constants/display';
-import { useRecoilState, useSetRecoilState } from "recoil";
-import { opinionPostState } from "../recoil/opinionPostState";
+import { useRecoilState } from 'recoil';
+import { opinionPostState } from '../recoil/opinionPostState';
 
 const OpinionPinPage = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
@@ -40,10 +37,6 @@ const OpinionPinPage = () => {
   useEffect(() => {
     void fetchData();
   }, []);
-
-  const onClickCheckButton = () => {
-    navigation.navigate('OpinionPost');
-  };
 
   const onSelectPin = (index: number) => {
     setOpinionPostState((prevState) => ({

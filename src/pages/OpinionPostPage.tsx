@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import {
   ActivityIndicator,
-  ImageSourcePropType,
   ScrollView,
   StyleSheet,
   Text,
@@ -9,14 +8,11 @@ import {
   View,
 } from 'react-native';
 import theme from '../shared/styles/theme';
-import { WithLocalSvg } from 'react-native-svg/css';
-import MainArrowLeft from '../assets/icon/mainarrowLeft.svg';
-import OpinionCheckButton from '../assets/icon/opinionpurplecheck.svg';
 import PinButton from '../features/opinion/components/PinButton';
 import PinTextNumberContainer from '../features/opinion/components/PinTextNumberContainer';
 import OpinionWriteContainer from '../features/opinion/components/OpinionWriteContainer';
 import SentenceBox from '../features/opinion/components/SentenceBox';
-import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import { RootStackParamList } from '../rootStackParamList';
 import { StackNavigationProp } from '@react-navigation/stack';
 import OpinionEvaluateReliability from '../features/opinion/components/OpinionEvaluateCredibility';
@@ -26,41 +22,37 @@ import {
 } from '../features/opinion/remotes/opinion';
 import GlobalTextStyles from '../shared/styles/GlobalTextStyles';
 import useFetch from '../shared/hooks/useFetch';
-import {
-  extractIsReliable,
-  extractOpinionId,
-  extractSentenceIndex,
-  extractText,
-} from '../features/opinion/functions/opinionElementExtractFunction';
-import PageHeader from '../shared/components/CustomHeader';
 import { WINDOW_HEIGHT, WINDOW_WIDTH } from '../shared/constants/display';
-import { backgroundColor } from "react-native-calendars/src/style";
-import { useRecoilState } from "recoil";
-import { opinionPostState } from "../recoil/opinionPostState";
+import { useRecoilValue } from 'recoil';
+import { opinionPostState } from '../recoil/opinionPostState';
 
 const OpinionPostPage = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
-  type ScreenRouteProp = RouteProp<RootStackParamList, 'OpinionPost'>;
-  const route = useRoute<ScreenRouteProp>();
 
-  const [opinionState, setOpinionState] = useRecoilState(opinionPostState);
+  const opinionState = useRecoilValue(opinionPostState);
+
+  const [sentenceNumberDefined, setSentenceNumberDefined] = useState<boolean>(false);
+  const [isReliableDefined, setIsReliableDefined] = useState<boolean>(false);
 
   useEffect(() => {
-    if (opinionState.editMode) {
+    setSentenceNumberDefined(opinionState.editMode);
+    setIsReliableDefined(opinionState.editMode);
+  }, []);
 
+  const submitOpinion = () => {
+    const { editMode, opinionId, sentenceIndex, text, isReliable, issueId } = opinionState;
+
+    if (editMode) {
+      return patchReprocessedIssueOpinion(opinionId, sentenceIndex, text, isReliable);
+    } else {
+      return postReprocessedIssueOpinion(sentenceIndex, issueId, text, isReliable);
     }
-  }, [route.params]);
+  };
 
-  const { isLoading, error, fetchData } = useFetch(
-    () =>
-      opinionState.editMode
-        ? patchReprocessedIssueOpinion(opinionId, sentenceIndex, text, isReliable)
-        : postReprocessedIssueOpinion(sentenceIndex, issueId, text, isReliable),
-    false,
-  );
+  const { isLoading, error, fetchData } = useFetch(submitOpinion, false);
 
   const onClickConfirmButton = async () => {
-    if (sentenceNumberDefined && isReliableDefined && text.length) {
+    if (sentenceNumberDefined && isReliableDefined && opinionState.text.length) {
       await fetchData().then(() => {
         navigation.goBack();
       });
@@ -113,7 +105,7 @@ const OpinionPostPage = () => {
             )}
           </View>
           {!sentenceNumberDefined && <PinButton />}
-          {sentenceNumberDefined && <SentenceBox sentenceNumber={sentenceIndex} />}
+          {sentenceNumberDefined && <SentenceBox sentenceNumber={opinionState.sentenceIndex} />}
         </View>
         <View style={styles.choosePinContainer}>
           <PinTextNumberContainer
@@ -124,7 +116,7 @@ const OpinionPostPage = () => {
           <OpinionWriteContainer
             isActivated={sentenceNumberDefined}
             setIsTextInputFocused={setIsTextInputFocused}
-            text={text}
+            text={opinionState.text}
             setText={setText}
           />
         </View>
