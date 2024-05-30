@@ -1,5 +1,5 @@
 import { atom } from 'recoil';
-import { OpinionPost, OpinionPostActivity } from "../features/opinion/types/opinionPost";
+import { OpinionPost, OpinionPostActivity } from '../features/opinion/types/opinionPost';
 
 export const opinionPostState = atom<OpinionPost>({
   key: 'opinionPostState',
@@ -14,7 +14,7 @@ export const opinionPostState = atom<OpinionPost>({
 });
 
 export const opinionPostActivityState = atom<OpinionPostActivity>({
-  key: 'opinionPostState',
+  key: 'opinionPostActivityState',
   default: {
     sentenceDefined: false,
     reliableDefined: false,

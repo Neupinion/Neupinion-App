@@ -3,34 +3,50 @@ import { ImageSourcePropType, StyleSheet, Text, TouchableOpacity, View } from 'r
 import theme from '../../../shared/styles/theme';
 import { WithLocalSvg } from 'react-native-svg/css';
 import OpinionInfoIcon from '../../../assets/icon/opinioninfoicon.svg';
+import { useRecoilState } from 'recoil';
+import { opinionPostActivityState, opinionPostState } from '../../../recoil/opinionPostState';
 
 const OpinionEvaluateReliability = () => {
+  const [opinionPostActivity, setOpinionPostActivity] = useRecoilState(opinionPostActivityState);
+  const [opinionPost, setOpinionPost] = useRecoilState(opinionPostState);
   const onClickButton = (option: boolean) => {
-    setIsReliable(option);
-    setIsReliableDefined(true);
+    setOpinionPost((prevState) => ({
+      ...prevState,
+      isReliable: option,
+    }));
+    setOpinionPostActivity((prevState) => ({
+      ...prevState,
+      reliableDefined: true,
+    }));
   };
 
   const getButtonStyle = (option: boolean) => [
     styles.button,
-    isReliable === option && isActivated && isReliableDefined && styles.selectedButton,
+    opinionPost.isReliable === option &&
+      opinionPostActivity.reliableDefined &&
+      opinionPostActivity.sentenceDefined &&
+      styles.selectedButton,
   ];
   const getButtonTextStyle = (option: boolean) => [
     styles.buttonText,
-    isReliable === option && isActivated && isReliableDefined && styles.selectedButtonText,
+    opinionPost.isReliable === option &&
+      opinionPostActivity.reliableDefined &&
+      opinionPostActivity.sentenceDefined &&
+      styles.selectedButtonText,
   ];
 
   return (
     <View style={styles.container}>
       <View style={styles.buttonContainer}>
         <TouchableOpacity
-          disabled={!isActivated}
+          disabled={!opinionPostActivity.sentenceDefined}
           onPress={() => onClickButton(true)}
           style={getButtonStyle(true)}
         >
           <Text style={getButtonTextStyle(true)}>믿을 수 있어요</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          disabled={!isActivated}
+          disabled={!opinionPostActivity.sentenceDefined}
           onPress={() => onClickButton(false)}
           style={getButtonStyle(false)}
         >

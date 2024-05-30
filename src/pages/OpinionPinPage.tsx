@@ -19,12 +19,13 @@ import { getReprocessedIssueById } from '../features/remakeissue/remotes/reproce
 import useFetch from '../shared/hooks/useFetch';
 import GlobalTextStyles from '../shared/styles/GlobalTextStyles';
 import { WINDOW_WIDTH } from '../shared/constants/display';
-import { useRecoilState } from 'recoil';
-import { opinionPostState } from '../recoil/opinionPostState';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import { opinionPostActivityState, opinionPostState } from '../recoil/opinionPostState';
 
 const OpinionPinPage = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   const [opinionState, setOpinionPostState] = useRecoilState(opinionPostState);
+  const setOpinionPostActivity = useSetRecoilState(opinionPostActivityState);
 
   const fetchReprocessedIssueById = () => getReprocessedIssueById(1);
   const {
@@ -42,6 +43,10 @@ const OpinionPinPage = () => {
     setOpinionPostState((prevState) => ({
       ...prevState,
       sentenceIndex: index,
+    }));
+    setOpinionPostActivity((prevState) => ({
+      ...prevState,
+      sentenceDefined: true,
     }));
   };
 
