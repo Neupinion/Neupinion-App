@@ -1,8 +1,9 @@
 import React from 'react';
-import { Platform, Share, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import theme from '../shared/styles/theme';
+import { ImageSourcePropType, Platform, Share, StyleSheet, TouchableOpacity } from 'react-native';
+import { WithLocalSvg } from 'react-native-svg/css';
+import ShareSvg from '../../../assets/icon/share.svg';
 
-const AppLinkTestPage = () => {
+const AppShareButton: React.FC = () => {
   const appLink =
     Platform.OS === 'ios'
       ? 'https://apps.apple.com/us/app/kakaotalk/id362057947'
@@ -33,24 +34,16 @@ const AppLinkTestPage = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <TouchableOpacity
-        style={{ width: 220, height: 110, backgroundColor: 'white' }}
-        onPress={appLinkShare}
-      >
-        <Text style={{ backgroundColor: 'black' }}>공유하기</Text>
-      </TouchableOpacity>
-    </View>
+    <TouchableOpacity onPress={appLinkShare} key="share">
+      <WithLocalSvg width={24} height={23} asset={ShareSvg as ImageSourcePropType} />
+    </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: theme.color.black,
-    alignItems: 'center',
-    justifyContent: 'center',
+  headerSvg: {
+    marginLeft: 14,
   },
 });
 
-export default AppLinkTestPage;
+export default AppShareButton;

@@ -26,6 +26,7 @@ import ShareSvg from './assets/icon/share.svg';
 import { useRecoilState } from 'recoil';
 import { bookMarkState } from './recoil/bookMarkState';
 import BookMarkButton from './features/remakeissue/components/BookMarkButton';
+import AppShareButton from "./shared/components/applink/AppLinkButton";
 const Stack = createNativeStackNavigator();
 
 const Navigation = () => {
@@ -134,13 +135,7 @@ const Navigation = () => {
                     title="진짜일까, 가짜일까?"
                     headerRightEl={[
                       <BookMarkButton key="bookmark" />,
-                      <TouchableOpacity style={styles.headerSvg} onPress={() => {}} key="share">
-                        <WithLocalSvg
-                          width={24}
-                          height={23}
-                          asset={ShareSvg as ImageSourcePropType}
-                        />
-                      </TouchableOpacity>,
+                      <AppShareButton key="appshare" />,
                     ]}
                   />
                 ),

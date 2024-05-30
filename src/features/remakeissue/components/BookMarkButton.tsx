@@ -5,7 +5,7 @@ import { useRecoilState } from 'recoil';
 import { ImageSourcePropType } from 'react-native';
 import { bookMarkState } from '../../../recoil/bookMarkState';
 import BookMarkSvg from '../../../assets/icon/bookmark.svg';
-import AnotherBookMarkSvg from '../../../assets/icon/anotherBookmark.svg';
+import AnotherBookMarkSvg from '../../../assets/icon/anotherbookmark.svg';
 import toggleBookmark from '../remotes/toggleBookmark';
 
 const BookMarkButton: React.FC = () => {
@@ -20,7 +20,7 @@ const BookMarkButton: React.FC = () => {
   };
 
   return (
-    <TouchableOpacity style={styles.headerSvg} onPress={onClickBookMark}>
+    <TouchableOpacity onPress={onClickBookMark}>
       {issueBookMarkState.isBookMarkClicked ? (
         <WithLocalSvg width={23} height={23} asset={AnotherBookMarkSvg as ImageSourcePropType} />
       ) : (
@@ -29,11 +29,5 @@ const BookMarkButton: React.FC = () => {
     </TouchableOpacity>
   );
 };
-
-const styles = StyleSheet.create({
-  headerSvg: {
-    marginLeft: 14,
-  },
-});
 
 export default BookMarkButton;
