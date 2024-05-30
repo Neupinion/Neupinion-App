@@ -70,7 +70,7 @@ const TotalOpinionCategory = ({ issueId }: TotalOpinionCategoryProps) => {
               >
                 <Text
                   style={[
-                    styles.positionText,
+                    styles.subCategoryText,
                     reliabilityCategory === category && styles.activeText,
                   ]}
                 >
@@ -144,7 +144,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 14,
     marginRight: 10,
   },
-  positionText: {
+  subCategoryText: {
     fontFamily: fontFamily.pretendard.bold,
     color: theme.color.gray3,
     fontSize: 14,

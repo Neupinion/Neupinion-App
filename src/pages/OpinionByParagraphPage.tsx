@@ -42,6 +42,10 @@ const OpinionByParagraphPage = () => {
   const route = useRoute<ScreenRouteProp>();
   const { item, issueId } = route.params;
 
+  const gotoOpinionMainPage = () => {
+    navigation.navigate('OpinionMainPage'); // 수정해야 함
+  };
+
   const fetchOpinionParagraph = () =>
     getOpinionParagraph(issueId, getCategoryType(reliabilityCategory), getSortType(sortType), 0);
   const {
@@ -88,7 +92,7 @@ const OpinionByParagraphPage = () => {
               >
                 <Text
                   style={[
-                    styles.positionText,
+                    styles.subCategoryText,
                     reliabilityCategory === category && styles.activeText,
                   ]}
                 >
@@ -370,6 +374,15 @@ const styles = StyleSheet.create({
   selectedTextStyle: {
     fontFamily: fontFamily.pretendard.bold,
     color: theme.color.white,
+    fontSize: 14,
+    fontStyle: 'normal',
+    fontWeight: '500',
+    lineHeight: 21,
+    letterSpacing: -0.42,
+  },
+  subCategoryText: {
+    fontFamily: fontFamily.pretendard.bold,
+    color: theme.color.gray3,
     fontSize: 14,
     fontStyle: 'normal',
     fontWeight: '500',

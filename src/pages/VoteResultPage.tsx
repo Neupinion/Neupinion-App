@@ -46,7 +46,7 @@ const VoteResultPage = () => {
   };
 
   const onClickShowOpinionButton = () => {
-    navigation.navigate('OpinionMainPage');
+    navigation.navigate('OpinionMainPage', { id: id });
   };
 
   if (isLoading) {
