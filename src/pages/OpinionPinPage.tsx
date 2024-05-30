@@ -22,6 +22,8 @@ import useFetch from '../shared/hooks/useFetch';
 import GlobalTextStyles from '../shared/styles/GlobalTextStyles';
 import PageHeader from '../shared/components/PageHeader';
 import { WINDOW_WIDTH } from '../shared/constants/display';
+import Markdown from "react-native-markdown-display";
+import fontFamily from "../shared/styles/fontFamily";
 
 const OpinionPinPage = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
@@ -105,7 +107,9 @@ const OpinionPinPage = () => {
                   </View>
                 </View>
                 <View style={styles.sentenceContainer}>
-                  <Text style={styles.sentenceText}>{item.paragraph}</Text>
+                  <Markdown style={markdownStyles} key={item.id}>
+                    {item.paragraph}
+                  </Markdown>
                 </View>
               </TouchableOpacity>
             ))}
@@ -114,6 +118,22 @@ const OpinionPinPage = () => {
     </View>
   );
 };
+
+const markdownStyles = StyleSheet.create({
+  body: {
+    color: theme.color.white,
+    textAlign: 'justify',
+    fontSize: 14,
+    fontStyle: 'normal',
+    fontWeight: '700',
+    lineHeight: 21,
+    letterSpacing: -0.42,
+    fontFamily: fontFamily.pretendard.medium,
+  },
+  strong: {
+    fontFamily: fontFamily.pretendard.bold,
+  },
+});
 
 const styles = StyleSheet.create({
   container: {
@@ -169,6 +189,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'flex-start',
+    paddingHorizontal: 18,
     gap: 8,
   },
   pinContainer: {
@@ -178,7 +199,7 @@ const styles = StyleSheet.create({
   },
   sentenceContainer: {
     display: 'flex',
-    width: 314,
+    width: '100%',
   },
   sentenceText: {
     color: theme.color.white,
@@ -190,6 +211,7 @@ const styles = StyleSheet.create({
     letterSpacing: -0.42,
   },
   pin: {
+    marginTop: 12,
     width: 20,
     height: 20,
   },

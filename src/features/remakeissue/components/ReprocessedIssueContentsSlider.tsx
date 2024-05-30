@@ -69,6 +69,9 @@ const markdownStyles = StyleSheet.create({
     marginTop: 15,
     textAlign: 'left',
   },
+  strong: {
+    fontFamily: fontFamily.pretendard.bold,
+  },
 });
 
 const styles = StyleSheet.create({
