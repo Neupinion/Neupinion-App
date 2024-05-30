@@ -34,6 +34,7 @@ import {
 } from '../features/opinion/functions/opinionElementExtractFunction';
 import PageHeader from '../shared/components/CustomHeader';
 import { WINDOW_HEIGHT, WINDOW_WIDTH } from '../shared/constants/display';
+import { backgroundColor } from "react-native-calendars/src/style";
 
 const OpinionPostPage = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
@@ -85,10 +86,6 @@ const OpinionPostPage = () => {
     navigation.navigate('OpinionPin');
   };
 
-  const onClickBackButton = () => {
-    navigation.goBack();
-  };
-
   if (isLoading) {
     return (
       <View style={styles.container}>
@@ -107,19 +104,6 @@ const OpinionPostPage = () => {
 
   return (
     <View style={styles.container}>
-      {/*<PageHeader*/}
-      {/*  leftIcons={*/}
-      {/*    <TouchableOpacity style={styles.topSvgStyle} onPress={onClickBackButton}>*/}
-      {/*      <WithLocalSvg height={28} asset={MainArrowLeft as ImageSourcePropType} />*/}
-      {/*    </TouchableOpacity>*/}
-      {/*  }*/}
-      {/*  centerText={'의견쓰기'}*/}
-      {/*  RightIcons={*/}
-      {/*    <TouchableOpacity style={styles.topSvgStyle} onPress={onClickConfirmButton}>*/}
-      {/*      <WithLocalSvg height={16} asset={OpinionCheckButton as ImageSourcePropType} />*/}
-      {/*    </TouchableOpacity>*/}
-      {/*  }*/}
-      {/*/>*/}
       <ScrollView
         ref={scrollViewRef}
         contentContainerStyle={[
@@ -130,7 +114,7 @@ const OpinionPostPage = () => {
         <View
           onLayout={(event) => {
             const { y } = event.nativeEvent.layout;
-            setTargetY(y + 30); // 디자인에서 정의한 크기로 이동
+            setTargetY(y + 30);
           }}
           style={styles.choosePinContainer}
         >
@@ -175,6 +159,9 @@ const OpinionPostPage = () => {
             setIsReliable={setIsReliable}
             setIsReliableDefined={setIsReliableDefined}
           />
+          <TouchableOpacity onPress={onClickConfirmButton} style={styles.confirmButton}>
+            <Text style={styles.confirmButtonText}>의견 제출</Text>
+          </TouchableOpacity>
         </View>
       </ScrollView>
     </View>
@@ -246,6 +233,25 @@ const styles = StyleSheet.create({
   activityIndicator: {
     flex: 1,
     alignSelf: 'center',
+  },
+  confirmButton: {
+    display: 'flex',
+    width: 338,
+    height: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 10,
+    backgroundColor: theme.color.main,
+    marginTop: 10,
+    marginBottom: 25,
+  },
+  confirmButtonText: {
+    color: theme.color.white,
+    fontSize: 17,
+    fontStyle: 'normal',
+    fontWeight: '700',
+    lineHeight: 25.5,
+    letterSpacing: -0.51,
   },
 });
 

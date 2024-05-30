@@ -11,22 +11,12 @@ import TotalVoteResultPage from './pages/TotalVoteResultPage';
 import OpinionMainPage from './pages/OpinionMainPage';
 import OpinionByParagraphPage from './pages/OpinionByParagraphPage';
 import theme from './shared/styles/theme';
-import { WithLocalSvg } from 'react-native-svg/css';
-import MainArrowLeftSvg from './assets/icon/mainarrowLeft.svg';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from './rootStackParamList';
-import BookMarkSvg from './assets/icon/bookmark.svg';
-import OpinionCheckButton from './assets/icon/opinionpurplecheck.svg';
 import MainPageHeader from './features/date/components/MainPageHeader';
 import CustomHeader from './shared/components/CustomHeader';
-import { ImageSourcePropType, TouchableOpacity } from 'react-native';
-import toggleBookmark from './features/remakeissue/remotes/toggleBookmark';
-import AnotherBookMarkSvg from './assets/icon/anotherbookmark.svg';
-import ShareSvg from './assets/icon/share.svg';
-import { useRecoilState } from 'recoil';
-import { bookMarkState } from './recoil/bookMarkState';
 import BookMarkButton from './features/remakeissue/components/BookMarkButton';
-import AppShareButton from "./shared/components/applink/AppLinkButton";
+import AppShareButton from './shared/components/applink/AppLinkButton';
 const Stack = createNativeStackNavigator();
 
 const Navigation = () => {
@@ -166,7 +156,7 @@ const Navigation = () => {
                 navigation: StackNavigationProp<RootStackParamList, 'OpinionPin'>;
               }) => ({
                 headerShown: true,
-                title: '',
+                title: '핀 찍기',
                 header: () => <CustomHeader isBackButton={true} navigation={navigation} title="" />,
               })}
               name="OpinionPin"
