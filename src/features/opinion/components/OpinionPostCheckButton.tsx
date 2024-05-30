@@ -13,6 +13,7 @@ interface OpinionCheckButtonProps {
 }
 
 const OpinionCheckButton = ({ onPress, activity }: OpinionCheckButtonProps) => {
+  const opinionPost = useRecoilValue(opinionPostState);
   const opinionPostActivity = useRecoilValue(opinionPostActivityState);
   const submitOpinion = () => {
     const { editMode, opinionId, sentenceIndex, text, isReliable, issueId } = opinionPost;
