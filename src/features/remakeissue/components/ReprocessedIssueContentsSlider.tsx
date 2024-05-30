@@ -51,7 +51,7 @@ const markdownStyles = StyleSheet.create({
     fontFamily: fontFamily.pretendard.medium,
     fontStyle: 'normal',
     fontSize: 14,
-    fontWeight: '700',
+    fontWeight: '500',
     lineHeight: 21,
     letterSpacing: -0.42,
   },
@@ -68,6 +68,9 @@ const markdownStyles = StyleSheet.create({
     paddingHorizontal: 14,
     marginTop: 15,
     textAlign: 'left',
+  },
+  strong: {
+    fontFamily: fontFamily.pretendard.bold,
   },
 });
 
