@@ -1,12 +1,9 @@
 import { client } from '../../../shared/remotes/axios';
-import { useRecoilValue } from 'recoil';
-import { bookMarkState } from '../../../recoil/bookMarkState';
 
-const toggleBookmark = async () => {
-  const issueBookMarkState = useRecoilValue(bookMarkState);
+const toggleBookmark = async (id: number, isBookMarkClicked: boolean) => {
   try {
-    const payload = { isBookmarked: !issueBookMarkState.isBookMarkClicked };
-    await client.put(`/reprocessed-issue/${issueBookMarkState.id}/bookmark`, payload);
+    const payload = { isBookmarked: !isBookMarkClicked };
+    await client.put(`/reprocessed-issue/${id}/bookmark`, payload);
   } catch (error) {
     console.error(error);
   }
