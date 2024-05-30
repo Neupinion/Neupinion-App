@@ -18,7 +18,9 @@ import MainArrowLeftSvg from './assets/icon/mainarrowLeft.svg';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from './rootStackParamList';
 import BookMarkSvg from './assets/icon/bookmark.svg';
-import OpinionCheckButton from "./assets/icon/opinionpurplecheck.svg";
+import OpinionCheckButton from './assets/icon/opinionpurplecheck.svg';
+import MainPageDateButton from './features/date/components/MainPageHeader';
+import MainPageHeader from "./features/date/components/MainPageHeader";
 const Stack = createNativeStackNavigator();
 
 const Navigation = () => {
@@ -28,7 +30,9 @@ const Navigation = () => {
       <NavigationContainer>
         <Stack.Navigator
           screenOptions={{
-            headerStyle: styles.headerStyle,
+            headerStyle: {
+              backgroundColor: theme.color.background,
+            },
             headerTitleStyle: styles.headerTitleStyle,
           }}
         >
@@ -40,7 +44,10 @@ const Navigation = () => {
                 navigation: StackNavigationProp<RootStackParamList, 'Main'>;
               }) => ({
                 headerShown: true,
-                title: '',
+                headerStyle: {
+                  backgroundColor: theme.color.background,
+                },
+                header: () => <MainPageHeader navigation={navigation} title="" />,
               })}
               name="MainPage"
               component={MainPage}
@@ -228,6 +235,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 1,
     shadowRadius: 0,
     elevation: 1,
+    height: 60,
   },
   headerTitleStyle: {
     fontSize: 16,

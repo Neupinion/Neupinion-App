@@ -34,11 +34,7 @@ import { WINDOW_WIDTH } from '../shared/constants/display';
 const MainPage = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   const { date } = useDate();
-  const { openModal, closeModal } = useModal();
 
-  const openDateModal = () => {
-    openModal(<DateModal onClose={closeModal} />);
-  };
   const onClickReprocessedIssue = () => {
     navigation.navigate('ReprocessedIssueDetailPage', { id: 1 });
   };
@@ -57,24 +53,6 @@ const MainPage = () => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.headerContainer}>
-        <View style={styles.headerLeftContainer}>
-          <TouchableOpacity onPress={openDateModal}>
-            <Text style={styles.headerDateText}>{getFormatDate(date)}</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.headerArrow} onPress={openDateModal}>
-            <WithLocalSvg width={12} height={12} asset={MainArrowSvg as ImageSourcePropType} />
-          </TouchableOpacity>
-        </View>
-        <View style={styles.headerRightContainer}>
-          <TouchableOpacity style={styles.headerSvg} onPress={() => {}}>
-            <WithLocalSvg width={20} height={20} asset={MainSearch as ImageSourcePropType} />
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.headerSvg} onPress={() => {}}>
-            <WithLocalSvg width={20} height={20} asset={MainUser as ImageSourcePropType} />
-          </TouchableOpacity>
-        </View>
-      </View>
       <View style={styles.headerUnderLine} />
       {isLoading && <ActivityIndicator size="large" style={styles.activityIndicator} />}
       {error && <Text style={GlobalTextStyles.NormalText17}>ERROR</Text>}
@@ -124,26 +102,6 @@ const styles = StyleSheet.create({
     backgroundColor: theme.color.background,
     alignItems: 'flex-start',
     justifyContent: 'center',
-  },
-  headerContainer: {
-    width: WINDOW_WIDTH - 44,
-    height: 30,
-    marginTop: 66,
-    marginBottom: 14,
-    marginHorizontal: 22,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  headerLeftContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-  },
-  headerRightContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
   },
   headerUnderLine: {
     width: WINDOW_WIDTH,
