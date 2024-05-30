@@ -10,6 +10,15 @@ import VoteResultPage from './pages/VoteResultPage';
 import TotalVoteResultPage from './pages/TotalVoteResultPage';
 import OpinionMainPage from './pages/OpinionMainPage';
 import OpinionByParagraphPage from './pages/OpinionByParagraphPage';
+import { ImageSourcePropType, StyleSheet, TouchableOpacity } from 'react-native';
+import fontFamily from './shared/styles/fontFamily';
+import theme from './shared/styles/theme';
+import { WithLocalSvg } from 'react-native-svg/css';
+import MainArrowLeftSvg from './assets/icon/mainarrowLeft.svg';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from './rootStackParamList';
+import BookMarkSvg from './assets/icon/bookmark.svg';
+import OpinionCheckButton from "./assets/icon/opinionpurplecheck.svg";
 const Stack = createNativeStackNavigator();
 
 const Navigation = () => {
@@ -19,33 +28,213 @@ const Navigation = () => {
       <NavigationContainer>
         <Stack.Navigator
           screenOptions={{
-            headerShown: false,
+            headerStyle: styles.headerStyle,
+            headerTitleStyle: styles.headerTitleStyle,
           }}
         >
           <Stack.Group>
-            <Stack.Screen name="MainPage" component={MainPage} />
-          </Stack.Group>
-          <Stack.Group>
-            <Stack.Screen name="OpinionMainPage" component={OpinionMainPage} />
-            <Stack.Screen name="OpinionParagraphPage" component={OpinionByParagraphPage} />
-          </Stack.Group>
-          <Stack.Group>
-            <Stack.Screen name="VoteResultPage" component={VoteResultPage} />
-            <Stack.Screen name="TotalVoteResultPage" component={TotalVoteResultPage} />
+            <Stack.Screen
+              options={({
+                navigation,
+              }: {
+                navigation: StackNavigationProp<RootStackParamList, 'Main'>;
+              }) => ({
+                headerShown: true,
+                title: '',
+              })}
+              name="MainPage"
+              component={MainPage}
+            />
           </Stack.Group>
           <Stack.Group>
             <Stack.Screen
+              options={({
+                navigation,
+              }: {
+                navigation: StackNavigationProp<RootStackParamList, 'OpinionMainPage'>;
+              }) => ({
+                headerShown: true,
+                title: '의견보기',
+                headerLeft: () => (
+                  <TouchableOpacity onPress={() => navigation.goBack()}>
+                    <WithLocalSvg height={25} asset={MainArrowLeftSvg as ImageSourcePropType} />
+                  </TouchableOpacity>
+                ),
+              })}
+              name="OpinionMainPage"
+              component={OpinionMainPage}
+            />
+            <Stack.Screen
+              options={({
+                navigation,
+              }: {
+                navigation: StackNavigationProp<RootStackParamList, 'OpinionParagraphPage'>;
+              }) => ({
+                headerShown: true,
+                title: '의견보기',
+                headerLeft: () => (
+                  <TouchableOpacity onPress={() => navigation.goBack()}>
+                    <WithLocalSvg height={25} asset={MainArrowLeftSvg as ImageSourcePropType} />
+                  </TouchableOpacity>
+                ),
+              })}
+              name="OpinionParagraphPage"
+              component={OpinionByParagraphPage}
+            />
+          </Stack.Group>
+          <Stack.Group>
+            <Stack.Screen
+              options={({
+                navigation,
+              }: {
+                navigation: StackNavigationProp<RootStackParamList, 'VoteResultPage'>;
+              }) => ({
+                headerShown: true,
+                title: '진짜일까,가짜일까?',
+                headerLeft: () => (
+                  <TouchableOpacity onPress={navigation.goBack}>
+                    <WithLocalSvg height={25} asset={MainArrowLeftSvg as ImageSourcePropType} />
+                  </TouchableOpacity>
+                ),
+                headerRight: () => (
+                  <TouchableOpacity onPress={() => {}}>
+                    <WithLocalSvg
+                      width={23}
+                      height={23}
+                      asset={BookMarkSvg as ImageSourcePropType}
+                    />
+                  </TouchableOpacity>
+                ),
+              })}
+              name="VoteResultPage"
+              component={VoteResultPage}
+            />
+            <Stack.Screen
+              options={({
+                navigation,
+              }: {
+                navigation: StackNavigationProp<RootStackParamList, 'TotalVoteResultPage'>;
+              }) => ({
+                headerShown: true,
+                title: '진짜일까,가짜일까?',
+                headerLeft: () => (
+                  <TouchableOpacity onPress={navigation.goBack}>
+                    <WithLocalSvg height={25} asset={MainArrowLeftSvg as ImageSourcePropType} />
+                  </TouchableOpacity>
+                ),
+                headerRight: () => (
+                  <TouchableOpacity onPress={() => {}}>
+                    <WithLocalSvg
+                      width={23}
+                      height={23}
+                      asset={BookMarkSvg as ImageSourcePropType}
+                    />
+                  </TouchableOpacity>
+                ),
+              })}
+              name="TotalVoteResultPage"
+              component={TotalVoteResultPage}
+            />
+          </Stack.Group>
+          <Stack.Group>
+            <Stack.Screen
+              options={({
+                navigation,
+              }: {
+                navigation: StackNavigationProp<RootStackParamList, 'ReprocessedIssueDetailPage'>;
+              }) => ({
+                headerShown: true,
+                title: '진짜일까,가짜일까?',
+                headerLeft: () => (
+                  <TouchableOpacity onPress={navigation.goBack}>
+                    <WithLocalSvg height={25} asset={MainArrowLeftSvg as ImageSourcePropType} />
+                  </TouchableOpacity>
+                ),
+                headerRight: () => (
+                  <TouchableOpacity onPress={() => {}}>
+                    <WithLocalSvg
+                      width={23}
+                      height={23}
+                      asset={BookMarkSvg as ImageSourcePropType}
+                    />
+                  </TouchableOpacity>
+                ),
+              })}
               name="ReprocessedIssueDetailPage"
               component={ReprocessedIssueDetailPage}
             />
           </Stack.Group>
           <Stack.Group>
-            <Stack.Screen name="OpinionPost" component={OpinionPostPage} />
-            <Stack.Screen name="OpinionPin" component={OpinionPinPage} />
+            <Stack.Screen
+              options={({
+                navigation,
+              }: {
+                navigation: StackNavigationProp<RootStackParamList, 'OpinionPost'>;
+              }) => ({
+                headerShown: true,
+                title: '의견 쓰기',
+                headerLeft: () => (
+                  <TouchableOpacity onPress={navigation.goBack}>
+                    <WithLocalSvg height={25} asset={MainArrowLeftSvg as ImageSourcePropType} />
+                  </TouchableOpacity>
+                ),
+                headerRight: () => (
+                  <TouchableOpacity onPress={() => {}}>
+                    <WithLocalSvg
+                      width={23}
+                      height={23}
+                      asset={BookMarkSvg as ImageSourcePropType}
+                    />
+                  </TouchableOpacity>
+                ),
+              })}
+              name="OpinionPost"
+              component={OpinionPostPage}
+            />
+            <Stack.Screen
+              options={({
+                navigation,
+              }: {
+                navigation: StackNavigationProp<RootStackParamList, 'OpinionPin'>;
+              }) => ({
+                headerShown: true,
+                title: '',
+                headerLeft: () => (
+                  <TouchableOpacity onPress={navigation.goBack}>
+                    <WithLocalSvg height={25} asset={MainArrowLeftSvg as ImageSourcePropType} />
+                  </TouchableOpacity>
+                ),
+                headerRight: () => (
+                  <TouchableOpacity onPress={() => {}}>
+                    <WithLocalSvg height={16} asset={OpinionCheckButton as ImageSourcePropType} />
+                  </TouchableOpacity>
+                ),
+              })}
+              name="OpinionPin"
+              component={OpinionPinPage}
+            />
           </Stack.Group>
         </Stack.Navigator>
       </NavigationContainer>
     </>
   );
 };
+
+const styles = StyleSheet.create({
+  headerStyle: {
+    backgroundColor: theme.color.background,
+    shadowColor: theme.color.gray6,
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 1,
+    shadowRadius: 0,
+    elevation: 1,
+  },
+  headerTitleStyle: {
+    fontSize: 16,
+    fontFamily: fontFamily.pretendard.bold,
+    color: theme.color.white,
+    fontWeight: '700',
+  },
+});
+
 export default Navigation;

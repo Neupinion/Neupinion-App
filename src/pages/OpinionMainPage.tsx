@@ -24,15 +24,6 @@ const OpinionMainPage = () => {
   };
   return (
     <ScrollView style={styles.container}>
-      <PageHeader
-        leftIcons={
-          <TouchableOpacity>
-            <WithLocalSvg height={25} asset={MainArrowLeftSvg as ImageSourcePropType} />
-          </TouchableOpacity>
-        }
-        centerText={'의견보기'}
-        RightIcons={null}
-      />
       <View style={styles.headerUnderLine} />
       <View style={styles.divideLine}></View>
       <View style={styles.mainCategoryTop}>

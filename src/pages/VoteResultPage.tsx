@@ -80,21 +80,6 @@ const VoteResultPage = () => {
 
   return (
     <View style={styles.container}>
-      <PageHeader
-        leftIcons={
-          <TouchableOpacity style={styles.svgStyle} onPress={navigation.goBack}>
-            <WithLocalSvg width={25} height={25} asset={MainArrowLeftSvg as ImageSourcePropType} />
-          </TouchableOpacity>
-        }
-        centerText={'진짜일까,가짜일까?'}
-        RightIcons={
-          <>
-            <TouchableOpacity style={styles.svgStyle} onPress={() => {}}>
-              <WithLocalSvg width={23} height={23} asset={BookMarkSvg as ImageSourcePropType} />
-            </TouchableOpacity>
-          </>
-        }
-      />
       <ScrollView style={styles.scrollViewStyle}>
         <VoteChartContainer data={voteData} />
         <View style={styles.underChartContainer}>
