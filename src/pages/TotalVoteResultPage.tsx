@@ -71,21 +71,6 @@ const TotalVoteResultPage = () => {
 
   return (
     <View style={styles.container}>
-      <PageHeader
-        leftIcons={
-          <TouchableOpacity style={styles.iconButton} onPress={() => navigation.goBack()}>
-            <WithLocalSvg width={25} height={25} asset={MainArrowLeftSvg as ImageSourcePropType} />
-          </TouchableOpacity>
-        }
-        centerText={'통합 투표 결과보기'}
-        RightIcons={
-          <>
-            <TouchableOpacity style={styles.iconButton} onPress={() => {}}>
-              <WithLocalSvg width={23} height={23} asset={BookMarkSvg as ImageSourcePropType} />
-            </TouchableOpacity>
-          </>
-        }
-      />
       <ScrollView style={styles.scrollViewStyle}>
         <TotalVoteChartContainer data={integratedVoteData} />
         <View style={styles.underChartContainer}>
