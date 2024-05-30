@@ -1,19 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import {
-  ActivityIndicator,
-  ImageSourcePropType,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import React, { useEffect } from 'react';
+import { ActivityIndicator, ScrollView, StyleSheet, Text, View } from 'react-native';
 import theme from '../shared/styles/theme';
-import { WithLocalSvg } from 'react-native-svg/css';
-import MainArrowLeftSvg from '../assets/icon/mainarrowLeft.svg';
-import BookMarkSvg from '../assets/icon/bookmark.svg';
-import AnotherBookMarkSvg from '../assets/icon/anotherbookmark.svg';
-import ShareSvg from '../assets/icon/share.svg';
 import ReprocessedIssueContentsSlider from '../features/remakeissue/components/ReprocessedIssueContentsSlider';
 import OpinionWriteSlider from '../features/remakeissue/components/OpinionWriteSlider';
 import ReliabilityEvaluation from '../features/remakeissue/components/ReliabilityEvaluation';
@@ -23,12 +10,10 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../rootStackParamList';
 import { getReprocessedIssueContent } from '../features/remakeissue/remotes/reprocessedIssueContent';
 import useFetch from '../shared/hooks/useFetch';
-import toggleBookmark from '../features/remakeissue/remotes/toggleBookmark';
 import GlobalTextStyles from '../shared/styles/GlobalTextStyles';
-import PageHeader from '../shared/components/CustomHeader';
 import { WINDOW_WIDTH } from '../shared/constants/display';
 import { useSetRecoilState } from 'recoil';
-import { issueNumberState } from '../recoil/issueNumberState';
+import { issueNumberState } from '../recoil/issueState';
 import { bookMarkState } from '../recoil/bookMarkState';
 import { bookMarkInfo } from '../features/remakeissue/types/bookMark';
 const ReprocessedIssueDetailPage: React.FC = () => {

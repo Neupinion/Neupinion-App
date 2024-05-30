@@ -1,22 +1,8 @@
 import React, { useEffect } from 'react';
-import {
-  ActivityIndicator,
-  Dimensions,
-  ImageSourcePropType,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { ActivityIndicator, Dimensions, ScrollView, StyleSheet, Text, View } from 'react-native';
 import theme from '../shared/styles/theme';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
+import { RouteProp, useRoute } from '@react-navigation/native';
 import { RootStackParamList } from '../rootStackParamList';
-import PageHeader from '../shared/components/CustomHeader';
-import { WithLocalSvg } from 'react-native-svg/css';
-import MainArrowLeftSvg from '../assets/icon/mainarrowLeft.svg';
-import BookMarkSvg from '../assets/icon/bookmark.svg';
 import { WINDOW_WIDTH } from '../shared/constants/display';
 import fontFamily from '../shared/styles/fontFamily';
 import TotalVoteChartContainer from '../features/totalvote/components/TotalVoteChartContainer';
@@ -28,7 +14,6 @@ import { getIntegratedResult } from '../features/totalvote/remotes/getIntegrated
 import GlobalTextStyles from '../shared/styles/GlobalTextStyles';
 import EmptyScreen from '../shared/components/Opinion/EmptyScreen';
 const TotalVoteResultPage = () => {
-  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   type ScreenRouteProp = RouteProp<RootStackParamList, 'TotalVoteResultPage'>;
   const route = useRoute<ScreenRouteProp>();
   const id: number = route.params.id;

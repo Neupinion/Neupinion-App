@@ -1,19 +1,9 @@
 import React, { useState } from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  ImageSourcePropType,
-  ScrollView,
-} from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native';
 import theme from '../shared/styles/theme';
 import TotalOpinionCategory from '../features/opinion/components/OpinionMainPageComponents/TotalOpinionCategory';
 import fontFamily from '../shared/styles/fontFamily';
 import ParagraphOpinionCategory from '../features/opinion/components/OpinionMainPageComponents/ParagraphOpinionCategory';
-import PageHeader from '../shared/components/CustomHeader';
-import { WithLocalSvg } from 'react-native-svg/css';
-import MainArrowLeftSvg from '../assets/icon/mainarrowLeft.svg';
 import { WINDOW_WIDTH } from '../shared/constants/display';
 import { mainCategories } from '../shared/constants/opinionCategory';
 

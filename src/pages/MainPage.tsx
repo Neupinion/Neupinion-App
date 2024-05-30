@@ -13,23 +13,18 @@ import FakeIssueSlider from '../features/remakeissue/components/FakeIssueSlider'
 import GlobalTextStyles from '../shared/styles/GlobalTextStyles';
 import { WithLocalSvg } from 'react-native-svg/css';
 import MainArrowSvg from '../assets/icon/mainarrow.svg';
-import MainUser from '../assets/icon/mainuser.svg';
-import MainSearch from '../assets/icon/mainsearch.svg';
 import useFetch from '../shared/hooks/useFetch';
 import { getReprocessedIssues } from '../features/remakeissue/remotes/reprocessedissue';
-import { useDate } from '../features/date/provider/DateProvider';
-import DateModal from '../features/date/components/DateModal';
 import FollowUpIssueContainer from '../features/followupissue/components/FollowUpIssueContainer';
 import CategorySlider from '../features/remakeissue/components/CategorySlider';
-import { getFormatDate } from '../features/date/functions/formatDate';
 import AfterIssueSlider from '../features/remakeissue/components/AfterIssueSlider';
 import FollowUpIssueDummy from '../dummy/FollowUpIssueDummy';
 import fontFamily from '../shared/styles/fontFamily';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../rootStackParamList';
-import { useModal } from '../shared/hooks/useModal';
 import { WINDOW_WIDTH } from '../shared/constants/display';
+import { useDate } from '../features/date/provider/DateProvider';
 
 const MainPage = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();

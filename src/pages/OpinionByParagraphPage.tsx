@@ -10,14 +10,11 @@ import {
   View,
 } from 'react-native';
 import theme from '../shared/styles/theme';
-import PageHeader from '../shared/components/CustomHeader';
 import { WithLocalSvg } from 'react-native-svg/css';
-import MainArrowLeftSvg from '../assets/icon/mainarrowLeft.svg';
 import { WINDOW_WIDTH } from '../shared/constants/display';
 import PinSentenceCard from '../features/opinion/components/OpinionMainPageComponents/PinSentenceCard';
 import fontFamily from '../shared/styles/fontFamily';
-import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
+import { RouteProp, useRoute } from '@react-navigation/native';
 import { RootStackParamList } from '../rootStackParamList';
 import { getOpinionParagraph } from '../features/opinion/remotes/individualVote';
 import useFetch from '../shared/hooks/useFetch';
@@ -41,13 +38,10 @@ const OpinionByParagraphPage = () => {
   };
   const UpdateLike = () => {};
 
-  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   type ScreenRouteProp = RouteProp<RootStackParamList, 'OpinionParagraphPage'>;
   const route = useRoute<ScreenRouteProp>();
   const { item, issueId } = route.params;
-  const gotoOpinionMainPage = () => {
-    navigation.navigate('OpinionMainPage');
-  };
+
   const fetchOpinionParagraph = () =>
     getOpinionParagraph(issueId, getCategoryType(reliabilityCategory), getSortType(sortType), 0);
   const {

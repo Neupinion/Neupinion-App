@@ -1,8 +1,8 @@
 import React from 'react';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
 import theme from '../../../shared/styles/theme';
-import { useRecoilState, useRecoilValue } from "recoil";
-import { opinionPostActivityState, opinionPostState } from "../../../recoil/opinionPostState";
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { opinionPostActivityState, opinionPostState } from '../../../recoil/opinionPostState';
 
 interface OpinionWriteContainerProps {
   setIsTextInputFocused: React.Dispatch<React.SetStateAction<boolean>>;

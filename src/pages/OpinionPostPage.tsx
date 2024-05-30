@@ -1,12 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import {
-  ActivityIndicator,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import theme from '../shared/styles/theme';
 import PinButton from '../features/opinion/components/PinButton';
 import PinTextNumberContainer from '../features/opinion/components/PinTextNumberContainer';

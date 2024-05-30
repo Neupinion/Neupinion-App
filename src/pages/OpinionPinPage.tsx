@@ -12,9 +12,6 @@ import theme from '../shared/styles/theme';
 import { WithLocalSvg } from 'react-native-svg/css';
 import OpinionPinIssue from '../features/opinion/components/OpinionPinIssue';
 import OpinionPin from '../assets/icon/opinionpin.svg';
-import { useNavigation } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { RootStackParamList } from '../rootStackParamList';
 import { getReprocessedIssueById } from '../features/remakeissue/remotes/reprocessedissue';
 import useFetch from '../shared/hooks/useFetch';
 import GlobalTextStyles from '../shared/styles/GlobalTextStyles';
@@ -23,7 +20,6 @@ import { useRecoilState, useSetRecoilState } from 'recoil';
 import { opinionPostActivityState, opinionPostState } from '../recoil/opinionPostState';
 
 const OpinionPinPage = () => {
-  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   const [opinionState, setOpinionPostState] = useRecoilState(opinionPostState);
   const setOpinionPostActivity = useSetRecoilState(opinionPostActivityState);
 
