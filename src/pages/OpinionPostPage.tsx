@@ -32,7 +32,7 @@ import {
   extractSentenceIndex,
   extractText,
 } from '../features/opinion/functions/opinionElementExtractFunction';
-import PageHeader from '../shared/components/PageHeader';
+import PageHeader from '../shared/components/CustomHeader';
 import { WINDOW_HEIGHT, WINDOW_WIDTH } from '../shared/constants/display';
 
 const OpinionPostPage = () => {
@@ -107,19 +107,19 @@ const OpinionPostPage = () => {
 
   return (
     <View style={styles.container}>
-      <PageHeader
-        leftIcons={
-          <TouchableOpacity style={styles.topSvgStyle} onPress={onClickBackButton}>
-            <WithLocalSvg height={28} asset={MainArrowLeft as ImageSourcePropType} />
-          </TouchableOpacity>
-        }
-        centerText={'의견쓰기'}
-        RightIcons={
-          <TouchableOpacity style={styles.topSvgStyle} onPress={onClickConfirmButton}>
-            <WithLocalSvg height={16} asset={OpinionCheckButton as ImageSourcePropType} />
-          </TouchableOpacity>
-        }
-      />
+      {/*<PageHeader*/}
+      {/*  leftIcons={*/}
+      {/*    <TouchableOpacity style={styles.topSvgStyle} onPress={onClickBackButton}>*/}
+      {/*      <WithLocalSvg height={28} asset={MainArrowLeft as ImageSourcePropType} />*/}
+      {/*    </TouchableOpacity>*/}
+      {/*  }*/}
+      {/*  centerText={'의견쓰기'}*/}
+      {/*  RightIcons={*/}
+      {/*    <TouchableOpacity style={styles.topSvgStyle} onPress={onClickConfirmButton}>*/}
+      {/*      <WithLocalSvg height={16} asset={OpinionCheckButton as ImageSourcePropType} />*/}
+      {/*    </TouchableOpacity>*/}
+      {/*  }*/}
+      {/*/>*/}
       <ScrollView
         ref={scrollViewRef}
         contentContainerStyle={[

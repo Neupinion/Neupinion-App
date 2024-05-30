@@ -20,7 +20,7 @@ import { RootStackParamList } from '../rootStackParamList';
 import { getReprocessedIssueById } from '../features/remakeissue/remotes/reprocessedissue';
 import useFetch from '../shared/hooks/useFetch';
 import GlobalTextStyles from '../shared/styles/GlobalTextStyles';
-import PageHeader from '../shared/components/PageHeader';
+import PageHeader from '../shared/components/CustomHeader';
 import { WINDOW_WIDTH } from '../shared/constants/display';
 
 const OpinionPinPage = () => {
@@ -69,18 +69,18 @@ const OpinionPinPage = () => {
 
   return (
     <View style={styles.container}>
-      <PageHeader
-        leftIcons={
-          <TouchableOpacity style={styles.topSvgStyle} onPress={onClickBackButton}>
-            <WithLocalSvg height={28} asset={MainArrowLeft as ImageSourcePropType} />
-          </TouchableOpacity>
-        }
-        RightIcons={
-          <TouchableOpacity style={styles.topSvgStyle} onPress={onClickCheckButton}>
-            <WithLocalSvg height={16} asset={OpinionCheckButton as ImageSourcePropType} />
-          </TouchableOpacity>
-        }
-      />
+      {/*<PageHeader*/}
+      {/*  leftIcons={*/}
+      {/*    <TouchableOpacity style={styles.topSvgStyle} onPress={onClickBackButton}>*/}
+      {/*      <WithLocalSvg height={28} asset={MainArrowLeft as ImageSourcePropType} />*/}
+      {/*    </TouchableOpacity>*/}
+      {/*  }*/}
+      {/*  RightIcons={*/}
+      {/*    <TouchableOpacity style={styles.topSvgStyle} onPress={onClickCheckButton}>*/}
+      {/*      <WithLocalSvg height={16} asset={OpinionCheckButton as ImageSourcePropType} />*/}
+      {/*    </TouchableOpacity>*/}
+      {/*  }*/}
+      {/*/>*/}
       <ScrollView style={styles.scrollViewStyle}>
         <View style={styles.pinTextContainer}>
           <Text style={styles.pinTextTitle}>의견을 남길 부분을 선택해주세요.</Text>

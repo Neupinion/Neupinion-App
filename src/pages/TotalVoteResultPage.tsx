@@ -13,7 +13,7 @@ import theme from '../shared/styles/theme';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { RootStackParamList } from '../rootStackParamList';
-import PageHeader from '../shared/components/PageHeader';
+import PageHeader from '../shared/components/CustomHeader';
 import { WithLocalSvg } from 'react-native-svg/css';
 import MainArrowLeftSvg from '../assets/icon/mainarrowLeft.svg';
 import BookMarkSvg from '../assets/icon/bookmark.svg';

@@ -10,7 +10,7 @@ import {
   View,
 } from 'react-native';
 import theme from '../shared/styles/theme';
-import PageHeader from '../shared/components/PageHeader';
+import PageHeader from '../shared/components/CustomHeader';
 import { WithLocalSvg } from 'react-native-svg/css';
 import MainArrowLeftSvg from '../assets/icon/mainarrowLeft.svg';
 import { WINDOW_WIDTH } from '../shared/constants/display';

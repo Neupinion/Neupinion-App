@@ -10,8 +10,6 @@ import VoteResultPage from './pages/VoteResultPage';
 import TotalVoteResultPage from './pages/TotalVoteResultPage';
 import OpinionMainPage from './pages/OpinionMainPage';
 import OpinionByParagraphPage from './pages/OpinionByParagraphPage';
-import { ImageSourcePropType, StyleSheet, TouchableOpacity } from 'react-native';
-import fontFamily from './shared/styles/fontFamily';
 import theme from './shared/styles/theme';
 import { WithLocalSvg } from 'react-native-svg/css';
 import MainArrowLeftSvg from './assets/icon/mainarrowLeft.svg';
@@ -19,8 +17,8 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from './rootStackParamList';
 import BookMarkSvg from './assets/icon/bookmark.svg';
 import OpinionCheckButton from './assets/icon/opinionpurplecheck.svg';
-import MainPageDateButton from './features/date/components/MainPageHeader';
-import MainPageHeader from "./features/date/components/MainPageHeader";
+import MainPageHeader from './features/date/components/MainPageHeader';
+import CustomHeader from './shared/components/CustomHeader';
 const Stack = createNativeStackNavigator();
 
 const Navigation = () => {
@@ -28,14 +26,7 @@ const Navigation = () => {
     <>
       <ModalContainer />
       <NavigationContainer>
-        <Stack.Navigator
-          screenOptions={{
-            headerStyle: {
-              backgroundColor: theme.color.background,
-            },
-            headerTitleStyle: styles.headerTitleStyle,
-          }}
-        >
+        <Stack.Navigator>
           <Stack.Group>
             <Stack.Screen
               options={({
@@ -61,11 +52,8 @@ const Navigation = () => {
                 navigation: StackNavigationProp<RootStackParamList, 'OpinionMainPage'>;
               }) => ({
                 headerShown: true,
-                title: '의견보기',
-                headerLeft: () => (
-                  <TouchableOpacity onPress={() => navigation.goBack()}>
-                    <WithLocalSvg height={25} asset={MainArrowLeftSvg as ImageSourcePropType} />
-                  </TouchableOpacity>
+                header: () => (
+                  <CustomHeader isBackButton={true} navigation={navigation} title="의견 보기" />
                 ),
               })}
               name="OpinionMainPage"
@@ -78,11 +66,8 @@ const Navigation = () => {
                 navigation: StackNavigationProp<RootStackParamList, 'OpinionParagraphPage'>;
               }) => ({
                 headerShown: true,
-                title: '의견보기',
-                headerLeft: () => (
-                  <TouchableOpacity onPress={() => navigation.goBack()}>
-                    <WithLocalSvg height={25} asset={MainArrowLeftSvg as ImageSourcePropType} />
-                  </TouchableOpacity>
+                header: () => (
+                  <CustomHeader isBackButton={true} navigation={navigation} title="의견 보기" />
                 ),
               })}
               name="OpinionParagraphPage"
@@ -97,20 +82,12 @@ const Navigation = () => {
                 navigation: StackNavigationProp<RootStackParamList, 'VoteResultPage'>;
               }) => ({
                 headerShown: true,
-                title: '진짜일까,가짜일까?',
-                headerLeft: () => (
-                  <TouchableOpacity onPress={navigation.goBack}>
-                    <WithLocalSvg height={25} asset={MainArrowLeftSvg as ImageSourcePropType} />
-                  </TouchableOpacity>
-                ),
-                headerRight: () => (
-                  <TouchableOpacity onPress={() => {}}>
-                    <WithLocalSvg
-                      width={23}
-                      height={23}
-                      asset={BookMarkSvg as ImageSourcePropType}
-                    />
-                  </TouchableOpacity>
+                header: () => (
+                  <CustomHeader
+                    isBackButton={true}
+                    navigation={navigation}
+                    title="진짜일까, 가짜일까?"
+                  />
                 ),
               })}
               name="VoteResultPage"
@@ -123,20 +100,12 @@ const Navigation = () => {
                 navigation: StackNavigationProp<RootStackParamList, 'TotalVoteResultPage'>;
               }) => ({
                 headerShown: true,
-                title: '진짜일까,가짜일까?',
-                headerLeft: () => (
-                  <TouchableOpacity onPress={navigation.goBack}>
-                    <WithLocalSvg height={25} asset={MainArrowLeftSvg as ImageSourcePropType} />
-                  </TouchableOpacity>
-                ),
-                headerRight: () => (
-                  <TouchableOpacity onPress={() => {}}>
-                    <WithLocalSvg
-                      width={23}
-                      height={23}
-                      asset={BookMarkSvg as ImageSourcePropType}
-                    />
-                  </TouchableOpacity>
+                header: () => (
+                  <CustomHeader
+                    isBackButton={true}
+                    navigation={navigation}
+                    title="진짜일까, 가짜일까?"
+                  />
                 ),
               })}
               name="TotalVoteResultPage"
@@ -151,20 +120,12 @@ const Navigation = () => {
                 navigation: StackNavigationProp<RootStackParamList, 'ReprocessedIssueDetailPage'>;
               }) => ({
                 headerShown: true,
-                title: '진짜일까,가짜일까?',
-                headerLeft: () => (
-                  <TouchableOpacity onPress={navigation.goBack}>
-                    <WithLocalSvg height={25} asset={MainArrowLeftSvg as ImageSourcePropType} />
-                  </TouchableOpacity>
-                ),
-                headerRight: () => (
-                  <TouchableOpacity onPress={() => {}}>
-                    <WithLocalSvg
-                      width={23}
-                      height={23}
-                      asset={BookMarkSvg as ImageSourcePropType}
-                    />
-                  </TouchableOpacity>
+                header: () => (
+                  <CustomHeader
+                    isBackButton={true}
+                    navigation={navigation}
+                    title="진짜일까, 가짜일까?"
+                  />
                 ),
               })}
               name="ReprocessedIssueDetailPage"
@@ -179,20 +140,8 @@ const Navigation = () => {
                 navigation: StackNavigationProp<RootStackParamList, 'OpinionPost'>;
               }) => ({
                 headerShown: true,
-                title: '의견 쓰기',
-                headerLeft: () => (
-                  <TouchableOpacity onPress={navigation.goBack}>
-                    <WithLocalSvg height={25} asset={MainArrowLeftSvg as ImageSourcePropType} />
-                  </TouchableOpacity>
-                ),
-                headerRight: () => (
-                  <TouchableOpacity onPress={() => {}}>
-                    <WithLocalSvg
-                      width={23}
-                      height={23}
-                      asset={BookMarkSvg as ImageSourcePropType}
-                    />
-                  </TouchableOpacity>
+                header: () => (
+                  <CustomHeader isBackButton={true} navigation={navigation} title="의견 쓰기" />
                 ),
               })}
               name="OpinionPost"
@@ -206,16 +155,7 @@ const Navigation = () => {
               }) => ({
                 headerShown: true,
                 title: '',
-                headerLeft: () => (
-                  <TouchableOpacity onPress={navigation.goBack}>
-                    <WithLocalSvg height={25} asset={MainArrowLeftSvg as ImageSourcePropType} />
-                  </TouchableOpacity>
-                ),
-                headerRight: () => (
-                  <TouchableOpacity onPress={() => {}}>
-                    <WithLocalSvg height={16} asset={OpinionCheckButton as ImageSourcePropType} />
-                  </TouchableOpacity>
-                ),
+                header: () => <CustomHeader isBackButton={true} navigation={navigation} title="" />,
               })}
               name="OpinionPin"
               component={OpinionPinPage}
@@ -226,23 +166,5 @@ const Navigation = () => {
     </>
   );
 };
-
-const styles = StyleSheet.create({
-  headerStyle: {
-    backgroundColor: theme.color.background,
-    shadowColor: theme.color.gray6,
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 1,
-    shadowRadius: 0,
-    elevation: 1,
-    height: 60,
-  },
-  headerTitleStyle: {
-    fontSize: 16,
-    fontFamily: fontFamily.pretendard.bold,
-    color: theme.color.white,
-    fontWeight: '700',
-  },
-});
 
 export default Navigation;
