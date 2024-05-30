@@ -23,20 +23,20 @@ import {
 import GlobalTextStyles from '../shared/styles/GlobalTextStyles';
 import useFetch from '../shared/hooks/useFetch';
 import { WINDOW_HEIGHT, WINDOW_WIDTH } from '../shared/constants/display';
-import { useRecoilValue } from 'recoil';
-import { opinionPostState } from '../recoil/opinionPostState';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { opinionPostActivityState, opinionPostState } from '../recoil/opinionPostState';
 
 const OpinionPostPage = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
 
   const opinionState = useRecoilValue(opinionPostState);
-
-  const [sentenceNumberDefined, setSentenceNumberDefined] = useState<boolean>(false);
-  const [isReliableDefined, setIsReliableDefined] = useState<boolean>(false);
+  const [opinionActivityState, setOpinionActivityState] = useRecoilState(opinionPostActivityState);
 
   useEffect(() => {
-    setSentenceNumberDefined(opinionState.editMode);
-    setIsReliableDefined(opinionState.editMode);
+    setOpinionActivityState({
+      sentenceDefined: opinionState.editMode,
+      reliableDefined: opinionState.editMode,
+    });
   }, []);
 
   const submitOpinion = () => {
@@ -52,7 +52,11 @@ const OpinionPostPage = () => {
   const { isLoading, error, fetchData } = useFetch(submitOpinion, false);
 
   const onClickConfirmButton = async () => {
-    if (sentenceNumberDefined && isReliableDefined && opinionState.text.length) {
+    if (
+      opinionActivityState.sentenceDefined &&
+      opinionActivityState.reliableDefined &&
+      opinionState.text.length
+    ) {
       await fetchData().then(() => {
         navigation.goBack();
       });
@@ -98,23 +102,25 @@ const OpinionPostPage = () => {
               circleText={'의견을 남길 부분을 선택해주세요'}
               isActivated={true}
             />
-            {sentenceNumberDefined && (
+            {opinionActivityState.sentenceDefined && (
               <TouchableOpacity style={styles.showNewsButton} onPress={onClickShowNewsButton}>
                 <Text style={styles.showNewsText}>뉴스보기</Text>
               </TouchableOpacity>
             )}
           </View>
-          {!sentenceNumberDefined && <PinButton />}
-          {sentenceNumberDefined && <SentenceBox sentenceNumber={opinionState.sentenceIndex} />}
+          {!opinionActivityState.sentenceDefined && <PinButton />}
+          {opinionActivityState.sentenceDefined && (
+            <SentenceBox sentenceNumber={opinionState.sentenceIndex} />
+          )}
         </View>
         <View style={styles.choosePinContainer}>
           <PinTextNumberContainer
             circleNumber={2}
             circleText={'생각쓰기'}
-            isActivated={sentenceNumberDefined}
+            isActivated={opinionActivityState.sentenceDefined}
           />
           <OpinionWriteContainer
-            isActivated={sentenceNumberDefined}
+            isActivated={opinionActivityState.sentenceDefined}
             setIsTextInputFocused={setIsTextInputFocused}
             text={opinionState.text}
             setText={setText}
@@ -124,10 +130,10 @@ const OpinionPostPage = () => {
           <PinTextNumberContainer
             circleNumber={3}
             circleText={'신뢰도 평가하기'}
-            isActivated={sentenceNumberDefined}
+            isActivated={opinionActivityState.sentenceDefined}
           />
           <OpinionEvaluateReliability
-            isActivated={sentenceNumberDefined}
+            isActivated={opinionActivityState.sentenceDefined}
             isReliable={isReliable}
             isReliableDefined={isReliableDefined}
             setIsReliable={setIsReliable}

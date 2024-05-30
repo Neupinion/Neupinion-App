@@ -6,3 +6,8 @@ export interface OpinionPost {
   isReliable: boolean;
   editMode: boolean;
 }
+
+export interface OpinionPostActivity {
+  sentenceDefined: boolean;
+  reliableDefined: boolean;
+}
