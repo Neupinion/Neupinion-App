@@ -25,6 +25,7 @@ import AnotherBookMarkSvg from './assets/icon/anotherbookmark.svg';
 import ShareSvg from './assets/icon/share.svg';
 import { useRecoilState } from 'recoil';
 import { bookMarkState } from './recoil/bookMarkState';
+import BookMarkButton from './features/remakeissue/components/BookMarkButton';
 const Stack = createNativeStackNavigator();
 
 const Navigation = () => {
@@ -126,49 +127,23 @@ const Navigation = () => {
                 navigation: StackNavigationProp<RootStackParamList, 'ReprocessedIssueDetailPage'>;
               }) => ({
                 headerShown: true,
-                header: () => {
-                  const [issueBookMarkState, setIssueBookMarkState] = useRecoilState(bookMarkState);
-
-                  const onClickBookMark = async () => {
-                    await toggleBookmark();
-                    setIssueBookMarkState((prevState) => ({
-                      ...prevState,
-                      isBookMarkClicked: !prevState.isBookMarkClicked,
-                    }));
-                  };
-
-                  return (
-                    <CustomHeader
-                      isBackButton={true}
-                      navigation={navigation}
-                      title="진짜일까, 가짜일까?"
-                      headerRightEl={[
-                        <TouchableOpacity style={styles.headerSvg} onPress={onClickBookMark}>
-                          {issueBookMarkState.isBookMarkClicked ? (
-                            <WithLocalSvg
-                              width={23}
-                              height={23}
-                              asset={AnotherBookMarkSvg as ImageSourcePropType}
-                            />
-                          ) : (
-                            <WithLocalSvg
-                              width={23}
-                              height={23}
-                              asset={BookMarkSvg as ImageSourcePropType}
-                            />
-                          )}
-                        </TouchableOpacity>,
-                        <TouchableOpacity style={styles.headerSvg} onPress={() => {}}>
-                          <WithLocalSvg
-                            width={24}
-                            height={23}
-                            asset={ShareSvg as ImageSourcePropType}
-                          />
-                        </TouchableOpacity>,
-                      ]}
-                    />
-                  );
-                },
+                header: () => (
+                  <CustomHeader
+                    isBackButton={true}
+                    navigation={navigation}
+                    title="진짜일까, 가짜일까?"
+                    headerRightEl={[
+                      <BookMarkButton key="bookmark" />,
+                      <TouchableOpacity style={styles.headerSvg} onPress={() => {}} key="share">
+                        <WithLocalSvg
+                          width={24}
+                          height={23}
+                          asset={ShareSvg as ImageSourcePropType}
+                        />
+                      </TouchableOpacity>,
+                    ]}
+                  />
+                ),
               })}
               name="ReprocessedIssueDetailPage"
               component={ReprocessedIssueDetailPage}
