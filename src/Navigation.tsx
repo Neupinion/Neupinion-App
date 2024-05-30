@@ -17,6 +17,7 @@ import MainPageHeader from './features/date/components/MainPageHeader';
 import CustomHeader from './shared/components/CustomHeader';
 import BookMarkButton from './features/remakeissue/components/BookMarkButton';
 import AppShareButton from './shared/components/applink/AppLinkButton';
+import OpinionPostCheckButton from './features/opinion/components/OpinionPostCheckButton';
 const Stack = createNativeStackNavigator();
 
 const Navigation = () => {
@@ -143,7 +144,18 @@ const Navigation = () => {
               }) => ({
                 headerShown: true,
                 header: () => (
-                  <CustomHeader isBackButton={true} navigation={navigation} title="의견 쓰기" />
+                  <CustomHeader
+                    isBackButton={true}
+                    navigation={navigation}
+                    title="의견 쓰기"
+                    headerRightEl={[
+                      <OpinionPostCheckButton
+                        onPress={() => navigation.goBack()}
+                        activity="OpinionPost"
+                        key="check"
+                      />,
+                    ]}
+                  />
                 ),
               })}
               name="OpinionPost"
@@ -157,7 +169,20 @@ const Navigation = () => {
               }) => ({
                 headerShown: true,
                 title: '핀 찍기',
-                header: () => <CustomHeader isBackButton={true} navigation={navigation} title="" />,
+                header: () => (
+                  <CustomHeader
+                    isBackButton={true}
+                    navigation={navigation}
+                    title=""
+                    headerRightEl={[
+                      <OpinionPostCheckButton
+                        onPress={() => navigation.goBack()}
+                        activity="OpinionPin"
+                        key="check"
+                      />,
+                    ]}
+                  />
+                ),
               })}
               name="OpinionPin"
               component={OpinionPinPage}

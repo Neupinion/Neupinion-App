@@ -16,12 +16,6 @@ import { useNavigation } from '@react-navigation/native';
 import { RootStackParamList } from '../rootStackParamList';
 import { StackNavigationProp } from '@react-navigation/stack';
 import OpinionEvaluateReliability from '../features/opinion/components/OpinionEvaluateCredibility';
-import {
-  patchReprocessedIssueOpinion,
-  postReprocessedIssueOpinion,
-} from '../features/opinion/remotes/opinion';
-import GlobalTextStyles from '../shared/styles/GlobalTextStyles';
-import useFetch from '../shared/hooks/useFetch';
 import { WINDOW_HEIGHT, WINDOW_WIDTH } from '../shared/constants/display';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { opinionPostActivityState, opinionPostState } from '../recoil/opinionPostState';
@@ -39,52 +33,12 @@ const OpinionPostPage = () => {
     });
   }, []);
 
-  const submitOpinion = () => {
-    const { editMode, opinionId, sentenceIndex, text, isReliable, issueId } = opinionState;
-
-    if (editMode) {
-      return patchReprocessedIssueOpinion(opinionId, sentenceIndex, text, isReliable);
-    } else {
-      return postReprocessedIssueOpinion(sentenceIndex, issueId, text, isReliable);
-    }
-  };
-
-  const { isLoading, error, fetchData } = useFetch(submitOpinion, false);
-
-  const onClickConfirmButton = async () => {
-    if (
-      opinionActivityState.sentenceDefined &&
-      opinionActivityState.reliableDefined &&
-      opinionState.text.length
-    ) {
-      await fetchData().then(() => {
-        navigation.goBack();
-      });
-    }
-  };
-
   const [isTextInputFocused, setIsTextInputFocused] = useState(false);
   const scrollViewRef = useRef<ScrollView>(null);
 
   const onClickShowNewsButton = () => {
     navigation.navigate('OpinionPin');
   };
-
-  if (isLoading) {
-    return (
-      <View style={styles.container}>
-        <ActivityIndicator size="large" style={styles.activityIndicator} />
-      </View>
-    );
-  }
-
-  if (error) {
-    return (
-      <View style={styles.container}>
-        <Text style={GlobalTextStyles.NormalText17}>ERROR</Text>
-      </View>
-    );
-  }
 
   return (
     <View style={styles.container}>
@@ -128,9 +82,6 @@ const OpinionPostPage = () => {
             isActivated={opinionActivityState.sentenceDefined}
           />
           <OpinionEvaluateReliability />
-          <TouchableOpacity onPress={onClickConfirmButton} style={styles.confirmButton}>
-            <Text style={styles.confirmButtonText}>의견 제출</Text>
-          </TouchableOpacity>
         </View>
       </ScrollView>
     </View>
