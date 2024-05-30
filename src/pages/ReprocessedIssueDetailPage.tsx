@@ -78,35 +78,6 @@ const ReprocessedIssueDetailPage: React.FC = () => {
 
   return (
     <View style={styles.container}>
-      {/*<PageHeader*/}
-      {/*  leftIcons={*/}
-      {/*    <TouchableOpacity style={styles.svgStyle} onPress={navigation.goBack}>*/}
-      {/*      <WithLocalSvg width={25} height={25} asset={MainArrowLeftSvg as ImageSourcePropType} />*/}
-      {/*    </TouchableOpacity>*/}
-      {/*  }*/}
-      {/*  centerText={'진짜일까, 가짜일까?'}*/}
-      {/*  RightIcons={*/}
-      {/*    <>*/}
-      {/*      <TouchableOpacity*/}
-      {/*        style={styles.headerSvg}*/}
-      {/*        onPress={() => toggleBookmark(id, bookMarkClicked, setBookMarkClicked)}*/}
-      {/*      >*/}
-      {/*        {bookMarkClicked ? (*/}
-      {/*          <WithLocalSvg*/}
-      {/*            width={23}*/}
-      {/*            height={23}*/}
-      {/*            asset={AnotherBookMarkSvg as ImageSourcePropType}*/}
-      {/*          />*/}
-      {/*        ) : (*/}
-      {/*          <WithLocalSvg width={23} height={23} asset={BookMarkSvg as ImageSourcePropType} />*/}
-      {/*        )}*/}
-      {/*      </TouchableOpacity>*/}
-      {/*      <TouchableOpacity style={styles.headerSvg} onPress={() => {}}>*/}
-      {/*        <WithLocalSvg width={24} height={23} asset={ShareSvg as ImageSourcePropType} />*/}
-      {/*      </TouchableOpacity>*/}
-      {/*    </>*/}
-      {/*  }*/}
-      {/*/>*/}
       <View style={styles.headerUnderLine} />
       <ScrollView style={styles.scrollViewStyle}>
         <ReprocessedIssueContentsSlider reprocessedIssue={reprocessedIssue} />

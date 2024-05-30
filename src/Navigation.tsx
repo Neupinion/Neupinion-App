@@ -19,6 +19,12 @@ import BookMarkSvg from './assets/icon/bookmark.svg';
 import OpinionCheckButton from './assets/icon/opinionpurplecheck.svg';
 import MainPageHeader from './features/date/components/MainPageHeader';
 import CustomHeader from './shared/components/CustomHeader';
+import { ImageSourcePropType, TouchableOpacity } from 'react-native';
+import toggleBookmark from './features/remakeissue/remotes/toggleBookmark';
+import AnotherBookMarkSvg from './assets/icon/anotherbookmark.svg';
+import ShareSvg from './assets/icon/share.svg';
+import { useRecoilState } from 'recoil';
+import { bookMarkState } from './recoil/bookMarkState';
 const Stack = createNativeStackNavigator();
 
 const Navigation = () => {
@@ -120,13 +126,49 @@ const Navigation = () => {
                 navigation: StackNavigationProp<RootStackParamList, 'ReprocessedIssueDetailPage'>;
               }) => ({
                 headerShown: true,
-                header: () => (
-                  <CustomHeader
-                    isBackButton={true}
-                    navigation={navigation}
-                    title="진짜일까, 가짜일까?"
-                  />
-                ),
+                header: () => {
+                  const [issueBookMarkState, setIssueBookMarkState] = useRecoilState(bookMarkState);
+
+                  const onClickBookMark = async () => {
+                    await toggleBookmark();
+                    setIssueBookMarkState((prevState) => ({
+                      ...prevState,
+                      isBookMarkClicked: !prevState.isBookMarkClicked,
+                    }));
+                  };
+
+                  return (
+                    <CustomHeader
+                      isBackButton={true}
+                      navigation={navigation}
+                      title="진짜일까, 가짜일까?"
+                      headerRightEl={[
+                        <TouchableOpacity style={styles.headerSvg} onPress={onClickBookMark}>
+                          {issueBookMarkState.isBookMarkClicked ? (
+                            <WithLocalSvg
+                              width={23}
+                              height={23}
+                              asset={AnotherBookMarkSvg as ImageSourcePropType}
+                            />
+                          ) : (
+                            <WithLocalSvg
+                              width={23}
+                              height={23}
+                              asset={BookMarkSvg as ImageSourcePropType}
+                            />
+                          )}
+                        </TouchableOpacity>,
+                        <TouchableOpacity style={styles.headerSvg} onPress={() => {}}>
+                          <WithLocalSvg
+                            width={24}
+                            height={23}
+                            asset={ShareSvg as ImageSourcePropType}
+                          />
+                        </TouchableOpacity>,
+                      ]}
+                    />
+                  );
+                },
               })}
               name="ReprocessedIssueDetailPage"
               component={ReprocessedIssueDetailPage}
