@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { Animated, StyleSheet, Text, View } from 'react-native';
+import { Animated, StyleSheet, View } from 'react-native';
 import { ReProcessedIssue } from '../../../shared/types/news';
 import FakeIssueItem from './FakeIssueItem';
 import { ITEM_SIZE } from '../constants/cardAniSize';
@@ -7,6 +7,7 @@ import Indicator from './Indicator';
 import FakeIssueIcon from './FakeIssueIcon';
 import { invisibleLeftCardData, invisibleRightCardData } from '../constants/invisibleCardData';
 import { WINDOW_WIDTH } from '../../../shared/constants/display';
+import EmptyScreen from '../../../shared/components/Opinion/EmptyScreen';
 
 interface FakeIssueProps {
   fakeNews: ReProcessedIssue[] | null;
@@ -46,7 +47,7 @@ const FakeIssueSlider = ({ fakeNews, onClickIssue }: FakeIssueProps) => {
       {!fakeNews ||
         (fakeNews.length === 0 && (
           <View testID={'EmptyData'} style={styles.emptyContainer}>
-            <Text style={styles.emptyText}>No Data</Text>
+            <EmptyScreen text={'등록된 이슈가 없습니다.'} />
           </View>
         ))}
       {fakeNews && (

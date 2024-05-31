@@ -1,23 +1,22 @@
 import React from 'react';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
 import theme from '../../../shared/styles/theme';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { opinionPostActivityState, opinionPostState } from '../../../recoil/opinionPostState';
 
 interface OpinionWriteContainerProps {
-  isActivated: boolean;
   setIsTextInputFocused: React.Dispatch<React.SetStateAction<boolean>>;
-  text: string;
-  setText: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const OpinionWriteContainer = ({
-  isActivated,
-  setIsTextInputFocused,
-  text,
-  setText,
-}: OpinionWriteContainerProps) => {
+const OpinionWriteContainer = ({ setIsTextInputFocused }: OpinionWriteContainerProps) => {
+  const opinionPostActivity = useRecoilValue(opinionPostActivityState);
+  const [opinionPost, setOpinionPost] = useRecoilState(opinionPostState);
   const handleTextChange = (inputText: string) => {
     if (inputText.length <= 300) {
-      setText(inputText);
+      setOpinionPost((prevState) => ({
+        ...prevState,
+        text: inputText,
+      }));
     }
   };
 
@@ -36,11 +35,11 @@ const OpinionWriteContainer = ({
         onFocus={() => {
           setIsTextInputFocused(true);
         }}
-        value={text}
-        editable={isActivated}
+        value={opinionPost.text}
+        editable={opinionPostActivity.sentenceDefined}
       />
       <View style={styles.textNumberContainer}>
-        <Text style={styles.textNumberText}>{`${text.length}자/300자`}</Text>
+        <Text style={styles.textNumberText}>{`${opinionPost.text.length}자/300자`}</Text>
       </View>
     </View>
   );

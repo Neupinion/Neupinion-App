@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { WithLocalSvg } from 'react-native-svg';
+import { WithLocalSvg } from 'react-native-svg/css';
 import OpinionPin from '../../../assets/icon/opinionpin.svg';
 import theme from '../../../shared/styles/theme';
 import { getReprocessedIssueById } from '../../remakeissue/remotes/reprocessedissue';
@@ -55,7 +55,7 @@ const SentenceBox = ({ sentenceNumber }: SentenceBoxProps) => {
       </View>
       <View style={styles.sentenceContainerSmall}>
         <Text style={styles.sentenceText}>
-          {reprocessedIssue.content[sentenceNumber].paragraph}
+          {reprocessedIssue.content[sentenceNumber - 1].paragraph}
         </Text>
       </View>
     </View>

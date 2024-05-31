@@ -5,6 +5,7 @@ import theme from '../../../shared/styles/theme';
 import { ITEM_SIZE, SPACER_ITEM_SIZE } from '../constants/cardAniSize';
 import { LinearGradient } from 'expo-linear-gradient';
 import { formatDate } from '../constants/formatDate';
+import fontFamily from '../../../shared/styles/fontFamily';
 
 interface FakeIssueItemProps {
   item: ReProcessedIssue;
@@ -121,6 +122,7 @@ const styles = StyleSheet.create({
   titleText: {
     width: 222,
     color: theme.color.white,
+    fontFamily: fontFamily.pretendard.bold,
     fontSize: 16,
     fontStyle: 'normal',
     fontWeight: '700',
@@ -140,12 +142,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 4,
-    backgroundColor: theme.color.gray1,
+    backgroundColor: theme.color.gray3,
     marginRight: 5,
     marginBottom: 5,
   },
   tagText: {
     color: theme.color.white,
+    fontFamily: fontFamily.pretendard.medium,
     fontSize: 12,
     fontStyle: 'normal',
     fontWeight: '500',
@@ -153,7 +156,8 @@ const styles = StyleSheet.create({
     letterSpacing: -0.5,
   },
   dateText: {
-    color: theme.color.gray2,
+    color: theme.color.gray5,
+    fontFamily: fontFamily.pretendard.medium,
     fontStyle: 'normal',
     fontSize: 12,
     fontWeight: '500',

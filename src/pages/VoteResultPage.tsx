@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import {
   ActivityIndicator,
   Dimensions,
-  ImageSourcePropType,
   ScrollView,
   StyleSheet,
   Text,
@@ -13,11 +12,6 @@ import theme from '../shared/styles/theme';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { RootStackParamList } from '../rootStackParamList';
-import PageHeader from '../shared/components/PageHeader';
-import { WithLocalSvg } from 'react-native-svg';
-import MainArrowLeftSvg from '../assets/icon/mainarrowLeft.svg';
-import BookMarkSvg from '../assets/icon/bookmark.svg';
-import ShareSvg from '../assets/icon/share.svg';
 import VoteChartContainer from '../features/vote/components/VoteChartContainer';
 import { WINDOW_WIDTH } from '../shared/constants/display';
 import VoteRankContainer from '../features/vote/components/VoteRankContainer';
@@ -26,6 +20,8 @@ import useFetch from '../shared/hooks/useFetch';
 import { getReprocessedIssueVote } from '../features/vote/remotes/reprocessedIssueVote';
 import GlobalTextStyles from '../shared/styles/GlobalTextStyles';
 import TopOpinionSlider from '../features/vote/components/TopOpinionSlider';
+import FollowUpIssueSlider from '../features/vote/components/FollowUpIssueSlider';
+import RelatedIssues from '../features/vote/components/RelatedIssues';
 
 const VoteResultPage = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
@@ -44,6 +40,14 @@ const VoteResultPage = () => {
   useEffect(() => {
     void fetchData();
   }, []);
+
+  const onClickViewTotalVoteButton = () => {
+    navigation.navigate('TotalVoteResultPage', { id: id });
+  };
+
+  const onClickShowOpinionButton = () => {
+    navigation.navigate('OpinionMainPage', { id: id });
+  };
 
   if (isLoading) {
     return (
@@ -71,37 +75,26 @@ const VoteResultPage = () => {
 
   return (
     <View style={styles.container}>
-      <PageHeader
-        leftIcons={
-          <TouchableOpacity style={styles.svgStyle} onPress={navigation.goBack}>
-            <WithLocalSvg height={25} asset={MainArrowLeftSvg as ImageSourcePropType} />
-          </TouchableOpacity>
-        }
-        centerText={'진짜일까,가짜일까?'}
-        RightIcons={
-          <>
-            <TouchableOpacity style={styles.svgStyle} onPress={() => {}}>
-              <WithLocalSvg width={23} height={23} asset={BookMarkSvg as ImageSourcePropType} />
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.svgStyle} onPress={() => {}}>
-              <WithLocalSvg width={24} height={23} asset={ShareSvg as ImageSourcePropType} />
-            </TouchableOpacity>
-          </>
-        }
-      />
       <ScrollView style={styles.scrollViewStyle}>
         <VoteChartContainer data={voteData} />
         <View style={styles.underChartContainer}>
-          <TouchableOpacity style={styles.totalVotedButton} onPress={() => {}}>
+          <TouchableOpacity style={styles.totalVotedButton} onPress={onClickViewTotalVoteButton}>
             <Text style={styles.totalVotedButtonText}>통합 투표 결과 보기</Text>
           </TouchableOpacity>
           <View style={styles.rankContainer}>
             <Text style={styles.rankTitleText}>전체 투표 순위</Text>
           </View>
-          <VoteRankContainer data={voteData} />
+          <VoteRankContainer data={voteData.voteRankings} />
         </View>
         <View style={styles.divideLine} />
         <TopOpinionSlider id={id} />
+        <TouchableOpacity style={styles.opinionPageButton} onPress={onClickShowOpinionButton}>
+          <Text style={styles.totalVotedButtonText}>의견 보기</Text>
+        </TouchableOpacity>
+        <View style={styles.divideLine} />
+        <FollowUpIssueSlider id={id} />
+        <View style={styles.divideLine} />
+        <RelatedIssues id={id} />
       </ScrollView>
     </View>
   );
@@ -110,7 +103,7 @@ const VoteResultPage = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: theme.color.black,
+    backgroundColor: theme.color.background,
     alignItems: 'flex-start',
     justifyContent: 'center',
   },
@@ -181,6 +174,23 @@ const styles = StyleSheet.create({
   activityIndicator: {
     flex: 1,
     alignSelf: 'center',
+  },
+  topFiveOpinionContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  opinionPageButton: {
+    display: 'flex',
+    borderRadius: 10,
+    width: 160,
+    height: 50,
+    justifyContent: 'center',
+    alignSelf: 'center',
+    alignItems: 'center',
+    flexShrink: 0,
+    backgroundColor: theme.color.gray3,
+    marginTop: 28,
+    marginBottom: 20,
   },
 });
 

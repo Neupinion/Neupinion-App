@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import theme from '../../../shared/styles/theme';
 import fontFamily from '../../../shared/styles/fontFamily';
-import { WithLocalSvg } from 'react-native-svg';
+import { WithLocalSvg } from 'react-native-svg/css';
 import OpinionPin from '../../../assets/icon/opinionpin.svg';
 import { useModal } from '../../../shared/hooks/useModal';
 import {
@@ -26,6 +26,8 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../../../rootStackParamList';
 import useFetch from '../../../shared/hooks/useFetch';
 import { WINDOW_HEIGHT, WINDOW_WIDTH } from '../../../shared/constants/display';
+import { useSetRecoilState } from 'recoil';
+import { opinionPostState } from '../../../recoil/opinionPostState';
 
 interface OpinionWriteBottomSheetProps {
   navigation: StackNavigationProp<RootStackParamList>;
@@ -69,9 +71,18 @@ const OpinionWriteBottomSheet = ({
     }),
   ).current;
 
+  const setOpinionPostState = useSetRecoilState(opinionPostState);
   const onClickModifyButton = () => {
     closeBottomSheet();
-    navigation.navigate('OpinionPost', { issueId: issueId, opinionWrite: opinionWrite });
+    setOpinionPostState({
+      issueId: issueId,
+      opinionId: opinionWrite.id,
+      sentenceIndex: opinionWrite.paragraphId,
+      text: opinionWrite.paragraphContent,
+      isReliable: opinionWrite.isReliable,
+      editMode: true,
+    });
+    navigation.navigate('OpinionPost');
   };
 
   const { fetchData } = useFetch(() => deleteReprocessedIssueOpinion(opinionWrite.id), false);
@@ -139,6 +150,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   bottomSheetContainer: {
+    paddingHorizontal: 26,
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -160,15 +172,18 @@ const styles = StyleSheet.create({
   },
   titleContainer: {
     display: 'flex',
+    width: '100%',
     marginTop: 24,
-    marginHorizontal: 25,
-    justifyContent: 'flex-start',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'flex-start',
   },
   titleText: {
+    display: 'flex',
+    marginLeft: 26,
     color: theme.color.white,
-    textAlign: 'justify',
-    fontFamily: fontFamily.pretendard.bold,
+    textAlign: 'left',
+    fontFamily: fontFamily.pretendard.medium,
     fontStyle: 'normal',
     fontSize: 15,
     fontWeight: '600',
@@ -176,12 +191,8 @@ const styles = StyleSheet.create({
     letterSpacing: -0.45,
   },
   pinContainer: {
-    display: 'flex',
     width: 20,
-    flexDirection: 'column',
     position: 'absolute',
-    left: -5,
-    top: 2,
   },
   pin: {
     width: 20,
@@ -198,15 +209,15 @@ const styles = StyleSheet.create({
   },
   contentText: {
     color: '#EBECF1',
+    width: '100%',
     height: 190,
-    textAlign: 'justify',
-    fontFamily: fontFamily.pretendard.bold,
+    textAlign: 'left',
+    fontFamily: fontFamily.pretendard.medium,
     fontStyle: 'normal',
     fontSize: 14,
     fontWeight: '500',
     lineHeight: 21,
     letterSpacing: -0.42,
-    marginHorizontal: 25,
   },
   modifyButton: {
     width: WINDOW_WIDTH - 50,

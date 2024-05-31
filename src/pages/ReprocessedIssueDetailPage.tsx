@@ -1,19 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import {
-  ActivityIndicator,
-  ImageSourcePropType,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import React, { useEffect } from 'react';
+import { ActivityIndicator, ScrollView, StyleSheet, Text, View } from 'react-native';
 import theme from '../shared/styles/theme';
-import { WithLocalSvg } from 'react-native-svg';
-import MainArrowLeftSvg from '../assets/icon/mainarrowLeft.svg';
-import BookMarkSvg from '../assets/icon/bookmark.svg';
-import AnotherBookMarkSvg from '../assets/icon/anotherbookmark.svg';
-import ShareSvg from '../assets/icon/share.svg';
 import ReprocessedIssueContentsSlider from '../features/remakeissue/components/ReprocessedIssueContentsSlider';
 import OpinionWriteSlider from '../features/remakeissue/components/OpinionWriteSlider';
 import ReliabilityEvaluation from '../features/remakeissue/components/ReliabilityEvaluation';
@@ -23,17 +10,20 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../rootStackParamList';
 import { getReprocessedIssueContent } from '../features/remakeissue/remotes/reprocessedIssueContent';
 import useFetch from '../shared/hooks/useFetch';
-import toggleBookmark from '../features/remakeissue/remotes/toggleBookmark';
 import GlobalTextStyles from '../shared/styles/GlobalTextStyles';
-import PageHeader from '../shared/components/PageHeader';
 import { WINDOW_WIDTH } from '../shared/constants/display';
+import { useSetRecoilState } from 'recoil';
+import { issueNumberState } from '../recoil/issueState';
+import { bookmarkState } from '../recoil/bookmarkState';
+import { bookmarkInfo } from '../features/remakeissue/types/bookmark';
 const ReprocessedIssueDetailPage: React.FC = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   type ScreenRouteProp = RouteProp<RootStackParamList, 'ReprocessedIssueDetailPage'>;
   const route = useRoute<ScreenRouteProp>();
   const id: number = route.params.id;
 
-  const [bookMarkClicked, setBookMarkClicked] = useState(false);
+  const setIssueState = useSetRecoilState<number>(issueNumberState);
+  const setBookmarkState = useSetRecoilState<bookmarkInfo>(bookmarkState);
 
   const fetchReprocessedIssue = () => getReprocessedIssueContent(id);
   const {
@@ -45,6 +35,14 @@ const ReprocessedIssueDetailPage: React.FC = () => {
 
   useEffect(() => {
     void fetchData();
+
+    if (reprocessedIssue) {
+      setIssueState(id);
+      setBookmarkState({
+        id: reprocessedIssue.id,
+        isBookmarkClicked: reprocessedIssue.isBookmarked,
+      });
+    }
   }, []);
 
   if (isLoading) {
@@ -65,35 +63,6 @@ const ReprocessedIssueDetailPage: React.FC = () => {
 
   return (
     <View style={styles.container}>
-      <PageHeader
-        leftIcons={
-          <TouchableOpacity style={styles.svgStyle} onPress={navigation.goBack}>
-            <WithLocalSvg height={25} asset={MainArrowLeftSvg as ImageSourcePropType} />
-          </TouchableOpacity>
-        }
-        centerText={'진짜일까, 가짜일까?'}
-        RightIcons={
-          <>
-            <TouchableOpacity
-              style={styles.headerSvg}
-              onPress={() => toggleBookmark(id, bookMarkClicked, setBookMarkClicked)}
-            >
-              {bookMarkClicked ? (
-                <WithLocalSvg
-                  width={23}
-                  height={23}
-                  asset={AnotherBookMarkSvg as ImageSourcePropType}
-                />
-              ) : (
-                <WithLocalSvg width={23} height={23} asset={BookMarkSvg as ImageSourcePropType} />
-              )}
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.headerSvg} onPress={() => {}}>
-              <WithLocalSvg width={24} height={23} asset={ShareSvg as ImageSourcePropType} />
-            </TouchableOpacity>
-          </>
-        }
-      />
       <View style={styles.headerUnderLine} />
       <ScrollView style={styles.scrollViewStyle}>
         <ReprocessedIssueContentsSlider reprocessedIssue={reprocessedIssue} />
@@ -113,7 +82,7 @@ const ReprocessedIssueDetailPage: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: theme.color.black,
+    backgroundColor: theme.color.background,
     alignItems: 'flex-start',
     justifyContent: 'center',
   },

@@ -10,7 +10,7 @@ import {
 import GlobalTextStyles from '../../../shared/styles/GlobalTextStyles';
 import theme from '../../../shared/styles/theme';
 import OpinionWriterSvg from '../../../assets/icon/opinionwrite.svg';
-import { WithLocalSvg } from 'react-native-svg';
+import { WithLocalSvg } from 'react-native-svg/css';
 import Pin from '../../../assets/icon/pin.svg';
 import fontFamily from '../../../shared/styles/fontFamily';
 import useFetch from '../../../shared/hooks/useFetch';
@@ -21,6 +21,8 @@ import { useModal } from '../../../shared/hooks/useModal';
 import OpinionWriteBottomSheet from '../../opinion/components/OpinionWriteBottomSheet';
 import { OpinionWrite } from '../../../shared/types/news';
 import { WINDOW_WIDTH } from '../../../shared/constants/display';
+import { useSetRecoilState } from 'recoil';
+import { opinionPostState } from '../../../recoil/opinionPostState';
 
 interface OpinionWriteSliderProps {
   navigation: StackNavigationProp<RootStackParamList>;
@@ -28,6 +30,7 @@ interface OpinionWriteSliderProps {
 }
 
 const OpinionWriteSlider = ({ navigation, issueId }: OpinionWriteSliderProps) => {
+  const setOpinionPostState = useSetRecoilState(opinionPostState);
   const { openModal, closeModal } = useModal();
 
   const onClickOpinion = (opinionData: OpinionWrite) => {
@@ -42,7 +45,15 @@ const OpinionWriteSlider = ({ navigation, issueId }: OpinionWriteSliderProps) =>
   };
 
   const onClickOpinionPost = () => {
-    navigation.navigate('OpinionPost', { issueId: issueId });
+    setOpinionPostState({
+      issueId: issueId,
+      opinionId: 0,
+      sentenceIndex: 0,
+      text: '',
+      isReliable: false,
+      editMode: false,
+    });
+    navigation.navigate('OpinionPost');
   };
 
   const fetchMyOpinionWrite = () => getMyOpinionWrite(issueId);
@@ -137,7 +148,7 @@ const styles = StyleSheet.create({
     width: 131,
     height: 50,
     borderRadius: 10,
-    backgroundColor: theme.color.gray5,
+    backgroundColor: theme.color.gray3,
     marginTop: 28,
     justifyContent: 'center',
     alignItems: 'center',
@@ -151,7 +162,7 @@ const styles = StyleSheet.create({
     letterSpacing: -0.51,
   },
   pin: {
-    marginTop: 4,
+    marginTop: 2,
   },
   cardContainer: {
     width: WINDOW_WIDTH,
@@ -161,7 +172,7 @@ const styles = StyleSheet.create({
   card: {
     alignItems: 'flex-start',
     justifyContent: 'flex-start',
-    backgroundColor: theme.color.gray7,
+    backgroundColor: theme.color.gray2,
     width: 160,
     height: 165,
     paddingVertical: 18,
@@ -173,7 +184,9 @@ const styles = StyleSheet.create({
   },
   titleText: {
     color: theme.color.white,
-    fontFamily: fontFamily.pretendard.bold,
+    width: 116,
+    fontFamily: fontFamily.pretendard.medium,
+    alignSelf: 'center',
     fontSize: 15,
     fontStyle: 'normal',
     fontWeight: '600',
@@ -182,12 +195,13 @@ const styles = StyleSheet.create({
   },
   dotLine: {
     width: 128,
+    height: 0,
     marginHorizontal: 16,
     marginTop: 11,
     marginBottom: 14,
     flexShrink: 0,
     backgroundColor: '#D1D3D8',
-    borderWidth: 0.6,
+    borderWidth: 0.4,
     borderStyle: 'dashed',
   },
   opinionText: {
@@ -221,7 +235,7 @@ const styles = StyleSheet.create({
     borderLeftWidth: 18,
     borderBottomWidth: 18,
     borderLeftColor: 'transparent',
-    borderBottomColor: '#11111A',
+    borderBottomColor: theme.color.background,
     position: 'absolute',
     right: 0,
     bottom: 0,
