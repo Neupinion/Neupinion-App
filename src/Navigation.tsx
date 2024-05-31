@@ -15,7 +15,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from './rootStackParamList';
 import MainPageHeader from './features/date/components/MainPageHeader';
 import CustomHeader from './shared/components/CustomHeader';
-import BookMarkButton from './features/remakeissue/components/BookMarkButton';
+import BookmarkButton from './features/remakeissue/components/BookmarkButton';
 import AppShareButton from './shared/components/applink/AppLinkButton';
 import OpinionPostCheckButton from './features/opinion/components/OpinionPostCheckButton';
 const Stack = createNativeStackNavigator();
@@ -125,7 +125,7 @@ const Navigation = () => {
                     navigation={navigation}
                     title="진짜일까, 가짜일까?"
                     headerRightEl={[
-                      <BookMarkButton key="bookmark" />,
+                      <BookmarkButton key="bookmark" />,
                       <AppShareButton key="appshare" />,
                     ]}
                   />

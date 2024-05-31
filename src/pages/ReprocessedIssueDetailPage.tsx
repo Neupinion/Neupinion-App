@@ -14,8 +14,8 @@ import GlobalTextStyles from '../shared/styles/GlobalTextStyles';
 import { WINDOW_WIDTH } from '../shared/constants/display';
 import { useSetRecoilState } from 'recoil';
 import { issueNumberState } from '../recoil/issueState';
-import { bookMarkState } from '../recoil/bookMarkState';
-import { bookMarkInfo } from '../features/remakeissue/types/bookMark';
+import { bookmarkState } from '../recoil/bookmarkState';
+import { bookmarkInfo } from '../features/remakeissue/types/bookmark';
 const ReprocessedIssueDetailPage: React.FC = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   type ScreenRouteProp = RouteProp<RootStackParamList, 'ReprocessedIssueDetailPage'>;
@@ -23,7 +23,7 @@ const ReprocessedIssueDetailPage: React.FC = () => {
   const id: number = route.params.id;
 
   const setIssueState = useSetRecoilState<number>(issueNumberState);
-  const setBookMarkState = useSetRecoilState<bookMarkInfo>(bookMarkState);
+  const setBookmarkState = useSetRecoilState<bookmarkInfo>(bookmarkState);
 
   const fetchReprocessedIssue = () => getReprocessedIssueContent(id);
   const {
@@ -38,9 +38,9 @@ const ReprocessedIssueDetailPage: React.FC = () => {
 
     if (reprocessedIssue) {
       setIssueState(id);
-      setBookMarkState({
+      setBookmarkState({
         id: reprocessedIssue.id,
-        isBookMarkClicked: reprocessedIssue.isBookmarked,
+        isBookmarkClicked: reprocessedIssue.isBookmarked,
       });
     }
   }, []);
