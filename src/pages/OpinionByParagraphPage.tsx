@@ -10,14 +10,11 @@ import {
   View,
 } from 'react-native';
 import theme from '../shared/styles/theme';
-import PageHeader from '../shared/components/PageHeader';
 import { WithLocalSvg } from 'react-native-svg/css';
-import MainArrowLeftSvg from '../assets/icon/mainarrowLeft.svg';
 import { WINDOW_WIDTH } from '../shared/constants/display';
 import PinSentenceCard from '../features/opinion/components/OpinionMainPageComponents/PinSentenceCard';
 import fontFamily from '../shared/styles/fontFamily';
-import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
+import { RouteProp, useRoute } from '@react-navigation/native';
 import { RootStackParamList } from '../rootStackParamList';
 import { getOpinionParagraph } from '../features/opinion/remotes/individualVote';
 import useFetch from '../shared/hooks/useFetch';
@@ -41,13 +38,14 @@ const OpinionByParagraphPage = () => {
   };
   const UpdateLike = () => {};
 
-  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   type ScreenRouteProp = RouteProp<RootStackParamList, 'OpinionParagraphPage'>;
   const route = useRoute<ScreenRouteProp>();
   const { item, issueId } = route.params;
+
   const gotoOpinionMainPage = () => {
     navigation.navigate('OpinionMainPage'); // 수정해야 함
   };
+
   const fetchOpinionParagraph = () =>
     getOpinionParagraph(issueId, getCategoryType(reliabilityCategory), getSortType(sortType), 0);
   const {
@@ -77,15 +75,6 @@ const OpinionByParagraphPage = () => {
   }
   return (
     <ScrollView style={styles.container}>
-      <PageHeader
-        leftIcons={
-          <TouchableOpacity onPress={gotoOpinionMainPage}>
-            <WithLocalSvg height={25} asset={MainArrowLeftSvg as ImageSourcePropType} />
-          </TouchableOpacity>
-        }
-        centerText={'의견보기'}
-        RightIcons={null}
-      />
       <View style={styles.headerUnderLine} />
 
       <View style={styles.pinSentenceContainer}>

@@ -11,9 +11,6 @@ import theme from '../shared/styles/theme';
 import TotalOpinionCategory from '../features/opinion/components/OpinionMainPageComponents/TotalOpinionCategory';
 import fontFamily from '../shared/styles/fontFamily';
 import ParagraphOpinionCategory from '../features/opinion/components/OpinionMainPageComponents/ParagraphOpinionCategory';
-import PageHeader from '../shared/components/PageHeader';
-import { WithLocalSvg } from 'react-native-svg/css';
-import MainArrowLeftSvg from '../assets/icon/mainarrowLeft.svg';
 import { WINDOW_WIDTH } from '../shared/constants/display';
 import { mainCategories } from '../shared/constants/opinionCategory';
 import TopOpinionSlider from '../features/vote/components/TopOpinionSlider';
@@ -40,16 +37,8 @@ const OpinionMainPage = () => {
     void fetchData();
   }, []);
   return (
-    <View style={styles.container}>
-      <PageHeader
-        leftIcons={
-          <TouchableOpacity>
-            <WithLocalSvg height={25} asset={MainArrowLeftSvg as ImageSourcePropType} />
-          </TouchableOpacity>
-        }
-        centerText={'의견보기'}
-        RightIcons={null}
-      />
+
+    <ScrollView style={styles.container}>
       <View style={styles.headerUnderLine} />
       <ScrollView>
         {reprocessedIssue && (

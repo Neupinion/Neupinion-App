@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import {
   ActivityIndicator,
   Dimensions,
-  ImageSourcePropType,
   ScrollView,
   StyleSheet,
   Text,
@@ -13,10 +12,6 @@ import theme from '../shared/styles/theme';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { RootStackParamList } from '../rootStackParamList';
-import PageHeader from '../shared/components/PageHeader';
-import { WithLocalSvg } from 'react-native-svg/css';
-import MainArrowLeftSvg from '../assets/icon/mainarrowLeft.svg';
-import BookMarkSvg from '../assets/icon/bookmark.svg';
 import VoteChartContainer from '../features/vote/components/VoteChartContainer';
 import { WINDOW_WIDTH } from '../shared/constants/display';
 import VoteRankContainer from '../features/vote/components/VoteRankContainer';
@@ -80,21 +75,6 @@ const VoteResultPage = () => {
 
   return (
     <View style={styles.container}>
-      <PageHeader
-        leftIcons={
-          <TouchableOpacity style={styles.svgStyle} onPress={navigation.goBack}>
-            <WithLocalSvg width={25} height={25} asset={MainArrowLeftSvg as ImageSourcePropType} />
-          </TouchableOpacity>
-        }
-        centerText={'진짜일까,가짜일까?'}
-        RightIcons={
-          <>
-            <TouchableOpacity style={styles.svgStyle} onPress={() => {}}>
-              <WithLocalSvg width={23} height={23} asset={BookMarkSvg as ImageSourcePropType} />
-            </TouchableOpacity>
-          </>
-        }
-      />
       <ScrollView style={styles.scrollViewStyle}>
         <VoteChartContainer data={voteData} />
         <View style={styles.underChartContainer}>

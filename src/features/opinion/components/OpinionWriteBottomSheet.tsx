@@ -26,6 +26,8 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../../../rootStackParamList';
 import useFetch from '../../../shared/hooks/useFetch';
 import { WINDOW_HEIGHT, WINDOW_WIDTH } from '../../../shared/constants/display';
+import { useSetRecoilState } from 'recoil';
+import { opinionPostState } from '../../../recoil/opinionPostState';
 
 interface OpinionWriteBottomSheetProps {
   navigation: StackNavigationProp<RootStackParamList>;
@@ -69,9 +71,18 @@ const OpinionWriteBottomSheet = ({
     }),
   ).current;
 
+  const setOpinionPostState = useSetRecoilState(opinionPostState);
   const onClickModifyButton = () => {
     closeBottomSheet();
-    navigation.navigate('OpinionPost', { issueId: issueId, opinionWrite: opinionWrite });
+    setOpinionPostState({
+      issueId: issueId,
+      opinionId: opinionWrite.id,
+      sentenceIndex: opinionWrite.paragraphId,
+      text: opinionWrite.paragraphContent,
+      isReliable: opinionWrite.isReliable,
+      editMode: true,
+    });
+    navigation.navigate('OpinionPost');
   };
 
   const { fetchData } = useFetch(() => deleteReprocessedIssueOpinion(opinionWrite.id), false);
