@@ -42,10 +42,6 @@ const OpinionByParagraphPage = () => {
   const route = useRoute<ScreenRouteProp>();
   const { item, issueId } = route.params;
 
-  const gotoOpinionMainPage = () => {
-    navigation.navigate('OpinionMainPage'); // 수정해야 함
-  };
-
   const fetchOpinionParagraph = () =>
     getOpinionParagraph(issueId, getCategoryType(reliabilityCategory), getSortType(sortType), 0);
   const {
@@ -75,8 +71,6 @@ const OpinionByParagraphPage = () => {
   }
   return (
     <ScrollView style={styles.container}>
-      <View style={styles.headerUnderLine} />
-
       <View style={styles.pinSentenceContainer}>
         <PinSentenceCard color={theme.color.gray2} paragraphContent={item.content} />
       </View>
@@ -172,7 +166,7 @@ const OpinionByParagraphPage = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: theme.color.black,
+    backgroundColor: theme.color.background,
   },
   cardImage: {
     width: 44,

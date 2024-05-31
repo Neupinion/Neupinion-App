@@ -18,8 +18,8 @@ import GlobalTextStyles from '../shared/styles/GlobalTextStyles';
 import { WINDOW_WIDTH } from '../shared/constants/display';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { opinionPostActivityState, opinionPostState } from '../recoil/opinionPostState';
-import Markdown from "react-native-markdown-display";
-import fontFamily from "../shared/styles/fontFamily";
+import Markdown from 'react-native-markdown-display';
+import fontFamily from '../shared/styles/fontFamily';
 
 const OpinionPinPage = () => {
   const [opinionState, setOpinionPostState] = useRecoilState(opinionPostState);

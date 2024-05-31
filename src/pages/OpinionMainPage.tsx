@@ -16,16 +16,15 @@ import { mainCategories } from '../shared/constants/opinionCategory';
 import TopOpinionSlider from '../features/vote/components/TopOpinionSlider';
 import { formatDate } from '../features/remakeissue/constants/formatDate';
 import SeeOriginalSvg from '../assets/icon/seeOriginal.svg';
-import { RouteProp, useRoute } from '@react-navigation/native';
-import { RootStackParamList } from '../rootStackParamList';
 import useFetch from '../shared/hooks/useFetch';
 import { getReprocessedIssueContent } from '../features/remakeissue/remotes/reprocessedIssueContent';
+import { WithLocalSvg } from 'react-native-svg/css';
+import { useRecoilValue } from 'recoil';
+import { issueNumberState } from '../recoil/issueState';
 
 const OpinionMainPage = () => {
-  type ScreenRouteProp = RouteProp<RootStackParamList, 'OpinionMainPage'>;
-  const route = useRoute<ScreenRouteProp>();
-  const id: number = route.params.id;
-  const fetchReprocessedIssue = () => getReprocessedIssueContent(id);
+  const issueId = useRecoilValue(issueNumberState);
+  const fetchReprocessedIssue = () => getReprocessedIssueContent(issueId);
   const { data: reprocessedIssue, fetchData } = useFetch(fetchReprocessedIssue, false);
 
   const [activeMainCategory, setActiveMainCategory] = useState('전체');
@@ -37,12 +36,10 @@ const OpinionMainPage = () => {
     void fetchData();
   }, []);
   return (
-
     <ScrollView style={styles.container}>
-      <View style={styles.headerUnderLine} />
       <ScrollView>
         {reprocessedIssue && (
-          <View style={{ marginTop: 18 }}>
+          <View style={{ marginTop: 32 }}>
             <Text style={styles.titleText}>{reprocessedIssue.title}</Text>
             <View style={styles.titleUnderContainer}>
               <View style={{ flexDirection: 'row' }}>
@@ -88,14 +85,14 @@ const OpinionMainPage = () => {
           <ParagraphOpinionCategory issueId={1} />
         )}
       </ScrollView>
-    </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: theme.color.black,
+    backgroundColor: theme.color.background,
   },
   titleText: {
     paddingHorizontal: 26,
