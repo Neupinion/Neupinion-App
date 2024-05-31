@@ -14,7 +14,7 @@ const PinButton = () => {
 
   return (
     <TouchableOpacity onPress={onClickButton} style={styles.pinButton}>
-      <Text style={styles.pinButtonText}>핑찍기</Text>
+      <Text style={styles.pinButtonText}>핀찍기</Text>
     </TouchableOpacity>
   );
 };
