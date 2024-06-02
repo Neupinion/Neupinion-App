@@ -52,7 +52,7 @@ const TopOpinionSlider = ({ id }: TopOpinionSliderProps) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.titleText}>통합 베스트 Top 5 의견</Text>
+      {/*<Text style={styles.titleText}>통합 베스트 Top 5 의견</Text>*/}
       <FlatList
         horizontal
         showsHorizontalScrollIndicator={false}

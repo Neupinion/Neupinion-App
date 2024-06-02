@@ -58,6 +58,7 @@ const OpinionMainPage = () => {
             </View>
           </View>
         )}
+        <Text style={styles.subtitleText}>통합 베스트 Top 5 의견</Text>
         <TopOpinionSlider id={1} />
         <View style={styles.divideLine}></View>
         <View style={styles.mainCategoryTop}>
@@ -209,6 +210,17 @@ const styles = StyleSheet.create({
   },
   headerSvg: {
     justifyContent: 'flex-end',
+  },
+  subtitleText: {
+    paddingHorizontal: 26,
+    fontFamily: fontFamily.pretendard.bold,
+    fontSize: 17,
+    fontStyle: 'normal',
+    fontWeight: '700',
+    lineHeight: 25.5,
+    letterSpacing: -0.51,
+    color: theme.color.white,
+    width: '100%',
   },
 });
 
