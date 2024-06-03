@@ -70,7 +70,6 @@ const OpinionMainPage = () => {
               width: 31,
               gap: 12,
               alignItems: 'center',
-              backgroundColor: theme.color.gray5
             }}
           >
             <Text
@@ -91,7 +90,6 @@ const OpinionMainPage = () => {
               width: 80,
               gap: 12,
               alignItems: 'center',
-              backgroundColor: theme.color.gray5
             }}
           >
             <Text
