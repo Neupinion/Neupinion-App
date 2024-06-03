@@ -61,25 +61,47 @@ const OpinionMainPage = () => {
         <Text style={styles.subtitleText}>통합 베스트 Top 5 의견</Text>
         <TopOpinionSlider id={1} />
         <View style={styles.divideLine}></View>
-        <View style={styles.mainCategoryTop}>
-          {mainCategories.map((category) => (
-            <TouchableOpacity
-              key={category}
-              style={styles.mainCategory}
-              onPress={() => SelectMainCategory(category)}
+        <View style={styles.mainCategoryContainer}>
+          <TouchableOpacity
+            onPress={() => SelectMainCategory(mainCategories[0])}
+            style={{
+              flexDirection: 'column',
+              height: 36,
+              width: 28,
+              gap: 12,
+            }}
+          >
+            <Text
+              style={[
+                styles.baseText,
+                activeMainCategory === mainCategories[0] && styles.activeText,
+              ]}
             >
-              <Text style={[styles.baseText, activeMainCategory === category && styles.activeText]}>
-                {category}
-              </Text>
-            </TouchableOpacity>
-          ))}
+              {mainCategories[0]}
+            </Text>
+            {activeMainCategory === mainCategories[0] && <View style={styles.selectedBar} />}
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => SelectMainCategory(mainCategories[1])}
+            style={{
+              flexDirection: 'column',
+              height: 36,
+              width: 71,
+              gap: 12,
+            }}
+          >
+            <Text
+              style={[
+                styles.baseText,
+                activeMainCategory === mainCategories[1] && styles.activeText,
+              ]}
+            >
+              {mainCategories[1]}
+            </Text>
+            {activeMainCategory === mainCategories[1] && <View style={styles.selectedBar} />}
+          </TouchableOpacity>
         </View>
-        <View>
-          <View style={styles.headerUnderLine} />
-          {activeMainCategory == mainCategories[0] && <View style={styles.selectedAll} />}
-          {activeMainCategory == mainCategories[1] && <View style={styles.selectedParagraph} />}
-        </View>
-
+        <View style={styles.headerUnderLine} />
         {activeMainCategory === mainCategories[0] ? (
           <TotalOpinionCategory issueId={1} />
         ) : (
@@ -113,8 +135,10 @@ const styles = StyleSheet.create({
     marginLeft: 26,
     marginTop: 18,
   },
-  mainCategory: {
-    marginRight: 18,
+  mainCategoryContainer: {
+    marginLeft: 26,
+    flexDirection: 'row',
+    gap: 18,
   },
   activeText: {
     fontSize: 16,
@@ -150,21 +174,9 @@ const styles = StyleSheet.create({
   buttonWrapper: {
     position: 'relative',
   },
-  selectedAll: {
-    position: 'absolute',
+  selectedBar: {
     bottom: 1,
-    left: 26,
-    right: 0,
-    width: 30,
-    height: 4,
-    backgroundColor: theme.color.white,
-  },
-  selectedParagraph: {
-    position: 'absolute',
-    bottom: 1,
-    left: 75,
-    right: 0,
-    width: 79,
+    width: '100%',
     height: 4,
     backgroundColor: theme.color.white,
   },
