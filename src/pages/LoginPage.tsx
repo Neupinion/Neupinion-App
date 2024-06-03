@@ -26,16 +26,16 @@ const LoginPage: React.FC = () => {
 
   const [webView, setWebView] = useRecoilState(webViewState);
 
-  const handleNavigationChangeGoogle = async (event: WebViewNavigation) => {
-    const token = await getAccessTokenGoogle(event);
+  const closeWebView = () => {
+    setWebView({ isOpen: false });
+    navigation.reset({
+      index: 0,
+      routes: [{ name: 'MainPage' }],
+    });
+  };
 
-    if (token) {
-      setWebView({ isOpen: false });
-      navigation.reset({
-        index: 0,
-        routes: [{ name: 'MainPage' }],
-      });
-    }
+  const handleNavigationChangeGoogle = async (event: WebViewNavigation) => {
+    await getAccessTokenGoogle(event, closeWebView);
   };
 
   return (

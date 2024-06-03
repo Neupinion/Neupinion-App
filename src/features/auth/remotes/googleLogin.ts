@@ -6,12 +6,14 @@ import { TokenResponse } from '../../../shared/types/tokenResponse';
 
 export const getAccessTokenGoogle = async (
   event: WebViewNavigation,
+  closeWebView: () => void,
 ): Promise<TokenResponse | null> => {
   const url = event.url;
   if (url.includes(`${API_URL}/login/google`)) {
     const code = new URL(url).searchParams.get('code');
     if (code) {
       try {
+        closeWebView();
         const response = await client.get(url);
         const cookies = response.headers['set-cookie'];
 
@@ -26,6 +28,7 @@ export const getAccessTokenGoogle = async (
             const { accessToken } = data;
             await AsyncStorage.setItem('refreshTokenCookie', refreshToken);
             await AsyncStorage.setItem('accessToken', accessToken);
+            console.log(refreshToken, accessToken);
             return { accessToken, refreshToken };
           }
         }

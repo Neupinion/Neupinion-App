@@ -1,9 +1,6 @@
 import axios, { AxiosError, AxiosRequestConfig } from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { API_URL } from '@env';
-import { NavigationContainerRef, useNavigation } from "@react-navigation/native";
-import { StackNavigationProp } from "@react-navigation/stack";
-import { RootStackParamList } from "../../rootStackParamList";
 
 const defaultConfig: AxiosRequestConfig = {
   baseURL: API_URL,
@@ -29,13 +26,10 @@ client.interceptors.request.use(
 client.interceptors.response.use(
   (response) => response,
   async (error: AxiosError) => {
-    const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
     const originalRequest = error.config as AxiosRequestConfig & { _retry?: boolean };
 
     if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
-
-      navigation.navigate('LoginPage');
     }
     return Promise.reject(error);
   },
