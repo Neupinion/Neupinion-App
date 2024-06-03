@@ -1,6 +1,7 @@
 import { WebViewNavigation } from 'react-native-webview';
 import { API_URL } from '@env';
 import { client } from '../../../shared/remotes/axios';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 interface TokenResponse {
   accessToken: string;
@@ -27,6 +28,8 @@ export const getAccessTokenGoogle = async (
           if (refreshToken) {
             const data = response.data as TokenResponse;
             const { accessToken } = data;
+            await AsyncStorage.setItem('refreshTokenCookie', refreshToken);
+            await AsyncStorage.setItem('accessToken', accessToken);
             return { accessToken, refreshToken };
           }
         }
