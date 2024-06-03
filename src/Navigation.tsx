@@ -18,6 +18,8 @@ import CustomHeader from './shared/components/CustomHeader';
 import BookmarkButton from './features/remakeissue/components/BookmarkButton';
 import AppShareButton from './shared/components/applink/AppLinkButton';
 import OpinionPostCheckButton from './features/opinion/components/OpinionPostCheckButton';
+import LoginPage from './pages/LoginPage';
+import SplashPage from './pages/SplashPage';
 const Stack = createNativeStackNavigator();
 
 const Navigation = () => {
@@ -28,10 +30,20 @@ const Navigation = () => {
         <Stack.Navigator>
           <Stack.Group>
             <Stack.Screen
+              options={{ headerShown: false }}
+              name="SplashPage"
+              component={SplashPage}
+            />
+          </Stack.Group>
+          <Stack.Group>
+            <Stack.Screen options={{ headerShown: false }} name="LoginPage" component={LoginPage} />
+          </Stack.Group>
+          <Stack.Group>
+            <Stack.Screen
               options={({
                 navigation,
               }: {
-                navigation: StackNavigationProp<RootStackParamList, 'Main'>;
+                navigation: StackNavigationProp<RootStackParamList, 'MainPage'>;
               }) => ({
                 headerShown: true,
                 headerStyle: {

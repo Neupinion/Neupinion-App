@@ -21,6 +21,7 @@
     ]
   },
   "dependencies": {
+    "@react-native-async-storage/async-storage": "^1.23.1",
     "@react-navigation/native": "^6.1.14",
     "@react-navigation/native-stack": "^6.9.22",
     "@react-navigation/stack": "^6.3.25",
@@ -30,6 +31,7 @@
     "expo": "~51.0.8",
     "expo-font": "~12.0.5",
     "expo-linear-gradient": "~13.0.2",
+    "expo-splash-screen": "~0.27.4",
     "expo-status-bar": "~1.12.1",
     "expo-updates": "^0.25.14",
     "jest": "^29.2.1",
@@ -48,6 +50,7 @@
     "react-native-safe-area-context": "4.10.1",
     "react-native-screens": "3.31.1",
     "react-native-svg": "15.2.0",
+    "react-native-webview": "^13.10.2",
     "react-test-renderer": "^18.2.0",
     "recoil": "^0.7.7"
   },
