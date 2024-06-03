@@ -67,8 +67,10 @@ const OpinionMainPage = () => {
             style={{
               flexDirection: 'column',
               height: 36,
-              width: 28,
+              width: 31,
               gap: 12,
+              alignItems: 'center',
+              backgroundColor: theme.color.gray5
             }}
           >
             <Text
@@ -86,8 +88,10 @@ const OpinionMainPage = () => {
             style={{
               flexDirection: 'column',
               height: 36,
-              width: 71,
+              width: 80,
               gap: 12,
+              alignItems: 'center',
+              backgroundColor: theme.color.gray5
             }}
           >
             <Text
@@ -175,7 +179,7 @@ const styles = StyleSheet.create({
     position: 'relative',
   },
   selectedBar: {
-    bottom: 1,
+    bottom: 5,
     width: '100%',
     height: 4,
     backgroundColor: theme.color.white,
