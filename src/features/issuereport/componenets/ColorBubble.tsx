@@ -1,9 +1,9 @@
 import React from 'react';
 import { Defs, Stop } from 'react-native-svg';
-import { Keyword } from '../type/keyword';
+import {Keyword, KeywordNode} from '../type/keyword';
 
 interface GradientBubbleProps {
-  data: Keyword[];
+  data: KeywordNode[];
 }
 
 const colors: string[] = ['#1C64ED', '#868BE8', '#FF75AB', '#9682A3', '#E6E2FD'];

@@ -5,10 +5,10 @@ import { WINDOW_WIDTH } from '../../../shared/constants/display';
 import fontFamily from '../../../shared/styles/fontFamily';
 import { KeyWordDummyOne } from '../../../dummy/KeyWordDummy';
 import ReportBubbleChart from './ReportBubbleChart';
-import { Keyword } from '../type/keyword';
+import {KeywordNode} from '../type/keyword';
 
 interface ReportBubbleChartContainerProps {
-  keyword: Keyword[];
+  keyword: KeywordNode[];
   position: string;
 }
 const ReportBubbleChartContainer = ({ keyword, position }: ReportBubbleChartContainerProps) => {

@@ -1,6 +1,6 @@
-import { Keyword } from '../features/issuereport/type/keyword';
+import {Keyword, KeywordNode} from '../features/issuereport/type/keyword';
 
-export const KeyWordDummyOne: Keyword[] = [
+export const KeyWordDummyOne: KeywordNode[] = [
   {
     keyword: '경영권 독립',
     value: 42,
@@ -19,7 +19,7 @@ export const KeyWordDummyOne: Keyword[] = [
   },
 ];
 
-export const KeyWordDummyTwo: Keyword[] = [
+export const KeyWordDummyTwo: KeywordNode[] = [
   {
     keyword: '뉴진스 카피',
     value: 45,

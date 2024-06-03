@@ -6,20 +6,20 @@ import fontFamily from '../../../shared/styles/fontFamily';
 import theme from '../../../shared/styles/theme';
 import { colorsBubble, getFillForBubble, shuffleArray } from '../constants/bubbleColor';
 import { getBubbleNameSize } from '../function/getBubbleFontSize';
-import { Keyword } from '../type/keyword';
+import {Keyword, KeywordNode} from '../type/keyword';
 import ColorBubble from './ColorBubble';
 
 interface ReportBubbleChartProps {
   height: number;
   width: number;
-  data: Keyword[];
+  data: KeywordNode[];
 }
 
 const ReportBubbleChart = ({ height, width, data }: ReportBubbleChartProps) => {
   const sortedData = [...data].sort((a, b) => b.value - a.value);
-  const pack = (data: Keyword[]) =>
-    d3.pack<Keyword>().size([width, height]).padding(0)(
-      d3.hierarchy<Keyword>({ children: data } as Keyword).sum((d) => d.value),
+  const pack = (data: KeywordNode[]) =>
+    d3.pack<KeywordNode>().size([width, height]).padding(0)(
+      d3.hierarchy<KeywordNode>({ children: data } as KeywordNode).sum((d) => d.value),
     );
   const root = pack(sortedData);
 
@@ -30,7 +30,7 @@ const ReportBubbleChart = ({ height, width, data }: ReportBubbleChartProps) => {
   const bubbleX: number[] = [];
   const bubbleY: number[] = [];
 
-  bubbles.forEach((leaf: d3.HierarchyCircularNode<Keyword>) => {
+  bubbles.forEach((leaf: d3.HierarchyCircularNode<KeywordNode>) => {
     const angle = Math.atan2(leaf.y - height / 2, leaf.x - width / 2) + rotationAngle;
     const distance = Math.sqrt((leaf.x - width / 2) ** 2 + (leaf.y - height / 2) ** 2);
     bubbleX.push(width / 2 + Math.cos(angle) * distance);
