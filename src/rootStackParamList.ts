@@ -9,4 +9,5 @@ export type RootStackParamList = {
   TotalVoteResultPage: { id: number };
   OpinionParagraphPage: { item: ParagraphWithOpinions; issueId: number };
   OpinionMainPage: { id: number };
+  LoginPage: undefined;
 };
