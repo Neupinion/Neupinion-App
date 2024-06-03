@@ -59,23 +59,23 @@ const MainPage = () => {
             </View>
             <AfterIssueSlider afterNews={FollowUpIssueDummy} />
             <View style={styles.titleContainer}>
-              <Text style={GlobalTextStyles.NormalText17}>가짜뉴스 이슈(타이틀 변경 예정)</Text>
+              <Text style={GlobalTextStyles.NormalText17}>Hot한 입장 정리 모음</Text>
             </View>
             <FakeIssueSlider onClickIssue={onClickReprocessedIssue} fakeNews={reprocessedIssue} />
-            <View style={styles.titleContainer}>
-              <Text style={GlobalTextStyles.NormalText17}>카테고리1</Text>
-              <TouchableOpacity style={styles.svgStyle} onPress={() => {}}>
-                <WithLocalSvg width={14} height={14} asset={MainArrowSvg as ImageSourcePropType} />
-              </TouchableOpacity>
-            </View>
-            <CategorySlider categoryIssues={reprocessedIssue} />
-            <View style={styles.titleContainer}>
-              <Text style={GlobalTextStyles.NormalText17}>카테고리2</Text>
-              <TouchableOpacity style={styles.svgStyle} onPress={() => {}}>
-                <WithLocalSvg width={14} height={14} asset={MainArrowSvg as ImageSourcePropType} />
-              </TouchableOpacity>
-            </View>
-            <CategorySlider categoryIssues={reprocessedIssue} />
+            {/*<View style={styles.titleContainer}>*/}
+            {/*  <Text style={GlobalTextStyles.NormalText17}>카테고리1</Text>*/}
+            {/*  <TouchableOpacity style={styles.svgStyle} onPress={() => {}}>*/}
+            {/*    <WithLocalSvg width={14} height={14} asset={MainArrowSvg as ImageSourcePropType} />*/}
+            {/*  </TouchableOpacity>*/}
+            {/*</View>*/}
+            {/*<CategorySlider categoryIssues={reprocessedIssue} />*/}
+            {/*<View style={styles.titleContainer}>*/}
+            {/*  <Text style={GlobalTextStyles.NormalText17}>카테고리2</Text>*/}
+            {/*  <TouchableOpacity style={styles.svgStyle} onPress={() => {}}>*/}
+            {/*    <WithLocalSvg width={14} height={14} asset={MainArrowSvg as ImageSourcePropType} />*/}
+            {/*  </TouchableOpacity>*/}
+            {/*</View>*/}
+            {/*<CategorySlider categoryIssues={reprocessedIssue} />*/}
             <View style={styles.divideLine}></View>
             <View style={styles.titleContainer}>
               <Text style={GlobalTextStyles.NormalText17}>후속이슈</Text>

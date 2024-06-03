@@ -1,5 +1,12 @@
 import React, { useEffect } from 'react';
-import { ActivityIndicator, ScrollView, StyleSheet, Text, View } from 'react-native';
+import {
+  ActivityIndicator,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import theme from '../shared/styles/theme';
 import ReprocessedIssueContentsSlider from '../features/remakeissue/components/ReprocessedIssueContentsSlider';
 import OpinionWriteSlider from '../features/remakeissue/components/OpinionWriteSlider';
@@ -16,6 +23,10 @@ import { useSetRecoilState } from 'recoil';
 import { issueNumberState } from '../recoil/issueState';
 import { bookmarkState } from '../recoil/bookmarkState';
 import { bookmarkInfo } from '../features/remakeissue/types/bookmark';
+import TopOpinionSlider from '../features/vote/components/TopOpinionSlider';
+import fontFamily from '../shared/styles/fontFamily';
+import { getMyOpinionWrite } from '../features/remakeissue/remotes/opinionWrite';
+import EmptyScreen from '../shared/components/Opinion/EmptyScreen';
 const ReprocessedIssueDetailPage: React.FC = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   type ScreenRouteProp = RouteProp<RootStackParamList, 'ReprocessedIssueDetailPage'>;
@@ -25,7 +36,13 @@ const ReprocessedIssueDetailPage: React.FC = () => {
   const setIssueState = useSetRecoilState<number>(issueNumberState);
   const setBookmarkState = useSetRecoilState<bookmarkInfo>(bookmarkState);
 
+  const fetchMyOpinionWrite = () => getMyOpinionWrite(id);
+  const { data: myOpinionWrite } = useFetch(fetchMyOpinionWrite, false);
+
   const fetchReprocessedIssue = () => getReprocessedIssueContent(id);
+  const onClickShowOpinionButton = () => {
+    navigation.navigate('OpinionMainPage', { id: id });
+  };
   const {
     data: reprocessedIssue,
     isLoading,
@@ -60,7 +77,6 @@ const ReprocessedIssueDetailPage: React.FC = () => {
       </View>
     );
   }
-
   return (
     <View style={styles.container}>
       <View style={styles.headerUnderLine} />
@@ -69,7 +85,23 @@ const ReprocessedIssueDetailPage: React.FC = () => {
         <View style={styles.divideLine} />
         <OpinionWriteSlider navigation={navigation} issueId={id} />
         <View style={styles.divideLine} />
-        <ReliabilityEvaluation navigation={navigation} issueId={id} />
+        <View style={{ marginTop: 20 }}>
+          <Text style={styles.titleText}>통합 베스트 Top 5 의견</Text>
+        </View>
+        {Array.isArray(myOpinionWrite) && myOpinionWrite.length === 0 ? (
+          <View style={styles.emptyContainer}>
+            <EmptyScreen text={'의견을 남기면 확인할 수 있습니다.'} />
+          </View>
+        ) : (
+          <View>
+            <TopOpinionSlider id={id} />
+            <TouchableOpacity style={styles.opinionPageButton} onPress={onClickShowOpinionButton}>
+              <Text style={styles.totalVotedButtonText}>의견 보기</Text>
+            </TouchableOpacity>
+          </View>
+        )}
+
+        {/*<ReliabilityEvaluation navigation={navigation} issueId={id} />*/}
         <View style={styles.divideLine} />
         {reprocessedIssue !== null && (
           <CategoryLatestNews current={id} category={reprocessedIssue.category} />
@@ -122,6 +154,44 @@ const styles = StyleSheet.create({
   activityIndicator: {
     flex: 1,
     alignSelf: 'center',
+  },
+  opinionPageButton: {
+    display: 'flex',
+    borderRadius: 10,
+    width: 160,
+    height: 50,
+    justifyContent: 'center',
+    alignSelf: 'center',
+    alignItems: 'center',
+    flexShrink: 0,
+    backgroundColor: theme.color.gray3,
+    marginTop: 28,
+    marginBottom: 20,
+  },
+  totalVotedButtonText: {
+    fontFamily: fontFamily.pretendard.bold,
+    fontSize: 17,
+    fontStyle: 'normal',
+    fontWeight: '700',
+    lineHeight: 25.5,
+    letterSpacing: -0.51,
+    color: theme.color.white,
+    textAlign: 'center',
+  },
+  titleText: {
+    paddingHorizontal: 26,
+    fontFamily: fontFamily.pretendard.bold,
+    fontSize: 17,
+    fontStyle: 'normal',
+    fontWeight: '700',
+    lineHeight: 25.5,
+    letterSpacing: -0.51,
+    color: theme.color.white,
+    width: '100%',
+  },
+  emptyContainer: {
+    marginTop: 30,
+    marginBottom: 10,
   },
 });
 
