@@ -19,6 +19,7 @@ import BookmarkButton from './features/remakeissue/components/BookmarkButton';
 import AppShareButton from './shared/components/applink/AppLinkButton';
 import OpinionPostCheckButton from './features/opinion/components/OpinionPostCheckButton';
 import LoginPage from './pages/LoginPage';
+import SplashPage from './pages/SplashPage';
 const Stack = createNativeStackNavigator();
 
 const Navigation = () => {
@@ -27,6 +28,13 @@ const Navigation = () => {
       <ModalContainer />
       <NavigationContainer>
         <Stack.Navigator>
+          <Stack.Group>
+            <Stack.Screen
+              options={{ headerShown: false }}
+              name="SplashPage"
+              component={SplashPage}
+            />
+          </Stack.Group>
           <Stack.Group>
             <Stack.Screen options={{ headerShown: false }} name="LoginPage" component={LoginPage} />
           </Stack.Group>
