@@ -27,6 +27,9 @@ import TopOpinionSlider from '../features/vote/components/TopOpinionSlider';
 import fontFamily from '../shared/styles/fontFamily';
 import { getMyOpinionWrite } from '../features/remakeissue/remotes/opinionWrite';
 import EmptyScreen from '../shared/components/Opinion/EmptyScreen';
+import {useModal} from "../shared/hooks/useModal";
+import DateModal from "../features/date/components/DateModal";
+import ReportContainer from "../features/issuereport/componenets/ReportContainer";
 const ReprocessedIssueDetailPage: React.FC = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   type ScreenRouteProp = RouteProp<RootStackParamList, 'ReprocessedIssueDetailPage'>;
@@ -43,6 +46,13 @@ const ReprocessedIssueDetailPage: React.FC = () => {
   const onClickShowOpinionButton = () => {
     navigation.navigate('OpinionMainPage', { id: id });
   };
+
+  const { openModal, closeModal } = useModal();
+
+  const openKeywordModal = () => {
+    openModal(<ReportContainer id={id} onClose={closeModal} />);
+  };
+
   const {
     data: reprocessedIssue,
     isLoading,
@@ -52,6 +62,7 @@ const ReprocessedIssueDetailPage: React.FC = () => {
 
   useEffect(() => {
     setIssueState(id);
+    openKeywordModal();
     void fetchData();
 
     if (reprocessedIssue) {
