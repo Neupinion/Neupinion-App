@@ -37,79 +37,65 @@ const OpinionMainPage = () => {
   }, []);
   return (
     <ScrollView style={styles.container}>
-      <ScrollView>
-        {reprocessedIssue && (
-          <View style={{ marginTop: 32 }}>
-            <Text style={styles.titleText}>{reprocessedIssue.title}</Text>
-            <View style={styles.titleUnderContainer}>
-              <View style={{ flexDirection: 'row' }}>
-                <View style={styles.tagBox}>
-                  <Text style={styles.tagText}>{reprocessedIssue.category}</Text>
-                </View>
-                <Text style={styles.dateText}>{formatDate(reprocessedIssue.createdAt)}</Text>
+      {reprocessedIssue && (
+        <View style={{ marginTop: 32 }}>
+          <Text style={styles.titleText}>{reprocessedIssue.title}</Text>
+          <View style={styles.titleUnderContainer}>
+            <View style={{ flexDirection: 'row' }}>
+              <View style={styles.tagBox}>
+                <Text style={styles.tagText}>{reprocessedIssue.category}</Text>
               </View>
-              <TouchableOpacity style={styles.headerSvg} onPress={() => {}}>
-                <WithLocalSvg
-                  width={79}
-                  height={30}
-                  asset={SeeOriginalSvg as ImageSourcePropType}
-                />
-              </TouchableOpacity>
+              <Text style={styles.dateText}>{formatDate(reprocessedIssue.createdAt)}</Text>
             </View>
+            <TouchableOpacity style={styles.headerSvg} onPress={() => {}}>
+              <WithLocalSvg width={79} height={30} asset={SeeOriginalSvg as ImageSourcePropType} />
+            </TouchableOpacity>
           </View>
-        )}
-        <Text style={styles.subtitleText}>통합 베스트 Top 5 의견</Text>
-        <TopOpinionSlider id={1} />
-        <View style={styles.divideLine}></View>
-        <View style={styles.mainCategoryContainer}>
-          <TouchableOpacity
-            onPress={() => SelectMainCategory(mainCategories[0])}
-            style={{
-              flexDirection: 'column',
-              height: 36,
-              width: 31,
-              gap: 12,
-              alignItems: 'center',
-            }}
-          >
-            <Text
-              style={[
-                styles.baseText,
-                activeMainCategory === mainCategories[0] && styles.activeText,
-              ]}
-            >
-              {mainCategories[0]}
-            </Text>
-            {activeMainCategory === mainCategories[0] && <View style={styles.selectedBar} />}
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => SelectMainCategory(mainCategories[1])}
-            style={{
-              flexDirection: 'column',
-              height: 36,
-              width: 80,
-              gap: 12,
-              alignItems: 'center',
-            }}
-          >
-            <Text
-              style={[
-                styles.baseText,
-                activeMainCategory === mainCategories[1] && styles.activeText,
-              ]}
-            >
-              {mainCategories[1]}
-            </Text>
-            {activeMainCategory === mainCategories[1] && <View style={styles.selectedBar} />}
-          </TouchableOpacity>
         </View>
-        <View style={styles.headerUnderLine} />
-        {activeMainCategory === mainCategories[0] ? (
-          <TotalOpinionCategory issueId={1} />
-        ) : (
-          <ParagraphOpinionCategory issueId={1} />
-        )}
-      </ScrollView>
+      )}
+      <Text style={styles.subtitleText}>통합 베스트 Top 5 의견</Text>
+      <TopOpinionSlider id={1} />
+      <View style={styles.divideLine}></View>
+      <View style={styles.mainCategoryContainer}>
+        <TouchableOpacity
+          onPress={() => SelectMainCategory(mainCategories[0])}
+          style={{
+            flexDirection: 'column',
+            height: 36,
+            gap: 12,
+            alignItems: 'center',
+          }}
+        >
+          <Text
+            style={[styles.baseText, activeMainCategory === mainCategories[0] && styles.activeText]}
+          >
+            {mainCategories[0]}
+          </Text>
+          {activeMainCategory === mainCategories[0] && <View style={styles.selectedBar} />}
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => SelectMainCategory(mainCategories[1])}
+          style={{
+            flexDirection: 'column',
+            height: 36,
+            gap: 12,
+            alignItems: 'center',
+          }}
+        >
+          <Text
+            style={[styles.baseText, activeMainCategory === mainCategories[1] && styles.activeText]}
+          >
+            {mainCategories[1]}
+          </Text>
+          {activeMainCategory === mainCategories[1] && <View style={styles.selectedBar} />}
+        </TouchableOpacity>
+      </View>
+      <View style={styles.headerUnderLine} />
+      {activeMainCategory === mainCategories[0] ? (
+        <TotalOpinionCategory issueId={1} />
+      ) : (
+        <ParagraphOpinionCategory issueId={1} />
+      )}
     </ScrollView>
   );
 };
