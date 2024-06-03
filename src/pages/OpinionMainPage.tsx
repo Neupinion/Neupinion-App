@@ -54,7 +54,7 @@ const OpinionMainPage = () => {
         </View>
       )}
       <Text style={styles.subtitleText}>통합 베스트 Top 5 의견</Text>
-      <TopOpinionSlider id={1} />
+      <TopOpinionSlider id={issueId} />
       <View style={styles.divideLine}></View>
       <View style={styles.mainCategoryContainer}>
         <TouchableOpacity
@@ -92,9 +92,9 @@ const OpinionMainPage = () => {
       </View>
       <View style={styles.headerUnderLine} />
       {activeMainCategory === mainCategories[0] ? (
-        <TotalOpinionCategory issueId={1} />
+        <TotalOpinionCategory issueId={issueId} />
       ) : (
-        <ParagraphOpinionCategory issueId={1} />
+        <ParagraphOpinionCategory issueId={issueId} />
       )}
     </ScrollView>
   );

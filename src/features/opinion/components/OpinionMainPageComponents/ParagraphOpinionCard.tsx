@@ -20,7 +20,6 @@ const ParagraphOpinionCard = ({ item, issueId }: ParagraphOpinionCardProps) => {
   const goOpinionParagraphPage = () => {
     navigation.navigate('OpinionParagraphPage', {
       item: item,
-      issueId: issueId,
     });
   };
   return (

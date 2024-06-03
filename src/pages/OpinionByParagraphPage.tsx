@@ -23,6 +23,8 @@ import { getSortType, getCategoryType, subCategories } from '../shared/constants
 import { formatDate } from '../features/remakeissue/constants/formatDate';
 import FavoriteSvg from '../assets/icon/favorite.svg';
 import { Dropdown } from 'react-native-element-dropdown';
+import {useRecoilValue} from "recoil";
+import {issueNumberState} from "../recoil/issueState";
 const OpinionByParagraphPage = () => {
   const [reliabilityCategory, setReliabilityCategory] = useState('전체');
   const [sortType, setSortType] = useState('');
@@ -40,7 +42,8 @@ const OpinionByParagraphPage = () => {
 
   type ScreenRouteProp = RouteProp<RootStackParamList, 'OpinionParagraphPage'>;
   const route = useRoute<ScreenRouteProp>();
-  const { item, issueId } = route.params;
+  const issueId = useRecoilValue(issueNumberState);
+  const { item} = route.params;
 
   const fetchOpinionParagraph = () =>
     getOpinionParagraph(issueId, getCategoryType(reliabilityCategory), getSortType(sortType), 0);
