@@ -6,15 +6,17 @@ import { ITEM_SIZE, SPACER_ITEM_SIZE } from '../constants/cardAniSize';
 import { LinearGradient } from 'expo-linear-gradient';
 import { formatDate } from '../constants/formatDate';
 import fontFamily from '../../../shared/styles/fontFamily';
+import {useNavigation} from "@react-navigation/native";
+import {StackNavigationProp} from "@react-navigation/stack";
+import {RootStackParamList} from "../../../rootStackParamList";
 
 interface FakeIssueItemProps {
   item: ReProcessedIssue;
   index: number;
   scrollX: Animated.Value;
-  onClick: () => void;
 }
 
-const FakeIssueItem = ({ item, index, scrollX, onClick }: FakeIssueItemProps) => {
+const FakeIssueItem = ({ item, index, scrollX }: FakeIssueItemProps) => {
   if (!item.imageUrl) {
     return <View style={{ width: SPACER_ITEM_SIZE }}></View>;
   }
@@ -36,6 +38,12 @@ const FakeIssueItem = ({ item, index, scrollX, onClick }: FakeIssueItemProps) =>
     outputRange: [0.86, 1, 0.86],
   });
 
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
+  const onClickReprocessedIssue = () => {
+    const issue_id = Number(item.id);
+    navigation.navigate('ReprocessedIssueDetailPage', { id: issue_id });
+  };
+
   return (
     <View
       testID={'Animation_Card_' + index.toString()}
@@ -49,7 +57,7 @@ const FakeIssueItem = ({ item, index, scrollX, onClick }: FakeIssueItemProps) =>
           },
         ]}
       >
-        <TouchableOpacity onPress={onClick}>
+        <TouchableOpacity onPress={onClickReprocessedIssue}>
           <LinearGradient
             start={{ x: 1, y: 1 }}
             end={{ x: 0, y: 0 }}

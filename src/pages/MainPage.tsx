@@ -29,10 +29,6 @@ import { useDate } from '../features/date/provider/DateProvider';
 const MainPage = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   const { date } = useDate();
-
-  const onClickReprocessedIssue = () => {
-    navigation.navigate('ReprocessedIssueDetailPage', { id: 1 });
-  };
   const fetchReprocessedIssue = () => getReprocessedIssues(date);
 
   const {
@@ -61,7 +57,7 @@ const MainPage = () => {
             <View style={styles.titleContainer}>
               <Text style={GlobalTextStyles.NormalText17}>Hot한 입장 정리 모음</Text>
             </View>
-            <FakeIssueSlider onClickIssue={onClickReprocessedIssue} fakeNews={reprocessedIssue} />
+            <FakeIssueSlider fakeNews={reprocessedIssue} />
             {/*<View style={styles.titleContainer}>*/}
             {/*  <Text style={GlobalTextStyles.NormalText17}>카테고리1</Text>*/}
             {/*  <TouchableOpacity style={styles.svgStyle} onPress={() => {}}>*/}

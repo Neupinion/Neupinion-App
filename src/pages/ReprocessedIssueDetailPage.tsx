@@ -51,10 +51,10 @@ const ReprocessedIssueDetailPage: React.FC = () => {
   } = useFetch(fetchReprocessedIssue, false);
 
   useEffect(() => {
+    setIssueState(id);
     void fetchData();
 
     if (reprocessedIssue) {
-      setIssueState(id);
       setBookmarkState({
         id: reprocessedIssue.id,
         isBookmarkClicked: reprocessedIssue.isBookmarked,
