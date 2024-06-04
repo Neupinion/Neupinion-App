@@ -13,12 +13,16 @@ import theme from '../../../shared/styles/theme';
 import { getReprocessedIssueById } from '../../remakeissue/remotes/reprocessedissue';
 import useFetch from '../../../shared/hooks/useFetch';
 import GlobalTextStyles from '../../../shared/styles/GlobalTextStyles';
+import { useRecoilState, useRecoilValue } from "recoil";
+import { issueNumberState } from "../../../recoil/issueState";
+import { opinionPostState } from "../../../recoil/opinionPostState";
 
 interface SentenceBoxProps {
   sentenceNumber: number;
 }
 const SentenceBox = ({ sentenceNumber }: SentenceBoxProps) => {
-  const fetchReprocessedIssueById = () => getReprocessedIssueById(1);
+  const issueId = useRecoilValue(issueNumberState);
+  const fetchReprocessedIssueById = () => getReprocessedIssueById(issueId);
   const {
     data: reprocessedIssue,
     isLoading,
@@ -46,6 +50,12 @@ const SentenceBox = ({ sentenceNumber }: SentenceBoxProps) => {
     );
   }
 
+  const matchingSentence = reprocessedIssue.content.find(
+    (item) => item.id === sentenceNumber
+  );
+
+  const paragraph = matchingSentence ? matchingSentence.paragraph : '';
+
   return (
     <View style={styles.sentenceContainer}>
       <View style={styles.pinContainer}>
@@ -55,7 +65,7 @@ const SentenceBox = ({ sentenceNumber }: SentenceBoxProps) => {
       </View>
       <View style={styles.sentenceContainerSmall}>
         <Text style={styles.sentenceText}>
-          {reprocessedIssue.content[sentenceNumber - 1].paragraph}
+          {paragraph}
         </Text>
       </View>
     </View>
