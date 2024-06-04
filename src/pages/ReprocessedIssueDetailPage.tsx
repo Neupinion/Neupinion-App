@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from "react";
 import {
   ActivityIndicator,
   ScrollView,
@@ -12,7 +12,7 @@ import ReprocessedIssueContentsSlider from '../features/remakeissue/components/R
 import OpinionWriteSlider from '../features/remakeissue/components/OpinionWriteSlider';
 import ReliabilityEvaluation from '../features/remakeissue/components/ReliabilityEvaluation';
 import CategoryLatestNews from '../features/remakeissue/components/CategoryLatestNews';
-import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
+import { RouteProp, useFocusEffect, useNavigation, useRoute } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../rootStackParamList';
 import { getReprocessedIssueContent } from '../features/remakeissue/remotes/reprocessedIssueContent';
@@ -72,6 +72,17 @@ const ReprocessedIssueDetailPage: React.FC = () => {
       });
     }
   }, []);
+
+  useFocusEffect(
+    useCallback(() => {
+      console.log('Screen is focused');
+      void fetchData();
+
+      return () => {
+        console.log('Screen is unfocused');
+      };
+    }, []),
+  );
 
   if (isLoading) {
     return (

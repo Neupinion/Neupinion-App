@@ -17,7 +17,6 @@ export const getAccessTokenGoogle = async (
           params: { code: code },
         });
         const cookies = response.headers['set-cookie'];
-        closeWebView();
 
         if (cookies) {
           const refreshTokenCookie = cookies.find((cookie) => cookie.startsWith('refreshToken='));
@@ -30,6 +29,7 @@ export const getAccessTokenGoogle = async (
             const { accessToken } = data;
             await AsyncStorage.setItem('refreshTokenCookie', refreshToken);
             await AsyncStorage.setItem('accessToken', accessToken);
+            closeWebView();
             console.log(accessToken, refreshToken);
             return { accessToken, refreshToken };
           }

@@ -13,7 +13,7 @@ import theme from '../../../shared/styles/theme';
 import { getReprocessedIssueById } from '../../remakeissue/remotes/reprocessedissue';
 import useFetch from '../../../shared/hooks/useFetch';
 import GlobalTextStyles from '../../../shared/styles/GlobalTextStyles';
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilValue } from 'recoil';
 import { issueNumberState } from '../../../recoil/issueState';
 
 interface SentenceBoxProps {
@@ -63,9 +63,7 @@ const SentenceBox = ({ sentenceNumber }: SentenceBoxProps) => {
         </TouchableOpacity>
       </View>
       <View style={styles.sentenceContainerSmall}>
-        <Text style={styles.sentenceText}>
-          {paragraph}
-        </Text>
+        <Text style={styles.sentenceText}>{paragraph}</Text>
       </View>
     </View>
   );
