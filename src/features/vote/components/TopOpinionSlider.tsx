@@ -43,7 +43,6 @@ const TopOpinionSlider = ({ id }: TopOpinionSliderProps) => {
   if (!TopOpinions || TopOpinions.length === 0) {
     return (
       <View style={styles.container}>
-        <Text style={styles.titleText}>통합 베스트 Top 5 의견</Text>
         <View style={{ marginTop: 60 }}></View>
         <EmptyScreen text={'등록된 의견이 없습니다.'} />
       </View>
