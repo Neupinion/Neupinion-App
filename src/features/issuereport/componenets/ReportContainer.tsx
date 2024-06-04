@@ -16,11 +16,11 @@ import { WINDOW_WIDTH } from '../../../shared/constants/display';
 import ReportBubbleChartContainer from './ReportBubbleChartContainer';
 import { WithLocalSvg } from 'react-native-svg/css';
 import PopupCloseButton from '../../../assets/icon/popupclosebutton.svg';
-import useFetch from "../../../shared/hooks/useFetch";
-import { getIssueKeyword } from "../remotes/getIssueKeyword";
-import GlobalTextStyles from "../../../shared/styles/GlobalTextStyles";
-import { processApiResponse } from "../function/processApiResponse";
-import {KeyWordDummyOne, KeyWordDummyTwo} from "../../../dummy/KeyWordDummy";
+import useFetch from '../../../shared/hooks/useFetch';
+import { getIssueKeyword } from '../remotes/getIssueKeyword';
+import GlobalTextStyles from '../../../shared/styles/GlobalTextStyles';
+import { processApiResponse } from '../function/processApiResponse';
+import { KeyWordDummyOne, KeyWordDummyTwo } from '../../../dummy/KeyWordDummy';
 
 interface ReportContainerProps {
   id: number;
@@ -36,68 +36,71 @@ const ReportContainer = ({ id, onClose }: ReportContainerProps) => {
     setSlideIndex(newIndex);
   };
 
-  // const fetchIssueKeyword = () => getIssueKeyword(id);
-  //
-  // const {
-  //   data: keyword,
-  //   isLoading,
-  //   error,
-  //   fetchData,
-  // } = useFetch(fetchIssueKeyword, false);
-  //
-  // useEffect(() => {
-  //   void fetchData();
-  // }, []);
+  const fetchIssueKeyword = () => getIssueKeyword(id);
 
-  // if (isLoading) {
-  //   return (
-  //       <View style={styles.container}>
-  //         <ActivityIndicator size="large" style={styles.activityIndicator} />
-  //       </View>
-  //   );
-  // }
-  //
-  // if (error) {
-  //   return (
-  //       <View style={styles.container}>
-  //         <Text style={GlobalTextStyles.NormalText17}>ERROR</Text>
-  //       </View>
-  //   );
-  // }
+  const { data: keyword, isLoading, error, fetchData } = useFetch(fetchIssueKeyword, false);
 
-  // if (!keyword) {
-  //   return null;
-  // }
+  useEffect(() => {
+    void fetchData();
+  }, []);
 
-  // const { firstStandKeywords, secondStandKeywords } = processApiResponse(keyword);
+  if (isLoading) {
+    return (
+      <View style={styles.container}>
+        <ActivityIndicator size="large" style={styles.activityIndicator} />
+      </View>
+    );
+  }
+
+  if (error) {
+    return (
+      <View style={styles.container}>
+        <Text style={GlobalTextStyles.NormalText17}>ERROR</Text>
+      </View>
+    );
+  }
+
+  if (!keyword) {
+    return null;
+  }
+
+  const { firstStandKeywords, secondStandKeywords } = processApiResponse(keyword);
 
   const contents = [
-    <ReportBubbleChartContainer keyword={KeyWordDummyOne} position='하이브' key="firstStandChart" />,
-    <ReportBubbleChartContainer keyword={KeyWordDummyTwo} position='민희진' key="secondStandChart" />,
+    <ReportBubbleChartContainer
+      keyword={firstStandKeywords}
+      position={keyword.firstStand}
+      key="firstStandChart"
+    />,
+    <ReportBubbleChartContainer
+      keyword={secondStandKeywords}
+      position={keyword.secondStand}
+      key="secondStandChart"
+    />,
   ];
 
   return (
-      <View style={styles.container}>
-        <TouchableOpacity style={styles.svg} onPress={onClose}>
-          <WithLocalSvg width={16} height={16} asset={PopupCloseButton as ImageSourcePropType} />
-        </TouchableOpacity>
-        <View style={styles.contentBox}>
-          <FlatList
-              ref={flatListRef}
-              data={contents}
-              renderItem={({ item }) => <View style={styles.content}>{item}</View>}
-              horizontal
-              pagingEnabled
-              showsHorizontalScrollIndicator={false}
-              keyExtractor={(_, index) => index.toString()}
-              onMomentumScrollEnd={handleScrollEnd}
-              scrollEventThrottle={16}
-          />
-        </View>
-        <View style={styles.footer}>
-          <Indicator data={contents} slideIndex={slideIndex} />
-        </View>
+    <View style={styles.container}>
+      <TouchableOpacity style={styles.svg} onPress={onClose}>
+        <WithLocalSvg width={16} height={16} asset={PopupCloseButton as ImageSourcePropType} />
+      </TouchableOpacity>
+      <View style={styles.contentBox}>
+        <FlatList
+          ref={flatListRef}
+          data={contents}
+          renderItem={({ item }) => <View style={styles.content}>{item}</View>}
+          horizontal
+          pagingEnabled
+          showsHorizontalScrollIndicator={false}
+          keyExtractor={(_, index) => index.toString()}
+          onMomentumScrollEnd={handleScrollEnd}
+          scrollEventThrottle={16}
+        />
       </View>
+      <View style={styles.footer}>
+        <Indicator data={contents} slideIndex={slideIndex} />
+      </View>
+    </View>
   );
 };
 

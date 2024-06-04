@@ -1,23 +1,25 @@
-import {Keyword, KeywordNode} from "../type/keyword";
+import { Keyword, KeywordNode } from '../type/keyword';
 
-export const processApiResponse = (data: any): { firstStandKeywords: KeywordNode[], secondStandKeywords: KeywordNode[] } => {
-    const { firstStand, firstKeywords, secondStand, secondKeywords } = data;
+export const processApiResponse = (
+  data: Keyword,
+): { firstStandKeywords: KeywordNode[]; secondStandKeywords: KeywordNode[] } => {
+  const { firstKeywords, secondKeywords } = data;
 
-    const limitedFirstKeywords = firstKeywords.slice(0, 4);
-    const limitedSecondKeywords = secondKeywords.slice(0, 4);
+  const limitedFirstKeywords = firstKeywords.slice(0, 4);
+  const limitedSecondKeywords = secondKeywords.slice(0, 4);
 
-    const firstStandKeywords = limitedFirstKeywords.map((keyword: string, index: number) => ({
-        keyword,
-        value: Math.floor(Math.random() * 100) + 1,
-    }));
+  const firstStandKeywords = limitedFirstKeywords.map((keyword: string) => ({
+    keyword,
+    value: Math.floor(Math.random() * 11) + 20,
+  }));
 
-    const secondStandKeywords = limitedSecondKeywords.map((keyword: string, index: number) => ({
-        keyword,
-        value: Math.floor(Math.random() * 100) + 1,
-    }));
+  const secondStandKeywords = limitedSecondKeywords.map((keyword: string) => ({
+    keyword,
+    value: Math.floor(Math.random() * 11) + 20,
+  }));
 
-    return {
-        firstStandKeywords,
-        secondStandKeywords,
-    };
+  return {
+    firstStandKeywords,
+    secondStandKeywords,
+  };
 };

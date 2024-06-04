@@ -13,8 +13,9 @@ export const getAccessTokenGoogle = async (
     const code = new URL(url).searchParams.get('code');
     if (code) {
       try {
-        closeWebView();
-        const response = await client.get(url);
+        const response = await client.get(`${API_URL}/login/google`, {
+          params: { code: code },
+        });
         const cookies = response.headers['set-cookie'];
 
         if (cookies) {
@@ -28,7 +29,8 @@ export const getAccessTokenGoogle = async (
             const { accessToken } = data;
             await AsyncStorage.setItem('refreshTokenCookie', refreshToken);
             await AsyncStorage.setItem('accessToken', accessToken);
-            console.log(refreshToken, accessToken);
+            console.log(accessToken, refreshToken);
+            closeWebView();
             return { accessToken, refreshToken };
           }
         }
