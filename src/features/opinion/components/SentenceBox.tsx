@@ -14,8 +14,7 @@ import { getReprocessedIssueById } from '../../remakeissue/remotes/reprocessedis
 import useFetch from '../../../shared/hooks/useFetch';
 import GlobalTextStyles from '../../../shared/styles/GlobalTextStyles';
 import { useRecoilState, useRecoilValue } from "recoil";
-import { issueNumberState } from "../../../recoil/issueState";
-import { opinionPostState } from "../../../recoil/opinionPostState";
+import { issueNumberState } from '../../../recoil/issueState';
 
 interface SentenceBoxProps {
   sentenceNumber: number;
