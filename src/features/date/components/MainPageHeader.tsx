@@ -2,8 +2,7 @@ import React from 'react';
 import { TouchableOpacity, Text, StyleSheet, View, ImageSourcePropType } from 'react-native';
 import { WithLocalSvg } from 'react-native-svg/css';
 import MainArrowSvg from '../../../assets/icon/mainarrow.svg';
-import MainSearch from '../../../assets/icon/mainsearch.svg';
-import MainUser from '../../../assets/icon/mainuser.svg';
+import Restart from '../../../Restart';
 import { getFormatDate } from '../functions/formatDate';
 import fontFamily from '../../../shared/styles/fontFamily';
 import { useDate } from '../provider/DateProvider';
@@ -40,11 +39,8 @@ const MainPageHeader = ({ title }: MainPageHeaderProps) => {
         </View>
         <Text style={styles.headerTitle}>{title}</Text>
         <View style={styles.headerRightContainer}>
-          <TouchableOpacity style={styles.headerSvg} onPress={() => {}}>
-            <WithLocalSvg width={20} height={20} asset={MainSearch as ImageSourcePropType} />
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.headerSvg} onPress={() => {}}>
-            <WithLocalSvg width={20} height={20} asset={MainUser as ImageSourcePropType} />
+          <TouchableOpacity style={styles.headerSvg} onPress={Restart}>
+            <Text style={styles.headerDateText}>Restart</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -82,6 +78,11 @@ const styles = StyleSheet.create({
   headerDateText: {
     fontSize: 16,
     fontFamily: fontFamily.pretendard.bold,
+    color: 'rgba(255,255,255,0.98)',
+  },
+  appText: {
+    fontSize: 16,
+    fontFamily: fontFamily.pretendard.medium,
     color: 'rgba(255,255,255,0.98)',
   },
   headerArrow: {
