@@ -28,7 +28,7 @@ const SplashPage: React.FC = () => {
       setCurrentIndex(currentIndex + 1);
       flatListRef.current?.scrollToIndex({ animated: true, index: currentIndex + 1 });
     } else {
-      navigation.navigate('LoginPage');
+      navigation.navigate('MainPage');
     }
   };
 
