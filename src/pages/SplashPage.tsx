@@ -54,7 +54,7 @@ const SplashPage: React.FC = () => {
         renderItem={renderItem}
         horizontal
         pagingEnabled
-        scrollEnabled={false}
+        scrollEnabled={true}
         ref={flatListRef}
         keyExtractor={(item) => item.key}
         showsHorizontalScrollIndicator={false}
