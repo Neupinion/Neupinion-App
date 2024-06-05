@@ -10,6 +10,8 @@ import {
   Text,
   ListRenderItem,
   Image,
+  NativeSyntheticEvent,
+  NativeScrollEvent,
 } from 'react-native';
 import theme from '../shared/styles/theme';
 import { WINDOW_WIDTH } from '../shared/constants/display';
@@ -30,6 +32,12 @@ const SplashPage: React.FC = () => {
     } else {
       navigation.navigate('LoginPage');
     }
+  };
+
+  const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+    const offsetX = event.nativeEvent.contentOffset.x;
+    const index = Math.round(offsetX / WINDOW_WIDTH);
+    setCurrentIndex(index);
   };
 
   const renderItem: ListRenderItem<SplashDataItem> = ({ item }) => (
@@ -58,6 +66,8 @@ const SplashPage: React.FC = () => {
         ref={flatListRef}
         keyExtractor={(item) => item.key}
         showsHorizontalScrollIndicator={false}
+        onScroll={handleScroll}
+        scrollEventThrottle={16}
       />
       <TouchableOpacity style={styles.button} onPress={handleNext}>
         <Text style={styles.buttonText}>다음</Text>
