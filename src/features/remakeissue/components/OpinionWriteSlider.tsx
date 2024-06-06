@@ -40,6 +40,7 @@ const OpinionWriteSlider = ({ navigation, issueId }: OpinionWriteSliderProps) =>
         issueId={issueId}
         opinionWrite={opinionData}
         onClose={closeModal}
+        isOwner={true}
       />,
     );
   };

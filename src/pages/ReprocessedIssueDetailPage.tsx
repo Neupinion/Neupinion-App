@@ -111,7 +111,7 @@ const ReprocessedIssueDetailPage: React.FC = () => {
           </View>
         ) : (
           <View>
-            <TopOpinionSlider id={id} />
+            <TopOpinionSlider navigation={navigation} id={id} />
             <TouchableOpacity style={styles.opinionPageButton} onPress={onClickShowOpinionButton}>
               <Text style={styles.totalVotedButtonText}>의견 보기</Text>
             </TouchableOpacity>

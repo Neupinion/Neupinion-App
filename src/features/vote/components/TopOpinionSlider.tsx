@@ -7,11 +7,14 @@ import { getReprocessedIssueTopOpinion } from '../remotes/topOpinion';
 import GlobalTextStyles from '../../../shared/styles/GlobalTextStyles';
 import OpinionPaper from '../../../shared/components/Opinion/OpinionPaper';
 import EmptyScreen from '../../../shared/components/Opinion/EmptyScreen';
+import { StackNavigationProp } from "@react-navigation/stack";
+import { RootStackParamList } from "../../../rootStackParamList";
 
 interface TopOpinionSliderProps {
+  navigation: StackNavigationProp<RootStackParamList>;
   id: number;
 }
-const TopOpinionSlider = ({ id }: TopOpinionSliderProps) => {
+const TopOpinionSlider = ({ navigation, id }: TopOpinionSliderProps) => {
   const fetchReprocessedIssueTopOpinion = () => getReprocessedIssueTopOpinion(id);
   const {
     data: TopOpinions,
@@ -51,13 +54,14 @@ const TopOpinionSlider = ({ id }: TopOpinionSliderProps) => {
 
   return (
     <View style={styles.container}>
-      {/*<Text style={styles.titleText}>통합 베스트 Top 5 의견</Text>*/}
       <FlatList
         horizontal
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={styles.cardContainer}
         data={TopOpinions}
-        renderItem={({ item }) => <OpinionPaper opinion={item} />}
+        renderItem={({ item }) => (
+          <OpinionPaper navigation={navigation} issueId={id} opinion={item} />
+        )}
       ></FlatList>
     </View>
   );

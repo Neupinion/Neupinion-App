@@ -6,16 +6,36 @@ import Pin from '../../../assets/icon/pin.svg';
 import fontFamily from '../../styles/fontFamily';
 import { Opinion } from '../../../features/vote/types/opinion';
 import OpinionHeartSvg from '../../../assets/icon/postitlikeimage.svg';
+import { useModal } from '../../hooks/useModal';
+import OpinionWriteBottomSheet from '../../../features/opinion/components/OpinionWriteBottomSheet';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from '../../../rootStackParamList';
 
 interface OpinionPaperProps {
+  navigation: StackNavigationProp<RootStackParamList>;
+  issueId: number;
   opinion: Opinion;
 }
 
-const OpinionPaper = ({ opinion }: OpinionPaperProps) => {
+const OpinionPaper = ({ navigation, issueId, opinion }: OpinionPaperProps) => {
   const formattedLikeCount = opinion.likeCount > 9999 ? '9999+' : opinion.likeCount.toString();
 
+  const { openModal, closeModal } = useModal();
+
+  const onClickOpinion = () => {
+    openModal(
+      <OpinionWriteBottomSheet
+        navigation={navigation}
+        issueId={issueId}
+        opinionWrite={opinion}
+        onClose={closeModal}
+        isOwner={false}
+      />,
+    );
+  };
+
   return (
-    <TouchableOpacity onPress={() => {}} style={styles.card}>
+    <TouchableOpacity onPress={onClickOpinion} style={styles.card}>
       <View style={styles.triangle} />
       <View style={styles.contentContainer}>
         <View style={styles.cardTop}>
