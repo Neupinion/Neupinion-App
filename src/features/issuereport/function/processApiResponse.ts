@@ -10,12 +10,12 @@ export const processApiResponse = (
 
   const firstStandKeywords = limitedFirstKeywords.map((keyword: string) => ({
     keyword,
-    value: Math.floor(Math.random() * 11) + 20,
+    value: Math.floor(Math.random() * 11) + 25,
   }));
 
   const secondStandKeywords = limitedSecondKeywords.map((keyword: string) => ({
     keyword,
-    value: Math.floor(Math.random() * 11) + 20,
+    value: Math.floor(Math.random() * 11) + 25,
   }));
 
   return {

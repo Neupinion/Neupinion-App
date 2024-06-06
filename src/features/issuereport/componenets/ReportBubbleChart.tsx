@@ -5,9 +5,9 @@ import Svg, { Circle } from 'react-native-svg';
 import fontFamily from '../../../shared/styles/fontFamily';
 import theme from '../../../shared/styles/theme';
 import { colorsBubble, getFillForBubble, shuffleArray } from '../constants/bubbleColor';
-import { getBubbleNameSize } from '../function/getBubbleFontSize';
-import {Keyword, KeywordNode} from '../type/keyword';
+import { KeywordNode } from '../type/keyword';
 import ColorBubble from './ColorBubble';
+import { KEYWORD_BUBBLE_FONT_SIZE } from '../constants/bubbleFontSize';
 
 interface ReportBubbleChartProps {
   height: number;
@@ -32,7 +32,7 @@ const ReportBubbleChart = ({ height, width, data }: ReportBubbleChartProps) => {
 
   bubbles.forEach((leaf: d3.HierarchyCircularNode<KeywordNode>) => {
     const angle = Math.atan2(leaf.y - height / 2, leaf.x - width / 2) + rotationAngle;
-    const distance = Math.sqrt((leaf.x - width / 2) ** 2 + (leaf.y - height / 2) ** 2);
+    const distance = Math.sqrt((leaf.x - width / 2) ** 2 + (leaf.y - height / 2) ** 2) + 10;
     bubbleX.push(width / 2 + Math.cos(angle) * distance);
     bubbleY.push(height / 2 + Math.sin(angle) * distance);
   });
@@ -68,9 +68,7 @@ const ReportBubbleChart = ({ height, width, data }: ReportBubbleChartProps) => {
                 },
               ]}
             >
-              <Text
-                style={[styles.bubbleFontStyle, { fontSize: getBubbleNameSize(leaf.data.value) }]}
-              >
+              <Text style={[styles.bubbleFontStyle, { fontSize: KEYWORD_BUBBLE_FONT_SIZE }]}>
                 {leaf.data.keyword}
               </Text>
             </View>
@@ -98,6 +96,7 @@ const styles = StyleSheet.create({
   bubbleFontStyle: {
     color: theme.color.white,
     fontFamily: fontFamily.pretendard.bold,
+    display: 'flex',
     fontWeight: '700',
     textAlign: 'center',
   },

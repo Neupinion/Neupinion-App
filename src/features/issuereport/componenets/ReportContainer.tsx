@@ -20,7 +20,6 @@ import useFetch from '../../../shared/hooks/useFetch';
 import { getIssueKeyword } from '../remotes/getIssueKeyword';
 import GlobalTextStyles from '../../../shared/styles/GlobalTextStyles';
 import { processApiResponse } from '../function/processApiResponse';
-import { KeyWordDummyOne, KeyWordDummyTwo } from '../../../dummy/KeyWordDummy';
 
 interface ReportContainerProps {
   id: number;
