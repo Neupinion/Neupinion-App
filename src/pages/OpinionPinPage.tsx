@@ -40,7 +40,6 @@ const OpinionPinPage = () => {
   }, []);
 
   const onSelectPin = (index: number) => {
-    console.log(index);
     setOpinionPostState((prevState) => ({
       ...prevState,
       sentenceIndex: index,
