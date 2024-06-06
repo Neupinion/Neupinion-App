@@ -28,6 +28,7 @@ import useFetch from '../../../shared/hooks/useFetch';
 import { WINDOW_HEIGHT, WINDOW_WIDTH } from '../../../shared/constants/display';
 import { useSetRecoilState } from 'recoil';
 import { opinionPostState } from '../../../recoil/opinionPostState';
+import ReportModal from "../../../shared/components/ReportModal";
 
 interface OpinionWriteBottomSheetProps {
   navigation: StackNavigationProp<RootStackParamList>;
@@ -105,9 +106,13 @@ const OpinionWriteBottomSheet = ({
   };
 
   const onClickReportButton = () => {
-    // 신고하기 버튼 동작
-    // closeModal();
-    closeBottomSheet();
+    openModal(
+      <ReportModal
+        title={'작성한 의견을 삭제하시겠습니까?'}
+        onClose={closeModal}
+        onSubmit={onClickConfirmWarningModal}
+      />,
+    );
   };
 
   const translateY = panY.interpolate({
