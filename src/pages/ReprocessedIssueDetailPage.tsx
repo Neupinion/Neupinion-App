@@ -75,12 +75,7 @@ const ReprocessedIssueDetailPage: React.FC = () => {
 
   useFocusEffect(
     useCallback(() => {
-      console.log('Screen is focused');
       void fetchData();
-
-      return () => {
-        console.log('Screen is unfocused');
-      };
     }, []),
   );
 

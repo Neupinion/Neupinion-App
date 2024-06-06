@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     lineHeight: 30,
     letterSpacing: -0.6,
-    marginLeft: 26,
+    marginHorizontal: 26,
     marginTop: 20,
   },
   titleUnderContainer: {
@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
   },
   cardImage: {
     width: WINDOW_WIDTH,
-    height: 200,
+    height: 250,
     resizeMode: 'cover',
     backgroundColor: theme.color.white,
   },
