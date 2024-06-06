@@ -56,9 +56,10 @@ const markdownStyles = StyleSheet.create({
     letterSpacing: -0.42,
   },
   heading2: {
-    fontSize: 17,
+    fontSize: 18,
     fontFamily: fontFamily.pretendard.bold,
     marginTop: 15,
+    marginBottom: 8,
   },
   blockquote: {
     backgroundColor: '#11111A',
