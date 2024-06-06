@@ -139,15 +139,24 @@ const OpinionWriteBottomSheet = ({
         <Text style={styles.contentText}>{opinionWrite.content}</Text>
         {isOwner ? (
           <>
-            <TouchableOpacity style={[styles.button, styles.modifyButton]} onPress={onClickModifyButton}>
+            <TouchableOpacity
+              style={[styles.button, styles.modifyButton]}
+              onPress={onClickModifyButton}
+            >
               <Text style={[styles.buttonText, styles.modifyButtonText]}>수정하기</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={[styles.button, styles.deleteButton]} onPress={onClickDeleteButton}>
+            <TouchableOpacity
+              style={[styles.button, styles.deleteButton]}
+              onPress={onClickDeleteButton}
+            >
               <Text style={[styles.buttonText, styles.deleteButtonText]}>삭제하기</Text>
             </TouchableOpacity>
           </>
         ) : (
-          <TouchableOpacity style={[styles.button, styles.reportButton]} onPress={onClickReportButton}>
+          <TouchableOpacity
+            style={[styles.button, styles.reportButton]}
+            onPress={onClickReportButton}
+          >
             <Text style={[styles.buttonText, styles.reportButtonText]}>신고하기</Text>
           </TouchableOpacity>
         )}
@@ -240,7 +249,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 10,
-    marginTop: 10,
+    marginBottom: 10,
     height: 50,
   },
   buttonText: {
