@@ -1,9 +1,8 @@
-import {client} from "../../../shared/remotes/axios";
-import {Keyword} from "../type/keyword";
+import { client } from '../../../shared/remotes/axios';
+import { Keyword } from '../type/keyword';
 
 export const getIssueKeyword = async (issueId: number) => {
-    const { data } = await client.get<Keyword>(`/issue/${issueId}/keyword`);
-    console.log(data);
+  const { data } = await client.get<Keyword>(`/issue/${issueId}/keyword`);
 
-    return data;
+  return data;
 };
