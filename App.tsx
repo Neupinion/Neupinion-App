@@ -3,6 +3,7 @@ import { DateProvider } from './src/features/date/provider/DateProvider';
 import { useCachedResources } from './src/useCachedResources';
 import Navigation from './src/Navigation';
 import { RecoilRoot } from 'recoil';
+import { ToastProvider } from './src/shared/components/toast/ToastContext';
 
 export default function App(): JSX.Element | null {
   const isLoaded = useCachedResources();
@@ -14,7 +15,9 @@ export default function App(): JSX.Element | null {
   return (
     <RecoilRoot>
       <DateProvider>
-        <Navigation />
+        <ToastProvider>
+          <Navigation />
+        </ToastProvider>
       </DateProvider>
     </RecoilRoot>
   );

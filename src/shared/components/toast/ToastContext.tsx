@@ -18,10 +18,14 @@ export const ToastProvider: React.FC<ToastProviderProps> = ({ children }) => {
     setMessage(msg);
   }, []);
 
+  const hideToast = useCallback(() => {
+    setMessage('');
+  }, []);
+
   return (
     <ToastContext.Provider value={showToast}>
       {children}
-      <Toast message={message} />
+      <Toast message={message} onHide={hideToast} />
     </ToastContext.Provider>
   );
 };
