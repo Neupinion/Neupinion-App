@@ -41,7 +41,7 @@ const OpinionCheckButton = ({ onPress, activity }: OpinionCheckButtonProps) => {
     }
 
     if (activity == 'OpinionPin') {
-      if (opinionPostActivity.sentenceDefined && !opinionPostActivity.reliableDefined) {
+      if (opinionPostActivity.sentenceDefined) {
         onPress();
       }
     }

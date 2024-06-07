@@ -75,12 +75,7 @@ const ReprocessedIssueDetailPage: React.FC = () => {
 
   useFocusEffect(
     useCallback(() => {
-      console.log('Screen is focused');
       void fetchData();
-
-      return () => {
-        console.log('Screen is unfocused');
-      };
     }, []),
   );
 
@@ -116,7 +111,7 @@ const ReprocessedIssueDetailPage: React.FC = () => {
           </View>
         ) : (
           <View>
-            <TopOpinionSlider id={id} />
+            <TopOpinionSlider navigation={navigation} id={id} />
             <TouchableOpacity style={styles.opinionPageButton} onPress={onClickShowOpinionButton}>
               <Text style={styles.totalVotedButtonText}>의견 보기</Text>
             </TouchableOpacity>

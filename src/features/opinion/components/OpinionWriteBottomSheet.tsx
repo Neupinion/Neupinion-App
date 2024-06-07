@@ -28,12 +28,14 @@ import useFetch from '../../../shared/hooks/useFetch';
 import { WINDOW_HEIGHT, WINDOW_WIDTH } from '../../../shared/constants/display';
 import { useSetRecoilState } from 'recoil';
 import { opinionPostState } from '../../../recoil/opinionPostState';
+import ReportModal from "../../../shared/components/ReportModal";
 
 interface OpinionWriteBottomSheetProps {
   navigation: StackNavigationProp<RootStackParamList>;
   issueId: number;
   opinionWrite: OpinionWrite;
   onClose: () => void;
+  isOwner: boolean;
 }
 
 const OpinionWriteBottomSheet = ({
@@ -41,6 +43,7 @@ const OpinionWriteBottomSheet = ({
   issueId,
   opinionWrite,
   onClose,
+  isOwner,
 }: OpinionWriteBottomSheetProps) => {
   const { openModal, closeModal } = useModal();
 
@@ -102,6 +105,16 @@ const OpinionWriteBottomSheet = ({
     );
   };
 
+  const onClickReportButton = () => {
+    openModal(
+      <ReportModal
+        title={'작성한 의견을 삭제하시겠습니까?'}
+        onClose={closeModal}
+        onSubmit={onClickConfirmWarningModal}
+      />,
+    );
+  };
+
   const translateY = panY.interpolate({
     inputRange: [-1, 0, 1],
     outputRange: [0, 0, 1],
@@ -129,12 +142,29 @@ const OpinionWriteBottomSheet = ({
         </View>
         <View style={styles.dotLine} />
         <Text style={styles.contentText}>{opinionWrite.content}</Text>
-        <TouchableOpacity style={styles.modifyButton} onPress={onClickModifyButton}>
-          <Text style={styles.modifyButtonText}>수정하기</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.deleteButton} onPress={onClickDeleteButton}>
-          <Text style={styles.deleteButtonText}>삭제하기</Text>
-        </TouchableOpacity>
+        {isOwner ? (
+          <>
+            <TouchableOpacity
+              style={[styles.button, styles.modifyButton]}
+              onPress={onClickModifyButton}
+            >
+              <Text style={[styles.buttonText, styles.modifyButtonText]}>수정하기</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[styles.button, styles.deleteButton]}
+              onPress={onClickDeleteButton}
+            >
+              <Text style={[styles.buttonText, styles.deleteButtonText]}>삭제하기</Text>
+            </TouchableOpacity>
+          </>
+        ) : (
+          <TouchableOpacity
+            style={[styles.button, styles.reportButton]}
+            onPress={onClickReportButton}
+          >
+            <Text style={[styles.buttonText, styles.reportButtonText]}>신고하기</Text>
+          </TouchableOpacity>
+        )}
       </Animated.View>
     </View>
   );
@@ -219,44 +249,44 @@ const styles = StyleSheet.create({
     lineHeight: 21,
     letterSpacing: -0.42,
   },
-  modifyButton: {
+  button: {
     width: WINDOW_WIDTH - 50,
-    backgroundColor: theme.color.main,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 10,
-    marginTop: 28,
+    marginBottom: 10,
     height: 50,
+  },
+  buttonText: {
+    textAlign: 'justify',
+    fontFamily: fontFamily.pretendard.bold,
+    fontStyle: 'normal',
+    fontSize: 17,
+    fontWeight: '700',
+    lineHeight: 25.5,
+    letterSpacing: -0.51,
+  },
+  modifyButton: {
+    backgroundColor: theme.color.main,
+    marginTop: 28,
   },
   modifyButtonText: {
     color: theme.color.white,
-    textAlign: 'justify',
-    fontFamily: fontFamily.pretendard.bold,
-    fontStyle: 'normal',
-    fontSize: 17,
-    fontWeight: '700',
-    lineHeight: 25.5,
-    letterSpacing: -0.51,
   },
   deleteButton: {
-    width: WINDOW_WIDTH - 50,
     backgroundColor: '#212A3C',
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 10,
-    marginTop: 10,
     marginBottom: 20,
-    height: 50,
   },
   deleteButtonText: {
     color: '#71788F',
-    textAlign: 'justify',
-    fontFamily: fontFamily.pretendard.bold,
-    fontStyle: 'normal',
-    fontSize: 17,
-    fontWeight: '700',
-    lineHeight: 25.5,
-    letterSpacing: -0.51,
+  },
+  reportButton: {
+    backgroundColor: theme.color.main,
+    marginTop: 28,
+    marginBottom: 20,
+  },
+  reportButtonText: {
+    color: theme.color.white,
   },
 });
 

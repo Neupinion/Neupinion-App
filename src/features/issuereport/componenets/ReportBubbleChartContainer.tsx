@@ -3,9 +3,8 @@ import { StyleSheet, Text, View } from 'react-native';
 import theme from '../../../shared/styles/theme';
 import { WINDOW_WIDTH } from '../../../shared/constants/display';
 import fontFamily from '../../../shared/styles/fontFamily';
-import { KeyWordDummyOne } from '../../../dummy/KeyWordDummy';
 import ReportBubbleChart from './ReportBubbleChart';
-import {KeywordNode} from '../type/keyword';
+import { KeywordNode } from '../type/keyword';
 
 interface ReportBubbleChartContainerProps {
   keyword: KeywordNode[];

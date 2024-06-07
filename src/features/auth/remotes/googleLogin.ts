@@ -8,11 +8,20 @@ export const getAccessTokenGoogle = async (
   event: WebViewNavigation,
   closeWebView: () => void,
 ): Promise<TokenResponse | null> => {
+  const storedAccessToken = await AsyncStorage.getItem('accessToken');
+  const storedRefreshToken = await AsyncStorage.getItem('refreshTokenCookie');
+
+  if (storedAccessToken && storedRefreshToken) {
+    closeWebView();
+    return { accessToken: storedAccessToken, refreshToken: storedRefreshToken };
+  }
+
   const url = event.url;
   if (url.includes(`${API_URL}/login/google`)) {
     const code = new URL(url).searchParams.get('code');
     if (code) {
       try {
+        closeWebView();
         const response = await client.get(`${API_URL}/login/google`, {
           params: { code: code },
         });
@@ -29,7 +38,6 @@ export const getAccessTokenGoogle = async (
             const { accessToken } = data;
             await AsyncStorage.setItem('refreshTokenCookie', refreshToken);
             await AsyncStorage.setItem('accessToken', accessToken);
-            closeWebView();
             console.log(accessToken, refreshToken);
             return { accessToken, refreshToken };
           }

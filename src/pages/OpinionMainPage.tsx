@@ -21,8 +21,12 @@ import { getReprocessedIssueContent } from '../features/remakeissue/remotes/repr
 import { WithLocalSvg } from 'react-native-svg/css';
 import { useRecoilValue } from 'recoil';
 import { issueNumberState } from '../recoil/issueState';
+import { useNavigation } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { RootStackParamList } from "../rootStackParamList";
 
 const OpinionMainPage = () => {
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   const issueId = useRecoilValue(issueNumberState);
   const fetchReprocessedIssue = () => getReprocessedIssueContent(issueId);
   const { data: reprocessedIssue, fetchData } = useFetch(fetchReprocessedIssue, false);
@@ -54,7 +58,7 @@ const OpinionMainPage = () => {
         </View>
       )}
       <Text style={styles.subtitleText}>통합 베스트 Top 5 의견</Text>
-      <TopOpinionSlider id={issueId} />
+      <TopOpinionSlider navigation={navigation} id={issueId} />
       <View style={styles.divideLine}></View>
       <View style={styles.mainCategoryContainer}>
         <TouchableOpacity

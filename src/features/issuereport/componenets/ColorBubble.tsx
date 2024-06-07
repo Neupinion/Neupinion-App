@@ -1,6 +1,6 @@
 import React from 'react';
 import { Defs, Stop } from 'react-native-svg';
-import {Keyword, KeywordNode} from '../type/keyword';
+import { KeywordNode } from '../type/keyword';
 
 interface GradientBubbleProps {
   data: KeywordNode[];
