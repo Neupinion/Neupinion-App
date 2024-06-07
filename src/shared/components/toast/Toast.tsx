@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Animated, ImageSourcePropType, StyleSheet, Text, View } from "react-native";
+import { Animated, ImageSourcePropType, StyleSheet, Text } from 'react-native';
 import theme from '../../styles/theme';
 import { WINDOW_WIDTH } from '../../constants/display';
 import fontFamily from '../../styles/fontFamily';
 import { WithLocalSvg } from 'react-native-svg/css';
 import ToastIcon from '../../../assets/icon/warntoast.svg';
+import { Easing } from 'react-native';
 
 interface ToastProps {
   message: string;
@@ -14,22 +15,27 @@ interface ToastProps {
 const Toast = ({ message, onHide }: ToastProps) => {
   const [show, setShow] = useState(false);
   const [translateY] = useState(new Animated.Value(-100));
+  const [isAnimating, setIsAnimating] = useState(false);
 
   useEffect(() => {
-    if (message) {
+    if (message && !isAnimating) {
+      setIsAnimating(true);
       setShow(true);
       Animated.timing(translateY, {
         toValue: 70,
-        duration: 300,
+        duration: 400,
+        easing: Easing.inOut(Easing.ease),
         useNativeDriver: true,
       }).start(() => {
         setTimeout(() => {
           Animated.timing(translateY, {
             toValue: -100,
-            duration: 300,
+            duration: 400,
+            easing: Easing.inOut(Easing.ease),
             useNativeDriver: true,
           }).start(() => {
             setShow(false);
+            setIsAnimating(false);
             onHide();
           });
         }, 2000);

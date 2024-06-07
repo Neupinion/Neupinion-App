@@ -1,11 +1,11 @@
-import React, { createContext, ReactNode, useCallback, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, useCallback, ReactNode } from 'react';
 import Toast from './Toast';
-
-const ToastContext = createContext<(msg: string) => void>(() => {});
 
 interface ToastProviderProps {
   children: ReactNode;
 }
+
+const ToastContext = createContext<(msg: string) => void>(() => {});
 
 export const useToast = () => {
   return useContext(ToastContext);
@@ -13,10 +13,16 @@ export const useToast = () => {
 
 export const ToastProvider: React.FC<ToastProviderProps> = ({ children }) => {
   const [message, setMessage] = useState('');
+  const [isAnimating] = useState(false);
 
-  const showToast = useCallback((msg: string) => {
-    setMessage(msg);
-  }, []);
+  const showToast = useCallback(
+    (msg: string) => {
+      if (!isAnimating) {
+        setMessage(msg);
+      }
+    },
+    [isAnimating],
+  );
 
   const hideToast = useCallback(() => {
     setMessage('');
