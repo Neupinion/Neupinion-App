@@ -16,11 +16,7 @@ interface TotalOpinionCardProps {
 }
 const TotalOpinionCard = ({ item }: TotalOpinionCardProps) => {
   const updateLike = async () => {
-    try {
-      await updateFavorite(item.issueId, item.opinionId, !item.isLiked);
-    } catch (error) {
-      console.error('좋아요 업데이트 실패:', error);
-    }
+    await updateFavorite(item.issueId, item.opinionId, !item.isLiked);
   };
   return (
     <View style={styles.container}>
