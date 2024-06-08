@@ -1,4 +1,4 @@
-import {Keyword, KeywordNode} from '../features/issuereport/type/keyword';
+import { KeywordNode } from '../features/issuereport/type/keyword';
 
 export const KeyWordDummyOne: KeywordNode[] = [
   {

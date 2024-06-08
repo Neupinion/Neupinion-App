@@ -28,7 +28,7 @@ import useFetch from '../../../shared/hooks/useFetch';
 import { WINDOW_HEIGHT, WINDOW_WIDTH } from '../../../shared/constants/display';
 import { useSetRecoilState } from 'recoil';
 import { opinionPostState } from '../../../recoil/opinionPostState';
-import ReportModal from "../../../shared/components/ReportModal";
+import ReportModal from '../../../shared/components/ReportModal';
 
 interface OpinionWriteBottomSheetProps {
   navigation: StackNavigationProp<RootStackParamList>;

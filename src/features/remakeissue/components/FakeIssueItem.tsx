@@ -6,9 +6,9 @@ import { ITEM_SIZE, SPACER_ITEM_SIZE } from '../constants/cardAniSize';
 import { LinearGradient } from 'expo-linear-gradient';
 import { formatDate } from '../constants/formatDate';
 import fontFamily from '../../../shared/styles/fontFamily';
-import {useNavigation} from "@react-navigation/native";
-import {StackNavigationProp} from "@react-navigation/stack";
-import {RootStackParamList} from "../../../rootStackParamList";
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from '../../../rootStackParamList';
 
 interface FakeIssueItemProps {
   item: ReProcessedIssue;

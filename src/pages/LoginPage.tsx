@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from 'react';
 import { ImageSourcePropType, StyleSheet, Text, TouchableOpacity, View, Modal } from 'react-native';
 import { WebView, WebViewNavigation } from 'react-native-webview';
 import theme from '../shared/styles/theme';
