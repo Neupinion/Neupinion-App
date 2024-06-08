@@ -2,6 +2,7 @@ import axios, { AxiosError, AxiosRequestConfig } from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { API_URL } from '@env';
 import { reissueAccessToken } from '../../features/auth/remotes/reissue';
+import { navigateToLogin } from '../utils/navigate/navigationService';
 
 const defaultConfig: AxiosRequestConfig = {
   baseURL: API_URL,
@@ -39,7 +40,7 @@ client.interceptors.response.use(
         originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
         return client(originalRequest);
       } else {
-        //navigate('LoginScreen');
+        navigateToLogin();
       }
     }
     return Promise.reject(error);
