@@ -25,11 +25,26 @@ const ReliabilityEvaluation = ({ navigation, stands, issueId }: ReliabilityEvalu
     );
   };
 
-  const onClickVoteResult = () => {
-    selectedButtons.forEach((buttonIndex) => {
-      void submitVoteResult(issueId, stands[buttonIndex].id, stands[buttonIndex].stand);
-    });
-    navigation.navigate('VoteResultPage', { id: issueId });
+  const onClickVoteResult = async () => {
+    try {
+      if (selectedButtons.length > 0) {
+        const firstStandId = stands[selectedButtons[0]].id;
+        const secondStandId = stands[selectedButtons[1]].id;
+        const firstRelatable = selectedButtons.includes(0);
+        const secondRelatable = selectedButtons.includes(1);
+
+        await submitVoteResult(
+          issueId,
+          firstStandId,
+          firstRelatable,
+          secondStandId,
+          secondRelatable,
+        );
+      }
+      navigation.navigate('VoteResultPage', { id: issueId });
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -43,10 +58,7 @@ const ReliabilityEvaluation = ({ navigation, stands, issueId }: ReliabilityEvalu
         {stands.map((stand, index) => (
           <TouchableOpacity
             key={stand.id}
-            style={[
-              styles.button,
-              selectedButtons.includes(index) && styles.selectedButton,
-            ]}
+            style={[styles.button, selectedButtons.includes(index) && styles.selectedButton]}
             onPress={() => toggleSelection(index)}
           >
             <Text
@@ -92,7 +104,7 @@ const styles = StyleSheet.create({
     height: 120,
     justifyContent: 'center',
     alignItems: 'center',
-    margin: 20,
+    margin: 5, // To ensure 10px total gap
   },
   buttonText: {
     color: '#4E5867',
