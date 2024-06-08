@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, NavigationContainerRef } from "@react-navigation/native";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import OpinionPostPage from './pages/OpinionPostPage';
 import OpinionPinPage from './pages/OpinionPinPage';
@@ -20,14 +20,17 @@ import AppShareButton from './shared/components/applink/AppLinkButton';
 import OpinionPostCheckButton from './features/opinion/components/OpinionPostCheckButton';
 import LoginPage from './pages/LoginPage';
 import SplashPage from './pages/SplashPage';
+import { setNavigator } from "./shared/utils/navigate/navigationService";
 const Stack = createNativeStackNavigator();
 
 const Navigation = () => {
   return (
     <>
       <ModalContainer />
-      <NavigationContainer>
-        <Stack.Navigator>
+      <NavigationContainer
+        ref={(nav: NavigationContainerRef<RootStackParamList>) => setNavigator(nav)}
+      >
+        <Stack.Navigator initialRouteName="SplashPage">
           <Stack.Group>
             <Stack.Screen
               options={{ headerShown: false }}

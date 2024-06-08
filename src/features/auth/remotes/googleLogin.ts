@@ -8,21 +8,23 @@ export const getAccessTokenGoogle = async (
   event: WebViewNavigation,
   closeWebView: () => void,
 ): Promise<TokenResponse | null> => {
-  const storedAccessToken = await AsyncStorage.getItem('accessToken');
-  const storedRefreshToken = await AsyncStorage.getItem('refreshTokenCookie');
+  try {
+    const [storedAccessToken, storedRefreshToken] = await Promise.all([
+      AsyncStorage.getItem('accessToken'),
+      AsyncStorage.getItem('refreshToken'),
+    ]);
 
-  if (storedAccessToken && storedRefreshToken) {
-    closeWebView();
-    return { accessToken: storedAccessToken, refreshToken: storedRefreshToken };
-  }
+    if (storedAccessToken && storedRefreshToken) {
+      closeWebView();
+      return { accessToken: storedAccessToken, refreshToken: storedRefreshToken };
+    }
 
-  const url = event.url;
-  if (url.includes(`${API_URL}/login/google`)) {
-    const code = new URL(url).searchParams.get('code');
-    if (code) {
-      try {
+    const url = event.url;
+    if (url.includes(`${API_URL}/login/google`)) {
+      const code = new URL(url).searchParams.get('code');
+      if (code) {
         closeWebView();
-        const response = await client.get(`${API_URL}/login/google`, {
+        const response = await client.get('/login/google', {
           params: { code: code },
         });
         const cookies = response.headers['set-cookie'];
@@ -36,17 +38,18 @@ export const getAccessTokenGoogle = async (
           if (refreshToken) {
             const data = response.data as TokenResponse;
             const { accessToken } = data;
-            await AsyncStorage.setItem('refreshTokenCookie', refreshToken);
-            await AsyncStorage.setItem('accessToken', accessToken);
-            console.log(accessToken, refreshToken);
+            await Promise.all([
+              AsyncStorage.setItem('refreshToken', refreshToken),
+              AsyncStorage.setItem('accessToken', accessToken),
+            ]);
             return { accessToken, refreshToken };
           }
         }
-      } catch (e) {
-        console.error('Failed to get access token:', e);
-        return null;
       }
     }
+  } catch (e) {
+    console.error('Failed to get access token:', e);
   }
+
   return null;
 };

@@ -20,7 +20,6 @@ import { socialAuthIcons, socialAuthTexts } from '../features/auth/constants/soc
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../rootStackParamList';
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const LoginPage: React.FC = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
