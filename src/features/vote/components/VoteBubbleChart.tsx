@@ -29,9 +29,7 @@ const VoteBubbleChart = ({ data }: BubbleChartProps) => {
             },
           ]}
         >
-          <Text style={[styles.bubbleFontStyle, { fontSize: 16 }]}>
-            {item.stand}
-          </Text>
+          <Text style={[styles.bubbleFontStyle, { fontSize: 16 }]}>{item.stand}</Text>
           <Text style={[styles.bubbleFontStyle, { fontSize: 14 }]}>
             {item.relatedPercentage + '%'}
           </Text>

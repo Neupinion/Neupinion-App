@@ -4,7 +4,6 @@ import theme from '../../../shared/styles/theme';
 import fontFamily from '../../../shared/styles/fontFamily';
 import { TrustVoteData } from '../types/bubbleChartData';
 import { formatNumber } from '../../../shared/utils/formatNumber';
-import VoteBubbleChart from './VoteBubbleChart';
 
 interface VoteBubbleChartProps {
   data: TrustVoteData;

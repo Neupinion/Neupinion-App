@@ -21,9 +21,9 @@ import { getReprocessedIssueContent } from '../features/remakeissue/remotes/repr
 import { WithLocalSvg } from 'react-native-svg/css';
 import { useRecoilValue } from 'recoil';
 import { issueNumberState } from '../recoil/issueState';
-import { useNavigation } from "@react-navigation/native";
-import { StackNavigationProp } from "@react-navigation/stack";
-import { RootStackParamList } from "../rootStackParamList";
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from '../rootStackParamList';
 
 const OpinionMainPage = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();

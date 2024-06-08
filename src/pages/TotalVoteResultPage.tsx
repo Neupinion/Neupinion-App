@@ -6,7 +6,6 @@ import { RootStackParamList } from '../rootStackParamList';
 import { WINDOW_WIDTH } from '../shared/constants/display';
 import fontFamily from '../shared/styles/fontFamily';
 import TotalVoteChartContainer from '../features/totalvote/components/TotalVoteChartContainer';
-import VoteRankContainer from '../features/vote/components/VoteRankContainer';
 import RelatedIssues from '../features/vote/components/RelatedIssues';
 import TimeLine from '../features/totalvote/components/TimeLine';
 import useFetch from '../shared/hooks/useFetch';

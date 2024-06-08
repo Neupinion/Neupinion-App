@@ -14,7 +14,6 @@ import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { RootStackParamList } from '../rootStackParamList';
 import VoteChartContainer from '../features/vote/components/VoteChartContainer';
 import { WINDOW_WIDTH } from '../shared/constants/display';
-import VoteRankContainer from '../features/vote/components/VoteRankContainer';
 import fontFamily from '../shared/styles/fontFamily';
 import useFetch from '../shared/hooks/useFetch';
 import { getReprocessedIssueVote } from '../features/vote/remotes/reprocessedIssueVote';
