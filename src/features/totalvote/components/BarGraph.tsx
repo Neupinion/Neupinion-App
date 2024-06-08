@@ -51,8 +51,8 @@ const BarGraph = ({ data }: BarGraphProps) => {
           </React.Fragment>
         ))}
         {data.voteResults.map((item, index) => {
-          const trustHeight = (item.trustRate / 100) * barHeight;
-          const doubtHeight = (item.doubtRate / 100) * barHeight;
+          const trustHeight = (item.firstStandRelatablePercentage / 100) * barHeight;
+          const doubtHeight = (item.secondStandRelatablePercentage / 100) * barHeight;
 
           return (
             <React.Fragment key={index}>

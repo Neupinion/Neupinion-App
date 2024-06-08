@@ -84,7 +84,6 @@ const TimeLine = ({ id }: TimeLineProps) => {
                 </View>
                 <View style={styles.textContainer}>
                   <Text style={styles.boxTitle}>{issue.title}</Text>
-                  <Text style={styles.boxContext}>작업이 필요합니다.</Text>
                 </View>
               </View>
             </LinearGradient>
@@ -141,7 +140,7 @@ const styles = StyleSheet.create({
   },
   dateText: {
     color: theme.color.gray6,
-    fontSize: 14,
+    fontSize: 13,
     fontFamily: fontFamily.pretendard.bold,
     fontStyle: 'normal',
     fontWeight: '700',
