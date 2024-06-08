@@ -7,8 +7,8 @@ import { getReprocessedIssueTopOpinion } from '../remotes/topOpinion';
 import GlobalTextStyles from '../../../shared/styles/GlobalTextStyles';
 import OpinionPaper from '../../../shared/components/Opinion/OpinionPaper';
 import EmptyScreen from '../../../shared/components/Opinion/EmptyScreen';
-import { StackNavigationProp } from "@react-navigation/stack";
-import { RootStackParamList } from "../../../rootStackParamList";
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from '../../../rootStackParamList';
 
 interface TopOpinionSliderProps {
   navigation: StackNavigationProp<RootStackParamList>;

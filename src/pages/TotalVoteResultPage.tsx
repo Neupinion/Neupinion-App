@@ -62,7 +62,7 @@ const TotalVoteResultPage = () => {
           <View style={styles.rankContainer}>
             <Text style={styles.rankTitleText}>전체 투표 순위</Text>
           </View>
-          <VoteRankContainer data={integratedVoteData.voteRankings} />
+          {/*<VoteRankContainer data={integratedVoteData.voteRankings} />*/}
         </View>
         <View style={styles.divideLine} />
         <View style={styles.timeLineContainer}>
