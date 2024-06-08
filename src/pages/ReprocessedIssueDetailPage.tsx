@@ -102,23 +102,10 @@ const ReprocessedIssueDetailPage: React.FC = () => {
         <View style={styles.divideLine} />
         <OpinionWriteSlider navigation={navigation} issueId={id} />
         <View style={styles.divideLine} />
-        <View style={{ marginTop: 20 }}>
-          <Text style={styles.titleText}>통합 베스트 Top 5 의견</Text>
-        </View>
-        {Array.isArray(myOpinionWrite) && myOpinionWrite.length === 0 ? (
-          <View style={styles.emptyContainer}>
-            <EmptyScreen text={'의견을 남기면 확인할 수 있습니다.'} />
-          </View>
-        ) : (
-          <View>
-            <TopOpinionSlider navigation={navigation} id={id} />
-            <TouchableOpacity style={styles.opinionPageButton} onPress={onClickShowOpinionButton}>
-              <Text style={styles.totalVotedButtonText}>의견 보기</Text>
-            </TouchableOpacity>
-          </View>
-        )}
-
-        {/*<ReliabilityEvaluation navigation={navigation} issueId={id} />*/}
+        <TouchableOpacity style={styles.opinionPageButton} onPress={onClickShowOpinionButton}>
+          <Text style={styles.totalVotedButtonText}>의견 보기</Text>
+        </TouchableOpacity>
+        <ReliabilityEvaluation navigation={navigation} issueId={id} />
         <View style={styles.divideLine} />
         {reprocessedIssue !== null && (
           <CategoryLatestNews current={id} category={reprocessedIssue.category} />
