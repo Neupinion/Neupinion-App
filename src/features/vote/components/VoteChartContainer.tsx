@@ -4,27 +4,23 @@ import theme from '../../../shared/styles/theme';
 import fontFamily from '../../../shared/styles/fontFamily';
 import { TrustVoteData } from '../types/bubbleChartData';
 import { formatNumber } from '../../../shared/utils/formatNumber';
+import VoteBubbleChart from './VoteBubbleChart';
 
 interface VoteBubbleChartProps {
   data: TrustVoteData;
 }
+
 const VoteChartContainer = ({ data }: VoteBubbleChartProps) => {
   return (
     <View style={styles.container}>
       <View style={styles.topContainer}>
         <Text style={styles.voteResultText}>투표 결과</Text>
         <Text style={styles.mostVotedText}>
-          {data.mostVotedStand} {formatNumber(data.mostVotedCount)}표
+          {data.mostVotedStand} {formatNumber(data.mostVotedCount)}명 공감
         </Text>
         <Text style={styles.totalVotedText}>총 투표 수: {formatNumber(data.totalVoteCount)}표</Text>
       </View>
-      <View style={styles.chartContainer}>
-        {/*<BubbleChart*/}
-        {/*  height={BUBBLE_CHART_HEIGHT}*/}
-        {/*  width={BUBBLE_CHART_WIDTH}*/}
-        {/*  data={data.voteRankings}*/}
-        {/*/>*/}
-      </View>
+      <View style={styles.chartContainer} />
     </View>
   );
 };
@@ -46,6 +42,7 @@ const styles = StyleSheet.create({
   chartContainer: {
     width: '100%',
     alignItems: 'center',
+    marginTop: 20,
   },
   rankContainer: {
     marginTop: 32,
@@ -112,4 +109,5 @@ const styles = StyleSheet.create({
     color: theme.color.white,
   },
 });
+
 export default VoteChartContainer;
