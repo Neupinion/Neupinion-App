@@ -1,7 +1,7 @@
 import { VoteData } from '../../vote/types/bubbleChartData';
 
 export interface IntegratedResult {
-  mostVoted: string;
+  mostVotedStand: string;
   mostVotedCount: number;
   totalVoteCount: number;
   voteResults: IntegratedVoteResult[];
@@ -9,6 +9,6 @@ export interface IntegratedResult {
 }
 
 export interface IntegratedVoteResult {
-  trustRate: number;
-  doubtRate: number;
+  firstStandRelatablePercentage: number;
+  secondStandRelatablePercentage: number;
 }
