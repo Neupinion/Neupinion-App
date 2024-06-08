@@ -102,9 +102,6 @@ const ReprocessedIssueDetailPage: React.FC = () => {
         <View style={styles.divideLine} />
         <OpinionWriteSlider navigation={navigation} issueId={id} />
         <View style={styles.divideLine} />
-        <TouchableOpacity style={styles.opinionPageButton} onPress={onClickShowOpinionButton}>
-          <Text style={styles.totalVotedButtonText}>의견 보기</Text>
-        </TouchableOpacity>
         <ReliabilityEvaluation navigation={navigation} issueId={id} />
         <View style={styles.divideLine} />
         {reprocessedIssue !== null && (
