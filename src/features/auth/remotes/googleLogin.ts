@@ -23,6 +23,7 @@ export const getAccessTokenGoogle = async (
     if (url.includes(`${API_URL}/login/google`)) {
       const code = new URL(url).searchParams.get('code');
       if (code) {
+        closeWebView();
         const response = await client.get('/login/google', {
           params: { code: code },
         });
@@ -41,7 +42,6 @@ export const getAccessTokenGoogle = async (
               AsyncStorage.setItem('refreshToken', refreshToken),
               AsyncStorage.setItem('accessToken', accessToken),
             ]);
-            closeWebView();
             return { accessToken, refreshToken };
           }
         }
