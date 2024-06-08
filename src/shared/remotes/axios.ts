@@ -1,6 +1,7 @@
 import axios, { AxiosError, AxiosRequestConfig } from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { API_URL } from '@env';
+import { reissueAccessToken } from '../../features/auth/remotes/reissue';
 
 const defaultConfig: AxiosRequestConfig = {
   baseURL: API_URL,
@@ -30,6 +31,16 @@ client.interceptors.response.use(
 
     if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
+
+      const newAccessToken = await reissueAccessToken();
+
+      if (newAccessToken) {
+        originalRequest.headers = originalRequest.headers || {};
+        originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
+        return client(originalRequest);
+      } else {
+        //navigate('LoginScreen');
+      }
     }
     return Promise.reject(error);
   },
