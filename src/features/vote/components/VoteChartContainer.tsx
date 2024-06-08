@@ -14,7 +14,7 @@ const VoteChartContainer = ({ data }: VoteBubbleChartProps) => {
       <View style={styles.topContainer}>
         <Text style={styles.voteResultText}>투표 결과</Text>
         <Text style={styles.mostVotedText}>
-          {data.mostVotedStatus} {formatNumber(data.mostVotedCount)}표
+          {data.mostVotedStand} {formatNumber(data.mostVotedCount)}표
         </Text>
         <Text style={styles.totalVotedText}>총 투표 수: {formatNumber(data.totalVoteCount)}표</Text>
       </View>

@@ -1,12 +1,12 @@
 export interface TrustVoteData {
   totalVoteCount: number;
+  mostVotedStand: string;
   mostVotedCount: number;
-  mostVotedStatus: string;
   voteRankings: VoteData[];
 }
 
 export interface VoteData {
-  status: string;
-  votePercentage: number;
+  stand: string;
+  relatedPercentage: number;
   children?: VoteData[];
 }

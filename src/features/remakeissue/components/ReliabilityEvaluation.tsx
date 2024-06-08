@@ -27,20 +27,12 @@ const ReliabilityEvaluation = ({ navigation, stands, issueId }: ReliabilityEvalu
 
   const onClickVoteResult = async () => {
     try {
-      if (selectedButtons.length > 0) {
-        const firstStandId = stands[selectedButtons[0]].id;
-        const secondStandId = stands[selectedButtons[1]].id;
-        const firstRelatable = selectedButtons.includes(0);
-        const secondRelatable = selectedButtons.includes(1);
+      const firstStandId = stands[0].id;
+      const secondStandId = stands[1].id;
+      const firstRelatable = selectedButtons.includes(0);
+      const secondRelatable = selectedButtons.includes(1);
 
-        await submitVoteResult(
-          issueId,
-          firstStandId,
-          firstRelatable,
-          secondStandId,
-          secondRelatable,
-        );
-      }
+      await submitVoteResult(issueId, firstStandId, firstRelatable, secondStandId, secondRelatable);
       navigation.navigate('VoteResultPage', { id: issueId });
     } catch (error) {
       console.error(error);
@@ -104,7 +96,7 @@ const styles = StyleSheet.create({
     height: 120,
     justifyContent: 'center',
     alignItems: 'center',
-    margin: 5, // To ensure 10px total gap
+    margin: 14,
   },
   buttonText: {
     color: '#4E5867',

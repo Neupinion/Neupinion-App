@@ -20,15 +20,13 @@ const VoteRankContainer = ({ data }: VoteRankContainerProps) => {
             <WithLocalSvg
               width={36}
               height={36}
-              asset={getRankIcon(index, item.status) as ImageSourcePropType}
+              asset={getRankIcon(index, item.stand) as ImageSourcePropType}
             />
-            <Text style={styles.name}>{item.status}</Text>
+            <Text style={styles.name}>{item.stand}</Text>
           </View>
           <View style={styles.valueContainer}>
-            <View
-              style={[styles.colorBox, { backgroundColor: getRankColor(index, item.status) }]}
-            />
-            <Text style={styles.value}>{item.votePercentage}%</Text>
+            <View style={[styles.colorBox, { backgroundColor: getRankColor(index, item.stand) }]} />
+            <Text style={styles.value}>{item.relatedPercentage}%</Text>
           </View>
         </View>
       ))}
