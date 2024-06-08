@@ -22,9 +22,11 @@ import GlobalTextStyles from '../shared/styles/GlobalTextStyles';
 import { getSortType, getCategoryType, subCategories } from '../shared/constants/opinionCategory';
 import { formatDate } from '../features/remakeissue/constants/formatDate';
 import FavoriteSvg from '../assets/icon/favorite.svg';
+import FavoriteFullSvg from '../assets/icon/favoritefull.svg';
 import { Dropdown } from 'react-native-element-dropdown';
-import {useRecoilValue} from "recoil";
-import {issueNumberState} from "../recoil/issueState";
+import { useRecoilValue } from 'recoil';
+import { issueNumberState } from '../recoil/issueState';
+import updateFavorite from '../features/opinion/remotes/opinion';
 const OpinionByParagraphPage = () => {
   const [reliabilityCategory, setReliabilityCategory] = useState('전체');
   const [sortType, setSortType] = useState('');
@@ -32,19 +34,10 @@ const OpinionByParagraphPage = () => {
     { label: '최신순', value: '최신순' },
     { label: '인기순', value: '인기순' },
   ];
-  const handleDropDownChange = (value: string) => {
-    setSortType(value);
-  };
-  const handleButtonPress = (category: string) => {
-    setReliabilityCategory(category);
-  };
-  const UpdateLike = () => {};
-
   type ScreenRouteProp = RouteProp<RootStackParamList, 'OpinionParagraphPage'>;
   const route = useRoute<ScreenRouteProp>();
   const issueId = useRecoilValue(issueNumberState);
-  const { item} = route.params;
-
+  const { item } = route.params;
   const fetchOpinionParagraph = () =>
     getOpinionParagraph(issueId, getCategoryType(reliabilityCategory), getSortType(sortType), 0);
   const {
@@ -57,6 +50,21 @@ const OpinionByParagraphPage = () => {
   useEffect(() => {
     void fetchData();
   }, [reliabilityCategory, sortType]);
+  const handleDropDownChange = (value: string) => {
+    setSortType(value);
+  };
+  const handleButtonPress = (category: string) => {
+    setReliabilityCategory(category);
+  };
+
+  const updateLike = async (isLiked: boolean, opinionId: number) => {
+    try {
+      await updateFavorite(issueId, opinionId, !isLiked);
+      await fetchData();
+    } catch (error) {
+      console.error('좋아요 업데이트 실패:', error);
+    }
+  };
   if (isLoading) {
     return (
       <View style={styles.container}>
@@ -148,12 +156,23 @@ const OpinionByParagraphPage = () => {
                     <Text style={styles.userOpinionText}>{opinion.content}</Text>
                   </View>
                   <View style={styles.bigOpinionCardBottom}>
-                    <TouchableOpacity style={{ marginRight: 4 }} onPress={() => UpdateLike()}>
-                      <WithLocalSvg
-                        width={18}
-                        height={18}
-                        asset={FavoriteSvg as ImageSourcePropType}
-                      />
+                    <TouchableOpacity
+                      style={{ marginRight: 4 }}
+                      onPress={() => updateLike(opinion.isLiked, opinion.id)}
+                    >
+                      {opinion.isLiked ? (
+                        <WithLocalSvg
+                          width={18}
+                          height={18}
+                          asset={FavoriteFullSvg as ImageSourcePropType}
+                        />
+                      ) : (
+                        <WithLocalSvg
+                          width={18}
+                          height={18}
+                          asset={FavoriteSvg as ImageSourcePropType}
+                        />
+                      )}
                     </TouchableOpacity>
                     <Text style={styles.favoriteText}>{opinion.likeCount}</Text>
                   </View>

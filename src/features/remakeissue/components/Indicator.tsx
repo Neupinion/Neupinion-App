@@ -3,7 +3,6 @@ import { StyleSheet, View } from 'react-native';
 import { FollowUpIssue, ReProcessedIssue } from '../../../shared/types/news';
 import theme from '../../../shared/styles/theme';
 import { SplashDataItem } from '../../splash/types/splashDataItem';
-import {Keyword} from "../../issuereport/type/keyword";
 
 interface IndicatorProps {
   data: ReProcessedIssue[] | FollowUpIssue[] | SplashDataItem[] | React.JSX.Element[] | null;

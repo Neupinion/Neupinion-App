@@ -15,7 +15,7 @@ interface ParagraphOpinionCardProps {
   item: ParagraphWithOpinions;
   issueId: number;
 }
-const ParagraphOpinionCard = ({ item, issueId }: ParagraphOpinionCardProps) => {
+const ParagraphOpinionCard = ({ item }: ParagraphOpinionCardProps) => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   const goOpinionParagraphPage = () => {
     navigation.navigate('OpinionParagraphPage', {

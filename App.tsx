@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React from 'react';
 import { DateProvider } from './src/features/date/provider/DateProvider';
 import { useCachedResources } from './src/useCachedResources';
 import Navigation from './src/Navigation';

@@ -54,7 +54,6 @@ const TotalOpinionCategory = ({ issueId }: TotalOpinionCategoryProps) => {
       </View>
     );
   }
-  //console.log(opinionTotal);
 
   return (
     <View style={styles.container}>

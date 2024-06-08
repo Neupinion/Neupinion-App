@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Image, ImageSourcePropType, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import theme from '../../../../shared/styles/theme';
 import { WithLocalSvg } from 'react-native-svg/css';
@@ -9,21 +9,14 @@ import { formatDate } from '../../../remakeissue/constants/formatDate';
 import { integratedOpinion } from '../../../../shared/types/news';
 import { WINDOW_WIDTH } from '../../../../shared/constants/display';
 import updateFavorite from '../../remotes/opinion';
+import FavoriteFullSvg from '../../../../assets/icon/favoritefull.svg';
 
 interface TotalOpinionCardProps {
   item: integratedOpinion;
 }
 const TotalOpinionCard = ({ item }: TotalOpinionCardProps) => {
-  const [likeClicked, setLikeClicked] = useState(item.isLiked);
   const updateLike = async () => {
-    const newLikeClicked = !likeClicked;
-    setLikeClicked(newLikeClicked);
-    try {
-      await updateFavorite(1, item.opinionId, newLikeClicked);
-    } catch (error) {
-      setLikeClicked(!newLikeClicked);
-      console.error('좋아요 업데이트 실패:', error);
-    }
+    await updateFavorite(item.issueId, item.opinionId, !item.isLiked);
   };
   return (
     <View style={styles.container}>
@@ -51,7 +44,11 @@ const TotalOpinionCard = ({ item }: TotalOpinionCardProps) => {
         <PinSentenceCard color={theme.color.gray2} paragraphContent={item.paragraphContent} />
         <View style={styles.bigOpinionCardBottom}>
           <TouchableOpacity style={{ marginRight: 4 }} onPress={() => updateLike()}>
-            <WithLocalSvg width={18} height={18} asset={FavoriteSvg as ImageSourcePropType} />
+            {item.isLiked ? (
+              <WithLocalSvg width={18} height={18} asset={FavoriteFullSvg as ImageSourcePropType} />
+            ) : (
+              <WithLocalSvg width={18} height={18} asset={FavoriteSvg as ImageSourcePropType} />
+            )}
           </TouchableOpacity>
           <Text style={styles.favoriteText}>{item.likeCount}</Text>
         </View>

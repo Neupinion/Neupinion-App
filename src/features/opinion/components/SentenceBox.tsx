@@ -49,9 +49,7 @@ const SentenceBox = ({ sentenceNumber }: SentenceBoxProps) => {
     );
   }
 
-  const matchingSentence = reprocessedIssue.content.find(
-    (item) => item.id === sentenceNumber
-  );
+  const matchingSentence = reprocessedIssue.content.find((item) => item.id === sentenceNumber);
 
   const paragraph = matchingSentence ? matchingSentence.paragraph : '';
 

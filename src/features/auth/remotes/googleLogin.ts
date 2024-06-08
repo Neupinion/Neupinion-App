@@ -13,7 +13,6 @@ export const getAccessTokenGoogle = async (
       AsyncStorage.getItem('accessToken'),
       AsyncStorage.getItem('refreshToken'),
     ]);
-
     if (storedAccessToken && storedRefreshToken) {
       closeWebView();
       return { accessToken: storedAccessToken, refreshToken: storedRefreshToken };
