@@ -9,7 +9,7 @@ export const getAccessTokenGoogle = async (
   closeWebView: () => void,
 ): Promise<TokenResponse | null> => {
   const storedAccessToken = await AsyncStorage.getItem('accessToken');
-  const storedRefreshToken = await AsyncStorage.getItem('refreshTokenCookie');
+  const storedRefreshToken = await AsyncStorage.getItem('refreshToken');
 
   if (storedAccessToken && storedRefreshToken) {
     closeWebView();
@@ -36,7 +36,7 @@ export const getAccessTokenGoogle = async (
           if (refreshToken) {
             const data = response.data as TokenResponse;
             const { accessToken } = data;
-            await AsyncStorage.setItem('refreshTokenCookie', refreshToken);
+            await AsyncStorage.setItem('refreshToken', refreshToken);
             await AsyncStorage.setItem('accessToken', accessToken);
             console.log(accessToken, refreshToken);
             return { accessToken, refreshToken };
