@@ -23,7 +23,7 @@ export const getAccessTokenGoogle = async (
     if (url.includes(`${API_URL}/login/google`)) {
       const code = new URL(url).searchParams.get('code');
       if (code) {
-        const response = await client.get(`${API_URL}/login/google`, {
+        const response = await client.get('/login/google', {
           params: { code: code },
         });
         const cookies = response.headers['set-cookie'];
