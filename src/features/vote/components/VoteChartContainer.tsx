@@ -1,33 +1,96 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import Svg, { Circle, Defs, RadialGradient, Stop } from 'react-native-svg';
 import theme from '../../../shared/styles/theme';
 import fontFamily from '../../../shared/styles/fontFamily';
 import { TrustVoteData } from '../types/bubbleChartData';
 import { formatNumber } from '../../../shared/utils/formatNumber';
+import {
+  HighlyTrustedBubbleGradient,
+  SomewhatTrustedBubbleGradient,
+  SomewhatDistrustedBubbleGradient,
+  HighlyDistrustedEDBubbleGradient,
+} from '../constants/bubbleGradient';
 
 interface VoteBubbleChartProps {
   data: TrustVoteData;
 }
 
+const getGradient = (relatedPercentage: number) => {
+  if (relatedPercentage > 75) {
+    return HighlyTrustedBubbleGradient;
+  } else if (relatedPercentage > 50) {
+    return SomewhatTrustedBubbleGradient;
+  } else if (relatedPercentage > 25) {
+    return SomewhatDistrustedBubbleGradient;
+  } else {
+    return HighlyDistrustedEDBubbleGradient;
+  }
+};
+
 const VoteChartContainer = ({ data }: VoteBubbleChartProps) => {
+  const visibleVotes = data.voteRankings.filter((voteData) => voteData.relatedPercentage > 0);
   const isFirstLarger =
-    data.voteRankings[0].relatedPercentage > data.voteRankings[1].relatedPercentage;
+    visibleVotes.length > 1 &&
+    visibleVotes[0].relatedPercentage > visibleVotes[1].relatedPercentage;
+
+  if (visibleVotes.length === 1) {
+    const voteData = visibleVotes[0];
+    const gradient = getGradient(voteData.relatedPercentage);
+
+    return (
+      <View style={styles.container}>
+        <View style={styles.topContainer}>
+          <Text style={styles.voteResultText}>투표 결과</Text>
+          <Text style={styles.mostVotedText}>
+            {data.mostVotedStand} {formatNumber(data.mostVotedCount)}명 공감
+          </Text>
+          <Text style={styles.totalVotedText}>
+            총 투표 수: {formatNumber(data.totalVoteCount)}표
+          </Text>
+        </View>
+        <View style={styles.chartContainer}>
+          <Svg height={200} width={200}>
+            <Defs>
+              <RadialGradient id={gradient.id} cx={gradient.cx} cy={gradient.cy} r={gradient.r}>
+                <Stop offset={gradient.stop1.offset} stopColor={gradient.stop1.stopColor} />
+                <Stop offset={gradient.stop2.offset} stopColor={gradient.stop2.stopColor} />
+              </RadialGradient>
+            </Defs>
+            <Circle cx="50%" cy="50%" r="50%" fill={`url(#${gradient.id})`} />
+          </Svg>
+          <View style={[styles.bubbleTextContainer, { width: 200, height: 200 }]}>
+            <Text style={styles.bubbleText}>{voteData.stand}</Text>
+            <Text style={styles.bubblePercentage}>{voteData.relatedPercentage}%</Text>
+          </View>
+        </View>
+      </View>
+    );
+  }
 
   const renderVoteBubbles = () => {
     return data.voteRankings.map((voteData, index) => {
-      const bubbleStyle =
-        index === 0
-          ? isFirstLarger
-            ? styles.bubbleLarge
-            : styles.bubbleSmall
-          : isFirstLarger
-            ? styles.bubbleSmall
-            : styles.bubbleLarge;
+      if (voteData.relatedPercentage === 0) return null;
+
+      const bubbleSize = index === 0 ? (isFirstLarger ? 150 : 100) : isFirstLarger ? 100 : 150;
+
+      const gradient = getGradient(voteData.relatedPercentage);
 
       return (
-        <View key={index} style={bubbleStyle}>
-          <Text style={styles.bubbleText}>{voteData.stand}</Text>
-          <Text style={styles.bubblePercentage}>{voteData.relatedPercentage}</Text>
+        <View key={index} style={{ margin: 14 }}>
+          <Svg height={bubbleSize} width={bubbleSize}>
+            <Defs>
+              <RadialGradient id={gradient.id} cx={gradient.cx} cy={gradient.cy} r={gradient.r}>
+                <Stop offset={gradient.stop1.offset} stopColor={gradient.stop1.stopColor} />
+                <Stop offset={gradient.stop2.offset} stopColor={gradient.stop2.stopColor} />
+              </RadialGradient>
+            </Defs>
+            <Circle cx="50%" cy="50%" r="50%" fill={`url(#${gradient.id})`} />
+          </Svg>
+          <View style={[styles.bubbleTextContainer, { width: bubbleSize, height: bubbleSize }]}>
+            <Text style={styles.bubbleText}>{voteData.stand}</Text>
+            <Text style={styles.bubblePercentage}>{voteData.relatedPercentage}%</Text>
+          </View>
         </View>
       );
     });
@@ -97,42 +160,32 @@ const styles = StyleSheet.create({
     letterSpacing: -0.5,
     color: theme.color.white,
   },
-  bubbleSmall: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
-    backgroundColor: theme.color.unReliable,
+  bubbleTextContainer: {
+    position: 'absolute',
     justifyContent: 'center',
     alignItems: 'center',
-    margin: 14,
-  },
-  bubbleLarge: {
-    width: 150,
-    height: 150,
-    borderRadius: 75,
-    backgroundColor: theme.color.reliable,
-    justifyContent: 'center',
-    alignItems: 'center',
-    margin: 14,
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
   },
   bubbleText: {
     color: theme.color.white,
+    fontFamily: fontFamily.pretendard.bold,
     fontStyle: 'normal',
     fontSize: 14,
     fontWeight: '700',
     textAlign: 'center',
-    paddingHorizontal: 10,
   },
   bubblePercentage: {
     color: theme.color.white,
+    fontFamily: fontFamily.pretendard.medium,
     fontStyle: 'normal',
     fontSize: 12,
     fontWeight: '500',
     textAlign: 'center',
-    paddingHorizontal: 10,
+    marginTop: 4,
   },
 });
 
 export default VoteChartContainer;
-
-
