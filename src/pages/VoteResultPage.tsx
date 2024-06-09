@@ -83,7 +83,6 @@ const VoteResultPage = () => {
           <View style={styles.rankContainer}>
             <Text style={styles.rankTitleText}>전체 투표 순위</Text>
           </View>
-          {/*<VoteRankContainer data={voteData.voteRankings} />*/}
         </View>
         <View style={styles.divideLine} />
         <TopOpinionSlider navigation={navigation} id={id} />

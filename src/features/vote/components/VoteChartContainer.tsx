@@ -10,6 +10,29 @@ interface VoteBubbleChartProps {
 }
 
 const VoteChartContainer = ({ data }: VoteBubbleChartProps) => {
+  const isFirstLarger =
+    data.voteRankings[0].relatedPercentage > data.voteRankings[1].relatedPercentage;
+
+  const renderVoteBubbles = () => {
+    return data.voteRankings.map((voteData, index) => {
+      const bubbleStyle =
+        index === 0
+          ? isFirstLarger
+            ? styles.bubbleLarge
+            : styles.bubbleSmall
+          : isFirstLarger
+            ? styles.bubbleSmall
+            : styles.bubbleLarge;
+
+      return (
+        <View key={index} style={bubbleStyle}>
+          <Text style={styles.bubbleText}>{voteData.stand}</Text>
+          <Text style={styles.bubblePercentage}>{voteData.relatedPercentage}</Text>
+        </View>
+      );
+    });
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.topContainer}>
@@ -19,7 +42,7 @@ const VoteChartContainer = ({ data }: VoteBubbleChartProps) => {
         </Text>
         <Text style={styles.totalVotedText}>총 투표 수: {formatNumber(data.totalVoteCount)}표</Text>
       </View>
-      <View style={styles.chartContainer} />
+      <View style={styles.chartContainer}>{renderVoteBubbles()}</View>
     </View>
   );
 };
@@ -40,14 +63,10 @@ const styles = StyleSheet.create({
   },
   chartContainer: {
     width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
     alignItems: 'center',
     marginTop: 20,
-  },
-  rankContainer: {
-    marginTop: 32,
-    width: '100%',
-    flexDirection: 'column',
-    alignItems: 'flex-start',
   },
   voteResultText: {
     fontFamily: fontFamily.pretendard.bold,
@@ -76,37 +95,44 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     lineHeight: 18,
     letterSpacing: -0.5,
-    color: theme.color.gray6,
+    color: theme.color.white,
   },
-  totalVotedButton: {
-    display: 'flex',
-    borderRadius: 10,
-    width: 160,
-    height: 50,
+  bubbleSmall: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+    backgroundColor: theme.color.unReliable,
     justifyContent: 'center',
     alignItems: 'center',
-    flexShrink: 0,
-    backgroundColor: theme.color.gray3,
+    margin: 14,
   },
-  totalVotedButtonText: {
-    fontFamily: fontFamily.pretendard.bold,
-    fontSize: 17,
-    fontStyle: 'normal',
-    fontWeight: '700',
-    lineHeight: 25.5,
-    letterSpacing: -0.51,
+  bubbleLarge: {
+    width: 150,
+    height: 150,
+    borderRadius: 75,
+    backgroundColor: theme.color.reliable,
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: 14,
+  },
+  bubbleText: {
     color: theme.color.white,
+    fontStyle: 'normal',
+    fontSize: 14,
+    fontWeight: '700',
     textAlign: 'center',
+    paddingHorizontal: 10,
   },
-  rankTitleText: {
-    fontFamily: fontFamily.pretendard.bold,
-    fontSize: 17,
-    fontStyle: 'normal',
-    fontWeight: '700',
-    lineHeight: 25.5,
-    letterSpacing: -0.51,
+  bubblePercentage: {
     color: theme.color.white,
+    fontStyle: 'normal',
+    fontSize: 12,
+    fontWeight: '500',
+    textAlign: 'center',
+    paddingHorizontal: 10,
   },
 });
 
 export default VoteChartContainer;
+
+
