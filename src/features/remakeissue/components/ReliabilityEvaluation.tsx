@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import theme from '../../../shared/styles/theme';
 import submitVoteResult from '../remotes/submitVoteResult';
@@ -16,6 +16,13 @@ interface ReliabilityEvaluation {
 
 const ReliabilityEvaluation = ({ navigation, stands, issueId }: ReliabilityEvaluation) => {
   const [selectedButtons, setSelectedButtons] = useState<number[]>([]);
+
+  useEffect(() => {
+    const initialSelectedButtons = stands
+      .map((stand, index) => (stand.relatable ? index : -1))
+      .filter((index) => index !== -1);
+    setSelectedButtons(initialSelectedButtons);
+  }, [stands]);
 
   const toggleSelection = (index: number) => {
     setSelectedButtons((prevSelected) =>
