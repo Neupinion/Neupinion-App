@@ -80,9 +80,6 @@ const VoteResultPage = () => {
           <TouchableOpacity style={styles.totalVotedButton} onPress={onClickViewTotalVoteButton}>
             <Text style={styles.totalVotedButtonText}>통합 투표 결과 보기</Text>
           </TouchableOpacity>
-          <View style={styles.rankContainer}>
-            <Text style={styles.rankTitleText}>전체 투표 순위</Text>
-          </View>
         </View>
         <View style={styles.divideLine} />
         <TopOpinionSlider navigation={navigation} id={id} />
@@ -148,7 +145,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexShrink: 0,
     backgroundColor: theme.color.gray3,
-    marginTop: 32,
+    marginTop: 20,
+    marginBottom: 8,
   },
   totalVotedButtonText: {
     fontFamily: fontFamily.pretendard.bold,

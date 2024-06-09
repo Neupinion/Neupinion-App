@@ -23,15 +23,15 @@ const VoteBubbleChart = ({ data }: BubbleChartProps) => {
           style={[
             styles.bubble,
             {
-              width: calculateAdjustedRadius(item.relatedPercentage) * 2,
-              height: calculateAdjustedRadius(item.relatedPercentage) * 2,
+              width: calculateAdjustedRadius(item.relatablePercentage) * 2,
+              height: calculateAdjustedRadius(item.relatablePercentage) * 2,
               backgroundColor: index % 2 === 0 ? '#FFD700' : '#FF4500',
             },
           ]}
         >
           <Text style={[styles.bubbleFontStyle, { fontSize: 16 }]}>{item.stand}</Text>
           <Text style={[styles.bubbleFontStyle, { fontSize: 14 }]}>
-            {item.relatedPercentage + '%'}
+            {item.relatablePercentage + '%'}
           </Text>
         </View>
       ))}

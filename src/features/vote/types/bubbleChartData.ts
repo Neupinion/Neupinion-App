@@ -7,6 +7,5 @@ export interface TrustVoteData {
 
 export interface VoteData {
   stand: string;
-  relatedPercentage: number;
-  children?: VoteData[];
+  relatablePercentage: number;
 }
