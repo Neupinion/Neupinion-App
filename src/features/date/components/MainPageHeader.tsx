@@ -38,11 +38,7 @@ const MainPageHeader = ({ title }: MainPageHeaderProps) => {
           </TouchableOpacity>
         </View>
         <Text style={styles.headerTitle}>{title}</Text>
-        <View style={styles.headerRightContainer}>
-          <TouchableOpacity style={styles.headerSvg} onPress={Restart}>
-            <Text style={styles.headerDateText}>Restart</Text>
-          </TouchableOpacity>
-        </View>
+        <View style={styles.headerRightContainer} />
       </View>
     </View>
   );
