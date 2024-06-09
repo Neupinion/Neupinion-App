@@ -51,7 +51,7 @@ const TimeLine = ({ id }: TimeLineProps) => {
 
   return (
     <View style={styles.container}>
-      {timeLineIssues.map((issue) => (
+      {timeLineIssues.map((issue, index) => (
         <View key={issue.id} style={styles.issueContainer}>
           <View style={styles.timeContainer}>
             <Text style={styles.dateText}>{formatDateMMDD(issue.createdAt)}</Text>
@@ -72,7 +72,7 @@ const TimeLine = ({ id }: TimeLineProps) => {
               <View style={styles.issueContextContainer}>
                 <View style={styles.tagContainer}>
                   <View style={styles.tag}>
-                    <Text style={styles.tagText}>{getNewsReportOrdinalInKorean(issue.id)}</Text>
+                    <Text style={styles.tagText}>{getNewsReportOrdinalInKorean(index + 1)}</Text>
                   </View>
                   <TouchableOpacity onPress={() => {}}>
                     <WithLocalSvg

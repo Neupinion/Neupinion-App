@@ -57,11 +57,7 @@ const TotalVoteResultPage = () => {
     <View style={styles.container}>
       <ScrollView style={styles.scrollViewStyle}>
         <TotalVoteChartContainer data={integratedVoteData} />
-        <View style={styles.underChartContainer}>
-          <View style={styles.rankContainer}>
-            <Text style={styles.rankTitleText}>전체 투표 순위</Text>
-          </View>
-        </View>
+        <View style={styles.underChartContainer} />
         <View style={styles.divideLine} />
         <View style={styles.timeLineContainer}>
           <Text style={styles.rankTitleText}>타임라인 살펴보기</Text>
@@ -99,7 +95,7 @@ const styles = StyleSheet.create({
   },
   underChartContainer: {
     paddingHorizontal: 26,
-    marginBottom: 20,
+    marginBottom: 40,
     alignItems: 'center',
   },
   divideLine: {
