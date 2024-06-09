@@ -81,7 +81,7 @@ const OpinionWriteBottomSheet = ({
       issueId: issueId,
       opinionId: opinionWrite.id,
       sentenceIndex: opinionWrite.paragraphId,
-      text: opinionWrite.paragraphContent,
+      text: opinionWrite.content,
       isReliable: opinionWrite.isReliable,
       editMode: true,
     });
