@@ -17,11 +17,27 @@ import SeeOriginalSvg from '../../../assets/icon/seeOriginal.svg';
 import { getTimeLineIssues } from '../remotes/getTimeLineIssues';
 import { formatDateMMDD } from '../../remakeissue/constants/formatDate';
 import { getNewsReportOrdinalInKorean } from '../../../shared/functions/getNewsReportOrdinalInKorean';
+import { useNavigation } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { RootStackParamList } from "../../../rootStackParamList";
 
 interface TimeLineProps {
   id: number;
 }
 const TimeLine = ({ id }: TimeLineProps) => {
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
+
+  const onClickReprocessedIssue = (itemId: number) => {
+    const issue_id = Number(itemId);
+    navigation.reset({
+      index: 1,
+      routes: [
+        { name: 'MainPage' },
+        { name: 'ReprocessedIssueDetailPage', params: { id: issue_id } },
+      ],
+    });
+  };
+
   const fetchIssueTimeLine = () => getTimeLineIssues(id);
   const { data: timeLineIssues, isLoading, error, fetchData } = useFetch(fetchIssueTimeLine, false);
 
@@ -74,7 +90,7 @@ const TimeLine = ({ id }: TimeLineProps) => {
                   <View style={styles.tag}>
                     <Text style={styles.tagText}>{getNewsReportOrdinalInKorean(index + 1)}</Text>
                   </View>
-                  <TouchableOpacity onPress={() => {}}>
+                  <TouchableOpacity onPress={() => onClickReprocessedIssue(issue.id)}>
                     <WithLocalSvg
                       width={79}
                       height={30}

@@ -8,12 +8,28 @@ import { getRelatedIssuesById } from '../remotes/getRecommendIssuesByCategory';
 import useFetch from '../../../shared/hooks/useFetch';
 import GlobalTextStyles from '../../../shared/styles/GlobalTextStyles';
 import EmptyScreen from '../../../shared/components/Opinion/EmptyScreen';
+import { useNavigation } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { RootStackParamList } from "../../../rootStackParamList";
 
 interface RecommendIssuesProps {
   id: number;
 }
 
 const RelatedIssues = ({ id }: RecommendIssuesProps) => {
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
+
+  const onClickReprocessedIssue = (itemId: number) => {
+    const issue_id = Number(itemId);
+    navigation.reset({
+      index: 1,
+      routes: [
+        { name: 'MainPage' },
+        { name: 'ReprocessedIssueDetailPage', params: { id: issue_id } },
+      ],
+    });
+  };
+
   const fetchRecommendIssueByCategory = () => getRelatedIssuesById(id);
   const {
     data: followUpIssues,
@@ -55,7 +71,11 @@ const RelatedIssues = ({ id }: RecommendIssuesProps) => {
     <View style={styles.container}>
       <Text style={styles.titleText}>이 뉴스도 한번 봐보세요</Text>
       {followUpIssues.map((item, index) => (
-        <TouchableOpacity key={index} style={styles.card} onPress={() => {}}>
+        <TouchableOpacity
+          key={index}
+          style={styles.card}
+          onPress={() => onClickReprocessedIssue(item.id)}
+        >
           <View style={styles.leftContainer}>
             <Text style={styles.cardTitleText}>{item.title}</Text>
             <View style={styles.titleUnderContainer}>

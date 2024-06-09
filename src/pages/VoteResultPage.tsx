@@ -188,6 +188,17 @@ const styles = StyleSheet.create({
     marginTop: 28,
     marginBottom: 20,
   },
+  subtitleText: {
+    paddingHorizontal: 26,
+    fontFamily: fontFamily.pretendard.bold,
+    fontSize: 17,
+    fontStyle: 'normal',
+    fontWeight: '700',
+    lineHeight: 25.5,
+    letterSpacing: -0.51,
+    color: theme.color.white,
+    width: '100%',
+  },
 });
 
 export default VoteResultPage;
