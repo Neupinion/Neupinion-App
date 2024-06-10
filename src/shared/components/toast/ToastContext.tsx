@@ -20,9 +20,7 @@ export const ToastProvider: React.FC<ToastProviderProps> = ({ children }) => {
       if (!isAnimating) {
         setMessage(msg);
       }
-    },
-    [isAnimating],
-  );
+    }, [isAnimating]);
 
   const hideToast = useCallback(() => {
     setMessage('');
