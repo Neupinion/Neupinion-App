@@ -6,21 +6,16 @@ import fontFamily from '../../../shared/styles/fontFamily';
 import { TrustVoteData } from '../types/bubbleChartData';
 import { formatNumber } from '../../../shared/utils/formatNumber';
 import {
-  HighlyTrustedBubbleGradient,
-  SomewhatTrustedBubbleGradient,
-} from '../constants/bubbleGradient';
+  HighlyDistrustedEDBubbleGradient,
+  HighlyTrustedBubbleGradient, SomewhatDistrustedBubbleGradient,
+  SomewhatTrustedBubbleGradient
+} from "../constants/bubbleGradient";
 
 interface VoteBubbleChartProps {
   data: TrustVoteData;
 }
 
-const getGradient = (relatablePercentage: number) => {
-  if (relatablePercentage > 50) {
-    return HighlyTrustedBubbleGradient;
-  } else {
-    return SomewhatTrustedBubbleGradient;
-  }
-};
+const gradients = [HighlyTrustedBubbleGradient, SomewhatDistrustedBubbleGradient];
 
 const getBubbleTextStyle = (bubbleSize: number) => {
   const fontSize = bubbleSize / 12;
@@ -36,9 +31,13 @@ const VoteChartContainer = ({ data }: VoteBubbleChartProps) => {
     visibleVotes.length > 1 &&
     visibleVotes[0].relatablePercentage > visibleVotes[1].relatablePercentage;
 
+  const areValuesEqual =
+    visibleVotes.length > 1 &&
+    visibleVotes[0].relatablePercentage === visibleVotes[1].relatablePercentage;
+
   if (visibleVotes.length === 1) {
     const voteData = visibleVotes[0];
-    const gradient = getGradient(voteData.relatablePercentage);
+    const gradient = gradients[0];
 
     return (
       <View style={styles.container}>
@@ -86,8 +85,13 @@ const VoteChartContainer = ({ data }: VoteBubbleChartProps) => {
     return data.voteRankings.map((voteData, index) => {
       if (voteData.relatablePercentage === 0) return null;
 
-      const bubbleSize = index === 0 ? (isFirstLarger ? 160 : 120) : isFirstLarger ? 120 : 160;
-      const gradient = getGradient(voteData.relatablePercentage);
+      const bubbleSize = areValuesEqual
+        ? 140
+        : index === 0
+          ? (isFirstLarger ? 160 : 120)
+          : (isFirstLarger ? 120 : 160);
+
+      const gradient = gradients[index % gradients.length];
 
       return (
         <View key={index} style={{ margin: 14, position: 'relative' }}>
