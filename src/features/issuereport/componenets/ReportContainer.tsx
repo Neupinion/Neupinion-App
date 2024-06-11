@@ -52,11 +52,7 @@ const ReportContainer = ({ id, onClose }: ReportContainerProps) => {
   }
 
   if (error) {
-    return (
-      <View style={styles.container}>
-        <Text style={GlobalTextStyles.NormalText17}>ERROR</Text>
-      </View>
-    );
+    onClose();
   }
 
   if (!keyword) {
