@@ -51,9 +51,9 @@ const OpinionMainPage = () => {
               </View>
               <Text style={styles.dateText}>{formatDate(reprocessedIssue.createdAt)}</Text>
             </View>
-            <TouchableOpacity style={styles.headerSvg} onPress={() => {}}>
-              <WithLocalSvg width={79} height={30} asset={SeeOriginalSvg as ImageSourcePropType} />
-            </TouchableOpacity>
+            {/*<TouchableOpacity style={styles.headerSvg} onPress={() => {}}>*/}
+            {/*  <WithLocalSvg width={79} height={30} asset={SeeOriginalSvg as ImageSourcePropType} />*/}
+            {/*</TouchableOpacity>*/}
           </View>
         </View>
       )}
