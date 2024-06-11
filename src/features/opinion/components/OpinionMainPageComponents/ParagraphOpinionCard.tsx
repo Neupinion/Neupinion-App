@@ -26,12 +26,10 @@ const ParagraphOpinionCard = ({ item }: ParagraphOpinionCardProps) => {
     <View style={styles.container}>
       <View style={styles.bigOpinionCard}>
         <PinSentenceCard color={theme.color.gray2} paragraphContent={item.content} />
-        <View style={styles.cardBottom}>
+        <TouchableOpacity onPress={goOpinionParagraphPage} style={styles.cardBottom}>
           <Text style={styles.opinionCountText}>의견 {item.opinions.length}개</Text>
-          <TouchableOpacity onPress={goOpinionParagraphPage}>
-            <WithLocalSvg width={24} height={24} asset={next as ImageSourcePropType} />
-          </TouchableOpacity>
-        </View>
+          <WithLocalSvg width={24} height={24} asset={next as ImageSourcePropType} />
+        </TouchableOpacity>
       </View>
     </View>
   );
