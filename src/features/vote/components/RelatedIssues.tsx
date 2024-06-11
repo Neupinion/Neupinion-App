@@ -8,9 +8,9 @@ import { getRelatedIssuesById } from '../remotes/getRecommendIssuesByCategory';
 import useFetch from '../../../shared/hooks/useFetch';
 import GlobalTextStyles from '../../../shared/styles/GlobalTextStyles';
 import EmptyScreen from '../../../shared/components/Opinion/EmptyScreen';
-import { useNavigation } from "@react-navigation/native";
-import { StackNavigationProp } from "@react-navigation/stack";
-import { RootStackParamList } from "../../../rootStackParamList";
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from '../../../rootStackParamList';
 
 interface RecommendIssuesProps {
   id: number;

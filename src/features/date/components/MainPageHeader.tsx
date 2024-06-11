@@ -2,7 +2,6 @@ import React from 'react';
 import { TouchableOpacity, Text, StyleSheet, View, ImageSourcePropType } from 'react-native';
 import { WithLocalSvg } from 'react-native-svg/css';
 import MainArrowSvg from '../../../assets/icon/mainarrow.svg';
-import Restart from '../../../Restart';
 import { getFormatDate } from '../functions/formatDate';
 import fontFamily from '../../../shared/styles/fontFamily';
 import { useDate } from '../provider/DateProvider';

@@ -16,7 +16,6 @@ import MainArrowSvg from '../assets/icon/mainarrow.svg';
 import useFetch from '../shared/hooks/useFetch';
 import { getReprocessedIssues } from '../features/remakeissue/remotes/reprocessedissue';
 import FollowUpIssueContainer from '../features/followupissue/components/FollowUpIssueContainer';
-import CategorySlider from '../features/remakeissue/components/CategorySlider';
 import AfterIssueSlider from '../features/remakeissue/components/AfterIssueSlider';
 import FollowUpIssueDummy from '../dummy/FollowUpIssueDummy';
 import fontFamily from '../shared/styles/fontFamily';

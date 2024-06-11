@@ -6,10 +6,9 @@ import fontFamily from '../../../shared/styles/fontFamily';
 import { TrustVoteData } from '../types/bubbleChartData';
 import { formatNumber } from '../../../shared/utils/formatNumber';
 import {
-  HighlyDistrustedEDBubbleGradient,
-  HighlyTrustedBubbleGradient, SomewhatDistrustedBubbleGradient,
-  SomewhatTrustedBubbleGradient
-} from "../constants/bubbleGradient";
+  HighlyTrustedBubbleGradient,
+  SomewhatDistrustedBubbleGradient,
+} from '../constants/bubbleGradient';
 
 interface VoteBubbleChartProps {
   data: TrustVoteData;
@@ -36,7 +35,6 @@ const VoteChartContainer = ({ data }: VoteBubbleChartProps) => {
     visibleVotes[0].relatablePercentage === visibleVotes[1].relatablePercentage;
 
   if (visibleVotes.length === 1) {
-    const voteData = visibleVotes[0];
     const gradient = gradients[0];
 
     return (
@@ -88,8 +86,12 @@ const VoteChartContainer = ({ data }: VoteBubbleChartProps) => {
       const bubbleSize = areValuesEqual
         ? 140
         : index === 0
-          ? (isFirstLarger ? 160 : 120)
-          : (isFirstLarger ? 120 : 160);
+          ? isFirstLarger
+            ? 160
+            : 120
+          : isFirstLarger
+            ? 120
+            : 160;
 
       const gradient = gradients[index % gradients.length];
 

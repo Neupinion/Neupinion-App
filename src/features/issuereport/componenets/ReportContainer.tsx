@@ -8,7 +8,6 @@ import {
   ImageSourcePropType,
   TouchableOpacity,
   ActivityIndicator,
-  Text,
 } from 'react-native';
 import Indicator from '../../remakeissue/components/Indicator';
 import theme from '../../../shared/styles/theme';
@@ -18,7 +17,6 @@ import { WithLocalSvg } from 'react-native-svg/css';
 import PopupCloseButton from '../../../assets/icon/popupclosebutton.svg';
 import useFetch from '../../../shared/hooks/useFetch';
 import { getIssueKeyword } from '../remotes/getIssueKeyword';
-import GlobalTextStyles from '../../../shared/styles/GlobalTextStyles';
 import { processApiResponse } from '../function/processApiResponse';
 
 interface ReportContainerProps {

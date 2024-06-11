@@ -17,9 +17,9 @@ import SeeOriginalSvg from '../../../assets/icon/seeOriginal.svg';
 import { getTimeLineIssues } from '../remotes/getTimeLineIssues';
 import { formatDateMMDD } from '../../remakeissue/constants/formatDate';
 import { getNewsReportOrdinalInKorean } from '../../../shared/functions/getNewsReportOrdinalInKorean';
-import { useNavigation } from "@react-navigation/native";
-import { StackNavigationProp } from "@react-navigation/stack";
-import { RootStackParamList } from "../../../rootStackParamList";
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from '../../../rootStackParamList';
 
 interface TimeLineProps {
   id: number;

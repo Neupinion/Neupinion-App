@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import theme from '../../../shared/styles/theme';
 import submitVoteResult from '../remotes/submitVoteResult';

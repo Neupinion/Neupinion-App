@@ -9,7 +9,6 @@ import OpinionPaper from '../../../shared/components/Opinion/OpinionPaper';
 import EmptyScreen from '../../../shared/components/Opinion/EmptyScreen';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../../../rootStackParamList';
-import { WINDOW_WIDTH } from "../../../shared/constants/display";
 
 interface TopOpinionSliderProps {
   navigation: StackNavigationProp<RootStackParamList>;

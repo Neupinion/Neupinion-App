@@ -4,9 +4,9 @@ import theme from '../../../shared/styles/theme';
 import { SameCategoryReprocessedIssue } from '../../../shared/types/news';
 import { formatDate } from '../constants/formatDate';
 import { WINDOW_WIDTH } from '../../../shared/constants/display';
-import { useNavigation } from "@react-navigation/native";
-import { StackNavigationProp } from "@react-navigation/stack";
-import { RootStackParamList } from "../../../rootStackParamList";
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from '../../../rootStackParamList';
 
 interface CategoryLatestNewsSliderItemProps {
   item: SameCategoryReprocessedIssue;

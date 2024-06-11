@@ -1,12 +1,5 @@
 import React, { useEffect } from 'react';
-import {
-  ActivityIndicator,
-  FlatList,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { ActivityIndicator, FlatList, StyleSheet, Text, View } from 'react-native';
 import fontFamily from '../../../shared/styles/fontFamily';
 import theme from '../../../shared/styles/theme';
 import FollowUpIssueCardGradient from '../../../shared/components/FollowUpIssue/FollowUpIssueCardGradient';

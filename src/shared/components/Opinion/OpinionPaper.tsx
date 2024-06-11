@@ -1,18 +1,16 @@
-import { Image, ImageSourcePropType, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Image, ImageSourcePropType, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
 import theme from '../../styles/theme';
 import { WithLocalSvg } from 'react-native-svg/css';
 import Pin from '../../../assets/icon/pin.svg';
 import fontFamily from '../../styles/fontFamily';
 import { Opinion } from '../../../features/vote/types/opinion';
-import OpinionHeartSvg from '../../../assets/icon/postitlikeimage.svg';
 import { useModal } from '../../hooks/useModal';
 import OpinionWriteBottomSheet from '../../../features/opinion/components/OpinionWriteBottomSheet';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../../../rootStackParamList';
-import * as url from "url";
-import FavoriteFullSvg from "../../../assets/icon/favoritefull.svg";
-import FavoriteSvg from "../../../assets/icon/favorite.svg";
+import FavoriteFullSvg from '../../../assets/icon/favoritefull.svg';
+import FavoriteSvg from '../../../assets/icon/favorite.svg';
 
 interface OpinionPaperProps {
   navigation: StackNavigationProp<RootStackParamList>;
@@ -21,8 +19,6 @@ interface OpinionPaperProps {
 }
 
 const OpinionPaper = ({ navigation, issueId, opinion }: OpinionPaperProps) => {
-  const formattedLikeCount = opinion.likeCount > 9999 ? '9999+' : opinion.likeCount.toString();
-
   const { openModal, closeModal } = useModal();
 
   const onClickOpinion = () => {

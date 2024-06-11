@@ -1,12 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  ImageSourcePropType,
-  ScrollView,
-} from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native';
 import theme from '../shared/styles/theme';
 import TotalOpinionCategory from '../features/opinion/components/OpinionMainPageComponents/TotalOpinionCategory';
 import fontFamily from '../shared/styles/fontFamily';
@@ -15,10 +8,8 @@ import { WINDOW_WIDTH } from '../shared/constants/display';
 import { mainCategories } from '../shared/constants/opinionCategory';
 import TopOpinionSlider from '../features/vote/components/TopOpinionSlider';
 import { formatDate } from '../features/remakeissue/constants/formatDate';
-import SeeOriginalSvg from '../assets/icon/seeOriginal.svg';
 import useFetch from '../shared/hooks/useFetch';
 import { getReprocessedIssueContent } from '../features/remakeissue/remotes/reprocessedIssueContent';
-import { WithLocalSvg } from 'react-native-svg/css';
 import { useRecoilValue } from 'recoil';
 import { issueNumberState } from '../recoil/issueState';
 import { useNavigation } from '@react-navigation/native';
