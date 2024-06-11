@@ -5,6 +5,7 @@
   "build": {
     "base": {
       "android": {
+        "buildType": "apk",
         "image": "default"
       }
     },
