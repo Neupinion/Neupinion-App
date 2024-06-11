@@ -17,11 +17,27 @@ import SeeOriginalSvg from '../../../assets/icon/seeOriginal.svg';
 import { getTimeLineIssues } from '../remotes/getTimeLineIssues';
 import { formatDateMMDD } from '../../remakeissue/constants/formatDate';
 import { getNewsReportOrdinalInKorean } from '../../../shared/functions/getNewsReportOrdinalInKorean';
+import { useNavigation } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { RootStackParamList } from "../../../rootStackParamList";
 
 interface TimeLineProps {
   id: number;
 }
 const TimeLine = ({ id }: TimeLineProps) => {
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
+
+  const onClickReprocessedIssue = (itemId: number) => {
+    const issue_id = Number(itemId);
+    navigation.reset({
+      index: 1,
+      routes: [
+        { name: 'MainPage' },
+        { name: 'ReprocessedIssueDetailPage', params: { id: issue_id } },
+      ],
+    });
+  };
+
   const fetchIssueTimeLine = () => getTimeLineIssues(id);
   const { data: timeLineIssues, isLoading, error, fetchData } = useFetch(fetchIssueTimeLine, false);
 
@@ -51,7 +67,7 @@ const TimeLine = ({ id }: TimeLineProps) => {
 
   return (
     <View style={styles.container}>
-      {timeLineIssues.map((issue) => (
+      {timeLineIssues.map((issue, index) => (
         <View key={issue.id} style={styles.issueContainer}>
           <View style={styles.timeContainer}>
             <Text style={styles.dateText}>{formatDateMMDD(issue.createdAt)}</Text>
@@ -72,9 +88,9 @@ const TimeLine = ({ id }: TimeLineProps) => {
               <View style={styles.issueContextContainer}>
                 <View style={styles.tagContainer}>
                   <View style={styles.tag}>
-                    <Text style={styles.tagText}>{getNewsReportOrdinalInKorean(issue.id)}</Text>
+                    <Text style={styles.tagText}>{getNewsReportOrdinalInKorean(index + 1)}</Text>
                   </View>
-                  <TouchableOpacity onPress={() => {}}>
+                  <TouchableOpacity onPress={() => onClickReprocessedIssue(issue.id)}>
                     <WithLocalSvg
                       width={79}
                       height={30}
@@ -84,7 +100,6 @@ const TimeLine = ({ id }: TimeLineProps) => {
                 </View>
                 <View style={styles.textContainer}>
                   <Text style={styles.boxTitle}>{issue.title}</Text>
-                  <Text style={styles.boxContext}>작업이 필요합니다.</Text>
                 </View>
               </View>
             </LinearGradient>
@@ -141,7 +156,7 @@ const styles = StyleSheet.create({
   },
   dateText: {
     color: theme.color.gray6,
-    fontSize: 14,
+    fontSize: 13,
     fontFamily: fontFamily.pretendard.bold,
     fontStyle: 'normal',
     fontWeight: '700',

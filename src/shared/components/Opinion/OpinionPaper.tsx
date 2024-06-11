@@ -1,4 +1,4 @@
-import { ImageSourcePropType, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Image, ImageSourcePropType, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from 'react';
 import theme from '../../styles/theme';
 import { WithLocalSvg } from 'react-native-svg/css';
@@ -10,6 +10,9 @@ import { useModal } from '../../hooks/useModal';
 import OpinionWriteBottomSheet from '../../../features/opinion/components/OpinionWriteBottomSheet';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../../../rootStackParamList';
+import * as url from "url";
+import FavoriteFullSvg from "../../../assets/icon/favoritefull.svg";
+import FavoriteSvg from "../../../assets/icon/favorite.svg";
 
 interface OpinionPaperProps {
   navigation: StackNavigationProp<RootStackParamList>;
@@ -66,15 +69,19 @@ const OpinionPaper = ({ navigation, issueId, opinion }: OpinionPaperProps) => {
         </View>
         <View style={styles.personInfoContainer}>
           <View style={styles.profileContainer}>
-            <View style={styles.profileImage}></View>
+            <Image source={{ uri: opinion.profileImageUrl }} style={styles.profileImage}></Image>
             <Text style={styles.profileName} ellipsizeMode="tail">
               {opinion.nickname}
             </Text>
           </View>
           <View style={styles.likeContainer}>
-            <WithLocalSvg width={20} height={20} asset={OpinionHeartSvg as ImageSourcePropType} />
+            {opinion.isLiked ? (
+              <WithLocalSvg width={20} height={20} asset={FavoriteFullSvg as ImageSourcePropType} />
+            ) : (
+              <WithLocalSvg width={20} height={20} asset={FavoriteSvg as ImageSourcePropType} />
+            )}
             <Text style={styles.likeCount} ellipsizeMode="tail">
-              {formattedLikeCount}
+              {opinion.likeCount}
             </Text>
           </View>
         </View>

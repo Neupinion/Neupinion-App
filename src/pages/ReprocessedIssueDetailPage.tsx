@@ -1,12 +1,5 @@
-import React, { useCallback, useEffect } from "react";
-import {
-  ActivityIndicator,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import React, { useCallback, useEffect } from 'react';
+import { ActivityIndicator, ScrollView, StyleSheet, Text, View } from 'react-native';
 import theme from '../shared/styles/theme';
 import ReprocessedIssueContentsSlider from '../features/remakeissue/components/ReprocessedIssueContentsSlider';
 import OpinionWriteSlider from '../features/remakeissue/components/OpinionWriteSlider';
@@ -23,13 +16,9 @@ import { useSetRecoilState } from 'recoil';
 import { issueNumberState } from '../recoil/issueState';
 import { bookmarkState } from '../recoil/bookmarkState';
 import { bookmarkInfo } from '../features/remakeissue/types/bookmark';
-import TopOpinionSlider from '../features/vote/components/TopOpinionSlider';
 import fontFamily from '../shared/styles/fontFamily';
-import { getMyOpinionWrite } from '../features/remakeissue/remotes/opinionWrite';
-import EmptyScreen from '../shared/components/Opinion/EmptyScreen';
-import {useModal} from "../shared/hooks/useModal";
-import DateModal from "../features/date/components/DateModal";
-import ReportContainer from "../features/issuereport/componenets/ReportContainer";
+import { useModal } from '../shared/hooks/useModal';
+import ReportContainer from '../features/issuereport/componenets/ReportContainer';
 const ReprocessedIssueDetailPage: React.FC = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   type ScreenRouteProp = RouteProp<RootStackParamList, 'ReprocessedIssueDetailPage'>;
@@ -39,13 +28,7 @@ const ReprocessedIssueDetailPage: React.FC = () => {
   const setIssueState = useSetRecoilState<number>(issueNumberState);
   const setBookmarkState = useSetRecoilState<bookmarkInfo>(bookmarkState);
 
-  const fetchMyOpinionWrite = () => getMyOpinionWrite(id);
-  const { data: myOpinionWrite } = useFetch(fetchMyOpinionWrite, false);
-
   const fetchReprocessedIssue = () => getReprocessedIssueContent(id);
-  const onClickShowOpinionButton = () => {
-    navigation.navigate('OpinionMainPage', { id: id });
-  };
 
   const { openModal, closeModal } = useModal();
 
@@ -102,10 +85,13 @@ const ReprocessedIssueDetailPage: React.FC = () => {
         <View style={styles.divideLine} />
         <OpinionWriteSlider navigation={navigation} issueId={id} />
         <View style={styles.divideLine} />
-        <TouchableOpacity style={styles.opinionPageButton} onPress={onClickShowOpinionButton}>
-          <Text style={styles.totalVotedButtonText}>의견 보기</Text>
-        </TouchableOpacity>
-        <ReliabilityEvaluation navigation={navigation} issueId={id} />
+        {reprocessedIssue !== null && (
+          <ReliabilityEvaluation
+            navigation={navigation}
+            stands={reprocessedIssue.stands}
+            issueId={id}
+          />
+        )}
         <View style={styles.divideLine} />
         {reprocessedIssue !== null && (
           <CategoryLatestNews current={id} category={reprocessedIssue.category} />

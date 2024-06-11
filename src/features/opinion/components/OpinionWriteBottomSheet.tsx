@@ -81,7 +81,7 @@ const OpinionWriteBottomSheet = ({
       issueId: issueId,
       opinionId: opinionWrite.id,
       sentenceIndex: opinionWrite.paragraphId,
-      text: opinionWrite.paragraphContent,
+      text: opinionWrite.content,
       isReliable: opinionWrite.isReliable,
       editMode: true,
     });
@@ -108,7 +108,7 @@ const OpinionWriteBottomSheet = ({
   const onClickReportButton = () => {
     openModal(
       <ReportModal
-        title={'작성한 의견을 삭제하시겠습니까?'}
+        title={'해당 의견을 신고하시겠습니까?'}
         onClose={closeModal}
         onSubmit={onClickConfirmWarningModal}
       />,

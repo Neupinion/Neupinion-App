@@ -20,6 +20,7 @@ describe('navigationService', () => {
 
   it('로그인 페이지에 성공적으로 이동한다.', () => {
     navigateToLogin();
+    // eslint-disable-next-line @typescript-eslint/unbound-method
     expect(mockNavigator.dispatch).toHaveBeenCalledWith(StackActions.replace('LoginPage'));
   });
 });

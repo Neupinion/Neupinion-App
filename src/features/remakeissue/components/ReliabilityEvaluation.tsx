@@ -1,80 +1,78 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, ImageSourcePropType, TouchableOpacity } from 'react-native';
-import GlobalTextStyles from '../../../shared/styles/GlobalTextStyles';
-import ReliabiltyBackGroundSvg from '../../../assets/icon/reliabiltybackground2.svg';
-import { WithLocalSvg } from 'react-native-svg/css';
+import React, { useEffect, useState } from "react";
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import theme from '../../../shared/styles/theme';
-import Moon1Svg from '../../../assets/icon/moon1.svg';
-import Moon2Svg from '../../../assets/icon/moon2.svg';
-import Moon3Svg from '../../../assets/icon/moon3.svg';
-import Moon4Svg from '../../../assets/icon/moon4.svg';
-import { reliabilityText } from '../constants/reliabilty';
 import submitVoteResult from '../remotes/submitVoteResult';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../../../rootStackParamList';
 import { WINDOW_WIDTH } from '../../../shared/constants/display';
+import { Stand } from '../../../shared/types/news';
+import fontFamily from '../../../shared/styles/fontFamily';
 
 interface ReliabilityEvaluation {
   navigation: StackNavigationProp<RootStackParamList>;
+  stands: Stand[];
   issueId: number;
 }
 
-const ReliabilityEvaluation = ({ navigation, issueId }: ReliabilityEvaluation) => {
-  const moons = [
-    { id: 1, SvgComponent: Moon1Svg },
-    { id: 2, SvgComponent: Moon2Svg },
-    { id: 3, SvgComponent: Moon3Svg },
-    { id: 4, SvgComponent: Moon4Svg },
-  ];
+const ReliabilityEvaluation = ({ navigation, stands, issueId }: ReliabilityEvaluation) => {
+  const [selectedButtons, setSelectedButtons] = useState<number[]>([]);
 
-  const [selectedButton, setSelectedButton] = useState(1);
-  const MOON_SVG_HEIGHT = 66.94156;
-  const handleButtonPress = (buttonNumber: number) => {
-    setSelectedButton(buttonNumber);
+  useEffect(() => {
+    const initialSelectedButtons = stands
+      .map((stand, index) => (stand.relatable ? index : -1))
+      .filter((index) => index !== -1);
+    setSelectedButtons(initialSelectedButtons);
+  }, [stands]);
+
+  const toggleSelection = (index: number) => {
+    setSelectedButtons((prevSelected) =>
+      prevSelected.includes(index)
+        ? prevSelected.filter((i) => i !== index)
+        : [...prevSelected, index],
+    );
   };
 
-  const onClickVoteResult = () => {
-    void submitVoteResult(issueId, selectedButton, reliabilityText);
-    navigation.navigate('VoteResultPage', { id: issueId });
+  const onClickVoteResult = async () => {
+    try {
+      const firstStandId = stands[0].id;
+      const secondStandId = stands[1].id;
+      const firstRelatable = selectedButtons.includes(0);
+      const secondRelatable = selectedButtons.includes(1);
+
+      await submitVoteResult(issueId, firstStandId, firstRelatable, secondStandId, secondRelatable);
+      navigation.navigate('VoteResultPage', { id: issueId });
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
     <View style={styles.container}>
       <View style={styles.titleContainer}>
-        <Text style={GlobalTextStyles.NormalText17}>신뢰도 평가하기</Text>
+        <Text style={styles.titleText}>어떤 입장에 공감하시나요?</Text>
+        <Text style={styles.subText}>공감하는 입장을 눌러, 사용자 통계를 확인해보세요!</Text>
+        <Text style={styles.subText}>중복 투표도 가능해요...!</Text>
       </View>
-      <View style={styles.ReliabiltyBackGroundSvg}>
-        <WithLocalSvg asset={ReliabiltyBackGroundSvg as ImageSourcePropType} />
-      </View>
-      <View style={styles.moonContainer}>
-        {moons.map((moon) => (
+      <View style={styles.standsContainer}>
+        {stands.map((stand, index) => (
           <TouchableOpacity
-            key={moon.id}
-            style={[styles.svgBaseStyle, selectedButton === moon.id && styles.svgSelectedStyle]}
-            onPress={() => handleButtonPress(moon.id)}
+            key={stand.id}
+            style={[styles.button, selectedButtons.includes(index) && styles.selectedButton]}
+            onPress={() => toggleSelection(index)}
           >
-            <WithLocalSvg
-              height={MOON_SVG_HEIGHT}
-              asset={moon.SvgComponent as ImageSourcePropType}
-            />
+            <Text
+              style={[
+                styles.buttonText,
+                selectedButtons.includes(index) && styles.selectedButtonText,
+              ]}
+            >
+              {stand.stand}
+            </Text>
           </TouchableOpacity>
         ))}
       </View>
-      <View style={styles.reliabiltContainer}>
-        {reliabilityText.map((textData) => (
-          <Text
-            key={textData.id}
-            style={[
-              styles.reliabiltyTextBase,
-              selectedButton === textData.id && styles.reliabiltyText,
-            ]}
-          >
-            {textData.text}
-          </Text>
-        ))}
-      </View>
       <TouchableOpacity style={styles.submitButton} onPress={onClickVoteResult}>
-        <Text style={styles.buttonText}>투표하고 결과보기</Text>
+        <Text style={styles.submitButtonText}>투표하고 결과보기</Text>
       </TouchableOpacity>
     </View>
   );
@@ -89,14 +87,37 @@ const styles = StyleSheet.create({
   titleContainer: {
     width: WINDOW_WIDTH,
     marginTop: 30,
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-  },
-  ReliabiltyBackGroundSvg: {
-    width: WINDOW_WIDTH - 52,
-    marginTop: 30,
     alignItems: 'center',
-    opacity: 1,
+  },
+  standsContainer: {
+    marginTop: 20,
+    paddingHorizontal: 16,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+  },
+  button: {
+    borderRadius: 60,
+    backgroundColor: '#212A3C',
+    width: 120,
+    height: 120,
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: 14,
+  },
+  buttonText: {
+    color: '#4E5867',
+    fontStyle: 'normal',
+    fontSize: 14,
+    fontWeight: '700',
+    textAlign: 'center',
+    paddingHorizontal: 10,
+  },
+  selectedButton: {
+    backgroundColor: theme.color.main,
+  },
+  selectedButtonText: {
+    color: theme.color.white,
   },
   submitButton: {
     width: 174,
@@ -107,7 +128,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  buttonText: {
+  submitButtonText: {
     fontSize: 17,
     color: theme.color.white,
     fontStyle: 'normal',
@@ -115,40 +136,24 @@ const styles = StyleSheet.create({
     lineHeight: 25.5,
     letterSpacing: -0.51,
   },
-  svgBaseStyle: {
-    opacity: 0,
-  },
-  svgSelectedStyle: {
-    opacity: 1,
-  },
-  moonContainer: {
-    flexDirection: 'row',
-    gap: 15.06,
-    position: 'absolute',
-    height: 95.8,
-  },
-  reliabiltyText: {
-    fontSize: 14,
+  titleText: {
+    fontSize: 18,
+    fontFamily: fontFamily.pretendard.bold,
     color: theme.color.white,
     fontStyle: 'normal',
     fontWeight: '700',
-    lineHeight: 21,
-    letterSpacing: -0.42,
+    lineHeight: 25.5,
+    letterSpacing: -0.51,
+    marginBottom: 12,
   },
-  reliabiltyTextBase: {
-    fontSize: 14,
+  subText: {
+    fontSize: 13,
+    fontFamily: fontFamily.pretendard.medium,
     color: theme.color.gray6,
     fontStyle: 'normal',
-    fontWeight: '700',
-    lineHeight: 21,
-    letterSpacing: -0.42,
-  },
-  reliabiltContainer: {
-    flexDirection: 'row',
-    marginHorizontal: 47,
-    marginTop: 19.99,
-    // backgroundColor: 'tomato',
-    gap: 32,
+    fontWeight: '500',
+    lineHeight: 22.5,
+    letterSpacing: -0.51,
   },
 });
 

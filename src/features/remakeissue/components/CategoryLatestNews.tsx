@@ -9,6 +9,9 @@ import { getSameCategoryReprocessedIssues } from '../remotes/sameCategoryReproce
 import useFetch from '../../../shared/hooks/useFetch';
 import { WINDOW_WIDTH } from '../../../shared/constants/display';
 import EmptyScreen from '../../../shared/components/Opinion/EmptyScreen';
+import { useNavigation } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { RootStackParamList } from "../../../rootStackParamList";
 interface CategoryLatestNewsProps {
   current: number;
   category: string;

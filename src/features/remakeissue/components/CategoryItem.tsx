@@ -4,14 +4,23 @@ import { ReProcessedIssue } from '../../../shared/types/news';
 import { formatDate } from '../constants/formatDate';
 import theme from '../../../shared/styles/theme';
 import fontFamily from '../../../shared/styles/fontFamily';
+import { useNavigation } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { RootStackParamList } from "../../../rootStackParamList";
 
 interface CategoryItemProps {
   item: ReProcessedIssue;
 }
 
 const CategoryItem = ({ item }: CategoryItemProps) => {
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
+  const onClickReprocessedIssue = () => {
+    const issue_id = Number(item.id);
+    navigation.navigate('ReprocessedIssueDetailPage', { id: issue_id });
+  };
+
   return (
-    <TouchableOpacity style={styles.card}>
+    <TouchableOpacity onPress={onClickReprocessedIssue} style={styles.card}>
       <Image source={{ uri: item.imageUrl }} style={styles.cardImage} />
       <View style={styles.cardUnderContainer}>
         <Text style={styles.titleText} numberOfLines={1} ellipsizeMode="tail">

@@ -51,8 +51,8 @@ const BarGraph = ({ data }: BarGraphProps) => {
           </React.Fragment>
         ))}
         {data.voteResults.map((item, index) => {
-          const trustHeight = (item.trustRate / 100) * barHeight;
-          const doubtHeight = (item.doubtRate / 100) * barHeight;
+          const trustHeight = item.firstStandRelatablePercentage * barHeight;
+          const doubtHeight = item.secondStandRelatablePercentage * barHeight;
 
           return (
             <React.Fragment key={index}>
@@ -98,10 +98,10 @@ const BarGraph = ({ data }: BarGraphProps) => {
       </Svg>
       <View style={styles.bottomContainer}>
         <View style={styles.doubtCircle} />
-        <Text style={styles.textStyle}>의심</Text>
+        <Text style={styles.textStyle}>{data.voteRankings[0].stand}</Text>
         <View style={{ marginLeft: 18 }}></View>
         <View style={styles.trustCircle} />
-        <Text style={styles.textStyle}>신뢰</Text>
+        <Text style={styles.textStyle}>{data.voteRankings[1].stand}</Text>
       </View>
     </View>
   );
