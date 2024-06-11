@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { ActivityIndicator, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
 import fontFamily from '../../../shared/styles/fontFamily';
 import theme from '../../../shared/styles/theme';
 import { formatDate } from '../../remakeissue/constants/formatDate';
@@ -80,12 +80,12 @@ const RelatedIssues = ({ id }: RecommendIssuesProps) => {
             <Text style={styles.cardTitleText}>{item.title}</Text>
             <View style={styles.titleUnderContainer}>
               <View style={styles.tagBox}>
-                <Text style={styles.tagText}>국제</Text>
+                <Text style={styles.tagText}>{item.category}</Text>
               </View>
               <Text style={styles.dateText}>{formatDate(item.createdAt)}</Text>
             </View>
           </View>
-          <View style={styles.cardImage} />
+          <Image source={{ uri: item.imageUrl }} style={styles.cardImage} />
         </TouchableOpacity>
       ))}
     </View>
