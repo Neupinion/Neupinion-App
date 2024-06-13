@@ -25,6 +25,7 @@ export interface ReprocessedIssueId {
   stands: Stand[];
   createdAt: string;
   originUrl: string;
+  references: ReferenceResponse[];
   content: ReprocessedIssueContent[];
   tags: string[];
 }
@@ -91,4 +92,9 @@ export interface ReprocessedIssueOpinion {
   content: string;
   likeCount: number;
   isLiked: boolean;
+}
+
+export interface ReferenceResponse {
+  stand: string;
+  sources: string[];
 }
