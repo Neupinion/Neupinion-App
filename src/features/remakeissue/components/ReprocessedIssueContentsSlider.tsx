@@ -9,7 +9,6 @@ import Markdown from 'react-native-markdown-display';
 import { WINDOW_WIDTH } from '../../../shared/constants/display';
 import fontFamily from '../../../shared/styles/fontFamily';
 import { useModal } from '../../../shared/hooks/useModal';
-import ReportContainer from '../../issuereport/componenets/ReportContainer';
 import OriginalIssueModal from './OriginalIssueModal';
 
 interface ReprocessedIssueContentsProps {

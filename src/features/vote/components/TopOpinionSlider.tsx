@@ -70,6 +70,7 @@ const TopOpinionSlider = ({ navigation, id }: TopOpinionSliderProps) => {
 const styles = StyleSheet.create({
   container: {
     display: 'flex',
+    width: '100%',
     flexDirection: 'column',
     alignItems: 'center',
     marginBottom: 20,
@@ -86,7 +87,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   cardContainer: {
-    width: '100%',
+    display: 'flex',
     paddingHorizontal: 26,
     marginTop: 16,
     gap: 16,

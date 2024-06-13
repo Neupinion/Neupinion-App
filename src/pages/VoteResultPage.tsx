@@ -82,6 +82,7 @@ const VoteResultPage = () => {
           </TouchableOpacity>
         </View>
         <View style={styles.divideLine} />
+        <Text style={styles.subtitleText}>통합 베스트 Top 5 의견</Text>
         <TopOpinionSlider navigation={navigation} id={id} />
         <TouchableOpacity style={styles.opinionPageButton} onPress={onClickShowOpinionButton}>
           <Text style={styles.totalVotedButtonText}>의견 보기</Text>
