@@ -8,11 +8,23 @@ import { ReprocessedIssueId } from '../../../shared/types/news';
 import Markdown from 'react-native-markdown-display';
 import { WINDOW_WIDTH } from '../../../shared/constants/display';
 import fontFamily from '../../../shared/styles/fontFamily';
+import { useModal } from '../../../shared/hooks/useModal';
+import OriginalIssueModal from './OriginalIssueModal';
 
 interface ReprocessedIssueContentsProps {
   reprocessedIssue: ReprocessedIssueId | null;
 }
 const ReprocessedIssueContentsSlider = ({ reprocessedIssue }: ReprocessedIssueContentsProps) => {
+  const { openModal, closeModal } = useModal();
+
+  const openKeywordModal = () => {
+    if (reprocessedIssue?.references) {
+      openModal(
+        <OriginalIssueModal references={reprocessedIssue.references} onClose={closeModal} />,
+      );
+    }
+  };
+
   return (
     <View style={styles.container}>
       {reprocessedIssue && (
@@ -25,7 +37,7 @@ const ReprocessedIssueContentsSlider = ({ reprocessedIssue }: ReprocessedIssueCo
               </View>
               <Text style={styles.dateText}>{formatDate(reprocessedIssue.createdAt)}</Text>
             </View>
-            <TouchableOpacity style={styles.headerSvg} onPress={() => {}}>
+            <TouchableOpacity style={styles.headerSvg} onPress={openKeywordModal}>
               <WithLocalSvg width={79} height={30} asset={SeeOriginalSvg as ImageSourcePropType} />
             </TouchableOpacity>
           </View>
