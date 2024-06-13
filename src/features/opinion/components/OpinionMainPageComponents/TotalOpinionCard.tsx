@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Image, ImageSourcePropType, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import theme from '../../../../shared/styles/theme';
 import { WithLocalSvg } from 'react-native-svg/css';
@@ -15,8 +15,16 @@ interface TotalOpinionCardProps {
   item: integratedOpinion;
 }
 const TotalOpinionCard = ({ item }: TotalOpinionCardProps) => {
+  const [isLiked, setIsLiked] = useState(item.isLiked);
+  const [likeCount, setLikeCount] = useState(item.likeCount);
+  console.log(item.opinionId, isLiked);
+  // console.log(item.opinionId, item.isLiked);
   const updateLike = async () => {
-    await updateFavorite(item.issueId, item.opinionId, !item.isLiked);
+    const newIsLiked = !isLiked;
+    await updateFavorite(item.issueId, item.opinionId, newIsLiked);
+    setIsLiked(newIsLiked);
+    setLikeCount((prevLikeCount) => (newIsLiked ? prevLikeCount + 1 : prevLikeCount - 1));
+    //console.log(item.issueId, item.opinionId, newIsLiked);
   };
   return (
     <View style={styles.container}>
@@ -44,13 +52,13 @@ const TotalOpinionCard = ({ item }: TotalOpinionCardProps) => {
         <PinSentenceCard color={theme.color.gray2} paragraphContent={item.paragraphContent} />
         <View style={styles.bigOpinionCardBottom}>
           <TouchableOpacity style={{ marginRight: 4 }} onPress={() => updateLike()}>
-            {item.isLiked ? (
+            {isLiked ? (
               <WithLocalSvg width={18} height={18} asset={FavoriteFullSvg as ImageSourcePropType} />
             ) : (
               <WithLocalSvg width={18} height={18} asset={FavoriteSvg as ImageSourcePropType} />
             )}
           </TouchableOpacity>
-          <Text style={styles.favoriteText}>{item.likeCount}</Text>
+          <Text style={styles.favoriteText}>{likeCount}</Text>
         </View>
       </View>
       <View style={styles.headerUnderLine} />
