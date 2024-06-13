@@ -1,13 +1,15 @@
-import { WebViewNavigation } from 'react-native-webview';
+import { WebView, WebViewNavigation } from 'react-native-webview';
 import { API_URL } from '@env';
 import { client } from '../../../shared/remotes/axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { TokenResponse } from '../../../shared/types/tokenResponse';
+import { TokenResponse, TokenStatus } from '../../../shared/types/tokenResponse';
+import React from 'react';
 
 export const getAccessTokenGoogle = async (
   event: WebViewNavigation,
   closeWebView: () => void,
-): Promise<TokenResponse | null> => {
+  webviewRef: React.RefObject<WebView>,
+): Promise<TokenStatus | null> => {
   try {
     const [storedAccessToken, storedRefreshToken] = await Promise.all([
       AsyncStorage.getItem('accessToken'),
@@ -19,32 +21,16 @@ export const getAccessTokenGoogle = async (
     }
 
     const url = event.url;
-    if (url.includes(`${API_URL}/login/google`)) {
-      const code = new URL(url).searchParams.get('code');
-      if (code) {
-        closeWebView();
-        const response = await client.get('/login/google', {
-          params: { code: code },
-        });
-        const cookies = response.headers['set-cookie'];
 
-        if (cookies) {
-          const refreshTokenCookie = cookies.find((cookie) => cookie.startsWith('refreshToken='));
-          const refreshToken = refreshTokenCookie
-            ? refreshTokenCookie.split(';')[0].split('=')[1]
-            : null;
+    const script = `
+        (function() {
+          const data = document.body.innerText;
+          window.ReactNativeWebView.postMessage(data);
+        })();
+      `;
 
-          if (refreshToken) {
-            const data = response.data as TokenResponse;
-            const { accessToken } = data;
-            await Promise.all([
-              AsyncStorage.setItem('refreshToken', refreshToken),
-              AsyncStorage.setItem('accessToken', accessToken),
-            ]);
-            return { accessToken, refreshToken };
-          }
-        }
-      }
+    if (webviewRef.current) {
+      webviewRef.current.injectJavaScript(script);
     }
   } catch (e) {
     console.error('Failed to get access token:', e);

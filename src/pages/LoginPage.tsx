@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useRef, FunctionComponent } from 'react';
 import { ImageSourcePropType, StyleSheet, Text, TouchableOpacity, View, Modal } from 'react-native';
-import { WebView, WebViewNavigation } from 'react-native-webview';
+import { WebView, WebViewNavigation, WebViewMessageEvent } from 'react-native-webview';
 import theme from '../shared/styles/theme';
 import { WINDOW_WIDTH } from '../shared/constants/display';
 import NeupTextIcon from '../assets/icon/neuplogin.svg';
@@ -20,10 +20,25 @@ import { socialAuthIcons, socialAuthTexts } from '../features/auth/constants/soc
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../rootStackParamList';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { TokenResponse } from '../shared/types/tokenResponse';
+
+const CHECK_COOKIE: string = `
+  ReactNativeWebView.postMessage("Cookie: " + document.cookie);
+  true;
+`;
+
+const script = `
+        (function() {
+          const data = document.body.innerText;
+          window.ReactNativeWebView.postMessage(data);
+        })();
+      `;
 
 const LoginPage: React.FC = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   const [webView, setWebView] = useRecoilState(webViewState);
+  const webviewRef = useRef<WebView>(null);
 
   const closeWebView = () => {
     setWebView({ isOpen: false });
@@ -33,8 +48,41 @@ const LoginPage: React.FC = () => {
     });
   };
 
-  const handleNavigationChangeGoogle = async (event: WebViewNavigation) => {
-    await getAccessTokenGoogle(event, closeWebView);
+  const onNavigationStateChange = async (navigationState: WebViewNavigation) => {
+    const url = navigationState.url;
+
+    const [storedAccessToken, storedRefreshToken] = await Promise.all([
+      AsyncStorage.getItem('accessToken'),
+      AsyncStorage.getItem('refreshToken'),
+    ]);
+    if (storedAccessToken && storedRefreshToken) {
+      closeWebView();
+      return { accessToken: storedAccessToken, refreshToken: storedRefreshToken };
+    }
+
+    if (webviewRef.current) {
+      webviewRef.current.injectJavaScript(script);
+      webviewRef.current.injectJavaScript(CHECK_COOKIE);
+    }
+  };
+
+  const onMessage = async (event: WebViewMessageEvent): Promise<void> => {
+    try {
+      const data = JSON.parse(event.nativeEvent.data) as TokenResponse;
+      console.log('Response Data:', data);
+
+      const accessToken = data.accessToken;
+      console.log('accessToken', accessToken);
+
+      if (accessToken) {
+        await Promise.all([AsyncStorage.setItem('accessToken', accessToken)]);
+        closeWebView();
+      } else {
+        // console.error('Failed to retrieve tokens');
+      }
+    } catch (error) {
+      // console.error('Failed to parse message data:', error);
+    }
   };
 
   return (
@@ -74,6 +122,7 @@ const LoginPage: React.FC = () => {
       {webView.isOpen && (
         <Modal visible={webView.isOpen} animationType="slide">
           <WebView
+            ref={webviewRef}
             javaScriptEnabled={true}
             domStorageEnabled={true}
             cacheEnabled={false}
@@ -81,7 +130,8 @@ const LoginPage: React.FC = () => {
             incognito={true}
             style={{ marginTop: 30 }}
             source={{ uri: googleOAuthUri }}
-            onNavigationStateChange={handleNavigationChangeGoogle}
+            onNavigationStateChange={onNavigationStateChange}
+            onMessage={onMessage}
           />
         </Modal>
       )}

@@ -24,29 +24,29 @@ client.interceptors.request.use(
   (error) => Promise.reject(error),
 );
 
-client.interceptors.response.use(
-  (response) => response,
-  async (error: AxiosError) => {
-    const originalRequest = error.config as AxiosRequestConfig & { _retry?: boolean };
-
-    if (error.response?.status === 401 && !originalRequest._retry) {
-      originalRequest._retry = true;
-
-      const storedRefreshToken = await AsyncStorage.getItem('refreshToken');
-      const newAccessToken = await client.get<string>('/reissue', {
-        params: { refreshToken: storedRefreshToken },
-      });
-
-      if (newAccessToken) {
-        originalRequest.headers = originalRequest.headers || {};
-        originalRequest.headers.Authorization = `Bearer ${newAccessToken.data}`;
-        return client(originalRequest);
-      } else {
-        navigateToLogin();
-      }
-    }
-    return Promise.reject(error);
-  },
-);
+// client.interceptors.response.use(
+//   (response) => response,
+//   async (error: AxiosError) => {
+//     const originalRequest = error.config as AxiosRequestConfig & { _retry?: boolean };
+//
+//     if (error.response?.status === 401 && !originalRequest._retry) {
+//       originalRequest._retry = true;
+//
+//       const storedRefreshToken = await AsyncStorage.getItem('refreshToken');
+//       const newAccessToken = await client.get<string>('/reissue', {
+//         params: { refreshToken: storedRefreshToken },
+//       });
+//
+//       if (newAccessToken) {
+//         originalRequest.headers = originalRequest.headers || {};
+//         originalRequest.headers.Authorization = `Bearer ${newAccessToken.data}`;
+//         return client(originalRequest);
+//       } else {
+//         navigateToLogin();
+//       }
+//     }
+//     return Promise.reject(error);
+//   },
+// );
 
 export { client };
