@@ -126,11 +126,6 @@ const FollowUpIssueContainer = () => {
             <ActivityIndicator size="large" style={styles.activityIndicator} />
           </View>
         )}
-        {error && (
-          <View style={styles.activityIndicator}>
-            <Text style={styles.loadingText}>오류</Text>
-          </View>
-        )}
         {!followUpIssues ||
           (followUpIssues.length === 0 && (
             <View style={styles.emptyContainer}>

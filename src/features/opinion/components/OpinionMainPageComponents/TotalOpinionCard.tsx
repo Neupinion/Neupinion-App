@@ -17,14 +17,12 @@ interface TotalOpinionCardProps {
 const TotalOpinionCard = ({ item }: TotalOpinionCardProps) => {
   const [isLiked, setIsLiked] = useState(item.isLiked);
   const [likeCount, setLikeCount] = useState(item.likeCount);
-  console.log(item.opinionId, isLiked);
-  // console.log(item.opinionId, item.isLiked);
+
   const updateLike = async () => {
     const newIsLiked = !isLiked;
     await updateFavorite(item.issueId, item.opinionId, newIsLiked);
     setIsLiked(newIsLiked);
     setLikeCount((prevLikeCount) => (newIsLiked ? prevLikeCount + 1 : prevLikeCount - 1));
-    //console.log(item.issueId, item.opinionId, newIsLiked);
   };
   return (
     <View style={styles.container}>
