@@ -1,6 +1,6 @@
-import React, { useRef, FunctionComponent } from 'react';
+import React, { useRef } from 'react';
 import { ImageSourcePropType, StyleSheet, Text, TouchableOpacity, View, Modal } from 'react-native';
-import { WebView, WebViewNavigation, WebViewMessageEvent } from 'react-native-webview';
+import { WebView, WebViewMessageEvent } from 'react-native-webview';
 import theme from '../shared/styles/theme';
 import { WINDOW_WIDTH } from '../shared/constants/display';
 import NeupTextIcon from '../assets/icon/neuplogin.svg';
@@ -13,7 +13,6 @@ import fontFamily from '../shared/styles/fontFamily';
 import { LinearGradient } from 'expo-linear-gradient';
 import { userAgent } from '../features/auth/constants/userAgent';
 import { googleOAuthUri } from '../features/auth/constants/googleOAuthUri';
-import { getAccessTokenGoogle } from '../features/auth/remotes/googleLogin';
 import { useRecoilState } from 'recoil';
 import { webViewState } from '../recoil/webViewState';
 import { socialAuthIcons, socialAuthTexts } from '../features/auth/constants/socialAuth';
@@ -48,9 +47,7 @@ const LoginPage: React.FC = () => {
     });
   };
 
-  const onNavigationStateChange = async (navigationState: WebViewNavigation) => {
-    const url = navigationState.url;
-
+  const onNavigationStateChange = async () => {
     const [storedAccessToken, storedRefreshToken] = await Promise.all([
       AsyncStorage.getItem('accessToken'),
       AsyncStorage.getItem('refreshToken'),

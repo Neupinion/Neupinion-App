@@ -1,7 +1,6 @@
-import axios, { AxiosError, AxiosRequestConfig } from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { API_URL } from '@env';
-import { navigateToLogin } from '../utils/navigate/navigationService';
 
 const defaultConfig: AxiosRequestConfig = {
   baseURL: API_URL,

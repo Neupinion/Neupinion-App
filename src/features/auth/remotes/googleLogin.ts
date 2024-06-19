@@ -1,8 +1,6 @@
 import { WebView, WebViewNavigation } from 'react-native-webview';
-import { API_URL } from '@env';
-import { client } from '../../../shared/remotes/axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { TokenResponse, TokenStatus } from '../../../shared/types/tokenResponse';
+import { TokenStatus } from '../../../shared/types/tokenResponse';
 import React from 'react';
 
 export const getAccessTokenGoogle = async (
@@ -19,8 +17,6 @@ export const getAccessTokenGoogle = async (
       closeWebView();
       return { accessToken: storedAccessToken, refreshToken: storedRefreshToken };
     }
-
-    const url = event.url;
 
     const script = `
         (function() {
