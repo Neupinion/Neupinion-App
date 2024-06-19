@@ -1,21 +1,40 @@
-import { ImageSourcePropType, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Image, ImageSourcePropType, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
 import theme from '../../styles/theme';
 import { WithLocalSvg } from 'react-native-svg/css';
 import Pin from '../../../assets/icon/pin.svg';
 import fontFamily from '../../styles/fontFamily';
 import { Opinion } from '../../../features/vote/types/opinion';
-import OpinionHeartSvg from '../../../assets/icon/postitlikeimage.svg';
+import { useModal } from '../../hooks/useModal';
+import OpinionWriteBottomSheet from '../../../features/opinion/components/OpinionWriteBottomSheet';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from '../../../rootStackParamList';
+import FavoriteFullSvg from '../../../assets/icon/favoritefull.svg';
+import FavoriteSvg from '../../../assets/icon/favorite.svg';
 
 interface OpinionPaperProps {
+  navigation: StackNavigationProp<RootStackParamList>;
+  issueId: number;
   opinion: Opinion;
 }
 
-const OpinionPaper = ({ opinion }: OpinionPaperProps) => {
-  const formattedLikeCount = opinion.likeCount > 9999 ? '9999+' : opinion.likeCount.toString();
+const OpinionPaper = ({ navigation, issueId, opinion }: OpinionPaperProps) => {
+  const { openModal, closeModal } = useModal();
+
+  const onClickOpinion = () => {
+    openModal(
+      <OpinionWriteBottomSheet
+        navigation={navigation}
+        issueId={issueId}
+        opinionWrite={opinion}
+        onClose={closeModal}
+        isOwner={false}
+      />,
+    );
+  };
 
   return (
-    <TouchableOpacity onPress={() => {}} style={styles.card}>
+    <TouchableOpacity onPress={onClickOpinion} style={styles.card}>
       <View style={styles.triangle} />
       <View style={styles.contentContainer}>
         <View style={styles.cardTop}>
@@ -46,15 +65,19 @@ const OpinionPaper = ({ opinion }: OpinionPaperProps) => {
         </View>
         <View style={styles.personInfoContainer}>
           <View style={styles.profileContainer}>
-            <View style={styles.profileImage}></View>
+            <Image source={{ uri: opinion.profileImageUrl }} style={styles.profileImage}></Image>
             <Text style={styles.profileName} ellipsizeMode="tail">
               {opinion.nickname}
             </Text>
           </View>
           <View style={styles.likeContainer}>
-            <WithLocalSvg width={20} height={20} asset={OpinionHeartSvg as ImageSourcePropType} />
+            {opinion.isLiked ? (
+              <WithLocalSvg width={20} height={20} asset={FavoriteFullSvg as ImageSourcePropType} />
+            ) : (
+              <WithLocalSvg width={20} height={20} asset={FavoriteSvg as ImageSourcePropType} />
+            )}
             <Text style={styles.likeCount} ellipsizeMode="tail">
-              {formattedLikeCount}
+              {opinion.likeCount}
             </Text>
           </View>
         </View>

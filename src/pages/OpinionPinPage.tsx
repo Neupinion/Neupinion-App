@@ -16,16 +16,18 @@ import { getReprocessedIssueById } from '../features/remakeissue/remotes/reproce
 import useFetch from '../shared/hooks/useFetch';
 import GlobalTextStyles from '../shared/styles/GlobalTextStyles';
 import { WINDOW_WIDTH } from '../shared/constants/display';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { opinionPostActivityState, opinionPostState } from '../recoil/opinionPostState';
 import Markdown from 'react-native-markdown-display';
 import fontFamily from '../shared/styles/fontFamily';
+import { issueNumberState } from '../recoil/issueState';
 
 const OpinionPinPage = () => {
+  const issueId = useRecoilValue(issueNumberState);
   const [opinionState, setOpinionPostState] = useRecoilState(opinionPostState);
   const setOpinionPostActivity = useSetRecoilState(opinionPostActivityState);
 
-  const fetchReprocessedIssueById = () => getReprocessedIssueById(1);
+  const fetchReprocessedIssueById = () => getReprocessedIssueById(issueId);
   const {
     data: reprocessedIssue,
     isLoading,

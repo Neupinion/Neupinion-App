@@ -21,11 +21,19 @@ export interface ReprocessedIssueId {
   caption: string;
   category: string;
   isBookmarked: boolean;
-  trustVote: string;
+  isVoted: boolean;
+  stands: Stand[];
   createdAt: string;
   originUrl: string;
+  references: ReferenceResponse[];
   content: ReprocessedIssueContent[];
   tags: string[];
+}
+
+export interface Stand {
+  id: number;
+  stand: string;
+  relatable: boolean;
 }
 
 export interface SameCategoryReprocessedIssue {
@@ -84,4 +92,9 @@ export interface ReprocessedIssueOpinion {
   content: string;
   likeCount: number;
   isLiked: boolean;
+}
+
+export interface ReferenceResponse {
+  stand: string;
+  sources: string[];
 }

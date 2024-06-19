@@ -31,13 +31,9 @@ export const deleteReprocessedIssueOpinion = async (opinionId: number) => {
   return await client.delete(`reprocessed-issue/opinion/${opinionId}`);
 };
 
-const updateFavorite = async (
-  reprocessedIssueId: number,
-  opinionId: number,
-  newLikeClicked: boolean,
-) => {
+const updateFavorite = async (reprocessedIssueId: number, opinionId: number, isLiked: boolean) => {
   try {
-    const payload = { isLiked: newLikeClicked };
+    const payload = { isLiked: isLiked };
     await client.put(`/reprocessed-issue/${reprocessedIssueId}/opinion/${opinionId}/like`, payload);
   } catch (error) {
     console.error('좋아요 put: 실패', error);

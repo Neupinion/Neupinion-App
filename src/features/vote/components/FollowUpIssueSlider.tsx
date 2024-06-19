@@ -1,12 +1,5 @@
 import React, { useEffect } from 'react';
-import {
-  ActivityIndicator,
-  FlatList,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { ActivityIndicator, FlatList, StyleSheet, Text, View } from 'react-native';
 import fontFamily from '../../../shared/styles/fontFamily';
 import theme from '../../../shared/styles/theme';
 import FollowUpIssueCardGradient from '../../../shared/components/FollowUpIssue/FollowUpIssueCardGradient';
@@ -53,9 +46,6 @@ const FollowUpIssueSlider = ({ id }: FollowUpIssueSliderProps) => {
         <Text style={styles.titleText}>후속 이슈</Text>
         <View style={{ marginTop: 12 }} />
         <EmptyScreen text={'후속 이슈가 존재하지 않습니다.'} />
-        <TouchableOpacity style={styles.alertButton} onPress={() => {}}>
-          <Text style={styles.alertButtonText}>이슈 알림 받기</Text>
-        </TouchableOpacity>
       </View>
     );
   }

@@ -19,14 +19,14 @@ export function useCachedResources() {
           // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
           'pretendard-medium': require('./assets/fonts/Pretendard-Medium.ttf'),
         });
+        setIsLoadingComplete(true);
       } catch (e) {
         console.warn(e);
-      } finally {
-        setIsLoadingComplete(true);
       }
     }
+
     void loadResourcesAndDataAsync();
-  }, [isLoadingComplete]);
+  }, []);
 
   return isLoadingComplete;
 }

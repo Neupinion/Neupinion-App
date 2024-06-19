@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
   },
   issueImage: {
     width: '100%',
-    height: 210,
+    height: 250,
   },
   imageStyle: {
     flex: 1,

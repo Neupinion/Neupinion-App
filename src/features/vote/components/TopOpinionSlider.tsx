@@ -7,11 +7,14 @@ import { getReprocessedIssueTopOpinion } from '../remotes/topOpinion';
 import GlobalTextStyles from '../../../shared/styles/GlobalTextStyles';
 import OpinionPaper from '../../../shared/components/Opinion/OpinionPaper';
 import EmptyScreen from '../../../shared/components/Opinion/EmptyScreen';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from '../../../rootStackParamList';
 
 interface TopOpinionSliderProps {
+  navigation: StackNavigationProp<RootStackParamList>;
   id: number;
 }
-const TopOpinionSlider = ({ id }: TopOpinionSliderProps) => {
+const TopOpinionSlider = ({ navigation, id }: TopOpinionSliderProps) => {
   const fetchReprocessedIssueTopOpinion = () => getReprocessedIssueTopOpinion(id);
   const {
     data: TopOpinions,
@@ -43,7 +46,6 @@ const TopOpinionSlider = ({ id }: TopOpinionSliderProps) => {
   if (!TopOpinions || TopOpinions.length === 0) {
     return (
       <View style={styles.container}>
-        <Text style={styles.titleText}>통합 베스트 Top 5 의견</Text>
         <View style={{ marginTop: 60 }}></View>
         <EmptyScreen text={'등록된 의견이 없습니다.'} />
       </View>
@@ -52,13 +54,14 @@ const TopOpinionSlider = ({ id }: TopOpinionSliderProps) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.titleText}>통합 베스트 Top 5 의견</Text>
       <FlatList
         horizontal
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={styles.cardContainer}
         data={TopOpinions}
-        renderItem={({ item }) => <OpinionPaper opinion={item} />}
+        renderItem={({ item }) => (
+          <OpinionPaper navigation={navigation} issueId={id} opinion={item} />
+        )}
       ></FlatList>
     </View>
   );
@@ -67,6 +70,7 @@ const TopOpinionSlider = ({ id }: TopOpinionSliderProps) => {
 const styles = StyleSheet.create({
   container: {
     display: 'flex',
+    width: '100%',
     flexDirection: 'column',
     alignItems: 'center',
     marginBottom: 20,
@@ -83,6 +87,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   cardContainer: {
+    display: 'flex',
     paddingHorizontal: 26,
     marginTop: 16,
     gap: 16,

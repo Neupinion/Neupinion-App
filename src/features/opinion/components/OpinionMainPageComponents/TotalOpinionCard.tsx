@@ -9,21 +9,20 @@ import { formatDate } from '../../../remakeissue/constants/formatDate';
 import { integratedOpinion } from '../../../../shared/types/news';
 import { WINDOW_WIDTH } from '../../../../shared/constants/display';
 import updateFavorite from '../../remotes/opinion';
+import FavoriteFullSvg from '../../../../assets/icon/favoritefull.svg';
 
 interface TotalOpinionCardProps {
   item: integratedOpinion;
 }
 const TotalOpinionCard = ({ item }: TotalOpinionCardProps) => {
-  const [likeClicked, setLikeClicked] = useState(item.isLiked);
+  const [isLiked, setIsLiked] = useState(item.isLiked);
+  const [likeCount, setLikeCount] = useState(item.likeCount);
+
   const updateLike = async () => {
-    const newLikeClicked = !likeClicked;
-    setLikeClicked(newLikeClicked);
-    try {
-      await updateFavorite(1, item.opinionId, newLikeClicked);
-    } catch (error) {
-      setLikeClicked(!newLikeClicked);
-      console.error('좋아요 업데이트 실패:', error);
-    }
+    const newIsLiked = !isLiked;
+    await updateFavorite(item.issueId, item.opinionId, newIsLiked);
+    setIsLiked(newIsLiked);
+    setLikeCount((prevLikeCount) => (newIsLiked ? prevLikeCount + 1 : prevLikeCount - 1));
   };
   return (
     <View style={styles.container}>
@@ -51,9 +50,13 @@ const TotalOpinionCard = ({ item }: TotalOpinionCardProps) => {
         <PinSentenceCard color={theme.color.gray2} paragraphContent={item.paragraphContent} />
         <View style={styles.bigOpinionCardBottom}>
           <TouchableOpacity style={{ marginRight: 4 }} onPress={() => updateLike()}>
-            <WithLocalSvg width={18} height={18} asset={FavoriteSvg as ImageSourcePropType} />
+            {isLiked ? (
+              <WithLocalSvg width={18} height={18} asset={FavoriteFullSvg as ImageSourcePropType} />
+            ) : (
+              <WithLocalSvg width={18} height={18} asset={FavoriteSvg as ImageSourcePropType} />
+            )}
           </TouchableOpacity>
-          <Text style={styles.favoriteText}>{item.likeCount}</Text>
+          <Text style={styles.favoriteText}>{likeCount}</Text>
         </View>
       </View>
       <View style={styles.headerUnderLine} />

@@ -14,7 +14,6 @@ import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { RootStackParamList } from '../rootStackParamList';
 import VoteChartContainer from '../features/vote/components/VoteChartContainer';
 import { WINDOW_WIDTH } from '../shared/constants/display';
-import VoteRankContainer from '../features/vote/components/VoteRankContainer';
 import fontFamily from '../shared/styles/fontFamily';
 import useFetch from '../shared/hooks/useFetch';
 import { getReprocessedIssueVote } from '../features/vote/remotes/reprocessedIssueVote';
@@ -81,13 +80,10 @@ const VoteResultPage = () => {
           <TouchableOpacity style={styles.totalVotedButton} onPress={onClickViewTotalVoteButton}>
             <Text style={styles.totalVotedButtonText}>통합 투표 결과 보기</Text>
           </TouchableOpacity>
-          <View style={styles.rankContainer}>
-            <Text style={styles.rankTitleText}>전체 투표 순위</Text>
-          </View>
-          <VoteRankContainer data={voteData.voteRankings} />
         </View>
         <View style={styles.divideLine} />
-        <TopOpinionSlider id={id} />
+        <Text style={styles.subtitleText}>통합 베스트 Top 5 의견</Text>
+        <TopOpinionSlider navigation={navigation} id={id} />
         <TouchableOpacity style={styles.opinionPageButton} onPress={onClickShowOpinionButton}>
           <Text style={styles.totalVotedButtonText}>의견 보기</Text>
         </TouchableOpacity>
@@ -150,7 +146,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexShrink: 0,
     backgroundColor: theme.color.gray3,
-    marginTop: 32,
+    marginTop: 20,
+    marginBottom: 8,
   },
   totalVotedButtonText: {
     fontFamily: fontFamily.pretendard.bold,
@@ -191,6 +188,17 @@ const styles = StyleSheet.create({
     backgroundColor: theme.color.gray3,
     marginTop: 28,
     marginBottom: 20,
+  },
+  subtitleText: {
+    paddingHorizontal: 26,
+    fontFamily: fontFamily.pretendard.bold,
+    fontSize: 17,
+    fontStyle: 'normal',
+    fontWeight: '700',
+    lineHeight: 25.5,
+    letterSpacing: -0.51,
+    color: theme.color.white,
+    width: '100%',
   },
 });
 

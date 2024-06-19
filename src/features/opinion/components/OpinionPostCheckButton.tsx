@@ -6,6 +6,7 @@ import { useRecoilValue } from 'recoil';
 import { opinionPostActivityState, opinionPostState } from '../../../recoil/opinionPostState';
 import { patchReprocessedIssueOpinion, postReprocessedIssueOpinion } from '../remotes/opinion';
 import useFetch from '../../../shared/hooks/useFetch';
+import { useToast } from '../../../shared/components/toast/ToastContext';
 
 interface OpinionCheckButtonProps {
   onPress: () => void;
@@ -13,6 +14,7 @@ interface OpinionCheckButtonProps {
 }
 
 const OpinionCheckButton = ({ onPress, activity }: OpinionCheckButtonProps) => {
+  const showToast = useToast();
   const opinionPost = useRecoilValue(opinionPostState);
   const opinionPostActivity = useRecoilValue(opinionPostActivityState);
   const submitOpinion = () => {
@@ -37,11 +39,13 @@ const OpinionCheckButton = ({ onPress, activity }: OpinionCheckButtonProps) => {
         await fetchData().then(() => {
           onPress();
         });
+      } else {
+        void showToast('필수항목을 모두 입력해주세요.');
       }
     }
 
     if (activity == 'OpinionPin') {
-      if (opinionPostActivity.sentenceDefined && !opinionPostActivity.reliableDefined) {
+      if (opinionPostActivity.sentenceDefined) {
         onPress();
       }
     }

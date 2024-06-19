@@ -9,6 +9,7 @@ import { getSameCategoryReprocessedIssues } from '../remotes/sameCategoryReproce
 import useFetch from '../../../shared/hooks/useFetch';
 import { WINDOW_WIDTH } from '../../../shared/constants/display';
 import EmptyScreen from '../../../shared/components/Opinion/EmptyScreen';
+
 interface CategoryLatestNewsProps {
   current: number;
   category: string;

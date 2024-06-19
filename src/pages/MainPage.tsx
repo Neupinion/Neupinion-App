@@ -16,23 +16,14 @@ import MainArrowSvg from '../assets/icon/mainarrow.svg';
 import useFetch from '../shared/hooks/useFetch';
 import { getReprocessedIssues } from '../features/remakeissue/remotes/reprocessedissue';
 import FollowUpIssueContainer from '../features/followupissue/components/FollowUpIssueContainer';
-import CategorySlider from '../features/remakeissue/components/CategorySlider';
 import AfterIssueSlider from '../features/remakeissue/components/AfterIssueSlider';
 import FollowUpIssueDummy from '../dummy/FollowUpIssueDummy';
 import fontFamily from '../shared/styles/fontFamily';
-import { useNavigation } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { RootStackParamList } from '../rootStackParamList';
 import { WINDOW_WIDTH } from '../shared/constants/display';
 import { useDate } from '../features/date/provider/DateProvider';
 
 const MainPage = () => {
-  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   const { date } = useDate();
-
-  const onClickReprocessedIssue = () => {
-    navigation.navigate('ReprocessedIssueDetailPage', { id: 1 });
-  };
   const fetchReprocessedIssue = () => getReprocessedIssues(date);
 
   const {
@@ -59,23 +50,23 @@ const MainPage = () => {
             </View>
             <AfterIssueSlider afterNews={FollowUpIssueDummy} />
             <View style={styles.titleContainer}>
-              <Text style={GlobalTextStyles.NormalText17}>가짜뉴스 이슈(타이틀 변경 예정)</Text>
+              <Text style={GlobalTextStyles.NormalText17}>Hot한 입장 정리 모음</Text>
             </View>
-            <FakeIssueSlider onClickIssue={onClickReprocessedIssue} fakeNews={reprocessedIssue} />
-            <View style={styles.titleContainer}>
-              <Text style={GlobalTextStyles.NormalText17}>카테고리1</Text>
-              <TouchableOpacity style={styles.svgStyle} onPress={() => {}}>
-                <WithLocalSvg width={14} height={14} asset={MainArrowSvg as ImageSourcePropType} />
-              </TouchableOpacity>
-            </View>
-            <CategorySlider categoryIssues={reprocessedIssue} />
-            <View style={styles.titleContainer}>
-              <Text style={GlobalTextStyles.NormalText17}>카테고리2</Text>
-              <TouchableOpacity style={styles.svgStyle} onPress={() => {}}>
-                <WithLocalSvg width={14} height={14} asset={MainArrowSvg as ImageSourcePropType} />
-              </TouchableOpacity>
-            </View>
-            <CategorySlider categoryIssues={reprocessedIssue} />
+            <FakeIssueSlider fakeNews={reprocessedIssue} />
+            {/*<View style={styles.titleContainer}>*/}
+            {/*  <Text style={GlobalTextStyles.NormalText17}>카테고리1</Text>*/}
+            {/*  <TouchableOpacity style={styles.svgStyle} onPress={() => {}}>*/}
+            {/*    <WithLocalSvg width={14} height={14} asset={MainArrowSvg as ImageSourcePropType} />*/}
+            {/*  </TouchableOpacity>*/}
+            {/*</View>*/}
+            {/*<CategorySlider categoryIssues={reprocessedIssue} />*/}
+            {/*<View style={styles.titleContainer}>*/}
+            {/*  <Text style={GlobalTextStyles.NormalText17}>카테고리2</Text>*/}
+            {/*  <TouchableOpacity style={styles.svgStyle} onPress={() => {}}>*/}
+            {/*    <WithLocalSvg width={14} height={14} asset={MainArrowSvg as ImageSourcePropType} />*/}
+            {/*  </TouchableOpacity>*/}
+            {/*</View>*/}
+            {/*<CategorySlider categoryIssues={reprocessedIssue} />*/}
             <View style={styles.divideLine}></View>
             <View style={styles.titleContainer}>
               <Text style={GlobalTextStyles.NormalText17}>후속이슈</Text>

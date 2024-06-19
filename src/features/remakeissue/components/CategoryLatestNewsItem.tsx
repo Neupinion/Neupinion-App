@@ -4,6 +4,9 @@ import theme from '../../../shared/styles/theme';
 import { SameCategoryReprocessedIssue } from '../../../shared/types/news';
 import { formatDate } from '../constants/formatDate';
 import { WINDOW_WIDTH } from '../../../shared/constants/display';
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from '../../../rootStackParamList';
 
 interface CategoryLatestNewsSliderItemProps {
   item: SameCategoryReprocessedIssue;
@@ -11,9 +14,22 @@ interface CategoryLatestNewsSliderItemProps {
 }
 
 const CategoryLatestNewsItem = ({ item, category }: CategoryLatestNewsSliderItemProps) => {
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
+
+  const onClickReprocessedIssue = () => {
+    const issue_id = Number(item.id);
+    navigation.reset({
+      index: 1,
+      routes: [
+        { name: 'MainPage' },
+        { name: 'ReprocessedIssueDetailPage', params: { id: issue_id } },
+      ],
+    });
+  };
+
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.card} onPress={() => {}}>
+      <TouchableOpacity style={styles.card} onPress={onClickReprocessedIssue}>
         <View>
           <Text style={styles.titleText}>{item.title}</Text>
           <View style={styles.titleUnderContainer}>
