@@ -4,5 +4,6 @@ export const webViewState = atom<WebViewState>({
   key: 'webViewState',
   default: {
     isOpen: false,
+    isVisible: false,
   },
 });
