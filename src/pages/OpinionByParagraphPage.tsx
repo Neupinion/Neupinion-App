@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
   ActivityIndicator,
-  Image,
-  ImageSourcePropType,
   ScrollView,
   StyleSheet,
   Text,
@@ -10,7 +8,6 @@ import {
   View,
 } from 'react-native';
 import theme from '../shared/styles/theme';
-import { WithLocalSvg } from 'react-native-svg/css';
 import { WINDOW_WIDTH } from '../shared/constants/display';
 import PinSentenceCard from '../features/opinion/components/OpinionMainPageComponents/PinSentenceCard';
 import fontFamily from '../shared/styles/fontFamily';
@@ -20,17 +17,13 @@ import { getOpinionParagraph } from '../features/opinion/remotes/individualVote'
 import useFetch from '../shared/hooks/useFetch';
 import GlobalTextStyles from '../shared/styles/GlobalTextStyles';
 import { getSortType, getCategoryType, subCategories } from '../shared/constants/opinionCategory';
-import { formatDate } from '../features/remakeissue/constants/formatDate';
-import FavoriteSvg from '../assets/icon/favorite.svg';
-import FavoriteFullSvg from '../assets/icon/favoritefull.svg';
 import { Dropdown } from 'react-native-element-dropdown';
 import { useRecoilValue } from 'recoil';
 import { issueNumberState } from '../recoil/issueState';
-import updateFavorite from '../features/opinion/remotes/opinion';
 import OpinionCard from "./OpinionCard";
 const OpinionByParagraphPage = () => {
   const [reliabilityCategory, setReliabilityCategory] = useState('전체');
-  const [sortType, setSortType] = useState('');
+  const [sortType, setSortType] = useState('최신순');
   const data = [
     { label: '최신순', value: '최신순' },
     { label: '인기순', value: '인기순' },
@@ -52,10 +45,6 @@ const OpinionByParagraphPage = () => {
     void fetchData();
   }, [reliabilityCategory, sortType]);
 
-
-  const handleDropDownChange = (value: string) => {
-    setSortType(value);
-  };
   const handleButtonPress = (category: string) => {
     setReliabilityCategory(category);
   };
@@ -117,9 +106,9 @@ const OpinionByParagraphPage = () => {
             labelField="label"
             valueField="value"
             placeholder="최신순"
-            value={'최신순'}
+            value={sortType}
             onChange={(item) => {
-              handleDropDownChange(item.value);
+              setSortType(item.value);
             }}
           />
         </View>

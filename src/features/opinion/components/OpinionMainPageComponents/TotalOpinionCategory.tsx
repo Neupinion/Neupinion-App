@@ -20,14 +20,12 @@ interface TotalOpinionCategoryProps {
 
 const TotalOpinionCategory = ({ issueId }: TotalOpinionCategoryProps) => {
   const [reliabilityCategory, setReliabilityCategory] = useState('전체');
-  const [sortType, setSortType] = useState('');
   const data = [
     { label: '최신순', value: '최신순' },
     { label: '인기순', value: '인기순' },
   ];
-  const handleDropDownChange = (value: string) => {
-    setSortType(value);
-  };
+  const [sortType, setSortType] = useState('최신순');
+
   const handleButtonPress = (category: string) => {
     setReliabilityCategory(category);
   };
@@ -92,9 +90,9 @@ const TotalOpinionCategory = ({ issueId }: TotalOpinionCategoryProps) => {
             maxHeight={300}
             labelField="label"
             valueField="value"
-            value={'최신순'}
+            value={sortType}
             onChange={(item) => {
-              handleDropDownChange(item.value);
+              setSortType(item.value);
             }}
           />
         </View>
