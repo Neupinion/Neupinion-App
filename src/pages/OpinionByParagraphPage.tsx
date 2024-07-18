@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
   ActivityIndicator,
-  Image,
-  ImageSourcePropType,
   ScrollView,
   StyleSheet,
   Text,
@@ -10,7 +8,6 @@ import {
   View,
 } from 'react-native';
 import theme from '../shared/styles/theme';
-import { WithLocalSvg } from 'react-native-svg/css';
 import { WINDOW_WIDTH } from '../shared/constants/display';
 import PinSentenceCard from '../features/opinion/components/OpinionMainPageComponents/PinSentenceCard';
 import fontFamily from '../shared/styles/fontFamily';
@@ -20,16 +17,13 @@ import { getOpinionParagraph } from '../features/opinion/remotes/individualVote'
 import useFetch from '../shared/hooks/useFetch';
 import GlobalTextStyles from '../shared/styles/GlobalTextStyles';
 import { getSortType, getCategoryType, subCategories } from '../shared/constants/opinionCategory';
-import { formatDate } from '../features/remakeissue/constants/formatDate';
-import FavoriteSvg from '../assets/icon/favorite.svg';
-import FavoriteFullSvg from '../assets/icon/favoritefull.svg';
 import { Dropdown } from 'react-native-element-dropdown';
 import { useRecoilValue } from 'recoil';
 import { issueNumberState } from '../recoil/issueState';
-import updateFavorite from '../features/opinion/remotes/opinion';
+import OpinionCard from "./OpinionCard";
 const OpinionByParagraphPage = () => {
   const [reliabilityCategory, setReliabilityCategory] = useState('전체');
-  const [sortType, setSortType] = useState('');
+  const [sortType, setSortType] = useState('최신순');
   const data = [
     { label: '최신순', value: '최신순' },
     { label: '인기순', value: '인기순' },
@@ -50,21 +44,11 @@ const OpinionByParagraphPage = () => {
   useEffect(() => {
     void fetchData();
   }, [reliabilityCategory, sortType]);
-  const handleDropDownChange = (value: string) => {
-    setSortType(value);
-  };
+
   const handleButtonPress = (category: string) => {
     setReliabilityCategory(category);
   };
 
-  const updateLike = async (isLiked: boolean, opinionId: number) => {
-    try {
-      await updateFavorite(issueId, opinionId, !isLiked);
-      await fetchData();
-    } catch (error) {
-      console.error('좋아요 업데이트 실패:', error);
-    }
-  };
   if (isLoading) {
     return (
       <View style={styles.container}>
@@ -80,6 +64,7 @@ const OpinionByParagraphPage = () => {
       </View>
     );
   }
+
   return (
     <ScrollView style={styles.container}>
       <View style={styles.pinSentenceContainer}>
@@ -121,9 +106,9 @@ const OpinionByParagraphPage = () => {
             labelField="label"
             valueField="value"
             placeholder="최신순"
-            value={'최신순'}
+            value={sortType}
             onChange={(item) => {
-              handleDropDownChange(item.value);
+              setSortType(item.value);
             }}
           />
         </View>
@@ -133,52 +118,7 @@ const OpinionByParagraphPage = () => {
           (paragraph) =>
             paragraph.id === item.id &&
             paragraph.opinions.map((opinion) => (
-              <View key={opinion.id}>
-                <View style={styles.bigOpinionCard}>
-                  <View style={styles.bigOpinionCardTop}>
-                    <Image source={{ uri: opinion.profileImageUrl }} style={styles.cardImage} />
-                    <View style={{ flexDirection: 'column', marginLeft: 10, gap: 4 }}>
-                      <Text style={styles.userNameText}>{opinion.nickname}</Text>
-                      <Text style={styles.dateText}>{formatDate(opinion.createdAt)}</Text>
-                    </View>
-                  </View>
-                  <View style={styles.bigOpinionCardMiddle}>
-                    {opinion.isReliable ? (
-                      <View style={styles.positivePosition}>
-                        <Text style={styles.positionText}>신뢰</Text>
-                      </View>
-                    ) : (
-                      <View style={styles.negativePosition}>
-                        <Text style={styles.positionText}>의심</Text>
-                      </View>
-                    )}
-
-                    <Text style={styles.userOpinionText}>{opinion.content}</Text>
-                  </View>
-                  <View style={styles.bigOpinionCardBottom}>
-                    <TouchableOpacity
-                      style={{ marginRight: 4 }}
-                      onPress={() => updateLike(opinion.isLiked, opinion.id)}
-                    >
-                      {opinion.isLiked ? (
-                        <WithLocalSvg
-                          width={18}
-                          height={18}
-                          asset={FavoriteFullSvg as ImageSourcePropType}
-                        />
-                      ) : (
-                        <WithLocalSvg
-                          width={18}
-                          height={18}
-                          asset={FavoriteSvg as ImageSourcePropType}
-                        />
-                      )}
-                    </TouchableOpacity>
-                    <Text style={styles.favoriteText}>{opinion.likeCount}</Text>
-                  </View>
-                </View>
-                <View style={styles.headerUnderLine}></View>
-              </View>
+              <OpinionCard opinion={opinion} issueId={issueId}/>
             )),
         )}
     </ScrollView>
