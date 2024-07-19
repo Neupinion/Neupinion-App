@@ -46,15 +46,6 @@ const LoginPage: React.FC = () => {
     if (url.includes('accounts.google.com/signin/oauth/consent?authuser')) {
       hideWebView();
     }
-
-    // const [storedAccessToken, storedRefreshToken] = await Promise.all([
-    //   AsyncStorage.getItem('accessToken'),
-    //   AsyncStorage.getItem('refreshToken'),
-    // ]);
-    // if (storedAccessToken && storedRefreshToken) {
-    //   closeWebView();
-    //   return { accessToken: storedAccessToken, refreshToken: storedRefreshToken };
-    // }
   };
   const handleShouldStartLoadWithRequest = (request: WebViewNavigation) => {
     const url = request.url;
@@ -69,29 +60,18 @@ const LoginPage: React.FC = () => {
             const refreshToken = setCookie.find((cookie) => cookie.startsWith('refreshToken='));
             if (refreshToken) {
               const tokenValue = refreshToken.split(';')[0].split('=')[1];
-              console.log('Refresh Token:', tokenValue);
               await AsyncStorage.setItem('refreshToken', tokenValue);
-            } else {
-              console.log('Refresh Token not found');
             }
-          } else {
-            console.log('Set-Cookie header not found');
           }
 
           const responseData = response.data as TokenResponse;
           if (responseData && responseData.accessToken) {
             const accessToken = responseData.accessToken;
-            console.log('Access Token:', accessToken);
             await AsyncStorage.setItem('accessToken', accessToken);
-          } else {
-            console.log('Access Token not found in response');
           }
-
-          console.log('Token URL', url);
         })
         .catch((error) => {
           console.error('Axios Error:', error);
-          console.log('Error URL', url);
         });
       return false;
     }
