@@ -42,8 +42,14 @@
 
 ---
 
-## 📱 어플 시행 방법
+## 📱 어플 시연
 
-- ios, android studio 모두 아직 앱스토어, 플레이스토어에 등록 되지 않은 프로젝트이며, 현재 프로토타입 개발 진행중입니다.
+<p align="center">
+  <a href="http://www.youtube.com/watch?v=U00HcZx_XKU">
+    <img src="http://img.youtube.com/vi/U00HcZx_XKU/0.jpg" width="600">
+  </a>
+</p>
+
+
 
 ---
